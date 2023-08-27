@@ -1,13 +1,14 @@
 package com.example.demo.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  * The {@code User} class represents a user entity in the application.
@@ -72,8 +73,8 @@ public final class User {
   /**
    * The contact number of the user.
    */
-  @Pattern(regexp = "^\\d{10}$", message = "Contact number"
-      + "must be a 10-digit number")
+  @Pattern(regexp = "^\\d{10}$", message = "Contact number "
+        + "must be a 10-digit number")
   @NotBlank(message = "Contact number is required")
   @Indexed(unique = true)
   private String userContactNumber;
@@ -126,8 +127,6 @@ public final class User {
     super();
   }
 
-  // Getter and setter methods for each field (omitted for brevity).
-
   /**
    * Returns a string representation of the {@code User} object.
    *
@@ -157,10 +156,9 @@ public final class User {
   }
 
   /*
-   * Gets the userGender of the user.
-   *
-   * @return userGender gender of user
-   */
+   * Gets userGender of the user
+   * 
+   * @return userGender*/
   public String getUserGender() {
     return userGender;
   }
@@ -245,7 +243,7 @@ public final class User {
   }
   
   /*
-   * gets the Email of userc
+   * gets the Email of user
    * 
    * @return userEmail email of user
    */
