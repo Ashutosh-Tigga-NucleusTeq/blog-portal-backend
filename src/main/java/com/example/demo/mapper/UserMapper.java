@@ -20,7 +20,6 @@ public class UserMapper {
    */
   public static UserDto mapToUserDto(final User user) {
     UserDto userDto = new UserDto(
-        user.getUserId(),
         user.getUserName(),
         user.getUserFirstName(),
         user.getUserLastName(),
@@ -28,7 +27,8 @@ public class UserMapper {
         user.getUserEmail(),
         user.getUserPassword(),
         user.getUserDesignation(),
-        user.getUserContactNumber()
+        user.getUserContactNumber(),
+        user.getUserRole()
     );
 
     return userDto;
@@ -42,7 +42,6 @@ public class UserMapper {
    */
   public static User mapToUser(final UserDto userDto) {
     User user = new User(
-        userDto.getUserId(),
         userDto.getUserName(),
         userDto.getUserFirstName(),
         userDto.getUserLastName(),
@@ -50,7 +49,8 @@ public class UserMapper {
         userDto.getUserEmail(),
         userDto.getUserPassword(),
         userDto.getUserDesignation(),
-        userDto.getUserContactNumber()
+        userDto.getUserContactNumber(),
+        userDto.getUserRole()
     );
 
     return user;

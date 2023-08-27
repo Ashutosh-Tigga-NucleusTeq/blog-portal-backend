@@ -2,16 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.services.UserService;
-
 import jakarta.validation.Valid;
-
 import java.util.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/blog-portal/api")
-@Validated
 public class AdminUserController {
   /*
    *instance of UserService
@@ -33,7 +29,7 @@ public class AdminUserController {
   private UserService userService;
 
   /*
-   *instance of Logger
+   * instance of Logger 
    */
   private Logger logger = LogManager.getLogger(AdminUserController.class);
 
@@ -46,11 +42,12 @@ public class AdminUserController {
   @PostMapping("/registerAdminUser")
   public final ResponseEntity<UserDto> registerAdminUser(
       @Valid @RequestBody final UserDto user) {
+  	
     // Encoding password with Base64 encoding
+  	
     logger.info("Info tracing");
     user.setUserPassword(encoder(user.getUserPassword()));
     UserDto savedUser = userService.createAdmin(user);
-    userService.createAdmin(user);
     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
   }
 
@@ -61,6 +58,6 @@ public class AdminUserController {
    * @return The Base64 encoded password.
    */
   private String encoder(final String password) {
-    return Base64.getEncoder().encodeToString(password.getBytes());
-  }
+		return Base64.getEncoder().encodeToString(password.getBytes());
+	}
 }

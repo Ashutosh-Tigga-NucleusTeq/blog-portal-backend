@@ -52,6 +52,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.1</version> <!-- Use the latest version -->
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<reporting>
@@ -111,8 +117,6 @@
 
 	<build>
 		<plugins>
-
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -136,7 +140,7 @@
 					</executions>
 					<configuration>
 						<!-- Specify your custom Checkstyle configuration -->
-						<configLocation>checkstyle/checkstyle.xml</configLocation>
+						<configLocation>/src/checkstyle/checkstyle.xml</configLocation>
 						<!-- Fail the build on Checkstyle violations -->
 						<failOnViolation>true</failOnViolation>
 					</configuration>

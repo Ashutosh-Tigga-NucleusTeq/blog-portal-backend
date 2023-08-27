@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService {
    * @return A UserDto representing the created admin user.
    */
   @Override
-  public UserDto createAdmin(final UserDto userDto) {
+  public UserDto createAdmin(final UserDto user) {
     // Convert UserDto into User JPA Entity
-    User user = UserMapper.mapToUser(userDto);
+    User user1 = UserMapper.mapToUser(user);
 
     // Save the user entity to the repository
-    User savedUser = userRepo.save(user);
+    User savedUser = userRepo.save(user1);
 
     // Convert User JPA entity to UserDto
     UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
