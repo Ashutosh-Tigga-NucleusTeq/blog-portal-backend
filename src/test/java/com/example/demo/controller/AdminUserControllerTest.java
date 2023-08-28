@@ -48,7 +48,7 @@ public class AdminUserControllerTest {
         UserDto savedUser = responseEntity.getBody();
         assertNotNull(savedUser);
         assertEquals("Ashu123", savedUser.getUserName());
-        // Add more assertions for other properties if needed
+
     }
 
 }

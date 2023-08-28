@@ -49,6 +49,6 @@ public class UserServiceImplTest {
         // Check the returned UserDto
         assertNotNull(savedUserDto);
         assertEquals(savedUserDto, userDto);
-        // Add more assertions for other properties if needed
+
     }
 }
