@@ -61,13 +61,15 @@
 
 	<reporting>
 		<plugins>
-
+	
+			<!--PMD maven-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.21.0</version>
 			</plugin>
-
+				
+			<!--checkstyle maven-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
@@ -93,13 +95,16 @@
 
 	<build>
 		<plugins>
+			
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				
 				<!-- Add the Checkstyle plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -142,7 +147,8 @@
 						</execution>
 					</executions>
 				</plugin>
-
+				
+				<!--Jacoco maven -->
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
