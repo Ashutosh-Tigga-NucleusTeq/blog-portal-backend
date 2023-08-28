@@ -100,7 +100,10 @@
         <!-- See https://checkstyle.org/config_coding.html -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+       	<module name="HiddenField">
+			<property name="ignoreSetter" value="true" />
+			<property name="ignoreConstructorParameter" value="true" />
+		</module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
@@ -129,7 +132,7 @@
 
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="140"/>
+        <property name="max" value="130"/>
     </module>
 
 </module>

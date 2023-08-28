@@ -46,7 +46,7 @@ public class UserController {
   	
     // Encoding password with Base64 encoding
   	
-    logger.info("Info tracing");
+    logger.info("Info tracing"+user);
     user.setUserPassword(encoder(user.getUserPassword()));
     UserDto savedUser = userService.createAdmin(user);
     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);

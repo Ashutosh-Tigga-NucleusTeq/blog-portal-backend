@@ -71,11 +71,22 @@ public class ApiResponse {
     this.success = successParam;
   }
 
+  /*
+   * generate hashcode of apiresponse 
+   * 
+   * @return hashcode in numeric type
+   */
 	@Override
 	public int hashCode() {
 		return Objects.hash(message, success);
 	}
 
+	/*
+	 * it checks if two objects are equal or not
+	 * 
+	 * @param obj pass Object instance as parameter
+	 * @return true if succes or else false
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,6 +99,11 @@ public class ApiResponse {
 		return Objects.equals(message, other.message) && success == other.success;
 	}
 
+	/**
+	 * Returns a string representation of the {@code User} object.
+	 *
+	 * @return A string containing user information.
+	 */
 	@Override
 	public String toString() {
 		return "ApiResponse [message=" + message + ", success=" + success + "]";

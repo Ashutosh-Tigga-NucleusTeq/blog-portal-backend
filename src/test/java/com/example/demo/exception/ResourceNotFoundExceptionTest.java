@@ -18,14 +18,14 @@ public class ResourceNotFoundExceptionTest {
         ResourceNotFoundException exception = new ResourceNotFoundException(
             "User",
             "userId",
-            123
+            456
         );
 
         // Get the exception message
         String message = exception.getMessage();
 
         // Assert that the exception message is formatted correctly
-        assertEquals("User not found with userId : 123", message);
+        assertEquals("User not found with userId : 456", message);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ResourceNotFoundExceptionTest {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
             "User",
-            "user",
+            "userId",
             456
         );
 
@@ -44,7 +44,7 @@ public class ResourceNotFoundExceptionTest {
         String resourceName = exception.getResourceName();
 
         // Assert that the resourceName field is set correctly
-        assertEquals("Product", resourceName);
+        assertEquals("User", resourceName);
     }
 
     /**
@@ -54,16 +54,16 @@ public class ResourceNotFoundExceptionTest {
     public void testFieldNameField() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Order",
-            "orderId",
-            789
+            "User",
+            "userId",
+            456
         );
 
         // Get the fieldName field
         String fieldName = exception.getFieldName();
 
         // Assert that the fieldName field is set correctly
-        assertEquals("orderId", fieldName);
+        assertEquals("userId", fieldName);
     }
 
     /**
@@ -73,15 +73,15 @@ public class ResourceNotFoundExceptionTest {
     public void testFieldValueField() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Book",
-            "bookId",
-            101
+            "User",
+            "userId",
+            456
         );
 
         // Get the fieldValue field
         long fieldValue = exception.getFieldValue();
 
         // Assert that the fieldValue field is set correctly
-        assertEquals(101, fieldValue);
+        assertEquals(456, fieldValue);
     }
 }

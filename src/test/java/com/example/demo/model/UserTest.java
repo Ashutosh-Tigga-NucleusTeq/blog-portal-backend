@@ -105,13 +105,13 @@ public class UserTest {
   		 user.setUserFirstName("ashu");
   		 user.setUserLastName("tigga");
   		 user.setUserEmail("ashu@nucleusteq.com");
-  		 user.setUserPassword("1234");
+  		 user.setUserPassword("password1234");
   		 user.setUserDesignation("sde");
   		 user.setUserContactNumber("1234567890");
   		 user.setUserRole("admin");
 
        // Expected toString result
-       String expectedToString = "User [userName=Ashu123,userFirstName=ashu,userLastName=tigga,userEmail=ashu@nucleusteq.com,userPassword=1234,userDesignation=sde,userContactNumber=1234567890userRole=admin]";
+       String expectedToString = "User [userName=Ashu123,userFirstName=ashu,userLastName=tigga,userEmail=ashu@nucleusteq.com,userPassword=password123,userDesignation=sde,userContactNumber=1234567890,userRole=admin]";
 
        // Test the toString method
        String actualToString = user.toString();

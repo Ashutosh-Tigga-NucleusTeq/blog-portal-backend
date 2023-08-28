@@ -295,7 +295,9 @@ public class UserDto {
 
 	
 	/**
-	 * {@inheritDoc}
+	 * Returns a string representation of the {@code User} object.
+	 *
+	 * @return A string containing user information.
 	 */
 	@Override
 	public String toString() {

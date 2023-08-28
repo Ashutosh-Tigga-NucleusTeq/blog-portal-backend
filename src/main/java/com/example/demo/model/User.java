@@ -247,6 +247,9 @@ public final class User {
 	}
 
 
+	/*
+	 * generate hashcode of user
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(userContactNumber, userDesignation, userEmail, userFirstName, userGender, userLastName,
