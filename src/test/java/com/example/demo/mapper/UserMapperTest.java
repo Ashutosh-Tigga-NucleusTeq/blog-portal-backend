@@ -1,7 +1,11 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.enumResource.Designation;
+import com.example.demo.enumResource.Gender;
+import com.example.demo.enumResource.Role;
 import com.example.demo.model.User;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,15 +15,15 @@ public class UserMapperTest {
     public void testMapToUserDto() {
         // Create a User object
         User user = new User(
-            "Ashu123",
-            "ashu",
-            "tigga",
-            "Male",
-            "ashu@gmail.com",
-            "1234",
-            "Developer",
+        		"username",
+            "firstname",
+            "lastname",
+            Gender.Male,
+            "test@nucleusteq.com",
+            "password",
+            Designation.Trainee_Engineer,
             "1234567890",
-            "admin"
+            Role.Admin
         );
 
         // Map User to UserDto
@@ -41,15 +45,15 @@ public class UserMapperTest {
     public void testMapToUser() {
         // Create a UserDto object
         UserDto userDto = new UserDto(
-        		"Ashu123",
-            "ashu",
-            "tigga",
-            "Male",
-            "ashu@gmail.com",
-            "1234",
-            "Developer",
+        		"username",
+            "firstname",
+            "lastname",
+            Gender.Male,
+            "test@nucleusteq.com",
+            "password",
+            Designation.Trainee_Engineer,
             "1234567890",
-            "admin"
+            Role.Admin
         );
 
         // Map UserDto to User

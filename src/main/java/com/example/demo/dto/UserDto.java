@@ -1,6 +1,11 @@
 package com.example.demo.dto;
 
 import java.util.Objects;
+
+import com.example.demo.enumResource.Designation;
+import com.example.demo.enumResource.Gender;
+import com.example.demo.enumResource.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +44,7 @@ public class UserDto {
 	 * The gender of the user.
 	 */
 	@NotNull
-	private String userGender;
+	private Gender userGender;
 
 	/**
 	 * The email address of the user.
@@ -63,27 +68,21 @@ public class UserDto {
 	 * The designation of the user.
 	 */
 	@NotNull
-	private String userDesignation;
+	private Designation userDesignation;
 
 	/**
 	 * The contact number of the user.
 	 */
 	@Pattern(regexp = "^\\d{10}$", message = "Contact number " + "must be a 10-digit number")
-	@jakarta.validation.constraints.NotBlank(message = "Contact number is required")
+	@NotBlank(message = "Contact number is required")
 	private String userContactNumber;
 
 	/**
 	 * The user role of the user.
 	 */
 	@NotNull
-	private String userRole;
+	private Role userRole;
 
-	/**
-	 * Default constructor for the {@code UserDto} class.
-	 */
-	public UserDto() {
-		// Default constructor
-	}
 	/**
 	 * Constructs a new {@code UserDto} with the specified user details.
 	 *
@@ -98,8 +97,8 @@ public class UserDto {
 	 * @param userRoleParam               The role of the user
 	 */
 	public UserDto(final String userNameParam, final String userFirstNameParam, final String userLastNameParam,
-			final String userGenderParam, final String userEmailParam, final String userPasswordParam,
-			final String userDesignationParam, final String userContactNumberParam, final String userRoleParam) {
+			final Gender userGenderParam, final String userEmailParam, final String userPasswordParam,
+			final Designation userDesignationParam, final String userContactNumberParam, final  Role userRoleParam) {
 		this.userName = userNameParam;
 		this.userFirstName = userFirstNameParam;
 		this.userLastName = userLastNameParam;
@@ -113,12 +112,19 @@ public class UserDto {
 
 
 
+	public UserDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
 	 * Retrieves the gender of the user.
 	 *
 	 * @return userGender The gender of the user.
 	 */
-	public String getUserGender() {
+	public Gender getUserGender() {
 		return userGender;
 	}
 
@@ -127,7 +133,7 @@ public class UserDto {
 	 *
 	 * @param userGenderParam The gender of the user.
 	 */
-	public void setUserGender(final String userGenderParam) {
+	public void setUserGender(final Gender userGenderParam) {
 		this.userGender = userGenderParam;
 	}
 
@@ -226,7 +232,7 @@ public class UserDto {
 	 *
 	 * @return userDesignation The designation of the user.
 	 */
-	public String getUserDesignation() {
+	public Designation getUserDesignation() {
 		return userDesignation;
 	}
 
@@ -235,7 +241,7 @@ public class UserDto {
 	 *
 	 * @param userDesignationParam The designation of the user.
 	 */
-	public void setUserDesignation(final String userDesignationParam) {
+	public void setUserDesignation(final Designation userDesignationParam) {
 		this.userDesignation = userDesignationParam;
 	}
 
@@ -262,16 +268,16 @@ public class UserDto {
 	 *
 	 *@return userRole role of the user.
 	 */
-	public String getUserRole() {
+	public  Role getUserRole() {
 		return userRole;
 	}
 
 	/**
 	 *Sets userRole of the user.
 	 *
-	 * @param userRoleParam role of the user.
+	 * @param string role of the user.
 	 */
-	public void setUserRole(String userRoleParam) {
+	public void setUserRole(  Role userRoleParam) {
 		this.userRole = userRoleParam;
 	}
 
@@ -314,28 +320,27 @@ public class UserDto {
 	}
 
 
-	/**
-	 * Returns a string representation of the {@code User} object.
-	 *
-	 * @return A string containing user information.
-	 */
 	@Override
 	public String toString() {
 		return "UserDto [userName="
 	+ userName
-	+ ",userFirstName="
+	+ ", userFirstName="
 	+ userFirstName
-	+ ",userLastName="
+	+ ", userLastName="
 	+ userLastName
-	+ ",userEmail="
+	+ ", userGender="
+	+ userGender
+	+ ", userEmail="
 	+ userEmail
-	+ ",userPassword="
+	+ ", passwordSize="
+	+ passwordSize
+	+ ", userPassword="
 	+ userPassword
-	+ ",userDesignation="
+	+ ", userDesignation="
 	+ userDesignation
-	+ ",userContactNumber="
+	+ ", userContactNumber="
 	+ userContactNumber
-	+ "userRole="
+	+ ", userRole="
 	+ userRole
 	+ "]";
 	}

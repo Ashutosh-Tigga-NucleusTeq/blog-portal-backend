@@ -61,28 +61,13 @@
 
 	<reporting>
 		<plugins>
-	
 			<!--PMD maven-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.21.0</version>
 			</plugin>
-				
-			<!--checkstyle maven-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.3.0</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-
+			
 			<!-- findbugs maven-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -104,7 +89,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				
+			
 				<!-- Add the Checkstyle plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -147,29 +132,8 @@
 						</execution>
 					</executions>
 				</plugin>
-				
-				<!--Jacoco maven -->
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.8.7</version> <!-- Use the latest version -->
-					<executions>
-						<execution>
-							<id>prepare-agent</id>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>report</id>
-							<goals>
-								<goal>report</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
 
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

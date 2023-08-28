@@ -44,39 +44,22 @@ public class ApiResponseTest {
 
         // Assertion
         assertEquals("Test message", apiResponse.getMessage(), "Message should be retrieved correctly");
-    }
-
-    /**
-     * Test case for setMessage method of ApiResponse.
-     */
-    @Test
-    public void testSetMessage() {
-        ApiResponse apiResponse = new ApiResponse();
+        
+        ApiResponse apiResponse1 = new ApiResponse();
 
         // Set a message using setMessage method
         apiResponse.setMessage("New message");
 
         // Assertion
         assertEquals("New message", apiResponse.getMessage(), "Message should be set correctly");
-    }
-
-    /**
-     * Test case for isSuccess method of ApiResponse.
-     */
-    @Test
-    public void testIsSuccess() {
-        ApiResponse apiResponse = new ApiResponse("Test message", true);
+        
+        
+        ApiResponse apiResponse2 = new ApiResponse("Test message", true);
 
         // Assertion
         assertTrue(apiResponse.isSuccess(), "Success status should be true");
-    }
-
-    /**
-     * Test case for setSuccess method of ApiResponse.
-     */
-    @Test
-    public void testSetSuccess() {
-        ApiResponse apiResponse = new ApiResponse();
+        
+        ApiResponse apiResponse3 = new ApiResponse();
 
         // Set success status using setSuccess method
         apiResponse.setSuccess(true);
@@ -84,4 +67,6 @@ public class ApiResponseTest {
         // Assertion
         assertTrue(apiResponse.isSuccess(), "Success status should be set correctly");
     }
+
+
 }

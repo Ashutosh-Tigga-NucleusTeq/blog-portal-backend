@@ -109,7 +109,11 @@ public class ApiResponse {
 	 */
 	@Override
 	public String toString() {
-		return "ApiResponse [message=" + message + ", success=" + success + "]";
+		return "ApiResponse [message="
+	+ message
+	+ ", success="
+	+ success
+	+ "]";
 	}
 
 }

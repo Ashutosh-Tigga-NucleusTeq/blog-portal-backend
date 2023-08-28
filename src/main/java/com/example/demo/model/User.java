@@ -5,6 +5,11 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.demo.enumResource.Designation;
+import com.example.demo.enumResource.Gender;
+import com.example.demo.enumResource.Role;
+
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -34,7 +39,7 @@ public final class User {
 	 * The gender of the user.
 	 */
 	@NotNull
-	private String userGender;
+	private Gender userGender;
 
 	/**
 	 * The email address of the user.
@@ -51,7 +56,7 @@ public final class User {
 	/**
 	 * The designation of the user.
 	 */
-	private String userDesignation;
+	private Designation userDesignation;
 
 	/**
 	 * The contact number of the user.
@@ -61,7 +66,7 @@ public final class User {
 	/**
 	 * The role of the user.
 	 */
-	private String userRole;
+	private Role userRole;
 
 	/**
 	 * Constructs an empty {@code User} object.
@@ -75,7 +80,7 @@ public final class User {
 	 *
 	 * @return userGender.
 	 */
-	public String getUserGender() {
+	public Gender getUserGender() {
 		return userGender;
 	}
 
@@ -84,7 +89,7 @@ public final class User {
 	 *
 	 * @param userGenderParam gender of user
 	 */
-	public void setUserGender(final String userGenderParam) {
+	public void setUserGender(final Gender userGenderParam) {
 		this.userGender = userGenderParam;
 	}
 
@@ -183,7 +188,7 @@ public final class User {
 	 *
 	 * @return userDesignation designation of user.
 	 */
-	public String getUserDesignation() {
+	public Designation getUserDesignation() {
 		return userDesignation;
 	}
 
@@ -192,7 +197,7 @@ public final class User {
 	 *
 	 * @param userDesignationParam designation of user.
 	 */
-	public void setUserDesignation(final String userDesignationParam) {
+	public void setUserDesignation(final Designation userDesignationParam) {
 		this.userDesignation = userDesignationParam;
 	}
 
@@ -219,7 +224,7 @@ public final class User {
 	 *
 	 *@return userRole role of the user.
 	 */
-	public String getUserRole() {
+	public Role getUserRole() {
 		return this.userRole;
 	}
 
@@ -228,7 +233,7 @@ public final class User {
 	 *
 	 * @param userRoleParam role of user.
 	 */
-	public void setUserRole(final String userRoleParam) {
+	public void setUserRole(final Role userRoleParam) {
 		this.userRole = userRoleParam;
 	}
 
@@ -245,12 +250,12 @@ public final class User {
  * @param userRoleParam role of the user.
  */
 	public User(String userNameParam, String userFirstNameParam, String userLastNameParam,
-			String userGenderParam,
+		  Gender userGenderParam,
 			String userEmailParam,
 			String userPasswordParam,
-			String userDesignationParam,
+			Designation userDesignationParam,
 			String userContactNumberParam,
-			String userRoleParam) {
+			Role userRoleParam) {
 		super();
 		this.userName = userNameParam;
 		this.userFirstName = userFirstNameParam;
@@ -301,11 +306,6 @@ public final class User {
 				&& Objects.equals(userRole, other.userRole);
 	}
 
-	/**
-	 * Returns a string representation of the {@code User} object.
-	 *
-	 * @return A string containing user information.
-	 */
 	@Override
 	public String toString() {
 		return "User [userName="
@@ -314,10 +314,11 @@ public final class User {
 	+ userFirstName
 	+ ", userLastName="
 	+ userLastName
-	+ ","
-	+ "userEmail="
+	+ ", userGender="
+	+ userGender
+	+ ", userEmail="
 	+ userEmail
-	+ ",userPassword="
+	+ ", userPassword="
 	+ userPassword
 	+ ", userDesignation="
 	+ userDesignation

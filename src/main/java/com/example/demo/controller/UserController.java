@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** The {@code AdminUserController} class handles HTTP requests
- *related to admin user management.
+/** The {@code UserController} class handles HTTP requests
+ *related to user management.
  *
  *@author Ashutosh Tigga
  */
@@ -35,18 +35,19 @@ public class UserController {
   private Logger logger = LogManager.getLogger(UserController.class);
 
   /**
-   * Creates a new admin user.
+   * Creates a new user.
    *
-   * @param user The user data to be registered as an admin user.
+   * @param user The user data to be registered as an user.
    * @return ResponseEntity containing the created user and HTTP status code.
    */
-  @PostMapping("/registerAdminUser")
-  public final ResponseEntity<UserDto> registerAdminUser(
+  @PostMapping("/register_user")
+  public final ResponseEntity<UserDto> registerUser(
       @Valid @RequestBody final UserDto user) throws MethodArgumentNotValidException {
     logger.info("Info tracing" + user);
     // Encoding password with Base64 encoding
     user.setUserPassword(encoder(user.getUserPassword()));
-    UserDto savedUser = userService.createAdmin(user);
+    UserDto savedUser = userService.createUser(user);
+    logger.info("successfully executed above code with data "+savedUser);
     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
   }
 
