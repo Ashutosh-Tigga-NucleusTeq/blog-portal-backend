@@ -62,7 +62,7 @@ public final class User {
 	 * The role of the user.
 	 */
 	private String userRole;
-	
+
 	/**
 	 * Constructs an empty {@code User} object.
 	 */
@@ -70,16 +70,16 @@ public final class User {
 		super();
 	}
 
-	/*
-	 * Gets userGender of the user
-	 * 
-	 * @return userGender
+	/**
+	 * Gets userGender of the user.
+	 *
+	 * @return userGender.
 	 */
 	public String getUserGender() {
 		return userGender;
 	}
 
-	/*
+	/**
 	 * Sets the userGenderParam of the user.
 	 *
 	 * @param userGenderParam gender of user
@@ -88,167 +88,184 @@ public final class User {
 		this.userGender = userGenderParam;
 	}
 
-	/*
-	 * get the userName of user
-	 * 
-	 * @return userName returns userName of user
+	/**
+	 * get the userName of user.
+	 *
+	 * @return userName returns userName of user.
 	 */
 	public String getUserName() {
 		return userName;
 	}
 
-	/*
-	 * sets the userNameParam of user
-	 * 
-	 * @param userNameParam userName of user
+	/**
+	 * sets the userNameParam of user.
+	 *
+	 * @param userNameParam userName of user.
 	 */
 	public void setUserName(final String userNameParam) {
 		this.userName = userNameParam;
 	}
 
-	/*
-	 * gets the userFirstName of user
-	 * 
-	 * @return userFirstName returns userFirstName
+	/**
+	 * gets the userFirstName of user.
+	 *
+	 * @return userFirstName returns userFirstName.
 	 */
 	public String getUserFirstName() {
 		return userFirstName;
 	}
 
-	/*
-	 * sets the user first name of user
-	 * 
-	 * @param userFirstNameParam first name of user
+	/**
+	 * sets the user first name of user.
+	 *
+	 * @param userFirstNameParam first name of user.
 	 */
 	public void setUserFirstName(final String userFirstNameParam) {
 		this.userFirstName = userFirstNameParam;
 	}
 
-	/*
-	 * gets the user last name of user
-	 * 
-	 * @return userLastName last name of user
+	/**
+	 * gets the user last name of user.
+	 *
+	 * @return userLastName last name of user.
 	 */
 	public String getUserLastName() {
 		return userLastName;
 	}
 
-	/*
-	 * sets the last name of user
-	 * 
-	 * @param userLastNameParam last name of user
+	/**
+	 * sets the last name of user.
+	 *
+	 * @param userLastNameParam last name of user.
 	 */
 	public void setUserLastName(final String userLastNameParam) {
 		this.userLastName = userLastNameParam;
 	}
 
-	/*
-	 * gets the Email of user
-	 * 
-	 * @return userEmail email of user
+	/**
+	 * gets the Email of user.
+	 *
+	 * @return userEmail email of user.
 	 */
 	public String getUserEmail() {
 		return userEmail;
 	}
 
-	/*
-	 * sets the Email of user
-	 * 
-	 * @param userEmailParam email of user
+	/**
+	 * sets the Email of user.
+	 *
+	 * @param userEmailParam email of user.
 	 */
 	public void setUserEmail(final String userEmailParam) {
 		this.userEmail = userEmailParam;
 	}
 
-	/*
-	 * gets the password of user
-	 * 
-	 * @return userPassword password of user
+	/**
+	 * gets the password of user.
+	 *
+	 * @return userPassword password of user.
 	 */
 	public String getUserPassword() {
 		return userPassword;
 	}
 
-	/*
-	 * sets password of user
-	 * 
-	 * @param userPasswordParam password of user
+	/**
+	 * sets password of user.
+	 *
+	 * @param userPasswordParam password of user.
 	 */
 	public void setUserPassword(final String userPasswordParam) {
 		this.userPassword = userPasswordParam;
 	}
 
-	/*
-	 * gets designation of user
-	 * 
-	 * @return userDesignation designation of user
+	/**
+	 * gets designation of user.
+	 *
+	 * @return userDesignation designation of user.
 	 */
 	public String getUserDesignation() {
 		return userDesignation;
 	}
 
-	/*
-	 * gets designation of user
-	 * 
-	 * @param userDesignationParam designation of user
+	/**
+	 * gets designation of user.
+	 *
+	 * @param userDesignationParam designation of user.
 	 */
 	public void setUserDesignation(final String userDesignationParam) {
 		this.userDesignation = userDesignationParam;
 	}
 
-	/*
-	 * gets userContactNumber of user
-	 * 
-	 * @return userContactNumber contact number of user
+	/**
+	 * gets userContactNumber of user.
+	 *
+	 * @return userContactNumber contact number of user.
 	 */
 	public String getUserContactNumber() {
 		return userContactNumber;
 	}
 
-	/*
-	 * sets userContactNumber of user
-	 * 
-	 * @param userContactNumber contact number of user
+	/**
+	 * sets userContactNumber of user.
+	 *
+	 *@param userContactNumberParam contact number of user.
 	 */
 	public void setUserContactNumber(final String userContactNumberParam) {
 		this.userContactNumber = userContactNumberParam;
 	}
 
-	/*
-	 * gets userRole of user
-	 * 
-	 * @param userRole role of user
+	/**
+	 * gets userRole of user.
+	 *
+	 *@return userRole role of the user.
 	 */
 	public String getUserRole() {
-		return userRole;
+		return this.userRole;
 	}
 
-	/*
-	 * sets userRole of user
-	 * 
-	 * @param userRole role of user
+	/**
+	 * sets userRole of user.
+	 *
+	 * @param userRoleParam role of user.
 	 */
 	public void setUserRole(final String userRoleParam) {
 		this.userRole = userRoleParam;
 	}
 
-	public User(String userName, String userFirstName, String userLastName, @NotNull String userGender, String userEmail,
-			String userPassword, String userDesignation, String userContactNumber, String userRole) {
+/**
+ *
+ * @param userNameParam user name of the user.
+ * @param userFirstNameParam first name of the user.
+ * @param userLastNameParam last name of the user.
+ * @param userGenderParam gender of the user.
+ * @param userEmailParam email of the user.
+ * @param userPasswordParam password of the user.
+ * @param userDesignationParam designation of the user.
+ * @param userContactNumberParam number of the user.
+ * @param userRoleParam role of the user.
+ */
+	public User(String userNameParam, String userFirstNameParam, String userLastNameParam,
+			String userGenderParam,
+			String userEmailParam,
+			String userPasswordParam,
+			String userDesignationParam,
+			String userContactNumberParam,
+			String userRoleParam) {
 		super();
-		this.userName = userName;
-		this.userFirstName = userFirstName;
-		this.userLastName = userLastName;
-		this.userGender = userGender;
-		this.userEmail = userEmail;
-		this.userPassword = userPassword;
-		this.userDesignation = userDesignation;
-		this.userContactNumber = userContactNumber;
-		this.userRole = userRole;
+		this.userName = userNameParam;
+		this.userFirstName = userFirstNameParam;
+		this.userLastName = userLastNameParam;
+		this.userGender = userGenderParam;
+		this.userEmail = userEmailParam;
+		this.userPassword = userPasswordParam;
+		this.userDesignation = userDesignationParam;
+		this.userContactNumber = userContactNumberParam;
+		this.userRole = userRoleParam;
 	}
 
 
-	/*
-	 * generate hashcode of user
+	/**
+	 * generate hashcode of user.
 	 */
 	@Override
 	public int hashCode() {
@@ -256,20 +273,32 @@ public final class User {
 				userName, userPassword, userRole);
 	}
 
+	/**
+	 * override equals method.
+	 * @param obj object passing.
+	 * @return true if equal or else false.
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		User other = (User) obj;
 		return Objects.equals(userContactNumber, other.userContactNumber)
-				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail, other.userEmail)
-				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender, other.userGender)
-				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
-				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userRole, other.userRole);
+				&& Objects.equals(userDesignation, other.userDesignation)
+				&& Objects.equals(userEmail, other.userEmail)
+				&& Objects.equals(userFirstName, other.userFirstName)
+				&& Objects.equals(userGender, other.userGender)
+				&& Objects.equals(userLastName, other.userLastName)
+				&& Objects.equals(userName, other.userName)
+				&& Objects.equals(userPassword, other.userPassword)
+				&& Objects.equals(userRole, other.userRole);
 	}
 
 	/**
@@ -295,8 +324,8 @@ public final class User {
 	+ ", userContactNumber="
 	+ userContactNumber
 	+ ", userRole="
-	+userRole
-	+"]";
+	+ userRole
+	+ "]";
 	}
 
 }

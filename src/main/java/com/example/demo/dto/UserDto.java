@@ -1,7 +1,6 @@
 package com.example.demo.dto;
 
 import java.util.Objects;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +38,7 @@ public class UserDto {
 	/**
 	 * The gender of the user.
 	 */
+	@NotNull
 	private String userGender;
 
 	/**
@@ -50,9 +50,13 @@ public class UserDto {
 	private String userEmail;
 
 	/**
+	 * password size defind here.
+	 */
+	private final int passwordSize = 6;
+	/**
 	 * The password of the user.
 	 */
-	@Size(min = 6, message = "Password must be at least 6 characters")
+	@Size(min = passwordSize, message = "Password must be at least 6 characters")
 	private String userPassword;
 
 	/**
@@ -68,6 +72,9 @@ public class UserDto {
 	@jakarta.validation.constraints.NotBlank(message = "Contact number is required")
 	private String userContactNumber;
 
+	/**
+	 * The user role of the user.
+	 */
 	@NotNull
 	private String userRole;
 
@@ -77,7 +84,6 @@ public class UserDto {
 	public UserDto() {
 		// Default constructor
 	}
-	
 	/**
 	 * Constructs a new {@code UserDto} with the specified user details.
 	 *
@@ -89,7 +95,7 @@ public class UserDto {
 	 * @param userPasswordParam      The password of the user.
 	 * @param userDesignationParam   The designation of the user.
 	 * @param userContactNumberParam The contact number of the user.
-	 * @param userRole               The role of the user
+	 * @param userRoleParam               The role of the user
 	 */
 	public UserDto(final String userNameParam, final String userFirstNameParam, final String userLastNameParam,
 			final String userGenderParam, final String userEmailParam, final String userPasswordParam,
@@ -251,49 +257,63 @@ public class UserDto {
 		this.userContactNumber = userContactNumberParam;
 	}
 
-	/*
-	 * Gets userRole of the user
-	 * 
-	 * @return userRole role of the user
+	/**
+	 * Gets userRole of the user.
+	 *
+	 *@return userRole role of the user.
 	 */
 	public String getUserRole() {
 		return userRole;
 	}
 
-	/*
-	 * Sets userRole of the user
-	 * 
-	 * @param userRoleParam role of the user
+	/**
+	 *Sets userRole of the user.
+	 *
+	 * @param userRoleParam role of the user.
 	 */
 	public void setUserRole(String userRoleParam) {
 		this.userRole = userRoleParam;
 	}
 
-	
-	
+
+	/**
+	 * Generate hashcode of UserDto.
+	 *
+	 * @return returns data in numeric format.
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(userContactNumber, userDesignation, userEmail, userFirstName, userGender, userLastName,
 				userName, userPassword, userRole);
 	}
 
+	/**
+	 * Implemented equals method that checks if two object are equal or not.
+	 *
+	 * return true if equal or else false.
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		UserDto other = (UserDto) obj;
 		return Objects.equals(userContactNumber, other.userContactNumber)
-				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail, other.userEmail)
-				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender, other.userGender)
+				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail,
+						other.userEmail)
+				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender,
+						other.userGender)
 				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
 				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userRole, other.userRole);
 	}
 
-	
+
 	/**
 	 * Returns a string representation of the {@code User} object.
 	 *
@@ -317,6 +337,6 @@ public class UserDto {
 	+ userContactNumber
 	+ "userRole="
 	+ userRole
-	+"]";
+	+ "]";
 	}
 }

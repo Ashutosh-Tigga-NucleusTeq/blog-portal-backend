@@ -1,7 +1,6 @@
 package com.example.demo.serviceimpl;
 
 import com.example.demo.dto.UserDto;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
@@ -17,8 +16,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-  /*
-   *   instance of UserRepository
+  /**
+   *   instance of UserRepository.
    */
   @Autowired
   private UserRepo userRepo;
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     // Convert User JPA entity to UserDto
     UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
-    
+
     return savedUserDto;
   }
 }

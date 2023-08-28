@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/blog-portal/api")
 public class UserController {
-  /*
-   *instance of UserService
+  /**
+   *instance of UserService.
    */
   @Autowired
   private UserService userService;
 
-  /*
-   * instance of Logger 
+  /**
+   * instance of Logger.
    */
   private Logger logger = LogManager.getLogger(UserController.class);
 
@@ -42,11 +42,9 @@ public class UserController {
    */
   @PostMapping("/registerAdminUser")
   public final ResponseEntity<UserDto> registerAdminUser(
-      @Valid @RequestBody final UserDto user) throws MethodArgumentNotValidException{
-  	
+      @Valid @RequestBody final UserDto user) throws MethodArgumentNotValidException {
+    logger.info("Info tracing" + user);
     // Encoding password with Base64 encoding
-  	
-    logger.info("Info tracing"+user);
     user.setUserPassword(encoder(user.getUserPassword()));
     UserDto savedUser = userService.createAdmin(user);
     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);

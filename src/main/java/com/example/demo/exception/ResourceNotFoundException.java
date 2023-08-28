@@ -48,58 +48,58 @@ public class ResourceNotFoundException extends RuntimeException {
     this.fieldValue = fieldValueParam;
   }
 
-  /*
-   * gets resource name
-   * 
-   * @return resourceName resource name
+  /**
+   * gets resource name.
+   *
+   * @return resourceName resource name.
    */
 	public String getResourceName() {
 		return resourceName;
 	}
 
-	/*
-	 * sets resource name
-	 * 
-	 * @param resourceNameParam resource name 
+	/**
+	 * sets resource name.
+	 *
+	 * @param resourceNameParam resource name.
 	 */
 	public void setResourceName(String resourceNameParam) {
 		this.resourceName = resourceNameParam;
 	}
 
-	/*
-	 * gets field name
-	 * 
-	 * @retuen fieldName name of the field
+	/**
+	 * gets field name.
+	 *
+	 * @return fieldName name of the field.
 	 */
 	public String getFieldName() {
 		return fieldName;
 	}
 
-	/*
-	 * sets fieldName
-	 * 
-	 * @param fieldNameParam name of the field
+	/**
+	 * sets fieldName.
+	 *
+	 * @param fieldNameParam name of the field.
 	 */
 	public void setFieldName(String fieldNameParam) {
 		this.fieldName = fieldNameParam;
 	}
 
-	/*
-	 * gets fieldValue
-	 * 
-	 * @return fieldValue field value
+	/**
+	 * gets fieldValue.
+	 *
+	 * @return fieldValue field value.
 	 */
 	public long getFieldValue() {
 		return fieldValue;
 	}
 
-	/*
-	 * sets fieldValue
-	 * 
-	 * @param fieldValueParam field value
+	/**
+	 * sets fieldValue.
+	 *
+	 * @param fieldValueParam field value.
 	 */
 	public void setFieldValue(long fieldValueParam) {
 		this.fieldValue = fieldValueParam;
 	}
-  
+
 }
