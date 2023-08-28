@@ -10,9 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Ashutosh Tigga
  */
 @SpringBootApplication
-public class BlogPortalApplication
-    extends org.springframework.boot.web.servlet.support
-    .SpringBootServletInitializer {
+public class BlogPortalApplication {
 
   /**
    * The main method that starts the Spring Boot application.

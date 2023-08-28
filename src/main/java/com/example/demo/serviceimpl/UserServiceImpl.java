@@ -1,6 +1,7 @@
 package com.example.demo.serviceimpl;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
@@ -30,15 +31,16 @@ public class UserServiceImpl implements UserService {
    * @return A UserDto representing the created admin user.
    */
   @Override
-  public UserDto createAdmin(final UserDto user) {
+  public UserDto createAdmin(final UserDto userDto) {
     // Convert UserDto into User JPA Entity
-    User user1 = UserMapper.mapToUser(user);
+    User user = UserMapper.mapToUser(userDto);
 
     // Save the user entity to the repository
-    User savedUser = userRepo.save(user1);
+    User savedUser = userRepo.save(user);
 
     // Convert User JPA entity to UserDto
     UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+    
     return savedUserDto;
   }
 }

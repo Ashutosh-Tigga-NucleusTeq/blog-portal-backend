@@ -1,105 +1,122 @@
 package com.example.demo.model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+import com.example.demo.dto.UserDto;
 
-  @Test
-  void testUserStringStringStringStringStringStringStringStringString() {
-  }
+import static org.junit.jupiter.api.Assertions.*;
 
-  @Test
-  void testUser() {
-  }
+public class UserTest {
 
-  @Test
-  void testToString() {
-  }
+    private User user;
 
-  @Test
-  void testGetUserGender() {
-  }
+    @BeforeEach
+    public void setUp() {
+        // Initialize a User object before each test
+        user = new User();
+    }
 
-  @Test
-  void testSetUserGender() {
-  }
+    @Test
+    public void testSetAndGetUserName() {
+        // Test setter and getter for userName
+        user.setUserName("Ashu123");
+        assertEquals("Ashu123", user.getUserName());
+    }
 
-  @Test
-  void testGetUserId() {
-  }
+    @Test
+    public void testSetAndGetUserFirstName() {
+        // Test setter and getter for userFirstName
+        user.setUserFirstName("ashu");
+        assertEquals("ashu", user.getUserFirstName());
+    }
 
-  @Test
-  void testSetUserId() {
-  }
+    @Test
+    public void testSetAndGetUserLastName() {
+        // Test setter and getter for userLastName
+        user.setUserLastName("tigga");
+        assertEquals("tigga", user.getUserLastName());
+    }
 
-  @Test
-  void testGetUserName() {
-  }
+    @Test
+    public void testSetAndGetUserGender() {
+        // Test setter and getter for userGender
+        user.setUserGender("Male");
+        assertEquals("Male", user.getUserGender());
+    }
 
-  @Test
-  void testSetUserName() {
-  }
+    @Test
+    public void testSetAndGetUserEmail() {
+        // Test setter and getter for userEmail
+        user.setUserEmail("ashu@mail.com");
+        assertEquals("ashu@mail.com", user.getUserEmail());
+    }
 
-  @Test
-  void testGetUserFirstName() {
-  }
+    @Test
+    public void testSetAndGetUserPassword() {
+        // Test setter and getter for userPassword
+        user.setUserPassword("password123");
+        assertEquals("password123", user.getUserPassword());
+    }
 
-  @Test
-  void testSetUserFirstName() {
-  }
+    @Test
+    public void testSetAndGetUserDesignation() {
+        // Test setter and getter for userDesignation
+        user.setUserDesignation("Software Engineer");
+        assertEquals("Software Engineer", user.getUserDesignation());
+    }
 
-  @Test
-  void testGetUserLastName() {
-  }
+    @Test
+    public void testSetAndGetUserContactNumber() {
+        // Test setter and getter for userContactNumber
+        user.setUserContactNumber("1234567890");
+        assertEquals("1234567890", user.getUserContactNumber());
+    }
 
-  @Test
-  void testSetUserLastName() {
-  }
+    @Test
+    public void testSetAndGetUserRole() {
+        // Test setter and getter for userRole
+        user.setUserRole("Admin");
+        assertEquals("Admin", user.getUserRole());
+    }
 
-  @Test
-  void testGetUserEmail() {
-  }
+    @Test
+    public void testUserConstructor() {
+        // Test constructor
+        User newUser = new User("Ashu123", "ashu", "tigga", "Male", "ashu@mail.com",
+                "password123", "Software Engineer", "1234567890", "Admin");
 
-  @Test
-  void testSetUserEmail() {
-  }
+        assertEquals("Ashu123", newUser.getUserName());
+        assertEquals("ashu", newUser.getUserFirstName());
+        assertEquals("tigga", newUser.getUserLastName());
+        assertEquals("Male", newUser.getUserGender());
+        assertEquals("ashu@mail.com", newUser.getUserEmail());
+        assertEquals("password123", newUser.getUserPassword());
+        assertEquals("Software Engineer", newUser.getUserDesignation());
+        assertEquals("1234567890", newUser.getUserContactNumber());
+        assertEquals("Admin", newUser.getUserRole());
+    }
+    
 
-  @Test
-  void testGetUserPassword() {
-  }
+  	@Test
+  	void testToString() {
+  		 User user = new User();
+  		 user.setUserName("Ashu123");
+  		 user.setUserFirstName("ashu");
+  		 user.setUserLastName("tigga");
+  		 user.setUserEmail("ashu@nucleusteq.com");
+  		 user.setUserPassword("1234");
+  		 user.setUserDesignation("sde");
+  		 user.setUserContactNumber("1234567890");
+  		 user.setUserRole("admin");
 
-  @Test
-  void testSetUserPassword() {
-  }
+       // Expected toString result
+       String expectedToString = "User [userName=Ashu123,userFirstName=ashu,userLastName=tigga,userEmail=ashu@nucleusteq.com,userPassword=1234,userDesignation=sde,userContactNumber=1234567890userRole=admin]";
 
-  @Test
-  void testGetUserDesignation() {
-  }
+       // Test the toString method
+       String actualToString = user.toString();
 
-  @Test
-  void testSetUserDesignation() {
-  }
-
-  @Test
-  void testGetUserContactNumber() {
-  }
-
-  @Test
-  void testSetUserContactNumber() {
-  }
-
-  @Test
-  void testGetUserRole() {
-  }
-
-  @Test
-  void testUserStringStringStringStringStringStringStringStringStringString() {
-  }
-
-  @Test
-  void testSetUserRole() {
-  }
+       // Assert that the actual result matches the expected result
+       assertEquals(expectedToString, actualToString);
+  	}
 }
-

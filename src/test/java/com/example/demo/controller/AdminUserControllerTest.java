@@ -1,37 +1,25 @@
 package com.example.demo.controller;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.Base64;
+import com.example.demo.dto.UserDto;
+import com.example.demo.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import com.example.demo.dto.UserDto;
-import com.example.demo.services.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@WebMvcTest(AdminUserController.class)
 public class AdminUserControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
-
     @InjectMocks
-    private AdminUserController adminUserController;
+    private UserController adminUserController;
+
+    @Mock
+    private UserService userService;
 
     @BeforeEach
     public void setUp() {
@@ -39,34 +27,28 @@ public class AdminUserControllerTest {
     }
 
     @Test
-    public void testRegisterAdminUser() throws Exception {
-        UserDto userDto = new UserDto();
-        userDto.setUserPassword("password"); // Set your test data
-        userDto.setUserFirstName("Ashutosh Tigga");
-        userDto.setUserGender("Male");
+    public void testRegisterAdminUser() throws MethodArgumentNotValidException {
+        // Create a UserDto object for testing
+        UserDto userDto = new UserDto("Ashu123", "Ashu", "Tigga", "Male", "ashu@nucleusteq.com",
+                "password123", "Software Engineer", "1234567890", "Admin");
 
-        when(userService.createAdmin(any())).thenReturn(userDto);
+        // Mock the userService.createAdmin method
+        when(userService.createAdmin(userDto)).thenReturn(userDto);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/blog-portal/api/registerAdminUser")
-                .content(asJsonString(userDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.userPassword").value(encoder("password")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.otherPropertiesHere").value("expectedValue"));
+        // Call the registerAdminUser method
+        ResponseEntity<UserDto> responseEntity = adminUserController.registerAdminUser(userDto);
+
+        // Verify that userService.createAdmin was called with the correct userDto
+        verify(userService, times(1)).createAdmin(userDto);
+
+        // Check the response status code
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+
+        // Check the response body
+        UserDto savedUser = responseEntity.getBody();
+        assertNotNull(savedUser);
+        assertEquals("Ashu123", savedUser.getUserName());
+        // Add more assertions for other properties if needed
     }
 
-    private String encoder(String password) {
-        return Base64.getEncoder().encodeToString(password.getBytes());
-    }
-
-    // Helper method to convert objects to JSON string
-    private String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,7 +28,6 @@ public final class User {
 	/**
 	 * The last name of the user.
 	 */
-
 	private String userLastName;
 
 	/**
@@ -245,6 +246,29 @@ public final class User {
 		this.userRole = userRole;
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userContactNumber, userDesignation, userEmail, userFirstName, userGender, userLastName,
+				userName, userPassword, userRole);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(userContactNumber, other.userContactNumber)
+				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail, other.userEmail)
+				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender, other.userGender)
+				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
+				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userRole, other.userRole);
+	}
+
 	/**
 	 * Returns a string representation of the {@code User} object.
 	 *
@@ -252,9 +276,24 @@ public final class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", userFirstName=" + userFirstName + ", userLastName=" + userLastName + ","
-				+ "userEmail=" + userEmail + ",userPassword=" + userPassword + ", userDesignation=" + userDesignation
-				+ ", userContactNumber=" + userContactNumber + "]";
+		return "User [userName="
+	+ userName
+	+ ", userFirstName="
+	+ userFirstName
+	+ ", userLastName="
+	+ userLastName
+	+ ","
+	+ "userEmail="
+	+ userEmail
+	+ ",userPassword="
+	+ userPassword
+	+ ", userDesignation="
+	+ userDesignation
+	+ ", userContactNumber="
+	+ userContactNumber
+	+ ", userRole="
+	+userRole
+	+"]";
 	}
 
 }

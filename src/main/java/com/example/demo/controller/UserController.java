@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/blog-portal/api")
-public class AdminUserController {
+public class UserController {
   /*
    *instance of UserService
    */
@@ -31,7 +32,7 @@ public class AdminUserController {
   /*
    * instance of Logger 
    */
-  private Logger logger = LogManager.getLogger(AdminUserController.class);
+  private Logger logger = LogManager.getLogger(UserController.class);
 
   /**
    * Creates a new admin user.
@@ -41,7 +42,7 @@ public class AdminUserController {
    */
   @PostMapping("/registerAdminUser")
   public final ResponseEntity<UserDto> registerAdminUser(
-      @Valid @RequestBody final UserDto user) {
+      @Valid @RequestBody final UserDto user) throws MethodArgumentNotValidException{
   	
     // Encoding password with Base64 encoding
   	

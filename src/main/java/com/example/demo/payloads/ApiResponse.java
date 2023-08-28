@@ -1,5 +1,7 @@
 package com.example.demo.payloads;
 
+import java.util.Objects;
+
 /**
  * ApiResponse is a class used to represent API responses.
  *
@@ -68,4 +70,27 @@ public class ApiResponse {
   public void setSuccess(final boolean successParam) {
     this.success = successParam;
   }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(message, success);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ApiResponse other = (ApiResponse) obj;
+		return Objects.equals(message, other.message) && success == other.success;
+	}
+
+	@Override
+	public String toString() {
+		return "ApiResponse [message=" + message + ", success=" + success + "]";
+	}
+  
 }

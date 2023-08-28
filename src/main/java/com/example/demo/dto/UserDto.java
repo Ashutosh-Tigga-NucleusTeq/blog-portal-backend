@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.util.Objects;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ public class UserDto {
 	/**
 	 * The username of the user.
 	 */
-	@NotNull(message = "User Name is compulsory")
+	@NotBlank(message = "User Name is compulsory")
 	private String userName;
 
 	/**
@@ -70,6 +72,13 @@ public class UserDto {
 	private String userRole;
 
 	/**
+	 * Default constructor for the {@code UserDto} class.
+	 */
+	public UserDto() {
+		// Default constructor
+	}
+	
+	/**
 	 * Constructs a new {@code UserDto} with the specified user details.
 	 *
 	 * @param userNameParam          The username of the user.
@@ -96,12 +105,7 @@ public class UserDto {
 		this.userRole = userRoleParam;
 	}
 
-	/**
-	 * Default constructor for the {@code UserDto} class.
-	 */
-	public UserDto() {
-		// Default constructor
-	}
+
 
 	/**
 	 * Retrieves the gender of the user.
@@ -263,6 +267,30 @@ public class UserDto {
 	 */
 	public void setUserRole(String userRoleParam) {
 		this.userRole = userRoleParam;
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(userContactNumber, userDesignation, userEmail, userFirstName, userGender, userLastName,
+				userName, userPassword, userRole);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDto other = (UserDto) obj;
+		return Objects.equals(userContactNumber, other.userContactNumber)
+				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail, other.userEmail)
+				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender, other.userGender)
+				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
+				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userRole, other.userRole);
 	}
 
 	
