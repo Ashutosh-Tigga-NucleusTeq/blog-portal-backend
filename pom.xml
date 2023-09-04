@@ -57,6 +57,14 @@
 			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<reporting>
@@ -67,7 +75,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.21.0</version>
 			</plugin>
-			
+
 			<!-- findbugs maven-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -80,16 +88,16 @@
 
 	<build>
 		<plugins>
-			
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
-			
+
 				<!-- Add the Checkstyle plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -133,7 +141,7 @@
 					</executions>
 				</plugin>
 
-			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

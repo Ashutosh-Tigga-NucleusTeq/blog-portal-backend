@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * The {@code User} class represents a user entity in the application.
  *
- * @author Ashutosh Tigga
+ * @author Ashutosh Tigga.
  */
 @Document(collection = "user")
 public final class User {
@@ -61,6 +61,7 @@ public final class User {
 	/**
 	 * The contact number of the user.
 	 */
+	@Indexed(unique = true)
 	private String userContactNumber;
 
 	/**
@@ -241,7 +242,6 @@ public final class User {
  *
  * @param userNameParam user name of the user.
  * @param userFirstNameParam first name of the user.
- * @param userLastNameParam last name of the user.
  * @param userGenderParam gender of the user.
  * @param userEmailParam email of the user.
  * @param userPasswordParam password of the user.
@@ -249,15 +249,14 @@ public final class User {
  * @param userContactNumberParam number of the user.
  * @param userRoleParam role of the user.
  */
-	public User(String userNameParam, String userFirstNameParam, String userLastNameParam,
-		  Gender userGenderParam,
+	public User(String userFirstNameParam,String userLastNameParam, Gender userGenderParam,
 			String userEmailParam,
 			String userPasswordParam,
 			Designation userDesignationParam,
 			String userContactNumberParam,
 			Role userRoleParam) {
 		super();
-		this.userName = userNameParam;
+		//this.userName = userNameParam;
 		this.userFirstName = userFirstNameParam;
 		this.userLastName = userLastNameParam;
 		this.userGender = userGenderParam;
@@ -267,10 +266,44 @@ public final class User {
 		this.userContactNumber = userContactNumberParam;
 		this.userRole = userRoleParam;
 	}
+	
 
+/**
+ * 
+ * @param userFirstName first name of the user.
+ * @param userLastName last name of the user.
+ * @param userGender gender of the user.
+ * @param userEmail email of the user.
+ * @param userPassword password of the user.
+ * @param userDesignation designation of the user.
+ * @param userContactNumber contact number of user.
+ */
+	public User(String userFirstNameParam, String userLastNameParam,  Gender userGenderParam, String userEmailParam,
+		String userPasswordParam, Designation userDesignationParam, String userContactNumberParam) {
+	super();
+	this.userFirstName = userFirstNameParam;
+	this.userLastName = userLastNameParam;
+	this.userGender = userGenderParam;
+	this.userEmail = userEmailParam;
+	this.userPassword = userPasswordParam;
+	this.userDesignation = userDesignationParam;
+	this.userContactNumber = userContactNumberParam;
+}
+	
+	/**
+	 * 2 Args constuctor.
+	 * 
+	 * @param userEmail email of the user.
+	 * @param userPassword password of the user.
+	 */
+	public User(String userEmail, String userPassword) {
+	super();
+	this.userEmail = userEmail;
+	this.userPassword = userPassword;
+}
 
 	/**
-	 * generate hashcode of user.
+	 * {@inheritDoc} hashCode.
 	 */
 	@Override
 	public int hashCode() {
@@ -279,10 +312,9 @@ public final class User {
 	}
 
 	/**
-	 * override equals method.
-	 * @param obj object passing.
-	 * @return true if equal or else false.
+	 *{@inheritDoc} equals.
 	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -306,6 +338,9 @@ public final class User {
 				&& Objects.equals(userRole, other.userRole);
 	}
 
+	/**
+	 *{@inheritDoc} toString.
+	 */
 	@Override
 	public String toString() {
 		return "User [userName="

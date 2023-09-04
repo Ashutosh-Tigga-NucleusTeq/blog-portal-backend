@@ -1,7 +1,6 @@
 package com.example.demo.dto;
 
 import java.util.Objects;
-
 import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
 import com.example.demo.enumResource.Role;
@@ -17,18 +16,12 @@ import jakarta.validation.constraints.Size;
  * user-related data. It is used to transfer user information between different
  * parts of the application.
  *
- * @author Ashutosh Tigga
+ * @author Ashutosh Tigga.
  */
-public class UserDto {
+public class RegisterDto {
 	/**
-	 * The username of the user.
-	 */
-	@NotBlank(message = "User Name is compulsory")
-	private String userName;
-
-	/**
-	 * The first name of the user.
-	 */
+	* The first name of the user.
+	*/
 	@NotBlank(message = "First name is required")
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
 	private String userFirstName;
@@ -55,7 +48,7 @@ public class UserDto {
 	private String userEmail;
 
 	/**
-	 * password size defind here.
+	 * password size defined here.
 	 */
 	private final int passwordSize = 6;
 	/**
@@ -76,17 +69,17 @@ public class UserDto {
 	@Pattern(regexp = "^\\d{10}$", message = "Contact number " + "must be a 10-digit number")
 	@NotBlank(message = "Contact number is required")
 	private String userContactNumber;
+	
 
 	/**
-	 * The user role of the user.
+	 * The role of the user.
 	 */
-	@NotNull
 	private Role userRole;
+
 
 	/**
 	 * Constructs a new {@code UserDto} with the specified user details.
 	 *
-	 * @param userNameParam          The username of the user.
 	 * @param userFirstNameParam     The first name of the user.
 	 * @param userLastNameParam      The last name of the user.
 	 * @param userGenderParam        The gender of the user.
@@ -94,12 +87,12 @@ public class UserDto {
 	 * @param userPasswordParam      The password of the user.
 	 * @param userDesignationParam   The designation of the user.
 	 * @param userContactNumberParam The contact number of the user.
-	 * @param userRoleParam               The role of the user
+	 * @param userRoleParam          THe Role of the user.
 	 */
-	public UserDto(final String userNameParam, final String userFirstNameParam, final String userLastNameParam,
+	public RegisterDto( final String userFirstNameParam, final String userLastNameParam,
 			final Gender userGenderParam, final String userEmailParam, final String userPasswordParam,
-			final Designation userDesignationParam, final String userContactNumberParam, final  Role userRoleParam) {
-		this.userName = userNameParam;
+			final Designation userDesignationParam, final String userContactNumberParam,final Role userRoleParam) {
+		// this.userName = userNameParam;
 		this.userFirstName = userFirstNameParam;
 		this.userLastName = userLastNameParam;
 		this.userGender = userGenderParam;
@@ -110,14 +103,29 @@ public class UserDto {
 		this.userRole = userRoleParam;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RegisterDto other = (RegisterDto) obj;
+		return passwordSize == other.passwordSize && Objects.equals(userContactNumber, other.userContactNumber)
+				&& userDesignation == other.userDesignation && Objects.equals(userEmail, other.userEmail)
+				&& Objects.equals(userFirstName, other.userFirstName) && userGender == other.userGender
+				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userPassword, other.userPassword)
+				&& userRole == other.userRole;
+	}
 
-
-	public UserDto() {
+	/**
+	 * Constructs a new {@code UserDto} no arg constructor.
+	 */
+	public RegisterDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	/**
 	 * Retrieves the gender of the user.
@@ -135,24 +143,6 @@ public class UserDto {
 	 */
 	public void setUserGender(final Gender userGenderParam) {
 		this.userGender = userGenderParam;
-	}
-
-	/**
-	 * Retrieves the username of the user.
-	 *
-	 * @return userName The username of the user.
-	 */
-	public String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * Sets the username of the user.
-	 *
-	 * @param userNameParam The username of the user.
-	 */
-	public void setUserName(final String userNameParam) {
-		this.userName = userNameParam;
 	}
 
 	/**
@@ -263,85 +253,39 @@ public class UserDto {
 		this.userContactNumber = userContactNumberParam;
 	}
 
-	/**
-	 * Gets userRole of the user.
-	 *
-	 *@return userRole role of the user.
-	 */
-	public  Role getUserRole() {
+  /**
+   * Gets the Role of the user.
+   * @return userRole The Role of the user.
+   */
+	public Role getUserRole() {
 		return userRole;
 	}
 
 	/**
-	 *Sets userRole of the user.
-	 *
-	 * @param string role of the user.
+	 * Sets the Role of the user.
+	 * @param userRole The Role of the user.
 	 */
-	public void setUserRole(  Role userRoleParam) {
-		this.userRole = userRoleParam;
+	public void setUserRole(Role userRole) {
+		this.userRole = userRole;
 	}
-
-
+	
 	/**
-	 * Generate hashcode of UserDto.
-	 *
-	 * @return returns data in numeric format.
+	 * {@inheritDoc} hashCode override. 
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(userContactNumber, userDesignation, userEmail, userFirstName, userGender, userLastName,
-				userName, userPassword, userRole);
+		return Objects.hash(passwordSize, userContactNumber, userDesignation, userEmail, userFirstName, userGender,
+				userLastName, userPassword, userRole);
 	}
 
 	/**
-	 * Implemented equals method that checks if two object are equal or not.
-	 *
-	 * return true if equal or else false.
+	 * {@inheritDoc} toString override.
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		UserDto other = (UserDto) obj;
-		return Objects.equals(userContactNumber, other.userContactNumber)
-				&& Objects.equals(userDesignation, other.userDesignation) && Objects.equals(userEmail,
-						other.userEmail)
-				&& Objects.equals(userFirstName, other.userFirstName) && Objects.equals(userGender,
-						other.userGender)
-				&& Objects.equals(userLastName, other.userLastName) && Objects.equals(userName, other.userName)
-				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userRole, other.userRole);
-	}
-
-
-	@Override
 	public String toString() {
-		return "UserDto [userName="
-	+ userName
-	+ ", userFirstName="
-	+ userFirstName
-	+ ", userLastName="
-	+ userLastName
-	+ ", userGender="
-	+ userGender
-	+ ", userEmail="
-	+ userEmail
-	+ ", passwordSize="
-	+ passwordSize
-	+ ", userPassword="
-	+ userPassword
-	+ ", userDesignation="
-	+ userDesignation
-	+ ", userContactNumber="
-	+ userContactNumber
-	+ ", userRole="
-	+ userRole
-	+ "]";
+		return "RegisterDto [userFirstName=" + userFirstName + ", userLastName=" + userLastName + ", userGender="
+				+ userGender + ", userEmail=" + userEmail + ", passwordSize=" + passwordSize + ", userPassword=" + userPassword
+				+ ", userDesignation=" + userDesignation + ", userContactNumber=" + userContactNumber + ", userRole=" + userRole
+				+ "]";
 	}
 }

@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
  * entities. It provides basic CRUD (Create, Read, Update, Delete) operations
  * for User objects stored in a MongoDB database.
  *
- *@author Ashutosh Tigga
+ * @author Ashutosh Tigga
  */
 @Repository
 public interface UserRepo extends MongoRepository<User, String> {
-	
+
+	//boolean existByEmailAndPassword();
+	// TODO Auto-generated method stub
+	//Optional<User> findByEmailOptional(String userEmail);
+
 }

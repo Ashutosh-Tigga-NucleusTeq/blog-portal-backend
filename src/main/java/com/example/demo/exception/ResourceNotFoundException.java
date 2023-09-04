@@ -23,7 +23,7 @@ public class ResourceNotFoundException extends RuntimeException {
   /**
    * The value of the field that was used as a query parameter.
    */
-  private long fieldValue;
+  private String fieldValue;
 
   /**
    * Constructor for ResourceNotFoundException.
@@ -37,7 +37,7 @@ public class ResourceNotFoundException extends RuntimeException {
   public ResourceNotFoundException(
       final String resourceNameParam,
       final String fieldNameParam,
-      final long fieldValueParam
+      final String fieldValueParam
   ) {
     super(
         String.format("%s not found with %s : %s", resourceNameParam,
@@ -89,7 +89,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 *
 	 * @return fieldValue field value.
 	 */
-	public long getFieldValue() {
+	public String getFieldValue() {
 		return fieldValue;
 	}
 
@@ -98,7 +98,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 *
 	 * @param fieldValueParam field value.
 	 */
-	public void setFieldValue(long fieldValueParam) {
+	public void setFieldValue(String fieldValueParam) {
 		this.fieldValue = fieldValueParam;
 	}
 
