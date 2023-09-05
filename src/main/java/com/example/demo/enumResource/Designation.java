@@ -1,22 +1,29 @@
 package com.example.demo.enumResource;
 
+/**
+ * The `Designation` enum represents different job designations or roles within an organization.
+ * It provides a set of predefined constants for common job designations.
+ * 
+ * This enum defines the following designations:
+ * - `SoftwareEngineer`: Represents a software engineer role.
+ * - `WebDeveloper`: Represents a web developer role.
+ * - `DataAnalyst`: Represents a data analyst role.
+ * - `NetworkAdministrator`: Represents a network administrator role.
+ * - `DevopsEngineer`: Represents a DevOps engineer role.
+ * 
+ */
 public enum Designation {
-	Trainee_Engineer,
-	Software_Engineer,
-	System_Analyst,
-	Programmer_Analyst,
-	Senior_Software_Engineer,
-	Project_Lead,
-	Project_Manager,
-	Program_Manager,
-	Architect,
-	Technical_Specialist,
-	Deliver_Manager,
-	Delivery_Head,
-	Business_Analyst,
-	Director_Technology,
-	Director,
-	Vice_President,
-	President,
-	CEO
+    SoftwareEngineer,
+    SeniorSoftwareEngineer,
+    Intern,
+    TechnicalLead,
+    Architect,
+    SeniorArchitect,
+    Deliveryhead,
+    DepartmentHead,
+    DataAnalyst,
+    NetworkAdministrator,
+    DevopsEngineer,
+    HR,
+    Others
 }

@@ -1,20 +1,15 @@
 package com.example.demo.exception;
 
 public class UserRegistrationException extends RuntimeException{
-		private long statusCode;
+		/**
+	 * sesrialVersionUID field
+	 */
+	private static final long serialVersionUID = 1L;
 		private String message;
 		
 		@Override
 		public String toString() {
-			return "UserRegistrationException [statusCode=" + statusCode + ", message=" + message + "]";
-		}
-
-		public long getStatusCode() {
-			return statusCode;
-		}
-
-		public void setStatusCode(long statusCode) {
-			this.statusCode = statusCode;
+			return "UserRegistrationException [ message=" + message + "]";
 		}
 
 		public String getMessage() {
@@ -25,9 +20,8 @@ public class UserRegistrationException extends RuntimeException{
 			this.message = message;
 		}
 
-		public UserRegistrationException(long statusCode, String message) {
+		public UserRegistrationException( String message) {
 			super();
-			this.statusCode = statusCode;
 			this.message = message;
 		}
 
@@ -35,7 +29,4 @@ public class UserRegistrationException extends RuntimeException{
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		
-		
-		
 }

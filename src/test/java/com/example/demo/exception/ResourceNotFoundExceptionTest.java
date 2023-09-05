@@ -16,16 +16,16 @@ public class ResourceNotFoundExceptionTest {
     public void testExceptionMessageFormat() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "User",
-            "userId",
-            456
+            "Resource",
+            "Resource field",
+            "Resource value"
         );
 
         // Get the exception message
         String message = exception.getMessage();
 
         // Assert that the exception message is formatted correctly
-        assertEquals("User not found with userId : 456", message);
+        assertEquals("User not found with userId : Resource value", message);
     }
 
     /**
@@ -35,16 +35,16 @@ public class ResourceNotFoundExceptionTest {
     public void testResourceNameField() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "User",
-            "userId",
-            456
+            "Resource",
+            "Resource field",
+            "Resource value"
         );
 
         // Get the resourceName field
         String resourceName = exception.getResourceName();
 
         // Assert that the resourceName field is set correctly
-        assertEquals("User", resourceName);
+        assertEquals("Resource", resourceName);
     }
 
     /**
@@ -54,16 +54,16 @@ public class ResourceNotFoundExceptionTest {
     public void testFieldNameField() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "User",
-            "userId",
-            456
+            "Resource",
+            "Resource field",
+            "Resource value"
         );
 
         // Get the fieldName field
         String fieldName = exception.getFieldName();
 
         // Assert that the fieldName field is set correctly
-        assertEquals("userId", fieldName);
+        assertEquals("Resource field", fieldName);
     }
 
     /**
@@ -73,15 +73,15 @@ public class ResourceNotFoundExceptionTest {
     public void testFieldValueField() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "User",
-            "userId",
-            456
+            "Resource",
+            "Resource field",
+            "Resource value"
         );
 
         // Get the fieldValue field
-        long fieldValue = exception.getFieldValue();
+        String fieldValue = exception.getFieldValue();
 
         // Assert that the fieldValue field is set correctly
-        assertEquals(456, fieldValue);
+        assertEquals("Resource value", fieldValue);
     }
 }

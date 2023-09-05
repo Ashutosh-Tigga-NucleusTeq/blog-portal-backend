@@ -1,6 +1,9 @@
 package com.example.demo.services;
 
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.AuthenticateInDto;
+import com.example.demo.dto.AuthenticateOutDto;
+import com.example.demo.dto.RegisterDto;
+import com.example.demo.payloads.ApiResponse;
 
 import jakarta.validation.Valid;
 
@@ -17,5 +20,7 @@ public interface UserService {
    *                created.
    * @return A UserDto representing the created  user.
    */
-	UserDto createUser(@Valid UserDto user);
+	ApiResponse createUser(@Valid RegisterDto user);
+
+	AuthenticateOutDto authenticateUser(@Valid AuthenticateInDto inDto);
 }
