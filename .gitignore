@@ -3,6 +3,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.gz
+Blog_Portal-cs-formatter.xml
+Blog_Portal-cs-cleanup.xml
+*.txt
+*.checkstyle
 
 ### STS ###
 .apt_generated

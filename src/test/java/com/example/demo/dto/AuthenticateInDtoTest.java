@@ -1,49 +1,86 @@
 package com.example.demo.dto;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticateInDtoTest {
 
+		/**
+		 * instance of AtuthenticateInDto.
+		 */
     private AuthenticateInDto dto;
 
+    /**
+     * configure something before testing of each case perform.
+     */
     @BeforeEach
     public void setUp() {
         dto = new AuthenticateInDto();
     }
 
+    /**
+     * Setter and Getter method testing.
+     */
     @Test
-    public void testSetterAndGetterMethods() {
-        String userEmail = "test@nucleusteq.com";
-        String userPassword = "testpassword";
+    public void testGetterAndSetterMethods() {
+        // Set values using setter methods
+        dto.setEmail("test@nucleusteq.com");
+        dto.setPassword("password123");
 
-        dto.setUserEmail(userEmail);
-        dto.setUserPassword(userPassword);
-
-        assertEquals(userEmail, dto.getUserEmail());
-        assertEquals(userPassword, dto.getUserPassword());
+        // Test getter methods
+        assertEquals("test@nucleusteq.com", dto.getEmail());
+        assertEquals("password123", dto.getPassword());
     }
 
+    /**
+     * hashCode method testing.
+     */
+    @Test
+    public void testHashCode() {
+        // Set values using setter methods
+        dto.setEmail("test@nucleusteq.com");
+        dto.setPassword("password123");
+
+        // Create another DTO with the same values
+        AuthenticateInDto anotherDto = new AuthenticateInDto();
+        anotherDto.setEmail("test@nucleusteq.com");
+        anotherDto.setPassword("password123");
+
+        // Test hashCode
+        assertEquals(dto.hashCode(), anotherDto.hashCode());
+    }
+
+    /**
+     * equals method testing.
+     */
+    @Test
+    public void testEquals() {
+        // Set values using setter methods
+        dto.setEmail("test@nucleusteq.com");
+        dto.setPassword("password123");
+
+        // Create another DTO with the same values
+        AuthenticateInDto anotherDto = new AuthenticateInDto();
+        anotherDto.setEmail("test@nucleusteq.com");
+        anotherDto.setPassword("password123");
+
+        // Test equals
+        assertTrue(dto.equals(anotherDto));
+    }
+
+    /**
+     * toString method testing.
+     */
     @Test
     public void testToString() {
-        String userEmail = "test@nucleusteq.com";
-        String userPassword = "testpassword";
-        dto.setUserEmail(userEmail);
-        dto.setUserPassword(userPassword);
+        // Set values using setter methods
+        dto.setEmail("test@nucleusteq.com");
+        dto.setPassword("password123");
 
-        String expectedToString = "AuthenticateInDto [userEmail=" + userEmail + ", userPassword=" + userPassword + "]";
-        assertEquals(expectedToString, dto.toString());
-    }
-
-    @Test
-    public void testEqualsAndHashCode() {
-        AuthenticateInDto dto1 = new AuthenticateInDto("test@nucleusteq.com", "testpassword");
-        AuthenticateInDto dto2 = new AuthenticateInDto("test@nucleusteq.com", "testpassword");
-        AuthenticateInDto dto3 = new AuthenticateInDto("another@nucleusteq.com", "anotherpassword");
-
-        assertEquals(dto1, dto2); // dto1 and dto2 should be equal
-        assertNotEquals(dto1, dto3); // dto1 and dto3 should not be equal
-        assertEquals(dto1.hashCode(), dto2.hashCode());
+        // Test toString
+        assertEquals("AuthenticateInDto [email=test@nucleusteq.com, passwordSize=6, password=password123]", dto.toString());
     }
 }

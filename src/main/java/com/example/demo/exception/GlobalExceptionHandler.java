@@ -2,14 +2,13 @@ package com.example.demo.exception;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import com.example.demo.payloads.ApiResponse;
 
 /**
@@ -32,6 +31,40 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(
             final ResourceNotFoundException ex
+    ) {
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Exception handler for {@link IllegalArgumentException}.
+     *
+     * @param ex The exception of type {@link IllegalArgumentException}.
+     * @return A {@link ResponseEntity} containing an {@link ApiResponse}
+     * with an error message and
+     * status code.
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(
+            final IllegalArgumentException ex
+    ) {
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Exception handler for {@link HttpMessageNotReadableException}.
+     *
+     * @param ex The exception of type {@link HttpMessageNotReadableException}.
+     * @return A {@link ResponseEntity} containing an {@link ApiResponse}
+     * with an error message and
+     * status code.
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(
+            final HttpMessageNotReadableException ex
     ) {
         String message = ex.getMessage();
         ApiResponse apiResponse = new ApiResponse(message, false);
@@ -74,6 +107,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserRegistrationException.class)
     public ResponseEntity<ApiResponse> handleRegistrationException(
             final UserRegistrationException ex
+    ) {
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+    }
+
+    /**
+     * Exception handler for {@link NullPointerException}.
+     *
+     * @param ex The exception of type {@link NullPointerException}.
+     * @return A {@link ResponseEntity} containing an {@link ApiResponse}
+     * with an error message and status code.
+     */
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ApiResponse> handleRegistrationException(
+            final NullPointerException ex
     ) {
         String message = ex.getMessage();
         ApiResponse apiResponse = new ApiResponse(message, false);

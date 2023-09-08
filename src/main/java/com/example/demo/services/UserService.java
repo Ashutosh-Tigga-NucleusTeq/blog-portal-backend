@@ -2,8 +2,8 @@ package com.example.demo.services;
 
 import com.example.demo.dto.AuthenticateInDto;
 import com.example.demo.dto.AuthenticateOutDto;
-import com.example.demo.dto.RegisterDto;
-import com.example.demo.payloads.ApiResponse;
+import com.example.demo.dto.RegisterInDto;
+import com.example.demo.dto.RegisterOutDto;
 
 import jakarta.validation.Valid;
 
@@ -16,11 +16,17 @@ public interface UserService {
   /**
    * Creates an  user based on the provided UserDto.
    *
-   * @param userDto The UserDto containing the details of the  user to be
+   * @param user containing the details of the  user to be
    *                created.
-   * @return A UserDto representing the created  user.
+   * @return A RegisterInDto representing the created  user.
    */
-	ApiResponse createUser(@Valid RegisterDto user);
+	RegisterOutDto createUser(@Valid RegisterInDto user);
 
+	/**
+	 * method that helps us to Authenticate user.
+	 *
+	 * @param inDto
+	 * @return AuthenticateOutDto.
+	 */
 	AuthenticateOutDto authenticateUser(@Valid AuthenticateInDto inDto);
 }

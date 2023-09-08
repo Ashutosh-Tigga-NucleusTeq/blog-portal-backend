@@ -1,63 +1,95 @@
 package com.example.demo.dto;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
+import com.example.demo.enumResource.Role;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticateOutDtoTest {
 
+		/**
+		 * instance of AuthenticateOutDto.
+		 */
     private AuthenticateOutDto dto;
 
+    /**
+     * Sets up something before testing.
+     */
     @BeforeEach
     public void setUp() {
-        dto = new AuthenticateOutDto("firstname", "lastname", Gender.Male, "test@nucleusteq.com", Designation.WebDeveloper, "1234567890");
+        // Initialize a new AuthenticateOutDto object before each test
+        dto = new AuthenticateOutDto("id",
+                "firstname", "lastname", Gender.Male, "test@nucleusteq.com",
+                Designation.Intern, "1234567890", Role.Admin
+        );
     }
 
+    /**
+     * Setter and Getter testing.
+     */
     @Test
-    public void testSetterAndGetterMethods() {
-        assertEquals("firstname", dto.getUserFirstName());
-        assertEquals("lastname", dto.getUserLastName());
-        assertEquals(Gender.Male, dto.getUserGender());
-        assertEquals("test@nucleusteq.com", dto.getUserEmail());
-        assertEquals(Designation.WebDeveloper, dto.getUserDesgination());
-        assertEquals("1234567890", dto.getUserContactNumber());
+    public void testGetterAndSetterMethods() {
+        // Modify values using setter methods
+        dto.setFirstName("firstname");
+        dto.setLastName("lastname");
+        dto.setGender(Gender.Female);
+        dto.setEmail("test@nucleusteq.com");
+        dto.setDesignation(Designation.DataAnalyst);
+        dto.setContactNumber("1234567890");
+        dto.setRole(Role.Employee);
 
-        // Modify the values using setter methods
-        dto.setUserFirstName("firstname2");
-        dto.setUserLastName("lastname2");
-        dto.setUserGender(Gender.Female);
-        dto.setUserEmail("test2@nucleusteq.com");
-        dto.setUserDesgination(Designation.DataAnalyst);
-        dto.setUserContactNumber("0348535839");
-
-        // Verify the values after modification
-        assertEquals("firstname2", dto.getUserFirstName());
-        assertEquals("lastname2", dto.getUserLastName());
-        assertEquals(Gender.Female, dto.getUserGender());
-        assertEquals("test2@nucleusteq.com", dto.getUserEmail());
-        assertEquals(Designation.DataAnalyst, dto.getUserDesgination());
-        assertEquals("0348535839", dto.getUserContactNumber());
+        // Test getter methods to ensure they return the modified values
+        assertEquals("firstname", dto.getFirstName());
+        assertEquals("lastname", dto.getLastName());
+        assertEquals(Gender.Female, dto.getGender());
+        assertEquals("test@nucleusteq.com", dto.getEmail());
+        assertEquals(Designation.DataAnalyst, dto.getDesignation());
+        assertEquals("1234567890", dto.getContactNumber());
+        assertEquals(Role.Employee, dto.getRole());
     }
 
+    /**
+     * hashcode method testing.
+     */
     @Test
-    public void testEqualsAndHashCode() {
-        AuthenticateOutDto dto1 = new AuthenticateOutDto("firstname", "lastname", Gender.Male, "test@nucleusteq.com", Designation.WebDeveloper, "1234567890");
-        AuthenticateOutDto dto2 = new AuthenticateOutDto("firstname", "lastname", Gender.Male, "test@nucleusteq.com", Designation.WebDeveloper, "1234567890");
-        AuthenticateOutDto dto3 = new AuthenticateOutDto("firstname1", "lastname1", Gender.Female, "test1@nucleusteq.com", Designation.DataAnalyst, "4324567890");
+    public void testHashCode() {
+        // Create another AuthenticateOutDto object with the same values
+        AuthenticateOutDto anotherDto = new AuthenticateOutDto(
+        				"id", "firstname", "lastname", Gender.Male, "test@nucleusteq.com",
+                Designation.Intern, "1234567890", Role.Admin
+        );
 
-        assertEquals(dto1, dto2); // dto1 and dto2 should be equal
-        assertNotEquals(dto1, dto3); // dto1 and dto3 should not be equal
-        assertEquals(dto1.hashCode(), dto2.hashCode());
+        // Test hashCode
+        assertEquals(dto.hashCode(), anotherDto.hashCode());
     }
 
+    /**
+     * equals method testing.
+     */
+    @Test
+    public void testEquals() {
+        // Create another AuthenticateOutDto object with the same values
+        AuthenticateOutDto anotherDto = new AuthenticateOutDto(
+                "id", "firstname", "lastname", Gender.Male, "test@nucleusteq.com",
+                Designation.Intern, "1234567890", Role.Admin
+        );
+
+        // Test equals
+        assertTrue(dto.equals(anotherDto));
+    }
+    /**
+     * tostring method Testing.
+     */
     @Test
     public void testToString() {
-        String expectedToString = "AuthenticateOutDto [userFirstName=firstname, userLastName=lastname, userGender=Male, " +
-                "userEmail=test@nucleusteq.com, userDesgination=WebDeveloper, userContactNumber=1234567890]";
-        assertEquals(expectedToString, dto.toString());
+        // Test toString
+        assertEquals("AuthenticateOutDto [id=id, firstName=firstname, lastName=lastname, gender=Male, email=test@nucleusteq.com, "
+        + "designation=Intern, contactNumber=1234567890, role=Admin]", dto.toString());
     }
 }
