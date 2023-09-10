@@ -12,32 +12,23 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * Represents a Data Transfer Object (DTO) used for sending user authentication
- * data. It contains information about the user's first name, last name, gender,
- * email, designation, and contact number.
- * @author [ Ashutosh Tigga]
+ * This class represents a Data Transfer Object (DTO) used for sending user authentication data.
+ * It contains information about the user's first name, last name, gender, email, designation, and contact number.
  */
 public class AuthenticateOutDto {
     /**
-     * Id of the user.
-     */
-    private String id;
-
-    /**
      * The first name of the user.
      */
-    @NotBlank(message = "First name is required") // Ensures that the first name is not blank
+    @NotBlank(message = "First name is required")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
-    // Validates that the name contains only alphabets.
-    private String firstName;
+    private String userFirstName;
 
     /**
      * The last name of the user.
      */
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
-    // Validates that the name contains only alphabets.
-    @NotBlank(message = "Last name is required") // Ensures that the last name is not blank
-    private String lastName;
+    @NotBlank(message = "Last name is required")
+    private String userLastName;
 
     /**
      * The gender of the user.
@@ -48,11 +39,10 @@ public class AuthenticateOutDto {
     /**
      * The email address of the user.
      */
-    @Email(message = "Invalid email format") // Validates the email format
-    @NotBlank(message = "Email is required") // Ensures that the email is not blank
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid")
-    // Applies a custom regular expression pattern for email validation.
-    private String email;
+    private String userEmail;
 
     /**
      * The designation of the user.
@@ -64,10 +54,9 @@ public class AuthenticateOutDto {
      * The contact number of the user.
      */
     @Pattern(regexp = "^\\d{10}$", message = "Contact number must be a 10-digit number")
-    // Validates that the contact number is a 10-digit number.
-    @NotBlank(message = "Contact number is required") // Ensures that the contact number is not blank
-    private String contactNumber;
-
+    @NotBlank(message = "Contact number is required")
+    private String userContactNumber;
+    
     /**
      * The role of the user.
      */
@@ -77,54 +66,37 @@ public class AuthenticateOutDto {
     /**
      * Constructor for creating an `AuthenticateOutDto` object.
      *
-     * @param id            The id of the user.
-     * @param firstName     The first name of the user.
-     * @param lastName      The last name of the user.
-     * @param gender        The gender of the user.
-     * @param email         The email address of the user.
-     * @param designation   The designation of the user.
-     * @param contactNumber The contact number of the user.
-     * @param role          The role of the user.
+     * @param userFirstNameParam     The user's first name.
+     * @param userLastNameParam      The user's last name.
+     * @param userGenderParam        The user's gender.
+     * @param userEmailParam         The user's email address.
+     * @param userDesginationParam   The user's designation.
+     * @param userContactNumberParam The user's contact number.
+     * @param userRoleParam 				 The user's role.
      */
-    public AuthenticateOutDto(String id, String firstName, String lastName, Gender gender, String email,
-                              Designation designation, String contactNumber, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.email = email;
-        this.designation = designation;
-        this.contactNumber = contactNumber;
-        this.role = role;
-    }
-
-    /**
-     * Default constructor for the `AuthenticateOutDto` class.
-     */
-    public AuthenticateOutDto() {
+    public AuthenticateOutDto(String userFirstNameParam,String userLastNameParam,
+            Gender userGenderParam,String userEmailParam,
+            Designation userDesginationParam,String userContactNumberParam,Role userRoleParam) {
         super();
+        this.userFirstName = userFirstNameParam;
+        this.userLastName = userLastNameParam;
+        this.userGender = userGenderParam;
+        this.userEmail = userEmailParam;
+        this.userDesgination = userDesginationParam;
+        this.userContactNumber = userContactNumberParam;
+        this.userRole = userRoleParam;
     }
 
-    /**
-     * Gets the id of the user.
-     *
-     * @return id id of the user.
-     */
-    public String getId() {
-        return id;
-    }
+    public Role getUserRole() {
+			return userRole;
+		}
 
-    /**
-     * Sets the id of the user.
-     *
-     * @param id The id to set.
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+		public void setUserRole(Role userRole) {
+			this.userRole = userRole;
+		}
 
-    /**
-     * Gets the first name of the user.
+		/**
+     * Get the user's first name.
      *
      * @return The user's first name.
      */
@@ -232,65 +204,39 @@ public class AuthenticateOutDto {
     }
 
     /**
-     * Gets the role of the user.
-     *
-     * @return The user's role.
-     */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * Sets the role of the user.
-     *
-     * @param role The role to set.
-     */
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    /**
-     * Compares this object to another object to check for equality.
-     *
-     * @param obj The object to compare to.
-     * @return {@code true} if the objects are equal, {@code false} otherwise.
+     * {@inheritDoc} hashCode override.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        AuthenticateOutDto other = (AuthenticateOutDto) obj;
-        return Objects.equals(contactNumber, other.contactNumber) && designation == other.designation
-                && Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && gender == other.gender
-                && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName) && role == other.role;
-    }
-
+		public int hashCode() {
+			return Objects.hash(userContactNumber, userDesgination, userEmail, userFirstName, userGender, userLastName,
+					userRole);
+		}
+    
     /**
-     * Generates a hash code value for this object based on its attributes.
-     *
-     * @return The hash code value.
+     * {@inheritDoc} equals override.
      */
     @Override
-    public int hashCode() {
-        return Objects.hash(contactNumber, designation, email, firstName, gender, id, lastName, role);
-    }
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			AuthenticateOutDto other = (AuthenticateOutDto) obj;
+			return Objects.equals(userContactNumber, other.userContactNumber) && userDesgination == other.userDesgination
+					&& Objects.equals(userEmail, other.userEmail) && Objects.equals(userFirstName, other.userFirstName)
+					&& userGender == other.userGender && Objects.equals(userLastName, other.userLastName)
+					&& userRole == other.userRole;
+		}
 
     /**
-     * Converts this object into a string representation for debugging and logging purposes.
-     *
-     * @return The string representation of this object.
+     * {@inheritDoc} toString override.
      */
-    @Override
-    public String toString() {
-        return "AuthenticateOutDto [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
-                + ", email=" + email + ", designation=" + designation + ", contactNumber=" + contactNumber + ", role=" + role
-                + "]";
-    }
+		@Override
+		public String toString() {
+			return "AuthenticateOutDto [userFirstName=" + userFirstName + ", userLastName=" + userLastName + ", userGender="
+					+ userGender + ", userEmail=" + userEmail + ", userDesgination=" + userDesgination + ", userContactNumber="
+					+ userContactNumber + ", userRole=" + userRole + "]";
+		}
 }
