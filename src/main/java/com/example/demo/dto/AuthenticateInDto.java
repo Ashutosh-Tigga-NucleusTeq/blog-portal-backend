@@ -1,116 +1,136 @@
 package com.example.demo.dto;
+
 import java.util.Objects;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
- * This class represents a Data Transfer Object (DTO) used for authenticating a user.
+ * Represents a Data Transfer Object (DTO) used for authenticating a user.
  * It contains the user's email address and password for authentication.
+ * @author [ Ashutosh Tigga]
  */
 public class AuthenticateInDto {
     /**
      * The email address of the user.
      */
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Email is required")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid")
-    private String userEmail;
+    @Email(message = "Invalid email format") // Validates that the email format is correct
+    @NotBlank(message = "Email is required") // Ensures that the email is not blank
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$",
+            message = "Email is not Valid") // Applies a custom regular expression pattern for email validation
+    private String email;
 
     /**
      * The minimum password size required.
      */
-    private final int passwordSize = 6;
+    private final int passwordSize = 6; // Specifies the minimum password size as a constant
 
     /**
      * The password of the user.
      */
-    @Size(min = passwordSize, message = "Password must be at least 6 characters")
-    private String userPassword;
+    @Size(min = passwordSize,
+            message = "Password must be at least 6 characters") // Validates that the password is at least 6 characters long
+    private String password;
 
     /**
-     * Get the user's email address.
+     * Creates a new instance of the {@code AuthenticateInDto} class with the specified email and password.
+     *
+     * @param email    The email address of the user.
+     * @param password The password of the user.
+     */
+    public AuthenticateInDto(
+            @Email(message = "Invalid email format") @NotBlank(message = "Email is required")
+            @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid") String email,
+            @Size(min = passwordSize, message = "Password must be at least 6 characters") String password) {
+        super();
+        this.email = email;
+        this.password = password;
+    }
+
+    /**
+     * Default constructor for the {@code AuthenticateInDto} class.
+     */
+    public AuthenticateInDto() {
+        super();
+    }
+
+    /**
+     * Gets the email address of the user.
      *
      * @return The user's email address.
      */
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * Set the user's email address.
+     * Sets the email address of the user.
      *
-     * @param userEmail The user's email address to set.
+     * @param email The email address to set.
      */
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
-     * Get the user's password.
+     * Gets the password of the user.
      *
      * @return The user's password.
      */
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
     /**
-     * Set the user's password.
+     * Sets the password of the user.
      *
-     * @param password The user's password to set.
+     * @param password The password to set.
      */
-    public void setUserPassword(String password) {
-        this.userPassword = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
-     * Constructs a new AuthenticateInDto object.
+     * Generates a hash code for this {@code AuthenticateInDto} object based on its email and password.
      *
-     * @param userEmail The user's email address.
-     * @param password  The user's password.
-     */
-    public AuthenticateInDto(
-            @Email(message = "Invalid email format") @NotBlank(message = "Email is required") @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid") String userEmail,
-            @Size(min = 6, message = "Password must be at least 6 characters") String password) {
-        super();
-        this.userEmail = userEmail;
-        this.userPassword = password;
-    }
-
-    public AuthenticateInDto() {
-			// TODO Auto-generated constructor stub
-		}
-
-		/**
-     * {@inheritDoc} toString
-     */
-    @Override
-    public String toString() {
-        return "AuthenticateInDto [userEmail=" + userEmail + ", userPassword=" + userPassword + "]";
-    }
-
-    /**
-     * {@inheritDoc} hashCode
+     * @return The generated hash code.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(userPassword, userEmail);
+        return Objects.hash(email, password);
     }
 
     /**
-     * {@inheritDoc} equals
+     * Compares this {@code AuthenticateInDto} object with another object to determine if they are equal.
+     * Two {@code AuthenticateInDto} objects are considered equal if their email and password are the same.
+     *
+     * @param obj The object to compare with.
+     * @return {@code true} if the objects are equal; {@code false} otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         AuthenticateInDto other = (AuthenticateInDto) obj;
-        return Objects.equals(userPassword, other.userPassword) && Objects.equals(userEmail, other.userEmail);
+        return Objects.equals(email, other.email) && Objects.equals(password, other.password);
+    }
+
+    /**
+     * Generates a string representation of this {@code AuthenticateInDto} object.
+     *
+     * @return The string representation of the {@code AuthenticateInDto} object.
+     */
+    @Override
+    public String toString() {
+        return "AuthenticateInDto [email=" + email + ", password=" + password + "]";
     }
 }

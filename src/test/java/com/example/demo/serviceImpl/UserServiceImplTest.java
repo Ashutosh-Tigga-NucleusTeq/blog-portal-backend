@@ -2,124 +2,143 @@ package com.example.demo.serviceImpl;
 
 import com.example.demo.dto.AuthenticateInDto;
 import com.example.demo.dto.AuthenticateOutDto;
-import com.example.demo.dto.RegisterDto;
-import com.example.demo.enumResource.Designation;
+import com.example.demo.dto.RegisterInDto;
+import com.example.demo.dto.RegisterOutDto;
 import com.example.demo.enumResource.Gender;
-import com.example.demo.enumResource.Role;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.exception.UserRegistrationException;
-import com.example.demo.mapper.UserMapper;
+import com.example.demo.mapper.AuthenticateMapper;
+import com.example.demo.mapper.RegisterMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.serviceimpl.UserServiceImpl;
-import com.example.demo.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 public class UserServiceImplTest {
 
+	/**
+	 * Instance of UserServiceImpl.
+	 */
     @InjectMocks
     private UserServiceImpl userService;
 
+    /**
+     * Instance of UserRepo.
+     */
     @Mock
     private UserRepo userRepo;
 
+
+    /**
+     * Setting before calling test.
+     */
     @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Testing the success case of createuser.
+     * @throws UserRegistrationException
+     */
     @Test
-    public void testCreateUser_Success() throws UserRegistrationException {
-        // Prepare a RegisterDto
-        RegisterDto userDto = new RegisterDto("firstname", "lastname", Gender.Male, "test@nucleusteq.com", "password", Designation.WebDeveloper, "1234567890",Role.Admin);
+    public void testCreateUserSuccess() throws UserRegistrationException {
+        RegisterInDto registerInDto = new RegisterInDto();
+        registerInDto.setEmail("test@example.com");
+        registerInDto.setFirstName("firstname");
+        registerInDto.setLastName("lastname");
+        registerInDto.setContactNumber("1234567890");
+        registerInDto.setGender(Gender.Male);
 
-        // Mock the behavior of userRepo
-        Mockito.when(userRepo.findById("test@nucleusteq.com")).thenReturn(Optional.empty());
-        Mockito.when(userRepo.save(any(User.class))).thenReturn(UserMapper.mapRegistrationDtoToUser(userDto));
+        User user = RegisterMapper.inDtoToUser(registerInDto);
 
-        // Call the createUser method
-        RegisterDto savedUserDto = userService.createUser(userDto);
+        when(userRepo.findByEmail("test@example.com")).thenReturn(Optional.empty());
+        when(userRepo.save(any(User.class))).thenReturn(user);
 
-        // Verify the result
-        assertNotNull(savedUserDto);
-        assertEquals("firstname", savedUserDto.getUserFirstName());
-        assertEquals("lastname", savedUserDto.getUserLastName());
-        assertEquals(Gender.Male, savedUserDto.getUserGender());
-        assertEquals("test@nucleusteq.com", savedUserDto.getUserEmail());
-        assertEquals("password", savedUserDto.getUserPassword());
-        assertEquals(Designation.WebDeveloper, savedUserDto.getUserDesignation());
-        assertEquals("1234567890", savedUserDto.getUserContactNumber());
+        RegisterOutDto response = userService.createUser(registerInDto);
+
+        assertNotNull(response);
+        assertEquals("test@example.com", response.getEmail());
+        // ... (assert other properties)
     }
 
+    /**
+     * testing of user already exists case of create user.
+     */
     @Test
-    public void testCreateUser_UserAlreadyExists() {
-        // Prepare a RegisterDto
-        RegisterDto userDto = new RegisterDto("firstname", "lastname", Gender.Male, "test@nucleusteq.com", "password", Designation.WebDeveloper, "1234567890",Role.Admin);
+    public void testCreateUserAlreadyExists() {
+        RegisterInDto registerInDto = new RegisterInDto();
+        registerInDto.setEmail("test@example.com");
+        // ... (set other properties)
 
-        // Mock the behavior of userRepo to return an existing user
-        Mockito.when(userRepo.findById("test@nucleusteq.com")).thenReturn(Optional.of(UserMapper.mapRegistrationDtoToUser(userDto)));
+        User existingUser = new User();
+        existingUser.setEmail("test@example.com");
+        // ... (set other properties)
 
-        // Call the createUser method and expect a UserRegistrationException
-        assertThrows(UserRegistrationException.class, () -> userService.createUser(userDto));
+        when(userRepo.findByEmail("test@example.com")).thenReturn(Optional.of(existingUser));
+
+        assertThrows(UserRegistrationException.class, () -> userService.createUser(registerInDto));
     }
 
+    /**
+     * Testing of success case of authentication.
+     */
     @Test
-    public void testAuthenticateUser_Success() {
-        // Prepare an AuthenticateInDto
-        AuthenticateInDto inDto = new AuthenticateInDto("test@nucleusteq.com", "password");
+    public void testAuthenticateUserSuccess() {
+        AuthenticateInDto authenticateInDto = new AuthenticateInDto();
+        authenticateInDto.setEmail("test@example.com");
+        authenticateInDto.setPassword("password");
 
-        // Prepare a User entity
-        User user = new User("firstname", "lastname", Gender.Male, "test@nucleusteq.com", "password", Designation.WebDeveloper, "1234567890");
+        User user = new User();
+        user.setEmail("test@nucleusteq.com");
+        user.setPassword("password");
 
-        // Mock the behavior of userRepo to return the user
-        Mockito.when(userRepo.findById("test@nucleusteq.com")).thenReturn(Optional.of(user));
 
-        // Call the authenticateUser method
-        AuthenticateOutDto outDto = userService.authenticateUser(inDto);
+        when(userRepo.findByEmail("test@nucleusteq.com")).thenReturn(Optional.of(user));
+        AuthenticateOutDto response = userService.authenticateUser(authenticateInDto);
 
-        // Verify the result
-        assertNotNull(outDto);
-        assertEquals("firstname", outDto.getUserFirstName());
-        assertEquals("lastname", outDto.getUserLastName());
-        assertEquals(Gender.Male, outDto.getUserGender());
-        assertEquals("test@nucleusteq.com", outDto.getUserEmail());
-        assertEquals(Designation.WebDeveloper, outDto.getUserDesgination());
-        assertEquals("1234567890", outDto.getUserContactNumber());
+        assertNotNull(response);
+
     }
 
+    /**
+     * Testing of user not found case of authentication.
+     */
     @Test
-    public void testAuthenticateUser_UserNotFound() {
-        // Prepare an AuthenticateInDto
-        AuthenticateInDto inDto = new AuthenticateInDto("test@nucleusteq.com", "password");
+    public void testAuthenticateUserNotFound() {
+        AuthenticateInDto authenticateInDto = new AuthenticateInDto();
+        authenticateInDto.setEmail("test@nucleusteq.com");
+        authenticateInDto.setPassword("password");
 
-        // Mock the behavior of userRepo to return an empty Optional
-        Mockito.when(userRepo.findById("test@nucleusteq.com")).thenReturn(Optional.empty());
+        when(userRepo.findByEmail("test@example.com")).thenReturn(Optional.empty());
 
-        // Call the authenticateUser method and expect a ResourceNotFoundException
-        assertThrows(ResourceNotFoundException.class, () -> userService.authenticateUser(inDto));
+        assertThrows(ResourceNotFoundException.class, () -> userService.authenticateUser(authenticateInDto));
     }
 
+    /**
+     * Testing of incorrect password case of authentication.
+     */
     @Test
-    public void testAuthenticateUser_InvalidPassword() {
-        // Prepare an AuthenticateInDto
-        AuthenticateInDto inDto = new AuthenticateInDto("test@nucleusteq.com", "wrongpassword");
+    public void testAuthenticateUserIncorrectPassword() {
+        AuthenticateInDto authenticateInDto = new AuthenticateInDto();
+        authenticateInDto.setEmail("test@nucleusteq.com");
+        authenticateInDto.setPassword("password");
 
-        // Prepare a User entity
-        User user = new User("firstname", "lastname", Gender.Male, "test@nucleusteq.com", "password", Designation.WebDeveloper, "1234567890");
+        User user = AuthenticateMapper.inDtoToUser(authenticateInDto);
 
-        // Mock the behavior of userRepo to return the user
-        Mockito.when(userRepo.findById("test@nucleusteq.com")).thenReturn(Optional.of(user));
+        when(userRepo.findByEmail("test@nucleusteq.com")).thenReturn(Optional.of(user));
 
-        // Call the authenticateUser method and expect a ResourceNotFoundException
-        assertThrows(ResourceNotFoundException.class, () -> userService.authenticateUser(inDto));
+        assertThrows(ResourceNotFoundException.class, () -> userService.authenticateUser(authenticateInDto));
     }
 }

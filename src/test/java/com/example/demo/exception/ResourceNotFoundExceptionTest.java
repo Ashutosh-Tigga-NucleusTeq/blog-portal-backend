@@ -1,87 +1,56 @@
 package com.example.demo.exception;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Test class for ResourceNotFoundException.
- */
+import org.junit.jupiter.api.Test;
+
 public class ResourceNotFoundExceptionTest {
 
-    /**
-     * Test case to ensure that the exception message is correctly formatted.
-     */
+		/**
+		 * Setter and Getter testing.
+		 */
     @Test
-    public void testExceptionMessageFormat() {
+    public void testSetterAndGetters() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Resource",
-            "Resource field",
-            "Resource value"
+            "testresource", "testfield", "testvalue"
         );
 
-        // Get the exception message
-        String message = exception.getMessage();
+        // Test setter and getter for resourceName
+        exception.setResourceName("newresource");
+        assertEquals("newresource", exception.getResourceName());
 
-        // Assert that the exception message is formatted correctly
-        assertEquals("User not found with userId : Resource value", message);
+        // Test setter and getter for fieldName
+        exception.setFieldName("newfield");
+        assertEquals("newfield", exception.getFieldName());
+
+        // Test setter and getter for fieldValue
+        exception.setFieldValue("newvalue");
+        assertEquals("newvalue", exception.getFieldValue());
     }
 
     /**
-     * Test case to ensure that the resourceName field is set correctly.
+     * Testing of Constructor.
      */
     @Test
-    public void testResourceNameField() {
+    public void testConstructor() {
         // Create an instance of ResourceNotFoundException
         ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Resource",
-            "Resource field",
-            "Resource value"
+            "testresource", "testfield", "testvalue"
         );
 
-        // Get the resourceName field
-        String resourceName = exception.getResourceName();
+        // Verify that the constructor correctly set the resource name
+        assertEquals("testresource", exception.getResourceName());
 
-        // Assert that the resourceName field is set correctly
-        assertEquals("Resource", resourceName);
+        // Verify that the constructor correctly set the field name
+        assertEquals("testfield", exception.getFieldName());
+
+        // Verify that the constructor correctly set the field value
+        assertEquals("testvalue", exception.getFieldValue());
+
+        // Verify the exception message
+        String expectedMessage = "testresource not found with testfield : testvalue";
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
-    /**
-     * Test case to ensure that the fieldName field is set correctly.
-     */
-    @Test
-    public void testFieldNameField() {
-        // Create an instance of ResourceNotFoundException
-        ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Resource",
-            "Resource field",
-            "Resource value"
-        );
-
-        // Get the fieldName field
-        String fieldName = exception.getFieldName();
-
-        // Assert that the fieldName field is set correctly
-        assertEquals("Resource field", fieldName);
-    }
-
-    /**
-     * Test case to ensure that the fieldValue field is set correctly.
-     */
-    @Test
-    public void testFieldValueField() {
-        // Create an instance of ResourceNotFoundException
-        ResourceNotFoundException exception = new ResourceNotFoundException(
-            "Resource",
-            "Resource field",
-            "Resource value"
-        );
-
-        // Get the fieldValue field
-        String fieldValue = exception.getFieldValue();
-
-        // Assert that the fieldValue field is set correctly
-        assertEquals("Resource value", fieldValue);
-    }
 }

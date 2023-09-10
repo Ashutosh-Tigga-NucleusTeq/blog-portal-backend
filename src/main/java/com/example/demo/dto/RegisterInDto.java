@@ -4,39 +4,40 @@ import java.util.Objects;
 
 import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
-import com.example.demo.enumResource.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
- * Represents a Data Transfer Object (DTO) used for sending user authentication
- * data. It contains information about the user's first name, last name, gender,
- * email, designation, and contact number.
+ * The {@code RegisterInDto} class represents a Data Transfer Object (DTO) for
+ * user-related data. It is used to transfer user information between different
+ * parts of the application.
+ *
  * @author [ Ashutosh Tigga]
  */
-public class AuthenticateOutDto {
+public class RegisterInDto {
     /**
-     * Id of the user.
+     * The minimum size of the name.
      */
-    private String id;
+    private final int nameMinSize = 4;
 
     /**
      * The first name of the user.
      */
-    @NotBlank(message = "First name is required") // Ensures that the first name is not blank
+    @NotBlank(message = "First name is required")
+    @Size(min = nameMinSize, message = "First name must be at least 4 characters")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
-    // Validates that the name contains only alphabets.
     private String firstName;
 
     /**
      * The last name of the user.
      */
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
-    // Validates that the name contains only alphabets.
-    @NotBlank(message = "Last name is required") // Ensures that the last name is not blank
+    @Size(min = nameMinSize, message = "Last name must be at least 3 characters")
+    @NotBlank(message = "Last name is required")
     private String lastName;
 
     /**
@@ -48,11 +49,21 @@ public class AuthenticateOutDto {
     /**
      * The email address of the user.
      */
-    @Email(message = "Invalid email format") // Validates the email format
-    @NotBlank(message = "Email is required") // Ensures that the email is not blank
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid")
-    // Applies a custom regular expression pattern for email validation.
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not valid")
     private String email;
+
+    /**
+     * Password size defined here.
+     */
+    private final int passwordSize = 6;
+
+    /**
+     * The password of the user.
+     */
+    @Size(min = passwordSize, message = "Password must be at least 6 characters")
+    private String password;
 
     /**
      * The designation of the user.
@@ -64,63 +75,35 @@ public class AuthenticateOutDto {
      * The contact number of the user.
      */
     @Pattern(regexp = "^\\d{10}$", message = "Contact number must be a 10-digit number")
-    // Validates that the contact number is a 10-digit number.
-    @NotBlank(message = "Contact number is required") // Ensures that the contact number is not blank
+    @NotBlank(message = "Contact number is required")
     private String contactNumber;
 
     /**
-     * The role of the user.
-     */
-    @NotNull
-    private Role role;
-
-    /**
-     * Constructor for creating an `AuthenticateOutDto` object.
+     * Constructs a new instance of the {@code RegisterInDto} class with the specified parameters.
      *
-     * @param id            The id of the user.
      * @param firstName     The first name of the user.
      * @param lastName      The last name of the user.
      * @param gender        The gender of the user.
      * @param email         The email address of the user.
+     * @param password      The password of the user.
      * @param designation   The designation of the user.
      * @param contactNumber The contact number of the user.
-     * @param role          The role of the user.
      */
-    public AuthenticateOutDto(String id, String firstName, String lastName, Gender gender, String email,
-                              Designation designation, String contactNumber, Role role) {
-        this.id = id;
+    public RegisterInDto(String firstName, String lastName, Gender gender, String email, String password,
+                         Designation designation, String contactNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.email = email;
+        this.password = password;
         this.designation = designation;
         this.contactNumber = contactNumber;
-        this.role = role;
     }
-
     /**
-     * Default constructor for the `AuthenticateOutDto` class.
+     * Default constructor for the `PostInDto` class.
      */
-    public AuthenticateOutDto() {
-        super();
-    }
-
-    /**
-     * Gets the id of the user.
-     *
-     * @return id id of the user.
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the user.
-     *
-     * @param id The id to set.
-     */
-    public void setId(String id) {
-        this.id = id;
+    public RegisterInDto() {
+    	super();
     }
 
     /**
@@ -196,6 +179,24 @@ public class AuthenticateOutDto {
     }
 
     /**
+     * Gets the password of the user.
+     *
+     * @return The user's password.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets the password of the user.
+     *
+     * @param password The password to set.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
      * Gets the designation of the user.
      *
      * @return The user's designation.
@@ -232,21 +233,13 @@ public class AuthenticateOutDto {
     }
 
     /**
-     * Gets the role of the user.
+     * Computes the hash code of this object based on its attributes.
      *
-     * @return The user's role.
+     * @return The hash code value.
      */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * Sets the role of the user.
-     *
-     * @param role The role to set.
-     */
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public int hashCode() {
+        return Objects.hash(contactNumber, designation, email, firstName, gender, lastName, password);
     }
 
     /**
@@ -260,26 +253,14 @@ public class AuthenticateOutDto {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        AuthenticateOutDto other = (AuthenticateOutDto) obj;
+        RegisterInDto other = (RegisterInDto) obj;
         return Objects.equals(contactNumber, other.contactNumber) && designation == other.designation
-                && Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && gender == other.gender
-                && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName) && role == other.role;
-    }
-
-    /**
-     * Generates a hash code value for this object based on its attributes.
-     *
-     * @return The hash code value.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(contactNumber, designation, email, firstName, gender, id, lastName, role);
+                && Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+                && gender == other.gender && Objects.equals(lastName, other.lastName)
+                && Objects.equals(password, other.password);
     }
 
     /**
@@ -289,8 +270,8 @@ public class AuthenticateOutDto {
      */
     @Override
     public String toString() {
-        return "AuthenticateOutDto [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
-                + ", email=" + email + ", designation=" + designation + ", contactNumber=" + contactNumber + ", role=" + role
-                + "]";
+        return "RegisterInDto [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
+                + ", email=" + email + ", password=" + password + ", designation=" + designation
+                + ", contactNumber=" + contactNumber + "]";
     }
 }

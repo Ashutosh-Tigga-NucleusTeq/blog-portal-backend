@@ -1,13 +1,19 @@
 HELP.md
 target/
+.metadata/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.gz
+Blog_Portal-cs-formatter.xml
+Blog_Portal-cs-cleanup.xml
+*.txt
+*.checkstyle
 
 ### STS ###
 .apt_generated
 .classpath
-.factorypath
+.factorypath    
 .project
 .settings
 .springBeans
@@ -17,7 +23,7 @@ target/
 .idea
 *.iws
 *.iml
-*.ipr
+*.ipr   
 
 ### NetBeans ###
 /nbproject/private/
@@ -26,7 +32,7 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
+!**/src/main/**/build/  
 !**/src/test/**/build/
 
 ### VS Code ###
