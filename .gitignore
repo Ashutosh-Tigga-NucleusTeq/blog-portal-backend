@@ -10,6 +10,7 @@ Blog_Portal-cs-cleanup.xml
 *.txt
 *.checkstyle
 
+*.log
 ### STS ###
 .apt_generated
 .classpath
