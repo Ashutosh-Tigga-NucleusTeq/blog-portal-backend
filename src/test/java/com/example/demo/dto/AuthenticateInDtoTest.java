@@ -1,86 +1,74 @@
 package com.example.demo.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * This class contains JUnit tests for the {@code AuthenticateInDto} class.
+ */
 public class AuthenticateInDtoTest {
 
 		/**
-		 * instance of AtuthenticateInDto.
+		 * Instance of {@code AuthenticateInDto}.
 		 */
-    private AuthenticateInDto dto;
+    private AuthenticateInDto authenticateInDto;
 
     /**
-     * configure something before testing of each case perform.
+     * Initializes a new instance of {@code AuthenticateInDto} before each test.
      */
     @BeforeEach
     public void setUp() {
-        dto = new AuthenticateInDto();
+        authenticateInDto = new AuthenticateInDto();
     }
 
     /**
-     * Setter and Getter method testing.
+     * Tests the getter and setter methods of the {@code AuthenticateInDto} class.
      */
     @Test
-    public void testGetterAndSetterMethods() {
-        // Set values using setter methods
-        dto.setEmail("test@nucleusteq.com");
-        dto.setPassword("password123");
+    public void testGetterSetterMethods() {
+        String email = "test@nucleusteq.com";
+        String password = "password123";
 
-        // Test getter methods
-        assertEquals("test@nucleusteq.com", dto.getEmail());
-        assertEquals("password123", dto.getPassword());
+        // Test setEmail and getEmail
+        authenticateInDto.setEmail(email);
+        assertEquals(email, authenticateInDto.getEmail());
+
+        // Test setPassword and getPassword
+        authenticateInDto.setPassword(password);
+        assertEquals(password, authenticateInDto.getPassword());
     }
 
     /**
-     * hashCode method testing.
+     * Tests the equals and hashCode methods of the {@code AuthenticateInDto} class.
      */
     @Test
-    public void testHashCode() {
-        // Set values using setter methods
-        dto.setEmail("test@nucleusteq.com");
-        dto.setPassword("password123");
+    public void testEqualsAndHashCode() {
+        AuthenticateInDto dto1 = new AuthenticateInDto("test@nucleusteq.com", "password123");
+        AuthenticateInDto dto2 = new AuthenticateInDto("test@nucleusteq.com", "password123");
+        AuthenticateInDto dto3 = new AuthenticateInDto("test1@nucleusteq.com", "differentPassword");
 
-        // Create another DTO with the same values
-        AuthenticateInDto anotherDto = new AuthenticateInDto();
-        anotherDto.setEmail("test@nucleusteq.com");
-        anotherDto.setPassword("password123");
+        // Test equals method
+        assertEquals(dto1, dto2);
+        assertNotEquals(dto1, dto3);
 
-        // Test hashCode
-        assertEquals(dto.hashCode(), anotherDto.hashCode());
+        // Test hashCode method
+        assertEquals(dto1.hashCode(), dto2.hashCode());
+        assertNotEquals(dto1.hashCode(), dto3.hashCode());
     }
 
     /**
-     * equals method testing.
-     */
-    @Test
-    public void testEquals() {
-        // Set values using setter methods
-        dto.setEmail("test@nucleusteq.com");
-        dto.setPassword("password123");
-
-        // Create another DTO with the same values
-        AuthenticateInDto anotherDto = new AuthenticateInDto();
-        anotherDto.setEmail("test@nucleusteq.com");
-        anotherDto.setPassword("password123");
-
-        // Test equals
-        assertTrue(dto.equals(anotherDto));
-    }
-
-    /**
-     * toString method testing.
+     * Tests the toString method of the {@code AuthenticateInDto} class.
      */
     @Test
     public void testToString() {
-        // Set values using setter methods
-        dto.setEmail("test@nucleusteq.com");
-        dto.setPassword("password123");
+        String email = "test@nucleusteq.com";
+        String password = "password123";
+        AuthenticateInDto dto = new AuthenticateInDto(email, password);
 
-        // Test toString
-        assertEquals("AuthenticateInDto [email=test@nucleusteq.com, passwordSize=6, password=password123]", dto.toString());
+        String expectedString = "AuthenticateInDto [email=" + email + ", password=" + password + "]";
+        assertEquals(expectedString, dto.toString());
     }
 }

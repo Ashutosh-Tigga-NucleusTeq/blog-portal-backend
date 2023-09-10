@@ -1,7 +1,6 @@
 package com.example.demo.dto;
 
 import java.util.Objects;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
