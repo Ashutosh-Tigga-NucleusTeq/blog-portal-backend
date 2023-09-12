@@ -6,10 +6,10 @@ import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
 import com.example.demo.enumResource.Role;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * The {@code RegisterOutDto} class represents a Data Transfer Object (DTO) for

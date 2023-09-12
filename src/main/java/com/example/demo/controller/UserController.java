@@ -5,7 +5,9 @@ import com.example.demo.dto.AuthenticateOutDto;
 import com.example.demo.dto.RegisterInDto;
 import com.example.demo.dto.RegisterOutDto;
 import com.example.demo.services.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,6 +83,7 @@ public class UserController {
      * @return The Base64 encoded password.
      */
     private String encoder(final String password) {
-        return Base64.getEncoder().encodeToString(password.getBytes());
-    }
+      byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
+      return Base64.getEncoder().encodeToString(passwordBytes);
+  }
 }

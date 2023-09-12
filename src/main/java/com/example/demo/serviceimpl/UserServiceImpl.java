@@ -12,7 +12,7 @@ import com.example.demo.mapper.RegisterMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.services.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,13 +1,20 @@
 package com.example.demo.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.demo.enumResource.PostStatus;
 import com.example.demo.enumResource.TechnologyCategory;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * The {@code Post} class represents a Post entity in the application. It
@@ -16,6 +23,12 @@ import com.example.demo.enumResource.TechnologyCategory;
  *
  * @author [ Ashutosh Tigga]
  */
+@Document(collection = "post")
+@Setter
+@Getter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     /**
@@ -56,14 +69,14 @@ public class Post {
     private Date editedAt;
 
     /**
+     * Id of the user.
+     */
+    private String userId;
+    /**
      * The author data associated with the blog post.
      */
-    private User authorId;
-
-    /**
-     * List of comments associated with the blog post.
-     */
-    private List<Comment> comments;
+    @DBRef
+    private User user;
 
     /**
      * Creates a new instance of the {@code Post} class with specified parameters.
@@ -72,16 +85,15 @@ public class Post {
      * @param content       The content of the blog post.
      * @param createdAt     The creation date of the blog post.
      * @param techCategory  The technology category of the blog post.
-     * @param authorId      The id of the user.
      */
     public Post(String title, String content, Date createdAt,
-            TechnologyCategory techCategory,
-            User authorId) {
+            TechnologyCategory techCategory
+            ) {
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
+        this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
         this.techCategory = techCategory;
-        this.authorId = authorId;
+				/* this.user = userId; */
     }
 
     /**
@@ -142,7 +154,7 @@ public class Post {
      * @param content The content to set.
      */
     public void setContent(String content) {
-        this.content = content;
+    	 this.content = content;
     }
 
     /**
@@ -187,7 +199,7 @@ public class Post {
      * @return The creation date of the blog post.
      */
     public Date getCreatedAt() {
-        return createdAt;
+    	 return new Date(createdAt.getTime());
     }
 
     /**
@@ -196,8 +208,7 @@ public class Post {
      * @param createdAt The creation date to set.
      */
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    		this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;    }
 
     /**
      * Gets the date when the blog post was last edited.
@@ -205,7 +216,11 @@ public class Post {
      * @return The date when the blog post was last edited.
      */
     public Date getEditedAt() {
-        return editedAt;
+    	 if (editedAt != null) {
+         return new Date(editedAt.getTime());
+     } else {
+         return null; // Return null if 'editedAt' is null
+     }
     }
 
     /**
@@ -214,7 +229,7 @@ public class Post {
      * @param editedAt The date when the blog post was last edited to set.
      */
     public void setEditedAt(Date editedAt) {
-        this.editedAt = editedAt;
+    		this.editedAt = (editedAt != null) ? new Date(editedAt.getTime()) : null;
     }
 
     /**
@@ -222,38 +237,34 @@ public class Post {
      *
      * @return The author's unique identifier associated with the blog post.
      */
-    public User getAuthorId() {
-        return authorId;
+    public User getUser() {
+        return user;
     }
 
     /**
      * Sets the author's unique identifier associated with the blog post.
      *
-     * @param authorId The author's unique identifier to set.
+     * @param author The author's unique identifier to set.
      */
-    public void setAuthorId(User authorId) {
-        this.authorId = authorId;
+    public void setUser(User author) {
+        this.user = author;
     }
-
     /**
-     * Gets the list of comments associated with the blog post.
-     *
-     * @return The list of comments associated with the blog post.
+     * Gets user id.
+     * @return userId
      */
-    public List<Comment> getComments() {
-        return comments;
-    }
-
+    public String getUserId() {
+			return userId;
+		}
     /**
-     * Sets the list of comments associated with the blog post.
-     *
-     * @param comments The list of comments to set.
+     * Sets user id.
+     * @param userId
      */
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+		public void setUserId(String userId) {
+			this.userId = userId;
+		}
 
-    /**
+		/**
      * Generates a hash code for this {@code Post} object based on its authorId,
      * comments, content, createdAt, editedAt, id, status, techCategory, and title.
      *
@@ -261,7 +272,7 @@ public class Post {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, comments, content, createdAt, editedAt, id, status, techCategory, title);
+        return Objects.hash(user, content, createdAt, editedAt, id, status, techCategory, title);
     }
 
     /**
@@ -284,7 +295,7 @@ public class Post {
             return false;
         }
         Post other = (Post) obj;
-        return Objects.equals(authorId, other.authorId) && Objects.equals(comments, other.comments)
+        return Objects.equals(user, other.user)
                 && Objects.equals(content, other.content) && Objects.equals(createdAt, other.createdAt)
                 && Objects.equals(editedAt, other.editedAt) && Objects.equals(id, other.id)
                 && status == other.status
@@ -300,6 +311,6 @@ public class Post {
     public String toString() {
         return "Post [id=" + id + ", title=" + title + ", content=" + content + ", status=" + status
                 + ", techCategory=" + techCategory + ", createdAt=" + createdAt + ", editedAt=" + editedAt
-                + ", authorId=" + authorId + ", comments=" + comments + "]";
+                + ", author=" + user + "]";
     }
 }

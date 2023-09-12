@@ -23,9 +23,7 @@ public class PostMapper {
                 inDto.getTitle(),
                 inDto.getContent(),
                 inDto.getCreatedAt(),
-                inDto.getTechCategory(),
-                inDto.getAuthorId()
-
+                inDto.getTechCategory()
         );
     }
 
@@ -43,7 +41,7 @@ public class PostMapper {
                 post.getStatus(),
                 post.getTechCategory(),
                 post.getCreatedAt(),
-                post.getAuthorId()
+                post.getUser()
         );
     }
 }

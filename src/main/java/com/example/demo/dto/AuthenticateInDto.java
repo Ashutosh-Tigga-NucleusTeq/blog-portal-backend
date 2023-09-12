@@ -1,16 +1,19 @@
 package com.example.demo.dto;
 
 import java.util.Objects;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
 
 /**
  * Represents a Data Transfer Object (DTO) used for authenticating a user.
  * It contains the user's email address and password for authentication.
  * @author [ Ashutosh Tigga]
  */
+@Getter
 public class AuthenticateInDto {
     /**
      * The email address of the user.
@@ -24,12 +27,12 @@ public class AuthenticateInDto {
     /**
      * The minimum password size required.
      */
-    private final int passwordSize = 6; // Specifies the minimum password size as a constant
+    private static final int PASSWORDSIZE = 6; // Specifies the minimum password size as a constant
 
     /**
      * The password of the user.
      */
-    @Size(min = passwordSize,
+    @Size(min = PASSWORDSIZE,
             message = "Password must be at least 6 characters") // Validates that the password is at least 6 characters long
     private String password;
 
@@ -42,7 +45,7 @@ public class AuthenticateInDto {
     public AuthenticateInDto(
             @Email(message = "Invalid email format") @NotBlank(message = "Email is required")
             @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid") String email,
-            @Size(min = passwordSize, message = "Password must be at least 6 characters") String password) {
+            @Size(min = PASSWORDSIZE, message = "Password must be at least 6 characters") String password) {
         super();
         this.email = email;
         this.password = password;

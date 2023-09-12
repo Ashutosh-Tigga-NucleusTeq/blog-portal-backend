@@ -24,13 +24,16 @@ public class PostMapperTest {
         inDto.setContent("This is a test post content.");
         inDto.setCreatedAt(new Date());
         inDto.setTechCategory(TechnologyCategory.HTML);
+        User user = new User();
+        user.setId("userid");
+        inDto.setAuthor(user);
 
         Post post = PostMapper.inDtoToPost(inDto);
-
-        assertEquals("Test Post", post.getTitle());
-        assertEquals("This is a test post content.", post.getContent());
+        assertEquals(inDto.getTitle(), post.getTitle());
+        assertEquals(inDto.getContent(), post.getContent());
         assertEquals(inDto.getCreatedAt(), post.getCreatedAt());
         assertEquals(TechnologyCategory.HTML, post.getTechCategory());
+        assertEquals(inDto.getAuthor(), post.getAuthor());
     }
 
     /**
@@ -47,6 +50,6 @@ public class PostMapperTest {
         assertEquals("This is a test post content.", outDto.getContent());
         assertEquals(post.getCreatedAt(), outDto.getCreatedAt());
         assertEquals(TechnologyCategory.HTML, outDto.getTechCategory());
-        assertEquals("author123", outDto.getAuthorId());
+        assertEquals(user, outDto.getAuthor());
     }
 }

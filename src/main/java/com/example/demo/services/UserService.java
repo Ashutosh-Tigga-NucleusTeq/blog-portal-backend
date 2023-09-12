@@ -5,7 +5,7 @@ import com.example.demo.dto.AuthenticateOutDto;
 import com.example.demo.dto.RegisterInDto;
 import com.example.demo.dto.RegisterOutDto;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 /**
  * The UserService interface defines operations related to user management.

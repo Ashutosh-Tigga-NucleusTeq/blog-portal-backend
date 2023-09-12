@@ -15,19 +15,20 @@ public class CorsConfig {
      *
      * @return WebMvcConfigurer instance with CORS configuration.
      */
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/blog-portal/api/**")
-                        //frontend url="http://localhost:3000"
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE",
-                                "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+	    return new MyWebMvcConfigurer();
+	}
+
+	static class MyWebMvcConfigurer implements WebMvcConfigurer {
+	    @Override
+	    public void addCorsMappings(CorsRegistry registry) {
+	        registry.addMapping("/blog-portal/api/**")
+	                .allowedOrigins("http://localhost:3000")
+	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+	                .allowedHeaders("*")
+	                .allowCredentials(true);
+	    }
+	}
+
 }

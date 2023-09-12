@@ -20,5 +20,6 @@ public class BlogPortalApplication {
      */
     public static void main(final String[] args) {
         SpringApplication.run(BlogPortalApplication.class, args);
+
     }
 }

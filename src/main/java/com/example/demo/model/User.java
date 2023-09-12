@@ -5,13 +5,12 @@ import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
 import com.example.demo.enumResource.Role;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  * The {@code User} class represents a user entity in the application.
@@ -75,7 +74,6 @@ public final class User {
     /**
      * The list of blog posts authored by the user.
      */
-    @DBRef
     private List<Post> posts;
 
     /**
@@ -119,6 +117,14 @@ public final class User {
     }
 
     /**
+     * One args constructor that copy userid.
+     * @param user
+     */
+    public User(User user) {
+    	this.id = user.getId();
+		}
+
+		/**
      * Gets the id of the user.
      *
      * @return The id of the user.

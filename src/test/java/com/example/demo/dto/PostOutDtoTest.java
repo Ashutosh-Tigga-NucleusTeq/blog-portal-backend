@@ -44,7 +44,7 @@ public class PostOutDtoTest {
         String content = "Content";
         Date createdAt = new Date();
         TechnologyCategory techCategory = TechnologyCategory.Java;
-        User authorId = new User();
+        User author = new User();
         PostStatus status = PostStatus.Pending;
 
         // Test setId and getId
@@ -68,8 +68,8 @@ public class PostOutDtoTest {
         assertEquals(techCategory, postOutDto.getTechCategory());
 
         // Test setAuthorId and getAuthorId
-        postOutDto.setAuthorId(authorId);
-        assertEquals(authorId, postOutDto.getAuthorId());
+        postOutDto.setAuthor(author);
+        assertEquals(author, postOutDto.getAuthor());
 
         // Test setStatus and getStatus
         postOutDto.setStatus(status);
@@ -117,13 +117,13 @@ public class PostOutDtoTest {
     @Test
     public void testToString() {
         Date createdAt = new Date();
-        User authorId = new User();
+        User author = new User();
 
         PostOutDto post = new PostOutDto("12345", "Title", "Content", PostStatus.Approved,
-                TechnologyCategory.Java, createdAt, authorId);
+                TechnologyCategory.Java, createdAt, author);
 
         String expectedString = "PostOutDto [id=12345, title=Title, content=Content, createdAt=" + createdAt
-        		+ ", techCategory=Java, authorId=" + authorId + ", status=Approved]";
+        		+ ", techCategory=Java, authorId=" + author + ", status=Approved]";
         assertEquals(expectedString, post.toString());
     }
 }

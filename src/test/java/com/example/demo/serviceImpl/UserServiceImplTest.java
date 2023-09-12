@@ -97,17 +97,15 @@ public class UserServiceImplTest {
     @Test
     public void testAuthenticateUserSuccess() {
         AuthenticateInDto authenticateInDto = new AuthenticateInDto();
-        authenticateInDto.setEmail("test@example.com");
+        authenticateInDto.setEmail("test@nucleusteq.com");
         authenticateInDto.setPassword("password");
 
         User user = new User();
         user.setEmail("test@nucleusteq.com");
         user.setPassword("password");
 
-
         when(userRepo.findByEmail("test@nucleusteq.com")).thenReturn(Optional.of(user));
         AuthenticateOutDto response = userService.authenticateUser(authenticateInDto);
-
         assertNotNull(response);
 
     }
@@ -132,7 +130,7 @@ public class UserServiceImplTest {
     @Test
     public void testAuthenticateUserIncorrectPassword() {
         AuthenticateInDto authenticateInDto = new AuthenticateInDto();
-        authenticateInDto.setEmail("test@nucleusteq.com");
+        authenticateInDto.setEmail("tet@nucleusteq.com");
         authenticateInDto.setPassword("password");
 
         User user = AuthenticateMapper.inDtoToUser(authenticateInDto);

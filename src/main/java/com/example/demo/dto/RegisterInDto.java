@@ -5,11 +5,11 @@ import java.util.Objects;
 import com.example.demo.enumResource.Designation;
 import com.example.demo.enumResource.Gender;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * The {@code RegisterInDto} class represents a Data Transfer Object (DTO) for
@@ -22,13 +22,13 @@ public class RegisterInDto {
     /**
      * The minimum size of the name.
      */
-    private final int nameMinSize = 4;
+    private static final int NAMEMINSIZE = 2;
 
     /**
      * The first name of the user.
      */
     @NotBlank(message = "First name is required")
-    @Size(min = nameMinSize, message = "First name must be at least 4 characters")
+    @Size(min = NAMEMINSIZE, message = "First name must be at least 4 characters")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
     private String firstName;
 
@@ -36,7 +36,7 @@ public class RegisterInDto {
      * The last name of the user.
      */
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
-    @Size(min = nameMinSize, message = "Last name must be at least 3 characters")
+    @Size(min = NAMEMINSIZE, message = "Last name must be at least 3 characters")
     @NotBlank(message = "Last name is required")
     private String lastName;
 
@@ -57,12 +57,12 @@ public class RegisterInDto {
     /**
      * Password size defined here.
      */
-    private final int passwordSize = 6;
+    private static final int PASSWORDSIZE = 6;
 
     /**
      * The password of the user.
      */
-    @Size(min = passwordSize, message = "Password must be at least 6 characters")
+    @Size(min = PASSWORDSIZE, message = "Password must be at least 6 characters")
     private String password;
 
     /**

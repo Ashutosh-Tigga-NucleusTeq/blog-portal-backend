@@ -6,6 +6,8 @@ package com.example.demo.enumResource;
  *
  */
 public enum TechnologyCategory {
+
+
     /**
      * Represents the Node.js technology category.
      */

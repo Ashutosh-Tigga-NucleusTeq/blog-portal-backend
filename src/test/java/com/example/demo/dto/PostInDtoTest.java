@@ -41,7 +41,6 @@ public class PostInDtoTest {
         String title = "title";
         String content = "content";
         Date createdAt = new Date();
-        User authorId = new User();
         TechnologyCategory techCategory = TechnologyCategory.Java;
 
         // Test setTitle and getTitle
@@ -57,8 +56,8 @@ public class PostInDtoTest {
         assertEquals(createdAt, postInDto.getCreatedAt());
 
         // Test setAuthorId and getAuthorId
-        postInDto.setAuthorId(authorId);
-        assertEquals(authorId, postInDto.getAuthorId());
+        postInDto.setUserID("userid");
+        assertEquals("userid", postInDto.getUserId());
 
         // Test setTechCategory and getTechCategory
         postInDto.setTechCategory(techCategory);
@@ -72,9 +71,9 @@ public class PostInDtoTest {
      */
     @Test
     public void testEquals() {
-        PostInDto post1 = new PostInDto("Title", "Content", new Date(), new User(), TechnologyCategory.Java);
-        PostInDto post2 = new PostInDto("Title", "Content", new Date(), new User(), TechnologyCategory.Java);
-        PostInDto post3 = new PostInDto("Different", "Content", new Date(), new User(), TechnologyCategory.HTML);
+        PostInDto post1 = new PostInDto("Title", "Content", new Date(), "userid", TechnologyCategory.Java);
+        PostInDto post2 = new PostInDto("Title", "Content", new Date(), "userid", TechnologyCategory.Java);
+        PostInDto post3 = new PostInDto("Different", "Content", new Date(), "userid", TechnologyCategory.HTML);
 
         assertEquals(post1, post2);  // Should be equal
         assertNotEquals(post1, post3);  // Should not be equal
@@ -87,8 +86,8 @@ public class PostInDtoTest {
      */
     @Test
     public void testHashCode() {
-        PostInDto post1 = new PostInDto("Title", "Content", new Date(), new User(), TechnologyCategory.Java);
-        PostInDto post2 = new PostInDto("Title", "Content", new Date(), new User(), TechnologyCategory.Java);
+        PostInDto post1 = new PostInDto("Title", "Content", new Date(), "userid", TechnologyCategory.Java);
+        PostInDto post2 = new PostInDto("Title", "Content", new Date(), "userid", TechnologyCategory.Java);
 
         assertEquals(post1.hashCode(), post2.hashCode());  // Hash codes should be equal
     }
@@ -101,12 +100,10 @@ public class PostInDtoTest {
     @Test
     public void testToString() {
         Date createdAt = new Date();
-        User authorId = new User();
-
-        PostInDto post = new PostInDto("Title", "Content", createdAt, authorId, TechnologyCategory.Java);
+        PostInDto post = new PostInDto("Title", "Content", createdAt, "userid", TechnologyCategory.Java);
 
         String expectedString = "PostInDto [title=Title, content=Content, createdAt=" + createdAt
-        		+ ", authorId=" + authorId + ", techCategory=Java]";
+        		+ ", userId=" +"userid" + ", techCategory=Java]";
         assertEquals(expectedString, post.toString());
     }
 }

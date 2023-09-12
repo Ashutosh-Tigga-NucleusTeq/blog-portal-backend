@@ -7,8 +7,8 @@ import com.example.demo.enumResource.PostStatus;
 import com.example.demo.enumResource.TechnologyCategory;
 import com.example.demo.model.User;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Represents a Data Transfer Object (DTO) for a blog post.
@@ -23,24 +23,24 @@ public class PostOutDto {
     /**
      * The minimum size of the title.
      */
-    private final int minTitle = 5;
+    private static final int MINTITLE = 5;
 
     /**
      * The title of the blog post.
      */
-    @Size(min = minTitle,
+    @Size(min = MINTITLE,
             message = "Post title size must be between 5-100 characters")
     private String title;
 
     /**
      * The minimum size of the blog content.
      */
-    private final int minContent = 25;
+    private static final int MINCONTENT = 25;
 
     /**
      * The content of the blog post.
      */
-    @Size(min = minContent,
+    @Size(min = MINCONTENT,
             message = "Post content size must be between 25 - 500 characters")
     private String content;
 
@@ -56,9 +56,9 @@ public class PostOutDto {
     private TechnologyCategory techCategory;
 
     /**
-     * The author's ID associated with the blog post.
+     * The author's  associated with the blog post.
      */
-    private User authorId;
+    private User user;
 
     /**
      * Status of the post.
@@ -74,16 +74,16 @@ public class PostOutDto {
      * @param status       The status of the post.
      * @param createdAt    The creation date of the blog post.
      * @param techCategory The technology category of the blog post.
-     * @param authorId     The author's ID associated with the blog post.
+     * @param user     The author's ID associated with the blog post.
      */
     public PostOutDto(String id, String title, String content, PostStatus status,
-                      TechnologyCategory techCategory, Date createdAt, User authorId) {
+                      TechnologyCategory techCategory, Date createdAt, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
+        this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
         this.techCategory = techCategory;
-        this.authorId = authorId;
+        this.user = user;
         this.status = status;
     }
 
@@ -172,7 +172,7 @@ public class PostOutDto {
      * @return The creation date.
      */
     public Date getCreatedAt() {
-        return createdAt;
+    	 return new Date(createdAt.getTime());
     }
 
     /**
@@ -181,7 +181,7 @@ public class PostOutDto {
      * @param createdAt The creation date to set.
      */
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    	 this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
     }
 
     /**
@@ -207,17 +207,17 @@ public class PostOutDto {
      *
      * @return The author's ID.
      */
-    public User getAuthorId() {
-        return authorId;
+    public User getUser() {
+        return user;
     }
 
     /**
      * Sets the author's ID associated with the blog post.
      *
-     * @param authorId The author's ID to set.
+     * @param author The author's ID to set.
      */
-    public void setAuthorId(User authorId) {
-        this.authorId = authorId;
+    public void setUser(User author) {
+        this.user = user;
     }
 
     /**
@@ -227,7 +227,7 @@ public class PostOutDto {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, content, createdAt, id, status, techCategory, title);
+        return Objects.hash(user, content, createdAt, id, status, techCategory, title);
     }
 
     /**
@@ -245,7 +245,7 @@ public class PostOutDto {
             return false;
         }
         PostOutDto other = (PostOutDto) obj;
-        return Objects.equals(authorId, other.authorId) && Objects.equals(content, other.content)
+        return Objects.equals(user, other.user) && Objects.equals(content, other.content)
                 && Objects.equals(createdAt, other.createdAt) && Objects.equals(id, other.id)
                 && status == other.status && techCategory == other.techCategory
                 && Objects.equals(title, other.title);
@@ -259,6 +259,6 @@ public class PostOutDto {
     @Override
     public String toString() {
         return "PostOutDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
-                + ", techCategory=" + techCategory + ", authorId=" + authorId + ", status=" + status + "]";
+                + ", techCategory=" + techCategory + ", author=" + user + ", status=" + status + "]";
     }
 }

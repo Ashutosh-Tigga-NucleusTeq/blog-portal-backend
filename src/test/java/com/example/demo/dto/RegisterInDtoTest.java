@@ -51,7 +51,7 @@ public class RegisterInDtoTest {
         registerInDto.setFirstName("firstname1");
         registerInDto.setLastName("lastname1");
         registerInDto.setGender(Gender.Female);
-        registerInDto.setEmail("test@nucleusteq1.com");
+        registerInDto.setEmail("test1@nucleusteq.com");
         registerInDto.setPassword("password1");
         registerInDto.setDesignation(Designation.Intern);
         registerInDto.setContactNumber("1234675894");
@@ -100,13 +100,13 @@ public class RegisterInDtoTest {
      */
     @Test
     public void testToString() {
-        String expectedToString = "RegisterInDto [ firstName=" + registerInDto.getFirstName() + ","
-        		+ " lastName = " + registerInDto.getLastName() + ","
-        		+ " gender = " + registerInDto.getGender() + ","
-        		+ " email = " + registerInDto.getEmail() + ","
-        		+ " password = " + registerInDto.getPassword() + ","
-        		+ " designation = " + registerInDto.getDesignation() + ","
-        		+ " contactNumber = " + registerInDto.getContactNumber() + "]";
+        String expectedToString = "RegisterInDto [firstName=" + registerInDto.getFirstName() + ","
+        		+ " lastName=" + registerInDto.getLastName() + ","
+        		+ " gender=" + registerInDto.getGender() + ","
+        		+ " email=" + registerInDto.getEmail() + ","
+        		+ " password=" + registerInDto.getPassword() + ","
+        		+ " designation=" + registerInDto.getDesignation() + ","
+        		+ " contactNumber=" + registerInDto.getContactNumber() + "]";
         assertEquals(expectedToString, registerInDto.toString());
     }
 }
