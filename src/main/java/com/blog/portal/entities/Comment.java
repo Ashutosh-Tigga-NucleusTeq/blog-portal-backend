@@ -3,6 +3,7 @@ package com.blog.portal.entities;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -41,12 +42,33 @@ public class Comment {
 	private String postId;
 
 	/**
+	 * user's data.
+	 */
+	@DBRef
+	private User user;
+	/**
 	 * Constructs a new Comment object with the given content.
 	 *
 	 * @param content The content of the comment.
 	 */
 	public Comment(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * Gets the data of user.
+	 * @return user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * Sets the data of the user.
+	 * @param user
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**

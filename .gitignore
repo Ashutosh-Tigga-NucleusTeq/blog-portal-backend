@@ -8,6 +8,7 @@ target/
 Blog_Portal-cs-formatter.xml
 Blog_Portal-cs-cleanup.xml
 *.txt
+*.log
 *.checkstyle
 
 *.log

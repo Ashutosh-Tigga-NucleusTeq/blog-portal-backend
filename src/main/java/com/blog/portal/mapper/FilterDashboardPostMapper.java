@@ -34,6 +34,7 @@ public class FilterDashboardPostMapper {
   	res.setLikedBy(post.getLikedBy());
   	res.setDisLikedBy(post.getDislikedBy());
   	res.setComments(post.getComments());
+  	res.setReportedBy(post.getReportedBy());
   	return res;
   }
 }

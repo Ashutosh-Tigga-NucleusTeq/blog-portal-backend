@@ -2,16 +2,20 @@ package com.blog.portal.requestPayload;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+
 import com.blog.portal.enumResource.React;
 
 public class LikeOrDislikePostInDto {
 	/**
 	 * post id of the user.
 	 */
+	@NotBlank
 	private String postId;
 	/**
 	 * user id of the user.
 	 */
+	@NotBlank
 	private String userId;
 	/**
 	 * like or dislike type.

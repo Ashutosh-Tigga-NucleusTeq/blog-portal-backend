@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.portal.requestPayload.CommentPostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
 
@@ -38,11 +39,11 @@ public class CommentPostController {
    * @return ResponseEntity<CommentOutDto>
    */
   @PostMapping("/do/comment")
-  public ResponseEntity<CommentPostOutDto> doComment(@RequestBody CommentPostInDto inDto) {
+  public ResponseEntity<ApiResponse> doComment(@RequestBody CommentPostInDto inDto) {
   	logger.info(" do comment controller called with inDto [" + inDto + "]");
-  	CommentPostOutDto response = this.commentPostService.doCommentOnPost(inDto);
+  	ApiResponse response = this.commentPostService.doCommentOnPost(inDto);
   	logger.info("Fetcing response from doCommentOnPost service [" + response + "]");
-  	return new ResponseEntity<CommentPostOutDto>(response, HttpStatus.CREATED);
+  	return new ResponseEntity<ApiResponse>(response, HttpStatus.CREATED);
   }
 
   /**
@@ -50,7 +51,7 @@ public class CommentPostController {
    * @param postId
    * @return ResponseEntity
    */
-  @GetMapping("/get_comment/{postId}")
+  @GetMapping("/get/comment/{postId}")
   public ResponseEntity<List<CommentPostOutDto>> getComments(@PathVariable String postId) {
   	logger.info("get comment controoler called with path variable [" + postId + "]");
   	List<CommentPostOutDto> response = commentPostService.getComments(postId);

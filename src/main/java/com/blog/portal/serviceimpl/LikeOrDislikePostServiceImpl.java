@@ -60,15 +60,13 @@ public class LikeOrDislikePostServiceImpl implements LikeOrDislikePostService {
 	        if (userReaction.getType() != inDto.getType() && inDto.getType() == React.Like) {
 	        	System.out.println("dislike to like");
 	        	userReaction.setType(React.Like);
-	        	post.getLikedBy().remove(inDto.getUserId());
-	        	post.getDislikedBy().add(inDto.getUserId());
+	        	post.getLikedBy().add(inDto.getUserId());
+	        	post.getDislikedBy().remove(inDto.getUserId());
 	        } else if (userReaction.getType() != inDto.getType() && inDto.getType() == React.Dislike) {
 	        	System.out.println("like to dislike");
 	        	userReaction.setType(React.Dislike);
-	        	post.getDislikedBy().remove(inDto.getUserId());
-	        	post.getLikedBy().add(inDto.getUserId());
-	        } else {
-	        	userReaction.setType(React.RemoveReaction);
+	        	post.getDislikedBy().add(inDto.getUserId());
+	        	post.getLikedBy().remove(inDto.getUserId());
 	        }
 	    }
 	    // Save the updated post and user reaction.

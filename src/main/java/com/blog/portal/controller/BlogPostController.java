@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.blog.portal.messagePayloads.ApiResponse;
 import com.blog.portal.requestPayload.FilterDashboardPostInDto;
 import com.blog.portal.requestPayload.FilterMyBlogPostInDto;
 import com.blog.portal.requestPayload.PostBlogInDto;
+import com.blog.portal.requestPayload.ApproveOrRejectPostInDto;
+import com.blog.portal.requestPayload.UnReviewedPostInDto;
 import com.blog.portal.requestPayload.UpdatePostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.FilterDashboardOutDto;
 import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 import com.blog.portal.responsePayload.GetPostOutDto;
+import com.blog.portal.responsePayload.UnReviewedPostOutDto;
 import com.blog.portal.services.BlogPostService;
 
 
@@ -82,7 +84,7 @@ public class BlogPostController {
      * @return ResponseEntity
      */
     @PutMapping("/update/blog")
-    public ResponseEntity<ApiResponse> editBlog(@RequestBody UpdatePostInDto inDto) {
+    public ResponseEntity<ApiResponse> editBlog(@Valid @RequestBody UpdatePostInDto inDto) {
     	logger.info("Update blog controller called with request payload [" + inDto.getId() + "]");
     	ApiResponse response = this.blogPostService.editBlog(inDto);
     	logger.info(" Fetching response from editblog service [" + response + "]");
@@ -92,36 +94,52 @@ public class BlogPostController {
     /**
      * Gets all post by status status , title , technology category.
      * @param inDto
-     * @param pageNumber
-     * @param pageSize
      * @return ResponseEntity
      */
-    @GetMapping("/filter/dashboard/post")
-    public ResponseEntity<List<FilterDashboardOutDto>> getAllPost(@RequestBody FilterDashboardPostInDto inDto,
-    		@RequestParam(value = "pageNumber", defaultValue =  "1", required = false) Integer  pageNumber,
-    		@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
-    		) {
+    @PostMapping("/filter/dashboard/post")
+    public ResponseEntity<List<FilterDashboardOutDto>> getAllPost(@Valid @RequestBody FilterDashboardPostInDto inDto) {
     	logger.info("api called filter_all_post controller with request payload [" + inDto + " ]");
-    	List<FilterDashboardOutDto> response = this.blogPostService.getAllPostFilter(inDto, pageNumber, pageSize);
+    	List<FilterDashboardOutDto> response = this.blogPostService.getAllPostFilter(inDto);
     	logger.info("Fetched reponse from getAllPost  service [ " + response + " ]");
-    	return new ResponseEntity<>(response, HttpStatus.OK);
+    	return new ResponseEntity<List<FilterDashboardOutDto>>(response, HttpStatus.OK);
     }
 
     /**
      * Gets all post of particular user by status  , title , technology category.
      * @param inDto
-     * @param pageNumber
-     * @param pageSize
      * @return ResponseEntity
      */
-    @GetMapping("/filter/myblog/post")
-    public ResponseEntity<List<FilterMyBlogPostOutDto>> getUserPosts(@RequestBody FilterMyBlogPostInDto inDto,
-    		@RequestParam(value = "pageNumber", defaultValue =  "1", required = false) Integer  pageNumber,
-    		@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
+    @PostMapping("/filter/myblog/post")
+    public ResponseEntity<List<FilterMyBlogPostOutDto>> getUserPosts(@Valid @RequestBody FilterMyBlogPostInDto inDto
     		) {
     	logger.info("filter_user_post controller calling with request payload [" + inDto + " ]");
-    	List<FilterMyBlogPostOutDto> response = this.blogPostService.getAllPostOfUserFilter(inDto, pageNumber, pageSize);
+    	List<FilterMyBlogPostOutDto> response = this.blogPostService.getAllPostOfUserFilter(inDto);
     	logger.info("Fetching response from getUserPost service [" + response + "]");
-    	return new ResponseEntity<>(response, HttpStatus.OK);
+    	return new ResponseEntity<List<FilterMyBlogPostOutDto>>(response, HttpStatus.OK);
+    }
+    /**
+     * API to Gets all the post which status is Not Approved yet by admin side.
+     * @param inDto Contains the status for filtering.
+     * @return response Collection of post which is not approved yet.
+     */
+    @PostMapping("/get/unreviewed/post")
+    public ResponseEntity<List<UnReviewedPostOutDto>> getUnreviewedPost(@Valid @RequestBody UnReviewedPostInDto inDto) {
+    	logger.info("Get Unreviewed Post controller invoking with request data [" + inDto + "]");
+    	List<UnReviewedPostOutDto> response = blogPostService.getUnreviewedPosts(inDto);
+    	logger.info("Fetching response from getUnreviewedPosts method of service [" + "]");
+    	return new ResponseEntity<List<UnReviewedPostOutDto>>(response, HttpStatus.OK);
+    }
+
+    /**
+     * API to approve the blog posted by employee from admin.
+     * Based on postId it will search for blog and approved.
+     * @param inDto
+     * @return response message if approved then successfull Or else failed.
+     */
+    @PutMapping("/response/unreviewed/post")
+    public ResponseEntity<ApiResponse> approvePost(@Valid @RequestBody ApproveOrRejectPostInDto inDto) {
+    	logger.info(" Response on unreviewed post invoked with request payload [" + inDto + "]");
+    	ApiResponse response = blogPostService.responseUnreviewedPost(inDto);
+    	return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
     }
 }

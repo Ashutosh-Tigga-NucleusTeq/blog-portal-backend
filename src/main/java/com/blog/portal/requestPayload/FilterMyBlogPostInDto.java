@@ -2,6 +2,8 @@ package com.blog.portal.requestPayload;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+
 import com.blog.portal.enumResource.PostStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
 
@@ -10,6 +12,7 @@ public class FilterMyBlogPostInDto {
 	/**
 	 * id of the user.
 	 */
+	@NotBlank
 	private String userId;
 	/**
 	 * Title of the Post.

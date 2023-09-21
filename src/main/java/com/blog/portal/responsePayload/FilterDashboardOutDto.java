@@ -81,8 +81,25 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
    * Sets of usre who disliked post.
    */
   private Set<String> disLikedBy = new HashSet<String>();
-
   /**
+   * Sets of user who reported Post.
+   */
+  private Set<String> reportedBy = new HashSet<String>();
+  /**
+   * Gets the Collection of user who reported post.
+   * @return reportedBy
+   */
+  public Set<String> getReportedBy() {
+		return reportedBy;
+	}
+  /**
+   * Sets the Collection of user who reportedPost.
+   * @param reportedBy
+   */
+	public void setReportedBy(Set<String> reportedBy) {
+		this.reportedBy = reportedBy;
+	}
+	/**
    * Gets the list of comments.
    * @return comments
    */

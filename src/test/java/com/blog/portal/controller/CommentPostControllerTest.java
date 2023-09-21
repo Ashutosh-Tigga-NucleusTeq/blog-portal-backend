@@ -2,6 +2,7 @@ package com.blog.portal.controller;
 
 import com.blog.portal.controller.CommentPostController;
 import com.blog.portal.requestPayload.CommentPostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
 
@@ -41,7 +42,7 @@ public class CommentPostControllerTest {
         CommentPostInDto inDto = new CommentPostInDto("Sample Comment", "user123", "post123");
 
         // Create a sample output DTO
-        CommentPostOutDto outDto = new CommentPostOutDto("comment123", "Sample Comment", "user123", "post123");
+        ApiResponse outDto = new CommentPostOutDto("comment123", "Sample Comment", "user123", "post123");
 
         // Mock the service method to return the sample output DTO when called with the input DTO
         Mockito.when(commentPostService.doCommentOnPost(inDto)).thenReturn(outDto);

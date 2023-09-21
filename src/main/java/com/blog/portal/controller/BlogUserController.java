@@ -10,14 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.blog.portal.messagePayloads.ApiResponse;
+
 import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDto;
 import com.blog.portal.services.BlogUserService;
 
 /**
@@ -75,6 +79,16 @@ public class BlogUserController {
 
     }
 
+    /**
+     * Api endpoint for searching user by id.
+     * @param userId
+     * @return response
+     */
+    @GetMapping("/get/user/{userid}")
+    public final ResponseEntity<UserOutDto> getUserById(@PathVariable("userid") String userId) {
+    	UserOutDto response = blogUserService.getUserById(userId);
+    	return new ResponseEntity<UserOutDto>(response, HttpStatus.OK);
+    }
     /**
      * Encodes the password using Base64 encoding.
      *

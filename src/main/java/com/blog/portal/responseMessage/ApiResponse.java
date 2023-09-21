@@ -1,4 +1,4 @@
-package com.blog.portal.messagePayloads;
+package com.blog.portal.responseMessage;
 
 import java.util.Objects;
 

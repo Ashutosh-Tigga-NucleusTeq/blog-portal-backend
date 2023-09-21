@@ -2,6 +2,8 @@ package com.blog.portal.requestPayload;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Represents a Data Transfer Object (DTO) for creating a comment on a post.
  * This class contains information about the comment content, user ID, and post ID.
@@ -10,16 +12,19 @@ public class CommentPostInDto {
     /**
      * The content of the comment.
      */
+		@NotBlank
     private String content;
 
     /**
      * The ID of the user who is making the comment.
      */
+		@NotBlank
     private String userId;
 
     /**
      * The ID of the post on which the comment is being made.
      */
+		@NotBlank
     private String postId;
 
     /**

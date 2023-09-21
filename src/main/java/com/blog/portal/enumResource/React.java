@@ -15,10 +15,6 @@ public enum React {
 	 * It represent negative Reaction of User.
 	 */
 	Dislike,
-	/**
-	 * No reacted yet.
-	 */
-	RemoveReaction;
 
 
 }

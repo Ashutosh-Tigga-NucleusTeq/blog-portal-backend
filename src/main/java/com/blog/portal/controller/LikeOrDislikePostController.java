@@ -1,5 +1,7 @@
 package com.blog.portal.controller;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class LikeOrDislikePostController {
    * @return ResponseEntity.
    */
   @PostMapping("/like/dislike/post")
-  public ResponseEntity<LikeOrDislikePostOutDto> reactOnPost(@RequestBody LikeOrDislikePostInDto inDto) {
+  public ResponseEntity<LikeOrDislikePostOutDto> reactOnPost(@Valid @RequestBody LikeOrDislikePostInDto inDto) {
   	logger.info(" like post controller with requestdto [" + inDto + "]");
   	LikeOrDislikePostOutDto response = this.likeAndDislikeService.doReactOnPost(inDto);
   	logger.info(" Fetching response from doReactOnPost service [" + response + "]");

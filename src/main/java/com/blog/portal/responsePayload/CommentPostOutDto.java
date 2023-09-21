@@ -1,6 +1,9 @@
 package com.blog.portal.responsePayload;
 
+import java.util.Date;
 import java.util.Objects;
+
+import com.blog.portal.entities.User;
 
 public class CommentPostOutDto {
 
@@ -13,9 +16,46 @@ public class CommentPostOutDto {
 	 */
 	private String content;
 	/**
+	 * User's data.
+	 */
+	private User user;
+	/**
 	 * id of the user.
 	 */
 	private String userId;
+	/**
+	 * Date and Time of Comment.
+	 */
+	private Date commentedAt;
+	/**
+	 * Gets date and time of comment.
+	 * @return commentedAt
+	 */
+	public Date getCommentedAt() {
+		return commentedAt;
+	}
+	/**
+	 * Sets Date and Time of comment.
+	 * @param commentedAt
+	 */
+	public void setCommentedAt(Date commentedAt) {
+		this.commentedAt = commentedAt;
+	}
+	/**
+	 * Gets the data of the user.
+	 * @return user
+	 */
+	public User getUser() {
+		return user;
+	}
+	/**
+	 * Sets the data of the user.
+	 * @param user
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	/**
 	 * id of the post.
 	 */

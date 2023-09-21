@@ -63,6 +63,24 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
      * List of comment.
      */
     private List<Comment> comments;
+    /**
+     * Sets of user who reported Post.
+     */
+    private Set<String> reportedBy = new HashSet<String>();
+    /**
+     * Gets the Collection of user who reported post.
+     * @return reportedBy
+     */
+    public Set<String> getReportedBy() {
+  		return reportedBy;
+  	}
+    /**
+     * Sets the Collection of user who reportedPost.
+     * @param reportedBy
+     */
+  	public void setReportedBy(Set<String> reportedBy) {
+  		this.reportedBy = reportedBy;
+  	}
 
     /**
      * Gets the list of comments.
@@ -134,6 +152,7 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
     public String getContent() {
 			return content;
 		}
+
 
     /**
      * Sets the content of the post.
@@ -237,13 +256,25 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
      */
     @Override
     public int compareTo(FilterMyBlogPostOutDto other) {
-        // First, compare by edited date (descending order)
-        int editedComparison = other.getEditedAt().compareTo(this.editedAt);
-        if (editedComparison != 0) {
-            return editedComparison;
+        // Check for null values
+        if (this.editedAt == null && other.editedAt == null) {
+            // If both editedAt values are null, compare by createdAt (descending order)
+            return other.createdAt.compareTo(this.createdAt);
+        } else if (this.editedAt == null) {
+            // If this.editedAt is null but other.editedAt is not, consider this as "less" (descending order)
+            return 1;
+        } else if (other.editedAt == null) {
+            // If this.editedAt is not null but other.editedAt is null, consider this as "greater" (descending order)
+            return -1;
+        } else {
+            // Compare by edited date (descending order)
+            int editedComparison = other.editedAt.compareTo(this.editedAt);
+            if (editedComparison != 0) {
+                return editedComparison;
+            }
+            // If edited dates are the same, compare by created date (descending order)
+            return other.createdAt.compareTo(this.createdAt);
         }
-        // If edited dates are the same, compare by created date (descending order)
-        return other.getCreatedAt().compareTo(this.createdAt);
     }
     /**
      * Overrides the hashCode method to calculate the hash code based on specific fields.

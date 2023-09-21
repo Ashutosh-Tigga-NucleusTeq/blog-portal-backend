@@ -19,4 +19,9 @@ public interface LikeOrDislikePostRepo extends MongoRepository<LikeOrDislike, St
 	 * @return LikeOrDislike
 	 */
 	LikeOrDislike findByUserIdAndPostId(String userId, String postId);
+	/**
+	 * This is for deleting all post like and dislike reaction by post id.
+	 * @param postId
+	 */
+	void deleteByPostId(String postId);
 }

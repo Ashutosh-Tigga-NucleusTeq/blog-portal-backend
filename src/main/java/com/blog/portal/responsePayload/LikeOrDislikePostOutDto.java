@@ -21,6 +21,7 @@ public class LikeOrDislikePostOutDto {
 	 * like or dislike type.
 	 */
 	private React type;
+
 	/**
 	 * Gets id of the post.
 	 * @return postId.

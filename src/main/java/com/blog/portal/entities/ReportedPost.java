@@ -3,9 +3,8 @@ package com.blog.portal.entities;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.blog.portal.enumResource.ReportAction;
 
 /**
  * This Entity is for handling the reported Post.
@@ -36,9 +35,10 @@ public class ReportedPost {
     private String reportReason;
 
     /**
-     * Action taken by an admin on the Reported Post.
+     * Reference of Reported Post.
      */
-    private ReportAction adminAction;
+    @DBRef
+    private Post post;
 
     /**
      * Default constructor for the {@code ReportedPost} class.
@@ -54,15 +54,13 @@ public class ReportedPost {
      * @param postId       The id of the post being reported.
      * @param userId       The id of the User who reported the post.
      * @param reportReason The message containing the reason for reporting the post.
-     * @param adminAction  The action taken by an admin on the Reported Post.
      */
-    public ReportedPost(String id, String postId, String userId, String reportReason, ReportAction adminAction) {
+    public ReportedPost(String id, String postId, String userId, String reportReason) {
         super();
         this.id = id;
         this.postId = postId;
         this.userId = userId;
         this.reportReason = reportReason;
-        this.adminAction = adminAction;
     }
 
     /**
@@ -91,8 +89,23 @@ public class ReportedPost {
     public String getPostId() {
         return postId;
     }
+    /**
+     * Gets reference of ReportedPost.
+     * @return reportedPost
+     */
+    public Post getPost() {
+			return post;
+		}
 
     /**
+     * Sets the reference of RepotedPost.
+     * @param reportedPost
+     */
+		public void setPost(Post reportedPost) {
+			this.post = reportedPost;
+		}
+
+		/**
      * Sets the id of the post being reported.
      *
      * @param postId The id of the post to set.
@@ -138,32 +151,14 @@ public class ReportedPost {
     }
 
     /**
-     * Gets the action taken by an admin on the Reported Post.
-     *
-     * @return The admin action.
-     */
-    public ReportAction getAdminAction() {
-        return adminAction;
-    }
-
-    /**
-     * Sets the action taken by an admin on the Reported Post.
-     *
-     * @param adminAction The admin action to set.
-     */
-    public void setAdminAction(ReportAction adminAction) {
-        this.adminAction = adminAction;
-    }
-
-    /**
      * Generates a hash code for this {@code ReportedPost} object based on its id, postId, userId,
-     * reportReason, and adminAction.
+     * reportReason.
      *
      * @return The generated hash code.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(adminAction, id, postId, reportReason, userId);
+        return Objects.hash(id, postId, reportReason, userId);
     }
 
     /**
@@ -186,7 +181,7 @@ public class ReportedPost {
             return false;
         }
         ReportedPost other = (ReportedPost) obj;
-        return adminAction == other.adminAction && Objects.equals(id, other.id) && Objects.equals(postId, other.postId)
+        return  Objects.equals(id, other.id) && Objects.equals(postId, other.postId)
                 && Objects.equals(reportReason, other.reportReason) && Objects.equals(userId, other.userId);
     }
 
@@ -198,6 +193,6 @@ public class ReportedPost {
     @Override
     public String toString() {
         return "ReportedPost [id=" + id + ", postId=" + postId + ", userId=" + userId
-                + ", reportReason=" + reportReason + ", adminAction=" + adminAction + "]";
+                + ", reportReason=" + reportReason + "]";
     }
 }

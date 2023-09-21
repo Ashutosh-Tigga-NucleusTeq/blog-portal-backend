@@ -20,4 +20,9 @@ public interface CommentPostRepo extends MongoRepository<Comment, String> {
 	 * @return List<Comment>
 	 */
 	List<Comment> findByPostId(String postId);
+	/**
+	 * This is for perform delete comment by post id.
+	 * @param postId
+	 */
+	void deleteByPostId(String postId);
 }

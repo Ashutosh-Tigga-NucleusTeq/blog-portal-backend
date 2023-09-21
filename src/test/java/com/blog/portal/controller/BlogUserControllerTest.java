@@ -8,9 +8,10 @@ import com.blog.portal.enumResource.Gender;
 import com.blog.portal.enumResource.Role;
 import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
 import com.blog.portal.services.BlogUserService;
-import com.blog.portal.messagePayloads.ApiResponse;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -35,13 +35,13 @@ import com.blog.portal.mapper.FilterDashboardPostMapper;
 import com.blog.portal.mapper.FilterMyBlogPostMapper;
 import com.blog.portal.mapper.GetPostMapper;
 import com.blog.portal.mapper.PostBlogMapper;
-import com.blog.portal.messagePayloads.ApiResponse;
 import com.blog.portal.repository.BlogPostRepo;
 import com.blog.portal.repository.BlogUserRepo;
 import com.blog.portal.requestPayload.FilterDashboardPostInDto;
 import com.blog.portal.requestPayload.FilterMyBlogPostInDto;
 import com.blog.portal.requestPayload.PostBlogInDto;
 import com.blog.portal.requestPayload.UpdatePostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.FilterDashboardOutDto;
 import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 import com.blog.portal.responsePayload.GetPostOutDto;
@@ -82,7 +82,7 @@ public class BlogPostServiceImplTest {
         user.setId("userid");
         user.setContactNumber("1234567890");
         user.setGender(Gender.Male);
-        user.
+        
 
         when(blogUserRepo.findById(postBlogInDto.getUserId())).thenReturn(Optional.of(user));
         when(blogPostRepo.save(any(Post.class))).thenReturn(new Post());

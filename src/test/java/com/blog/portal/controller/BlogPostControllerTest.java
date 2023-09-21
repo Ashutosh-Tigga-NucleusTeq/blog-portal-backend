@@ -1,11 +1,11 @@
 package com.blog.portal.controller;
 
 import com.blog.portal.enumResource.TechnologyCategory;
-import com.blog.portal.messagePayloads.ApiResponse;
 import com.blog.portal.requestPayload.FilterDashboardPostInDto;
 import com.blog.portal.requestPayload.FilterMyBlogPostInDto;
 import com.blog.portal.requestPayload.PostBlogInDto;
 import com.blog.portal.requestPayload.UpdatePostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.FilterDashboardOutDto;
 import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 import com.blog.portal.responsePayload.GetPostOutDto;

@@ -28,6 +28,7 @@ public class CommentPostMapper {
 		outDto.setPostId(comment.getPostId());
 		outDto.setId(comment.getId());
 		outDto.setUserId(comment.getUserId());
+		outDto.setUser(comment.getUser());
 		return outDto;
 	}
 }

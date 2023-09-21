@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.blog.portal.requestPayload.CommentPostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 
 @Service
@@ -15,7 +16,7 @@ public interface CommentPostService {
 	 * @param inDto
 	 * @return CommentOutDto
 	 */
-	CommentPostOutDto doCommentOnPost(CommentPostInDto inDto);
+	ApiResponse doCommentOnPost(CommentPostInDto inDto);
 
 	/**
 	 * This method gets all comment of particular post.

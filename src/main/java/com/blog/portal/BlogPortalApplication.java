@@ -2,6 +2,7 @@ package com.blog.portal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 /**
  * The class is the main entry point for the Blog Portal Spring Boot
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Ashutosh Tigga.
  */
 @SpringBootApplication
+@EnableSpringDataWebSupport
 public class BlogPortalApplication {
 
     /**

@@ -73,6 +73,26 @@ public class Post {
     private User user;
 
     /**
+     * Post reported by.
+     */
+    private Set<String> reportedBy = new HashSet<String>();
+
+    /**
+     * Gets ReportedBy set of user who reported post..
+     * @return reportedBy
+     */
+    public Set<String> getReportedBy() {
+			return reportedBy;
+		}
+    /**
+     * Sets reported by set of user who reported post.
+     * @param reportedBy
+     */
+		public void setReportedBy(Set<String> reportedBy) {
+			this.reportedBy = reportedBy;
+		}
+
+		/**
      *Represent user who liked post.
      */
     private Set<String> likedBy = new HashSet<String>();
