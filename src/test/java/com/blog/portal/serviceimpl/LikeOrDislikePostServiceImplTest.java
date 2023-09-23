@@ -5,12 +5,12 @@ import com.blog.portal.entities.Post;
 import com.blog.portal.enumResource.React;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.LikeOrDislikePostMapper;
-import com.blog.portal.repository.LikeOrDislikePostRepo;
+import com.blog.portal.repository.ReactionRepo;
 import com.blog.portal.repository.BlogPostRepo;
-import com.blog.portal.requestPayload.LikeOrDislikePostInDto;
-import com.blog.portal.responsePayload.LikeOrDislikePostOutDto;
-import com.blog.portal.services.LikeOrDislikePostService;
-import com.blog.portal.serviceimpl.LikeOrDislikePostServiceImpl;
+import com.blog.portal.requestPayload.ReactionInDto;
+import com.blog.portal.responsePayload.ReactionOutDto;
+import com.blog.portal.services.ReactionService;
+import com.blog.portal.serviceimpl.ReactionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,13 +28,13 @@ import static org.mockito.Mockito.*;
 public class LikeOrDislikePostServiceImplTest {
 
     @Mock
-    private LikeOrDislikePostRepo likeOrDislikePostRepo;
+    private ReactionRepo reactionRepo;
 
     @Mock
     private BlogPostRepo blogPostRepo;
 
     @InjectMocks
-    private LikeOrDislikePostService likeOrDislikePostService = new LikeOrDislikePostServiceImpl();
+    private ReactionService reactionService = new ReactionServiceImpl();
 
     @BeforeEach
     public void setUp() {
@@ -44,7 +44,7 @@ public class LikeOrDislikePostServiceImplTest {
     @Test
     public void testDoReactOnPost() {
         // Create a sample input DTO
-        LikeOrDislikePostInDto inputDto = new LikeOrDislikePostInDto();
+        ReactionInDto inputDto = new ReactionInDto();
         inputDto.setPostId("postId");
         inputDto.setUserId("userId");
         inputDto.setType(React.Like);
@@ -60,20 +60,20 @@ public class LikeOrDislikePostServiceImplTest {
 
         // Mock the behavior of the repositories
         when(blogPostRepo.findById("postId")).thenReturn(Optional.of(post));
-        when(likeOrDislikePostRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
+        when(reactionRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
 
         // Mock the behavior of the mapper
         when(LikeOrDislikePostMapper.entityToOutDto(any(LikeOrDislike.class))).thenReturn(
-                new LikeOrDislikePostOutDto("id", "user123", "postId", React.Like)); // Replace with actual values
+                new ReactionOutDto("id", "user123", "postId", React.Like)); // Replace with actual values
 
         // Call the service method
-        LikeOrDislikePostOutDto response = likeOrDislikePostService.doReactOnPost(inputDto);
+        ReactionOutDto response = reactionService.doReactOnPost(inputDto);
 
         // Verify that the service method was called
         verify(blogPostRepo, times(1)).findById(post.getId());
-        verify(likeOrDislikePostRepo, times(1)).findByUserIdAndPostId("userId", "postId");
+        verify(reactionRepo, times(1)).findByUserIdAndPostId("userId", "postId");
         verify(blogPostRepo, times(1)).save(post);
-        verify(likeOrDislikePostRepo, times(1)).save(userReaction);
+        verify(reactionRepo, times(1)).save(userReaction);
 
         // Verify the response
         assertNotNull(response);

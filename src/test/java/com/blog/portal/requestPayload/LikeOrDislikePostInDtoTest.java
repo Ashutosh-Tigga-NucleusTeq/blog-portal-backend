@@ -14,12 +14,12 @@ public class LikeOrDislikePostInDtoTest {
 		 */
     @Test
     public void testGetterSetterAndMethods() {
-        LikeOrDislikePostInDto likeOrDislikePostInDto1 = new LikeOrDislikePostInDto();
+        ReactionInDto likeOrDislikePostInDto1 = new ReactionInDto();
         likeOrDislikePostInDto1.setPostId("123");
         likeOrDislikePostInDto1.setUserId("user123");
         likeOrDislikePostInDto1.setType(React.Like);
 
-        LikeOrDislikePostInDto likeOrDislikePostInDto2 = new LikeOrDislikePostInDto();
+        ReactionInDto likeOrDislikePostInDto2 = new ReactionInDto();
         likeOrDislikePostInDto2.setPostId("123");
         likeOrDislikePostInDto2.setUserId("user123");
         likeOrDislikePostInDto2.setType(React.Like);

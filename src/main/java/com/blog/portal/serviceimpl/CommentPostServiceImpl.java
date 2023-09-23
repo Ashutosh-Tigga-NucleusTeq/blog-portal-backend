@@ -24,36 +24,31 @@ public class CommentPostServiceImpl implements CommentPostService {
 
 	/**
 	 * This method create the comment on post.
+	 *
 	 * @param inDto
 	 * @return outDto
 	 */
 	@Override
 	public CommentPostOutDto doCommentOnPost(CommentPostInDto inDto) {
-		// TODO Auto-generated method stub
-		System.err.println(" doCommentOnPost service implementation " + inDto);
 		Comment comment = CommentPostMapper.inDtoToEntity(inDto);
-		Comment savedComment = this.commentPostRepo.save(comment);
-		System.err.println(" doCommentOnPost service implementation " + savedComment);
+		Comment savedComment = commentPostRepo.save(comment);
 		CommentPostOutDto outDto = CommentPostMapper.entityToOutDto(savedComment);
 		return outDto;
 	}
 
 	/**
 	 * This method to get all comments by postId.
+	 *
 	 * @param postId
 	 * @return listOutDto
 	 */
 	@Override
 	public List<CommentPostOutDto> getComments(String postId) {
-		// TODO Auto-generated method stub
-		System.err.println(" getcomment service implementation " + postId);
-		List<Comment> listOfComment = this.commentPostRepo.findByPostId(postId);
-		System.err.println(" doCommentOnPost service implementation " + listOfComment);
+		List<Comment> listOfComment = commentPostRepo.findByPostId(postId);
 		List<CommentPostOutDto> listOutDto = new ArrayList<CommentPostOutDto>();
 		for (Comment comment : listOfComment) {
 			listOutDto.add(CommentPostMapper.entityToOutDto(comment));
 		}
-		System.out.println("response dto " + listOfComment);
 		return listOutDto;
 	}
 

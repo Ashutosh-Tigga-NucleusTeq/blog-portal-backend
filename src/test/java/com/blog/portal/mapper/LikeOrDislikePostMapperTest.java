@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import com.blog.portal.entities.LikeOrDislike;
 import com.blog.portal.enumResource.React;
-import com.blog.portal.requestPayload.LikeOrDislikePostInDto;
-import com.blog.portal.responsePayload.LikeOrDislikePostOutDto;
+import com.blog.portal.requestPayload.ReactionInDto;
+import com.blog.portal.responsePayload.ReactionOutDto;
 
 public class LikeOrDislikePostMapperTest {
 		/**
@@ -14,7 +14,7 @@ public class LikeOrDislikePostMapperTest {
     @Test
     public void testInDtoToEntity() {
         // Arrange
-        LikeOrDislikePostInDto inDto = new LikeOrDislikePostInDto();
+        ReactionInDto inDto = new ReactionInDto();
         inDto.setPostId("post123");
         inDto.setUserId("user123");
         inDto.setType(React.Like);
@@ -40,7 +40,7 @@ public class LikeOrDislikePostMapperTest {
         likeOrDislike.setType(React.Like);
 
         // Act
-        LikeOrDislikePostOutDto outDto = LikeOrDislikePostMapper.entityToOutDto(likeOrDislike);
+        ReactionOutDto outDto = LikeOrDislikePostMapper.entityToOutDto(likeOrDislike);
 
         // Assert
         assertEquals("like123", outDto.getId());

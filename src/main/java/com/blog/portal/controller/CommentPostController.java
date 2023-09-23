@@ -18,43 +18,51 @@ import com.blog.portal.requestPayload.CommentPostInDto;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
 
+/**
+ * The {@code UserController} class handles HTTP requests related to Comment operations done by user.
+ *
+ * @author Ashutosh Tigga.
+ */
 @RestController
-@RequestMapping("/blog/portal")
+@RequestMapping("/comment")
 public class CommentPostController {
 
 	/**
-	 * Instance  CommentService.
+	 * Instance of CommentService.
 	 */
 	@Autowired
 	private CommentPostService commentPostService;
-  /**
-   * An instance of the Logger class for logging.
-   */
-  private Logger logger = LogManager.getLogger(CommentPostController.class);
+	/**
+	 * An instance of the Logger class for logging.
+	 */
+	private Logger logger = LogManager.getLogger(CommentPostController.class);
 
-  /**
-   * This  controller fetch the request from client side when user click on like or dislike button.
-   * @param inDto
-   * @return ResponseEntity<CommentOutDto>
-   */
-  @PostMapping("/do/comment")
-  public ResponseEntity<CommentPostOutDto> doComment(@RequestBody CommentPostInDto inDto) {
-  	logger.info(" do comment controller called with inDto [" + inDto + "]");
-  	CommentPostOutDto response = this.commentPostService.doCommentOnPost(inDto);
-  	logger.info("Fetcing response from doCommentOnPost service [" + response + "]");
-  	return new ResponseEntity<CommentPostOutDto>(response, HttpStatus.CREATED);
-  }
+	/**
+	 * This controller fetch the request from client side when user click on like or
+	 * dislike button.
+	 *
+	 * @param inDto
+	 * @return ResponseEntity<CommentOutDto>
+	 */
+	@PostMapping("/doComment")
+	public ResponseEntity<CommentPostOutDto> doComment(@RequestBody CommentPostInDto inDto) {
+		logger.info(" do comment controller called with inDto [" + inDto + "]");
+		CommentPostOutDto response = commentPostService.doCommentOnPost(inDto);
+		logger.info("Fetcing response from doCommentOnPost service [" + response + "]");
+		return new ResponseEntity<CommentPostOutDto>(response, HttpStatus.CREATED);
+	}
 
-  /**
-   * This controller to gets Comment.
-   * @param postId
-   * @return ResponseEntity
-   */
-  @GetMapping("/get_comment/{postId}")
-  public ResponseEntity<List<CommentPostOutDto>> getComments(@PathVariable String postId) {
-  	logger.info("get comment controoler called with path variable [" + postId + "]");
-  	List<CommentPostOutDto> response = commentPostService.getComments(postId);
-  	logger.info("Fetching response from get comment service [" + response + "]");
-  	return new ResponseEntity<List<CommentPostOutDto>>(response, HttpStatus.OK);
-  }
+	/**
+	 * This controller to gets Comment.
+	 *
+	 * @param postId
+	 * @return ResponseEntity
+	 */
+	@GetMapping("/getComment/{postId}")
+	public ResponseEntity<List<CommentPostOutDto>> getComments(@PathVariable String postId) {
+		logger.info("get comment controoler called with path variable [" + postId + "]");
+		List<CommentPostOutDto> response = commentPostService.getComments(postId);
+		logger.info("Fetching response from get comment service [" + response + "]");
+		return new ResponseEntity<List<CommentPostOutDto>>(response, HttpStatus.OK);
+	}
 }

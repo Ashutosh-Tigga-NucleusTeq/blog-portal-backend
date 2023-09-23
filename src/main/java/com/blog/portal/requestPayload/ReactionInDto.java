@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.blog.portal.enumResource.React;
 
-public class LikeOrDislikePostInDto {
+public class ReactionInDto {
 	/**
 	 * post id of the user.
 	 */
@@ -94,7 +94,7 @@ public class LikeOrDislikePostInDto {
       if (obj == null || getClass() != obj.getClass()) {
           return false;
       }
-      LikeOrDislikePostInDto other = (LikeOrDislikePostInDto) obj;
+      ReactionInDto other = (ReactionInDto) obj;
       return Objects.equals(postId, other.postId) && type == other.type && Objects.equals(userId, other.userId);
   }
 

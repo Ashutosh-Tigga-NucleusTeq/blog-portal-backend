@@ -10,7 +10,7 @@ import com.blog.portal.entities.LikeOrDislike;
  * This interface contains the query from which we can perform operation on collection.
  */
 @Repository
-public interface LikeOrDislikePostRepo extends MongoRepository<LikeOrDislike, String> {
+public interface ReactionRepo extends MongoRepository<LikeOrDislike, String> {
 
 	/**
 	 * Query for fetching react of user.

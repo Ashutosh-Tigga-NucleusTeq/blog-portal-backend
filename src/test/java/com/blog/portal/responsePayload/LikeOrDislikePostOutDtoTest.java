@@ -14,7 +14,7 @@ public class LikeOrDislikePostOutDtoTest {
 		 */
     @Test
     public void testDefaultConstructor() {
-        LikeOrDislikePostOutDto dto = new LikeOrDislikePostOutDto();
+        ReactionOutDto dto = new ReactionOutDto();
         assertNull(dto.getId());
         assertNull(dto.getPostId());
         assertNull(dto.getUserId());
@@ -25,7 +25,7 @@ public class LikeOrDislikePostOutDtoTest {
      */
     @Test
     public void testParameterizedConstructor() {
-        LikeOrDislikePostOutDto dto = new LikeOrDislikePostOutDto("1", "post1", "user1", React.Like);
+        ReactionOutDto dto = new ReactionOutDto("1", "post1", "user1", React.Like);
         assertEquals("1", dto.getId());
         assertEquals("post1", dto.getPostId());
         assertEquals("user1", dto.getUserId());
@@ -37,7 +37,7 @@ public class LikeOrDislikePostOutDtoTest {
      */
     @Test
     public void testSetterAndGetterMethods() {
-        LikeOrDislikePostOutDto dto = new LikeOrDislikePostOutDto();
+        ReactionOutDto dto = new ReactionOutDto();
         dto.setId("2");
         dto.setPostId("post2");
         dto.setUserId("user2");
@@ -54,9 +54,9 @@ public class LikeOrDislikePostOutDtoTest {
      */
     @Test
     public void testHashCodeAndEquals() {
-        LikeOrDislikePostOutDto dto1 = new LikeOrDislikePostOutDto("1", "post1", "user1", React.Like);
-        LikeOrDislikePostOutDto dto2 = new LikeOrDislikePostOutDto("1", "post1", "user1", React.Like);
-        LikeOrDislikePostOutDto dto3 = new LikeOrDislikePostOutDto("2", "post2", "user2", React.Dislike);
+        ReactionOutDto dto1 = new ReactionOutDto("1", "post1", "user1", React.Like);
+        ReactionOutDto dto2 = new ReactionOutDto("1", "post1", "user1", React.Like);
+        ReactionOutDto dto3 = new ReactionOutDto("2", "post2", "user2", React.Dislike);
 
         assertEquals(dto1.hashCode(), dto2.hashCode());
         assertNotEquals(dto1.hashCode(), dto3.hashCode());
@@ -69,7 +69,7 @@ public class LikeOrDislikePostOutDtoTest {
      */
     @Test
     public void testToString() {
-        LikeOrDislikePostOutDto dto = new LikeOrDislikePostOutDto("1", "post1", "user1", React.Like);
+        ReactionOutDto dto = new ReactionOutDto("1", "post1", "user1", React.Like);
         String expectedString = "LikeOrDislikePostOutDto [id=1, postId=post1, userId=user1, type=Like]";
         assertEquals(expectedString, dto.toString());
     }

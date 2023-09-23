@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.blog.portal.enumResource.React;
 
-public class LikeOrDislikePostOutDto {
+public class ReactionOutDto {
 	/**
 	 * id of the This Object.
 	 */
@@ -80,7 +80,7 @@ public class LikeOrDislikePostOutDto {
   /**
    * Default constructor for creating an empty LikeOrDislikePostOutDto object.
    */
-  public LikeOrDislikePostOutDto() {
+  public ReactionOutDto() {
       super();
   }
 
@@ -92,7 +92,7 @@ public class LikeOrDislikePostOutDto {
    * @param userId The identifier of the user who performed the like or dislike action.
    * @param type   The type of reaction (like or dislike).
    */
-  public LikeOrDislikePostOutDto(String id, String postId, String userId, React type) {
+  public ReactionOutDto(String id, String postId, String userId, React type) {
       super();
       this.id = id;
       this.postId = postId;
@@ -130,7 +130,7 @@ public class LikeOrDislikePostOutDto {
       if (getClass() != obj.getClass()) {
           return false;
       }
-      LikeOrDislikePostOutDto other = (LikeOrDislikePostOutDto) obj;
+      ReactionOutDto other = (ReactionOutDto) obj;
       return Objects.equals(id, other.id) && Objects.equals(postId, other.postId) && type == other.type
               && Objects.equals(userId, other.userId);
   }

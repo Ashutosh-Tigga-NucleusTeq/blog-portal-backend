@@ -25,103 +25,103 @@ import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 import com.blog.portal.responsePayload.GetPostOutDto;
 import com.blog.portal.services.BlogPostService;
 
-
 /**
  * The {@code PostController} class handles HTTP requests related to blog posts.
  * It provides API endpoints for creating and managing blog posts.
-
- * @author [Author Name]
+ *
+ * @author [Ashutosh Tigga]
  */
 @RestController
-@RequestMapping("/blog/portal")
+@RequestMapping("/blog")
 public class BlogPostController {
 
-    /**
-     * An instance of the {@link BlogPostService} class for handling blog post operations.
-     */
-    @Autowired
-    private BlogPostService blogPostService;
+	/**
+	 * An instance of the {@link BlogPostService} class for handling blog post
+	 * operations.
+	 */
+	@Autowired
+	private BlogPostService blogPostService;
 
+	/**
+	 * An instance of the Logger class for logging.
+	 */
+	private Logger logger = LogManager.getLogger(BlogPostController.class);
 
-    /**
-     * An instance of the Logger class for logging.
-     */
-    private Logger logger = LogManager.getLogger(BlogPostController.class);
+	/**
+	 * API endpoint to create a new blog post.
+	 *
+	 * @param postBlogInDto The input DTO containing blog post data.
+	 * @return ResponseEntity containing the created blog post DTO.
+	 */
+	@PostMapping("/postBlog")
+	public ResponseEntity<ApiResponse> postBlog(@Valid @RequestBody PostBlogInDto postBlogInDto) {
+		logger.info("Sending postInBlogDto to createPostBlog method in service: " + postBlogInDto);
+		ApiResponse response = blogPostService.createPost(postBlogInDto);
+		logger.info("Fetching response from createPostBlog: " + response);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
 
-    /**
-     * API endpoint to create a new blog post.
-     *
-     * @param postBlogInDto The input DTO containing blog post data.
-     * @return ResponseEntity containing the created blog post DTO.
-     */
-    @PostMapping("/post/blog")
-    public ResponseEntity<ApiResponse> postBlog(@Valid @RequestBody PostBlogInDto postBlogInDto) {
-        logger.info("Sending postInBlogDto to createPostBlog method in service: " + postBlogInDto);
-        ApiResponse response = this.blogPostService.createPost(postBlogInDto);
-        logger.info("Fetching response from createPostBlog: " + response);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
+	/**
+	 * Api to get Post by it's id.
+	 *
+	 * @param postId
+	 * @return ResponseEntity
+	 */
+	@GetMapping("/getBlogPost/{post_id}")
+	public ResponseEntity<GetPostOutDto> getPost(@PathVariable("post_id") String postId) {
+		logger.info("get post by it's id controller called with  request payload [" + postId + "]");
+		GetPostOutDto response = blogPostService.getPost(postId);
+		logger.info("Fetching response from getpost service [" + response + "]");
+		return new ResponseEntity<GetPostOutDto>(response, HttpStatus.OK);
+	}
 
-    /**
-     * Api to get Post by it's id.
-     * @param postId
-     * @return ResponseEntity
-     */
-    @GetMapping("/get/post/{post_id}")
-    public ResponseEntity<GetPostOutDto> getPost(@PathVariable("post_id") String postId) {
-    	logger.info("get post by it's id controller called with  request payload [" + postId + "]");
-    	GetPostOutDto response = this.blogPostService.getPost(postId);
-    	logger.info("Fetching response from getpost service [" + response + "]");
-    	return new ResponseEntity<GetPostOutDto>(response, HttpStatus.OK);
-    }
+	/**
+	 * Api to update already existing blog post.
+	 *
+	 * @param inDto
+	 * @return ResponseEntity
+	 */
+	@PutMapping("/updateBlogPost")
+	public ResponseEntity<ApiResponse> editBlog(@RequestBody UpdatePostInDto inDto) {
+		logger.info("Update blog controller called with request payload [" + inDto.getId() + "]");
+		ApiResponse response = blogPostService.editBlog(inDto);
+		logger.info(" Fetching response from editblog service [" + response + "]");
+		return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
+	}
 
-    /**
-     * Api to update already existing blog post.
-     *
-     * @param inDto
-     * @return ResponseEntity
-     */
-    @PutMapping("/update/blog")
-    public ResponseEntity<ApiResponse> editBlog(@RequestBody UpdatePostInDto inDto) {
-    	logger.info("Update blog controller called with request payload [" + inDto.getId() + "]");
-    	ApiResponse response = this.blogPostService.editBlog(inDto);
-    	logger.info(" Fetching response from editblog service [" + response + "]");
-    	return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
-    }
+	/**
+	 * Gets all post by status status , title , technology category.
+	 *
+	 * @param inDto
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return ResponseEntity
+	 */
+	@GetMapping("/filterDashboardBlogPosts")
+	public ResponseEntity<List<FilterDashboardOutDto>> getAllPost(@RequestBody FilterDashboardPostInDto inDto,
+			@RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize) {
+		logger.info("api called filter_all_post controller with request payload [" + inDto + " ]");
+		List<FilterDashboardOutDto> response = blogPostService.getAllPostFilter(inDto, pageNumber, pageSize);
+		logger.info("Fetched reponse from getAllPost  service [ " + response + " ]");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
-    /**
-     * Gets all post by status status , title , technology category.
-     * @param inDto
-     * @param pageNumber
-     * @param pageSize
-     * @return ResponseEntity
-     */
-    @GetMapping("/filter/dashboard/post")
-    public ResponseEntity<List<FilterDashboardOutDto>> getAllPost(@RequestBody FilterDashboardPostInDto inDto,
-    		@RequestParam(value = "pageNumber", defaultValue =  "1", required = false) Integer  pageNumber,
-    		@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
-    		) {
-    	logger.info("api called filter_all_post controller with request payload [" + inDto + " ]");
-    	List<FilterDashboardOutDto> response = this.blogPostService.getAllPostFilter(inDto, pageNumber, pageSize);
-    	logger.info("Fetched reponse from getAllPost  service [ " + response + " ]");
-    	return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    /**
-     * Gets all post of particular user by status  , title , technology category.
-     * @param inDto
-     * @param pageNumber
-     * @param pageSize
-     * @return ResponseEntity
-     */
-    @GetMapping("/filter/myblog/post")
-    public ResponseEntity<List<FilterMyBlogPostOutDto>> getUserPosts(@RequestBody FilterMyBlogPostInDto inDto,
-    		@RequestParam(value = "pageNumber", defaultValue =  "1", required = false) Integer  pageNumber,
-    		@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
-    		) {
-    	logger.info("filter_user_post controller calling with request payload [" + inDto + " ]");
-    	List<FilterMyBlogPostOutDto> response = this.blogPostService.getAllPostOfUserFilter(inDto, pageNumber, pageSize);
-    	logger.info("Fetching response from getUserPost service [" + response + "]");
-    	return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+	/**
+	 * Gets all post of particular user by status , title , technology category.
+	 *
+	 * @param inDto
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return ResponseEntity
+	 */
+	@GetMapping("/filterMyBlogPosts")
+	public ResponseEntity<List<FilterMyBlogPostOutDto>> getUserPosts(@RequestBody FilterMyBlogPostInDto inDto,
+			@RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize) {
+		logger.info("filter_user_post controller calling with request payload [" + inDto + " ]");
+		List<FilterMyBlogPostOutDto> response = blogPostService.getAllPostOfUserFilter(inDto, pageNumber, pageSize);
+		logger.info("Fetching response from getUserPost service [" + response + "]");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }

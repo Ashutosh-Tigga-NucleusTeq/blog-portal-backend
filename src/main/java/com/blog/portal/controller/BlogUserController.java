@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +21,12 @@ import com.blog.portal.services.BlogUserService;
 
 /**
  * The {@code UserController} class handles HTTP requests related to user
- * management.
+ * operations.
  *
  * @author Ashutosh Tigga.
  */
 @RestController
-@RequestMapping("/blog/portal")
+@RequestMapping("/user")
 public class BlogUserController {
     /**
      * An instance of the {@link BlogUserService} class for handling user operations.
@@ -49,8 +48,7 @@ public class BlogUserController {
      */
     @PostMapping("/register")
     public final ResponseEntity<ApiResponse> registerUser(
-            @Valid @RequestBody final RegisterUserInDto user)
-            throws MethodArgumentNotValidException {
+            @Valid @RequestBody final RegisterUserInDto user) {
         logger.info("Registering user controller invoked with request payload [" + user + "]");
         user.setPassword(encoder(user.getPassword()));
         ApiResponse response = blogUserService.createUser(user);
@@ -69,7 +67,7 @@ public class BlogUserController {
         logger.info("Authenticating user controller invoked with request payload [" + inDto + "]");
         inDto.setPassword(encoder(inDto.getPassword()));
         AuthenticateUserOutDto response =
-                this.blogUserService.authenticateUser(inDto);
+                blogUserService.authenticateUser(inDto);
         logger.info("Fetching response from authenticateUser service [" + response + "]");
         return new ResponseEntity<>(response, HttpStatus.OK);
 
