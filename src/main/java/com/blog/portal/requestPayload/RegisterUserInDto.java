@@ -53,14 +53,8 @@ public class RegisterUserInDto {
     private String email;
 
     /**
-     * Password size defined here.
-     */
-    private static final int PASSWORDSIZE = 6;
-
-    /**
      * The password of the user.
      */
-    @Size(min = PASSWORDSIZE, message = "Password must be at least 6 characters")
     private String password;
 
     /**

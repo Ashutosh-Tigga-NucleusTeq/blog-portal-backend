@@ -4,16 +4,12 @@ import java.util.Objects;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import lombok.Getter;
 
 /**
  * Represents a Data Transfer Object (DTO) used for authenticating a user.
  * It contains the user's email address and password for authentication.
  * @author [ Ashutosh Tigga]
  */
-@Getter
 public class AuthenticateUserInDto {
     /**
      * The email address of the user.
@@ -25,15 +21,8 @@ public class AuthenticateUserInDto {
     private String email;
 
     /**
-     * The minimum password size required.
-     */
-    private static final int PASSWORDSIZE = 6; // Specifies the minimum password size as a constant
-
-    /**
      * The password of the user.
      */
-    @Size(min = PASSWORDSIZE,
-            message = "Password must be at least 6 characters") // Validates that the password is at least 6 characters long
     private String password;
 
     /**
@@ -45,7 +34,7 @@ public class AuthenticateUserInDto {
     public AuthenticateUserInDto(
             @Email(message = "Invalid email format") @NotBlank(message = "Email is required")
             @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@nucleusteq\\.com$", message = "Email is not Valid") String email,
-            @Size(min = PASSWORDSIZE, message = "Password must be at least 6 characters") String password) {
+            String password) {
         super();
         this.email = email;
         this.password = password;

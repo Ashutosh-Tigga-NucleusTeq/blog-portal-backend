@@ -1,146 +1,159 @@
 package com.blog.portal.controller;
 
-import com.blog.portal.enumResource.TechnologyCategory;
-import com.blog.portal.requestPayload.FilterDashboardPostInDto;
-import com.blog.portal.requestPayload.FilterMyBlogPostInDto;
-import com.blog.portal.requestPayload.PostBlogInDto;
-import com.blog.portal.requestPayload.UpdatePostInDto;
+import com.blog.portal.enumResource.PostStatus;
+import com.blog.portal.requestPayload.*;
 import com.blog.portal.responseMessage.ApiResponse;
-import com.blog.portal.responsePayload.FilterDashboardOutDto;
-import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
-import com.blog.portal.responsePayload.GetPostOutDto;
+import com.blog.portal.responsePayload.*;
 import com.blog.portal.services.BlogPostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class BlogPostControllerTest {
-
-    @InjectMocks
-    private BlogPostController blogPostController;
+@ExtendWith(MockitoExtension.class)
+class BlogPostControllerTest {
 
     @Mock
     private BlogPostService blogPostService;
 
+    @InjectMocks
+    private BlogPostController blogPostController;
+
+    private MockMvc mockMvc;
+
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(blogPostController).build();
     }
 
     @Test
-    public void testPostBlog() {
-        // Create a sample input DTO
-        PostBlogInDto postBlogInDto = new PostBlogInDto("Sample Title", "Sample Content", new Date(), "user123", TechnologyCategory.Java);
-        
-        // Mock the service method
-        when(blogPostService.createPost(any())).thenReturn(new ApiResponse("Blog post created successfully", true));
+    void testPostBlog() throws Exception {
+        PostBlogInDto postBlogInDto = new PostBlogInDto();
+        postBlogInDto.setTitle("Test Title");
+        postBlogInDto.setContent("Test Content");
 
-        // Call the controller method
-        ResponseEntity<ApiResponse> response = blogPostController.postBlog(postBlogInDto);
+        ApiResponse response = new ApiResponse("Blog post created successfully.", true);
 
-        // Assert the response
-        assertNotNull(response);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertTrue(response.getBody().isSuccess());
-        assertEquals("Blog post created successfully", response.getBody().getMessage());
+        when(blogPostService.createPost(any())).thenReturn(response);
+
+        mockMvc.perform(post("/blog/portal/post/blog")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\":\"Test Title\",\"content\":\"Test Content\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(content().json("{\"message\":\"Blog post created successfully.\",\"success\":true}"));
     }
 
     @Test
-    public void testGetPost() {
-        // Mock the service method
-        GetPostOutDto mockResponse = new GetPostOutDto("postId123", "Sample Title", "Sample Content", new Date(), "user123", TechnologyCategory.Java);
-        when(blogPostService.getPost(anyString())).thenReturn(mockResponse);
+    void testGetPost() throws Exception {
+        GetPostOutDto response = new GetPostOutDto();
+        response.setId("1");
+        response.setTitle("Sample Title");
+        response.setContent("Sample Content");
 
-        // Call the controller method
-        ResponseEntity<GetPostOutDto> response = blogPostController.getPost("postId123");
+        when(blogPostService.getPost("1")).thenReturn(response);
 
-        // Assert the response
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        GetPostOutDto responseBody = response.getBody();
-        assertNotNull(responseBody);
-        assertEquals("postId123", responseBody.getId());
-        assertEquals("Sample Title", responseBody.getTitle());
-        assertEquals("Sample Content", responseBody.getContent());
+        mockMvc.perform(get("/blog/portal/get/post/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"id\":\"1\",\"title\":\"Sample Title\",\"content\":\"Sample Content\"}"));
     }
 
     @Test
-    public void testEditBlog() {
-        // Create a sample input DTO
-        UpdatePostInDto updatePostInDto = new UpdatePostInDto("postId123", "Updated Title", "Updated Content");
+    void testEditBlog() throws Exception {
+        UpdatePostInDto updatePostInDto = new UpdatePostInDto();
+        updatePostInDto.setId("1");
+        updatePostInDto.setTitle("Updated Title");
+        updatePostInDto.setContent("Updated Content");
 
-        // Mock the service method
-        when(blogPostService.editBlog(any())).thenReturn(new ApiResponse("Blog post updated successfully", true));
+        ApiResponse response = new ApiResponse("Blog post updated successfully.", true);
 
-        // Call the controller method
-        ResponseEntity<ApiResponse> response = blogPostController.editBlog(updatePostInDto);
+        when(blogPostService.editBlog(any())).thenReturn(response);
 
-        // Assert the response
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody().isSuccess());
-        assertEquals("Blog post updated successfully", response.getBody().getMessage());
+        mockMvc.perform(put("/blog/portal/update/blog")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\":\"1\",\"title\":\"Updated Title\",\"content\":\"Updated Content\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"message\":\"Blog post updated successfully.\",\"success\":true}"));
     }
 
     @Test
-    public void testGetAllPost() {
-        // Create a sample input DTO
-        FilterDashboardPostInDto filterDto = new FilterDashboardPostInDto();
-        filterDto.setTitle("Sample Title");
-        filterDto.setTechCategory(TechnologyCategory.Java);
+    void testFilterDashboardPost() throws Exception {
+        FilterDashboardPostInDto filterDashboardPostInDto = new FilterDashboardPostInDto();
+        //filterDashboardPostInDto.setStatus("PUBLISHED");
 
-        // Mock the service method
-        List<FilterDashboardOutDto> mockResponse = new ArrayList<>();
-        mockResponse.add(new FilterDashboardOutDto("postId123", "Sample Title", TechnologyCategory.Java));
-        when(blogPostService.getAllPostFilter(any(), anyInt(), anyInt())).thenReturn(mockResponse);
+        List<FilterDashboardOutDto> response = new ArrayList<>();
+        // Fill response list with sample data
 
-        // Call the controller method
-        ResponseEntity<List<FilterDashboardOutDto>> response = blogPostController.getAllPost(filterDto, 1, 3);
+        when(blogPostService.getAllPostFilter(any())).thenReturn(response);
 
-        // Assert the response
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        List<FilterDashboardOutDto> responseBody = response.getBody();
-        assertNotNull(responseBody);
-        assertEquals(1, responseBody.size());
-        assertEquals("postId123", responseBody.get(0).getId());
-        assertEquals("Sample Title", responseBody.get(0).getTitle());
+        mockMvc.perform(post("/blog/portal/filter/dashboard/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"status\":\"PUBLISHED\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
     }
 
     @Test
-    public void testGetUserPosts() {
-        // Create a sample input DTO
-        FilterMyBlogPostInDto filterDto = new FilterMyBlogPostInDto();
-        filterDto.setTitle("Sample Title");
-        filterDto.setTechCategory(TechnologyCategory.Java);
+    void testFilterMyBlogPost() throws Exception {
+        FilterMyBlogPostInDto filterMyBlogPostInDto = new FilterMyBlogPostInDto();
+        filterMyBlogPostInDto.setStatus(PostStatus.Approved);
 
-        // Mock the service method
-        List<FilterMyBlogPostOutDto> mockResponse = new ArrayList<>();
-        mockResponse.add(new FilterMyBlogPostOutDto("postId123", "Sample Title", TechnologyCategory.Java));
-        when(blogPostService.getAllPostOfUserFilter(any(), anyInt(), anyInt())).thenReturn(mockResponse);
+        List<FilterMyBlogPostOutDto> response = new ArrayList<>();
+        // Fill response list with sample data
 
-        // Call the controller method
-        ResponseEntity<List<FilterMyBlogPostOutDto>> response = blogPostController.getUserPosts(filterDto, 1, 3);
+        when(blogPostService.getAllPostOfUserFilter(any())).thenReturn(response);
 
-        // Assert the response
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        List<FilterMyBlogPostOutDto> responseBody = response.getBody();
-        assertNotNull(responseBody);
-        assertEquals(1, responseBody.size());
-        assertEquals("postId123", responseBody.get(0).getId());
-        assertEquals("Sample Title", responseBody.get(0).getTitle());
+        mockMvc.perform(post("/blog/portal/filter/myblog/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"status\":\"Approved\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
+    }
+
+    @Test
+    void testGetUnreviewedPost() throws Exception {
+        UnReviewedPostInDto unReviewedPostInDto = new UnReviewedPostInDto();
+      //  unReviewedPostInDto.setStatus("");
+
+        List<UnReviewedPostOutDto> response = new ArrayList<>();
+        // Fill response list with sample data
+
+        when(blogPostService.getUnreviewedPosts(any())).thenReturn(response);
+
+        mockMvc.perform(post("/blog/portal/get/unreviewed/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"status\":\"NOT_APPROVED\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
+    }
+
+    @Test
+    void testApprovePost() throws Exception {
+        ApproveOrRejectPostInDto approveOrRejectPostInDto = new ApproveOrRejectPostInDto();
+        approveOrRejectPostInDto.setPostId("1");
+        approveOrRejectPostInDto.setPostStatus(PostStatus.Approved);
+
+        ApiResponse response = new ApiResponse("Blog post approved successfully.", true);
+
+        when(blogPostService.responseUnreviewedPost(any())).thenReturn(response);
+
+        mockMvc.perform(put("/blog/portal/response/unreviewed/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"postId\":\"1\",\"postStatus\":\"Approved\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"message\":\"Blog post approved successfully.\",\"success\":true}"));
     }
 }

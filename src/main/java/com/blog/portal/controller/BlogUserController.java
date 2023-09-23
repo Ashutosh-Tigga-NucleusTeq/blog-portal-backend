@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,10 +52,8 @@ public class BlogUserController {
      */
     @PostMapping("/register")
     public final ResponseEntity<ApiResponse> registerUser(
-            @Valid @RequestBody final RegisterUserInDto user)
-            throws MethodArgumentNotValidException {
+            @Valid @RequestBody final RegisterUserInDto user) {
         logger.info("Registering user controller invoked with request payload [" + user + "]");
-        user.setPassword(encoder(user.getPassword()));
         ApiResponse response = blogUserService.createUser(user);
         logger.info("Fetching response from  createUser service [" + response + "]");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
