@@ -1,10 +1,7 @@
 package com.blog.portal.serviceimpl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.blog.portal.controller.BlogUserController;
 import com.blog.portal.entities.Post;
 import com.blog.portal.entities.User;
 import com.blog.portal.enumResource.PostStatus;
@@ -28,6 +25,7 @@ import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 import com.blog.portal.responsePayload.GetPostOutDto;
 import com.blog.portal.responsePayload.UnReviewedPostOutDto;
 import com.blog.portal.services.BlogPostService;
+import com.blog.portal.util.ResponseMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -56,30 +54,25 @@ public class BlogPostServiceImpl implements BlogPostService {
 	private BlogUserRepo blogUserRepo;
 
 	/**
-	 * An instance of the Logger class for logging.
-	 */
-	private Logger logger = LogManager.getLogger(BlogUserController.class);
-
-	/**
 	 * Method that deal with creation of post API in database.
 	 */
 	@Override
 	public ApiResponse createPost(@Valid PostBlogInDto postBlogInDto) {
 
 		ApiResponse reponse = null;
-		User user = this.blogUserRepo.findById(postBlogInDto.getUserId())
+		User user = blogUserRepo.findById(postBlogInDto.getUserId())
 				.orElseThrow(() -> new ResourceNotFoundException(null, null, null));
 		user.setPassword(null);
 		Post post = PostBlogMapper.inDtoToPost(postBlogInDto);
 		post.setUser(user);
 		post.setUserId(user.getId());
 		try {
-			this.blogPostRepo.save(post);
-			reponse = new ApiResponse("Blog created With pending status and Waiting for Admin Approval", true);
+			blogPostRepo.save(post);
+			reponse = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
 		} catch (RuntimeException ex) {
 			throw new RuntimeException();
 		} catch (Exception e) {
-			reponse = new ApiResponse("Blog post not created ", false);
+			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
 		}
 		return reponse;
 	}
@@ -90,24 +83,22 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 * @param inDto
 	 * @return List<ShowPostDto>
 	 */
-	public List<FilterDashboardOutDto> getAllPostFilter(@Valid FilterDashboardPostInDto inDto)
-			throws IllegalArgumentException {
-		PostStatus status = PostStatus.Approved; // set staus approved for fetching post which is approved by admin
+	public List<FilterDashboardOutDto> getAllPostFilter(@Valid FilterDashboardPostInDto inDto) {
+		PostStatus status = PostStatus.APPROVED; // set status approved for fetching post which is approved by admin
 		List<Post> fetchedPost = new ArrayList<Post>();
 		List<FilterDashboardOutDto> outDtoList = new ArrayList<FilterDashboardOutDto>();
 		if (inDto.getTitle() == null && inDto.getTechCategory() == null) {
 			fetchedPost = blogPostRepo.findByStatus(status);
 		} else if (inDto.getTechCategory() != null && inDto.getTitle() == null) {
 			fetchedPost = blogPostRepo.findByTechCategoryAndStatus(inDto.getTechCategory(), status);
-		} else if (inDto.getTitle() != "" && inDto.getTechCategory() == null) {
+		} else if (inDto.getTitle() != null && inDto.getTechCategory() == null) {
 			fetchedPost = blogPostRepo.findByTitleContainingIgnoreCaseAndStatus(inDto.getTitle(), status);
-		} else if ((inDto.getTitle() != "") && (inDto.getTechCategory() != null)) {
+		} else if (inDto.getTitle() != null && inDto.getTechCategory() != null) {
 			fetchedPost = blogPostRepo.findByTitleContainingIgnoreCaseAndStatusAndTechCategory(
 					inDto.getTitle(), status,
 					inDto.getTechCategory());
 		}
 		for (Post p : fetchedPost) {
-			System.out.println(" page " + p);
 			FilterDashboardOutDto outDto = FilterDashboardPostMapper.postToOutDto(p);
 			outDtoList.add(outDto);
 		}
@@ -123,7 +114,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 */
 	@Override
 	public List<FilterMyBlogPostOutDto> getAllPostOfUserFilter(FilterMyBlogPostInDto inDto) {
-		logger.info("get User posts method called in service implement method with data " + "[" + inDto + "]");
 		List<Post> fetchedPost = new ArrayList<Post>();
 		if (inDto.getTitle() == null && inDto.getTechCategory() == null && inDto.getStatus() == null) {
 			fetchedPost = blogPostRepo.findByUserId(inDto.getUserId());
@@ -164,19 +154,20 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 */
 	@Override
 	public ApiResponse editBlog(UpdatePostInDto inDto) {
-		// TODO Auto-generated method stub
-		ApiResponse response = new ApiResponse("Blog updation failed", false);
-		Post fetchPost = this.blogPostRepo.findById(inDto.getId())
+		ApiResponse response = new ApiResponse();
+		Post fetchPost = blogPostRepo.findById(inDto.getId())
 				.orElseThrow(() -> new ResourceNotFoundException(null, null, null));
 		fetchPost.setContent(inDto.getContent());
 		fetchPost.setTitle(inDto.getTitle());
 		fetchPost.setEditedAt(new Date());
-		fetchPost.setStatus(PostStatus.Pending);
+		fetchPost.setStatus(PostStatus.PENDING);
 		try {
-			this.blogPostRepo.save(fetchPost);
+			blogPostRepo.save(fetchPost);
 			response.setSuccess(true);
-			response.setMessage("Blog updated ");
+			response.setMessage(ResponseMessage.BLOG_UPDATE_SUCCESS);
 		} catch (Exception ex) {
+			response.setMessage(ResponseMessage.BLOG_UPDATE_FAILED);
+			response.setSuccess(false);
 		}
 		return response;
 	}
@@ -189,11 +180,8 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 */
 	@Override
 	public GetPostOutDto getPost(String postId) {
-		// TODO Auto-generated method stub
-		System.out.println(postId);
-		Post post = this.blogPostRepo.findById(postId)
+		Post post = blogPostRepo.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException(postId, postId, postId));
-		System.out.println(" after getting data " + post);
 		GetPostOutDto outDto = GetPostMapper.entityToOutDto(post);
 		return outDto;
 	}
@@ -205,19 +193,21 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 */
 	@Override
 	public List<UnReviewedPostOutDto> getUnreviewedPosts(UnReviewedPostInDto inDto) {
-		// TODO Auto-generated method stub
-		PostStatus status = PostStatus.Pending;
-		String keyword = inDto.getKeyword();
-		System.out.println(" keyword " + keyword);
-		List<Post> fetchedResponse = new ArrayList<Post>();
+		PostStatus status = PostStatus.PENDING;
+		List<Post> fetchedListOfPost = new ArrayList<Post>();
 		List<UnReviewedPostOutDto> responseDto = new ArrayList<UnReviewedPostOutDto>();
-		if (keyword == null) {
-			System.out.println(" keyword is " + inDto.getKeyword());
-			fetchedResponse = blogPostRepo.findByStatus(PostStatus.Pending);
-		} else {
-			fetchedResponse = blogPostRepo.findByTitleContainingIgnoreCaseAndStatus(inDto.getKeyword(), status);
+		if (inDto.getTitle() == null && inDto.getTechnologyCategory() == null) {
+			fetchedListOfPost = blogPostRepo.findByStatus(status);
+		} else if (inDto.getTechnologyCategory() != null && inDto.getTitle() == null) {
+			fetchedListOfPost = blogPostRepo.findByTechCategoryAndStatus(inDto.getTechnologyCategory(), status);
+		} else if (inDto.getTitle() != null && inDto.getTechnologyCategory() == null) {
+			fetchedListOfPost = blogPostRepo.findByTitleContainingIgnoreCaseAndStatus(inDto.getTitle(), status);
+		} else if (inDto.getTitle() != null && inDto.getTechnologyCategory() != null) {
+			fetchedListOfPost = blogPostRepo.findByTitleContainingIgnoreCaseAndStatusAndTechCategory(
+					inDto.getTitle(), status,
+					inDto.getTechnologyCategory());
 		}
-		for (Post post : fetchedResponse) {
+		for (Post post : fetchedListOfPost) {
 			responseDto.add(UnReviewedPostMapper.entityToOutDto(post));
 		}
 		return responseDto;
@@ -237,20 +227,20 @@ public class BlogPostServiceImpl implements BlogPostService {
 		PostStatus status = inDto.getPostStatus();
 		Post fetchedPost = blogPostRepo.findById(inDto.getPostId())
 				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", inDto.getPostId()));
-		if (fetchedPost.getStatus() == PostStatus.Pending) {
-			if (status == PostStatus.Approved) {
-				fetchedPost.setStatus(PostStatus.Approved);
+		if (fetchedPost.getStatus() == PostStatus.PENDING) {
+			if (status == PostStatus.APPROVED) {
+				fetchedPost.setStatus(PostStatus.APPROVED);
 				blogPostRepo.save(fetchedPost);
-				response.setMessage(" Post Approved ");
+				response.setMessage(ResponseMessage.UNREVIEW_BLOG_APPROVED);
 				response.setSuccess(true);
-			} else if (status == PostStatus.Rejected) {
-				fetchedPost.setStatus(PostStatus.Rejected);
+			} else if (status == PostStatus.REJECTED) {
+				fetchedPost.setStatus(PostStatus.REJECTED);
 				blogPostRepo.save(fetchedPost);
-				response.setMessage(" Post Rejected ");
+				response.setMessage(ResponseMessage.UNREVIEW_BLOG_REJECTED);
 				response.setSuccess(true);
 			}
 		} else {
-			response.setMessage("Post status is already either approved or Rejected");
+			response.setMessage(ResponseMessage.UNREVIEW_BLOG_FAILED);
 			response.setSuccess(false);
 		}
 		return response;

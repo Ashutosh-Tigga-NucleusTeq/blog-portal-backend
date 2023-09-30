@@ -1,24 +1,13 @@
 package com.blog.portal;
 
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class BlogPortalApplicationTest {
 
-  @Test
-  void testBlogPortalApplication() {
-    assertTrue(true);
-  }
-	@Test
-	void test() {
-		assertTrue(true);
-	}
-	/*
-	 * @Test public void main() {
-	 * SpringApplication.run(BlogPortalApplication.class); }
-	 */
-
+    @Test
+    void contextLoads() {
+        // This test ensures that the Spring application context loads successfully.
+    }
 }

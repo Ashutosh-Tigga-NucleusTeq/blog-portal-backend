@@ -1,109 +1,108 @@
 package com.blog.portal.controller;
-//CHECKSTYLE:OFF
-import static org.mockito.Mockito.*;
 
-import com.blog.portal.controller.BlogUserController;
 import com.blog.portal.enumResource.Designation;
 import com.blog.portal.enumResource.Gender;
-import com.blog.portal.enumResource.Role;
 import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
 import com.blog.portal.services.BlogUserService;
+import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.ResponseMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@SpringJUnitWebConfig
 public class BlogUserControllerTest {
 
-  @InjectMocks
-  private BlogUserController blogUserController;
+	private MockMvc mockMvc;
 
-  @Mock
-  private BlogUserService blogUserService;
+	@InjectMocks
+	private BlogUserController blogUserController;
 
-  @BeforeEach
-  public void setUp() {
-      MockitoAnnotations.initMocks(this);
-  }
+	@Mock
+	private BlogUserService blogUserService;
 
+	@BeforeEach
+	public void setUp() {
+		mockMvc = MockMvcBuilders.standaloneSetup(blogUserController).build();
+	}
 
-    @Test
-    public void testRegisterUser() throws MethodArgumentNotValidException {
-        // Create a sample RegisterUserInDto
-        RegisterUserInDto userInDto = new RegisterUserInDto(
-                "firstname",
-                "lastname",
-                Gender.Male, // Fill in with a valid gender enum value
-                "test@nucleusteq.com",
-                "password123",
-                Designation.Intern, // Fill in with a valid designation enum value
-                "1234567890" // Replace with a valid contact number
-        );
+	@Test
+	public void testRegisterUser() throws Exception {
+		// Create a sample RegisterUserInDto
+		RegisterUserInDto userDto = new RegisterUserInDto();
+		userDto.setFirstName("firstname");
+		userDto.setLastName("lastname");
+		userDto.setEmail("firstname.lastname@nucleusteq.com");
+		userDto.setContactNumber("9876567839");
+		userDto.setGender(Gender.MALE);
+		userDto.setPassword("password");
+		userDto.setDesignation(Designation.INTERN);
 
-        // Mock the behavior of your service method
-        ApiResponse apiResponse = new ApiResponse("User registered successfully", true);
-        when(blogUserService.createUser(any(RegisterUserInDto.class))).thenReturn(apiResponse);
+		ApiResponse expectedApiResponse = new ApiResponse(ResponseMessage.USER_REGISTER_SUCCESS, true);
 
-        // Invoke the controller method
-        ResponseEntity<ApiResponse> responseEntity = blogUserController.registerUser(userInDto);
+		// Mock the service response
+		when(blogUserService.createUser(any(RegisterUserInDto.class))).thenReturn(expectedApiResponse);
 
-        // Verify that the response status code is HttpStatus.CREATED
-        assert(responseEntity.getStatusCode() == HttpStatus.CREATED);
-        // You can add more assertions based on the expected ApiResponse
-    }
+		// Perform a POST request with JSON content
+		mockMvc
+				.perform(post(RequestMappingConst.USER_URL + "/register").contentType(MediaType.APPLICATION_JSON)
+						.content(asJsonString(userDto)))
+				.andExpect(status().isCreated()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.message").value(expectedApiResponse.getMessage()))
+				.andExpect(jsonPath("$.success").value(expectedApiResponse.isSuccess()));
+	}
 
-    @Test
-    public void testAuthenticateUser() {
-        // Create a sample AuthenticateUserInDto
-        AuthenticateUserInDto authenticateUserInDto = new AuthenticateUserInDto(
-                "user@example.com",
-                "password123"
-        );
+	@Test
+	public void testAuthenticateUser() throws Exception {
+		// Create a sample AuthenticateUserInDto
+		AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+		authDto.setEmail("firstname.lastname@nucleusteq.com");
+		authDto.setPassword("password123");
 
-        // Mock the behavior of your service method
-        AuthenticateUserOutDto authenticateUserOutDto = new AuthenticateUserOutDto(
-                "123", // Replace with a valid user ID
-                "firstname",
-                "lastname",
-                Gender.Male, // Fill in with a valid gender enum value
-                "test@nucleusteq.com",
-                Designation.Intern, // Fill in with a valid designation enum value
-                "1234567890", // Replace with a valid contact number
-                Role.Employee // Fill in with a valid role enum value
-        );
-        when(blogUserService.authenticateUser(any(AuthenticateUserInDto.class))).thenReturn(authenticateUserOutDto);
+		// Define the expected AuthenticateUserOutDto
+		AuthenticateUserOutDto expectedOutDto = new AuthenticateUserOutDto();
+		expectedOutDto.setId("1");
+		expectedOutDto.setFirstName("firstname");
+		expectedOutDto.setLastName("lastname");
+		expectedOutDto.setEmail("firstname.lastname@nucleusteq.com");
+		expectedOutDto.setContactNumber("9876567839");
+		expectedOutDto.setGender(Gender.MALE);
+		expectedOutDto.setDesignation(Designation.INTERN);
 
-        // Invoke the controller method
-        ResponseEntity<AuthenticateUserOutDto> responseEntity = blogUserController.authenticate(authenticateUserInDto);
+		// Mock the service response
+		when(blogUserService.authenticateUser(any(AuthenticateUserInDto.class))).thenReturn(expectedOutDto);
 
-        // Verify that the response status code is HttpStatus.OK
-        assert(responseEntity.getStatusCode() == HttpStatus.OK);
-        // You can add more assertions based on the expected AuthenticateUserOutDto
-    }
+		// Perform a POST request with JSON content
+		mockMvc
+				.perform(post(RequestMappingConst.USER_URL + "/login").contentType(MediaType.APPLICATION_JSON)
+						.content(asJsonString(authDto)))
+				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.id").value(expectedOutDto.getId()))
+				.andExpect(jsonPath("$.firstName").value(expectedOutDto.getFirstName()))
+				.andExpect(jsonPath("$.lastName").value(expectedOutDto.getLastName()))
+				.andExpect(jsonPath("$.email").value(expectedOutDto.getEmail()))
+				.andExpect(jsonPath("$.contactNumber").value(expectedOutDto.getContactNumber()));
+	}
 
-    @Test
-    public void testEncoder() {
-        // Create an instance of the controller
-        BlogUserController controller = new BlogUserController();
-        String password = "password123"; // Replace with the password you want to encode
-        byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
-        String p1= Base64.getEncoder().encodeToString(passwordBytes);
-        String encodedPassword = controller.encoder(password);
-        assert(p1.equals(encodedPassword));
-    }
-    
-    
-    
-    
+	// Helper method to convert an object to JSON string
+	private String asJsonString(Object object) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.writeValueAsString(object);
+	}
 }

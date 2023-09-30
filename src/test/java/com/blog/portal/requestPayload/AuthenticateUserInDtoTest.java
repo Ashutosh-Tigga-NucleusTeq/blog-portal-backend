@@ -27,15 +27,12 @@ public class AuthenticateUserInDtoTest {
      */
     @Test
     public void testGettersAndSetters() {
-        // Test email getter and setter
         authenticateUserInDto.setEmail("test@example.com");
         assertEquals("test@example.com", authenticateUserInDto.getEmail());
 
-        // Test password getter and setter
         authenticateUserInDto.setPassword("password123");
         assertEquals("password123", authenticateUserInDto.getPassword());
 
-        // Test changing email and password
         authenticateUserInDto.setEmail("new@example.com");
         authenticateUserInDto.setPassword("newpassword456");
         assertEquals("new@example.com", authenticateUserInDto.getEmail());

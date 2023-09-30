@@ -15,6 +15,7 @@ public class ReportedPostMapper {
 		ReportedPost reportedPostEntity = new ReportedPost();
 		reportedPostEntity.setPostId(inDto.getPostId());
 		reportedPostEntity.setUserId(inDto.getUserId());
+		reportedPostEntity.setReportReason(inDto.getReportReason());
 		return reportedPostEntity;
 	}
 	/**
@@ -27,7 +28,6 @@ public class ReportedPostMapper {
 		outDto.setId(reportedPost.getId());
 		outDto.setPost(reportedPost.getPost());
 		outDto.setUserId(reportedPost.getUserId());
-		outDto.setReportReason(reportedPost.getReportReason());
 		outDto.setPostId(reportedPost.getPostId());
 		return outDto;
 	}

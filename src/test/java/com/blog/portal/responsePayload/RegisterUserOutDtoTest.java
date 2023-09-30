@@ -33,17 +33,17 @@ public class RegisterUserOutDtoTest {
     @Test
     public void testParameterizedConstructor() {
         RegisterUserOutDto dto = new RegisterUserOutDto("1", "firstname",
-        		"lastname", Gender.Male, "firstname.lastname@nucleusteq.com",
-                Designation.DevopsEngineer, "1234567890", Role.Employee);
+        		"lastname", Gender.MALE, "firstname.lastname@nucleusteq.com",
+                Designation.DEVOPS_ENGINEER, "1234567890", Role.EMPLOYEE);
 
         assertEquals("1", dto.getId());
         assertEquals("firstname", dto.getFirstName());
         assertEquals("lastname", dto.getLastName());
-        assertEquals(Gender.Male, dto.getGender());
+        assertEquals(Gender.MALE, dto.getGender());
         assertEquals("firstname.lastname@nucleusteq.com", dto.getEmail());
-        assertEquals(Designation.DevopsEngineer, dto.getDesignation());
+        assertEquals(Designation.DEVOPS_ENGINEER, dto.getDesignation());
         assertEquals("1234567890", dto.getContactNumber());
-        assertEquals(Role.Employee, dto.getRole());
+        assertEquals(Role.EMPLOYEE, dto.getRole());
     }
     /**
      * Testing Setter and Getter.
@@ -54,20 +54,20 @@ public class RegisterUserOutDtoTest {
         dto.setId("2");
         dto.setFirstName("fname");
         dto.setLastName("lname");
-        dto.setGender(Gender.Female);
+        dto.setGender(Gender.FEMALE);
         dto.setEmail("fname.lname@nucleusteq.com");
-        dto.setDesignation(Designation.Architect);
+        dto.setDesignation(Designation.ARCHITECT);
         dto.setContactNumber("9876543210");
-        dto.setRole(Role.Admin);
+        dto.setRole(Role.ADMIN);
 
         assertEquals("2", dto.getId());
         assertEquals("fname", dto.getFirstName());
         assertEquals("lname", dto.getLastName());
-        assertEquals(Gender.Female, dto.getGender());
+        assertEquals(Gender.FEMALE, dto.getGender());
         assertEquals("fname.lname@nucleusteq.com", dto.getEmail());
-        assertEquals(Designation.Architect, dto.getDesignation());
+        assertEquals(Designation.ARCHITECT, dto.getDesignation());
         assertEquals("9876543210", dto.getContactNumber());
-        assertEquals(Role.Admin, dto.getRole());
+        assertEquals(Role.ADMIN, dto.getRole());
     }
 
     /**
@@ -76,13 +76,13 @@ public class RegisterUserOutDtoTest {
     @Test
     public void testHashCodeAndEquals() {
         RegisterUserOutDto dto1 = new RegisterUserOutDto("1",
-        		"firstname", "lastname", Gender.Male, "firstname.lastname@nucleusteq.com",
-                Designation.DevopsEngineer, "1234567890", Role.Employee);
+        		"firstname", "lastname", Gender.MALE, "firstname.lastname@nucleusteq.com",
+                Designation.DEVOPS_ENGINEER, "1234567890", Role.EMPLOYEE);
         RegisterUserOutDto dto2 = new RegisterUserOutDto("1",
-        		"firstname", "lastname", Gender.Male, "firstname.lastname@nucleusteq.com",
-                Designation.DevopsEngineer, "1234567890", Role.Employee);
-        RegisterUserOutDto dto3 = new RegisterUserOutDto("2", "fname", "lname", Gender.Female, "fname.lname@nucleusteq.com",
-                Designation.Architect, "9876543210", Role.Admin);
+        		"firstname", "lastname", Gender.MALE, "firstname.lastname@nucleusteq.com",
+                Designation.DEVOPS_ENGINEER, "1234567890", Role.EMPLOYEE);
+        RegisterUserOutDto dto3 = new RegisterUserOutDto("2", "fname", "lname", Gender.FEMALE, "fname.lname@nucleusteq.com",
+                Designation.ARCHITECT, "9876543210", Role.ADMIN);
 
         assertEquals(dto1.hashCode(), dto2.hashCode());
         assertNotEquals(dto1.hashCode(), dto3.hashCode());
@@ -97,12 +97,12 @@ public class RegisterUserOutDtoTest {
     @Test
     public void testToString() {
         RegisterUserOutDto dto = new RegisterUserOutDto("1", "firstname",
-        		"lastname", Gender.Male, "firstname.lastname@nucleusteq.com",
-                Designation.DevopsEngineer, "1234567890", Role.Employee);
+        		"lastname", Gender.MALE, "firstname.lastname@nucleusteq.com",
+                Designation.DEVOPS_ENGINEER, "1234567890", Role.EMPLOYEE);
 
-        String expectedString = "RegisterOutDto [id=1, firstName=firstname, lastName=lastname, gender=Male,"
-        		+ " email=firstname.lastname@nucleusteq.com, designation=DevopsEngineer,"
-        		+ " contactNumber=1234567890, role=Employee]";
+        String expectedString = "RegisterOutDto [id=1, firstName=firstname, lastName=lastname, gender=MALE,"
+        		+ " email=firstname.lastname@nucleusteq.com, designation=DEVOPS_ENGINEER,"
+        		+ " contactNumber=1234567890, role=EMPLOYEE]";
         assertEquals(expectedString, dto.toString());
     }
 }

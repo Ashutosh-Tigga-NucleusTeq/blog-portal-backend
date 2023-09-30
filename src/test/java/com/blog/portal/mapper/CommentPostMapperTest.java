@@ -13,16 +13,13 @@ public class CommentPostMapperTest {
 	 */
     @Test
     public void testInDtoToEntity() {
-        // Arrange
         CommentPostInDto inDto = new CommentPostInDto();
         inDto.setContent("This is a test comment");
         inDto.setPostId("1");
         inDto.setUserId("user123");
 
-        // Act
         Comment comment = CommentPostMapper.inDtoToEntity(inDto);
 
-        // Assert
         assertEquals("This is a test comment", comment.getContent());
         assertEquals("1", comment.getPostId());
         assertEquals("user123", comment.getUserId());
@@ -33,17 +30,14 @@ public class CommentPostMapperTest {
      */
     @Test
     public void testEntityToOutDto() {
-        // Arrange
         Comment comment = new Comment();
         comment.setId("comment123");
         comment.setContent("This is a test comment");
         comment.setPostId("1");
-        comment.setUserId("user123");
+        comment.setUserID("user123");
 
-        // Act
         CommentPostOutDto outDto = CommentPostMapper.entityToOutDto(comment);
 
-        // Assert
         assertEquals("This is a test comment", outDto.getContent());
         assertEquals("1", outDto.getPostId());
         assertEquals("comment123", outDto.getId());

@@ -21,17 +21,14 @@ public class FilterDashboardPostMapperTest {
 	 */
     @Test
     public void testInDtoToPost() {
-        // Arrange
         FilterDashboardPostInDto inDto = new FilterDashboardPostInDto();
         inDto.setTitle("Sample Title");
-        inDto.setTechCategory(TechnologyCategory.Java);
+        inDto.setTechCategory(TechnologyCategory.JAVA);
 
-        // Act
         Post post = FilterDashboardPostMapper.inDtoToPost(inDto);
 
-        // Assert
         assertEquals("Sample Title", post.getTitle());
-        assertEquals(TechnologyCategory.Java, post.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
     }
 
     /**
@@ -39,33 +36,30 @@ public class FilterDashboardPostMapperTest {
      */
     @Test
     public void testPostToOutDto() {
-        // Arrange
         Post post = new Post();
         post.setId("post123");
         post.setUser(new User());
-        post.setStatus(PostStatus.Approved);
+        post.setStatus(PostStatus.APPROVED);
         post.setContent("Sample content");
-        post.setTechCategory(TechnologyCategory.Java);
+        post.setTechCategory(TechnologyCategory.JAVA);
         post.setTitle("Sample Title");
         Date date = new Date();
         post.setCreatedAt(date);
         post.setLikedBy(new HashSet<>());
-        post.setDislikedBy(new HashSet<>());
-        post.setComments(new ArrayList<>());
+        post.setDisLikedBy(new HashSet<>());
+        post.setCommentBy(new ArrayList<>());
 
-        // Act
         FilterDashboardOutDto outDto = FilterDashboardPostMapper.postToOutDto(post);
 
-        // Assert
         assertEquals("post123", outDto.getId());
         assertEquals(new User(), outDto.getUser());
-        assertEquals(PostStatus.Approved, outDto.getStatus());
+        assertEquals(PostStatus.APPROVED, outDto.getStatus());
         assertEquals("Sample content", outDto.getContent());
-        assertEquals(TechnologyCategory.Java, outDto.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, outDto.getTechnology());
         assertEquals("Sample Title", outDto.getTitle());
         assertEquals(date, outDto.getCreatedAt());
         assertEquals(new HashSet<>(), outDto.getLikedBy());
         assertEquals(new HashSet<>(), outDto.getDisLikedBy());
-        assertEquals(new ArrayList<>(), outDto.getComments());
+        assertEquals(new ArrayList<>(), outDto.getCommentBy());
     }
 }

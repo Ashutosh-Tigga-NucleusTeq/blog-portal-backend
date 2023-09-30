@@ -17,7 +17,6 @@ public class ReportedPostTest {
             "This post violates the community guidelines."
         );
 
-        // Create a Post object for testing the post field
         Post post = new Post();
         post.setId("post456");
         reportedPost.setPost(post);
@@ -30,24 +29,21 @@ public class ReportedPostTest {
         assertEquals("user456", reportedPost.getUserId());
         assertEquals("This post violates the community guidelines.", reportedPost.getReportReason());
 
-        // Create a new Post object
         Post newPost = new Post();
         newPost.setId("post456");
 
-        // Set the Post object in the ReportedPost
         reportedPost.setPost(newPost);
 
-        // Test the Post object
-        assertEquals(newPost, reportedPost.getPost().getId());
+        assertEquals("post456", reportedPost.getPost().getId());
 
         // Modify the Post object
         Post anotherPost = new Post();
         anotherPost.setId("post789");
         reportedPost.setPost(anotherPost);
 
-        // Test the modified Post object
         assertEquals("post789", reportedPost.getPost().getId());
     }
+
 
     @Test
     public void testEqualsAndHashCode() {

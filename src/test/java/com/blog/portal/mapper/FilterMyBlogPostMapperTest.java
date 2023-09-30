@@ -19,21 +19,18 @@ public class FilterMyBlogPostMapperTest {
 	 */
     @Test
     public void testInDtoToPost() {
-        // Arrange
         FilterMyBlogPostInDto inDto = new FilterMyBlogPostInDto();
         inDto.setTitle("Sample Title");
-        inDto.setTechCategory(TechnologyCategory.Java);
+        inDto.setTechCategory(TechnologyCategory.JAVA);
         inDto.setUserId("user123");
-        inDto.setStatus(PostStatus.Approved);
+        inDto.setStatus(PostStatus.APPROVED);
 
-        // Act
         Post post = FilterMyBlogPostMapper.inDtoToPost(inDto);
 
-        // Assert
         assertEquals("Sample Title", post.getTitle());
-        assertEquals(TechnologyCategory.Java, post.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
         assertEquals("user123", post.getUserId());
-        assertEquals(PostStatus.Approved, post.getStatus());
+        assertEquals(PostStatus.APPROVED, post.getStatus());
     }
 
     /**
@@ -41,28 +38,25 @@ public class FilterMyBlogPostMapperTest {
      */
     @Test
     public void testPostToOutDto() {
-        // Arrange
         Post post = new Post();
         post.setId("post123");
         post.setTitle("Sample Title");
-        post.setTechCategory(TechnologyCategory.Java);
-        post.setStatus(PostStatus.Approved);
-        post.setCreatedAt(new Date());
-        post.setEditedAt(new Date());
+        post.setTechCategory(TechnologyCategory.JAVA);
+        post.setStatus(PostStatus.APPROVED);
+        post.setCreatedAt(new Date(12));
+        post.setEditedAt(new Date(13));
         post.setContent("Sample content");
-        post.setComments(new ArrayList<>());
+        post.setCommentBy(new ArrayList<>());
 
-        // Act
         FilterMyBlogPostOutDto outDto = FilterMyBlogPostMapper.postToOutDto(post);
 
-        // Assert
         assertEquals("Sample Title", outDto.getTitle());
-        assertEquals(TechnologyCategory.Java, outDto.getTechnology());
-        assertEquals(PostStatus.Approved, outDto.getStatus());
-        assertEquals(new Date(), outDto.getCreatedAt());
-        assertEquals(new Date(), outDto.getEditedAt());
+        assertEquals(TechnologyCategory.JAVA, outDto.getTechnology());
+        assertEquals(PostStatus.APPROVED, outDto.getStatus());
+        assertEquals(new Date(12), outDto.getCreatedAt());
+        assertEquals(new Date(13), outDto.getEditedAt());
         assertEquals("Sample content", outDto.getContent());
         assertEquals("post123", outDto.getId());
-        assertEquals(new ArrayList<>(), outDto.getComments());
+        assertEquals(new ArrayList<>(), outDto.getCommentBy());
     }
 }

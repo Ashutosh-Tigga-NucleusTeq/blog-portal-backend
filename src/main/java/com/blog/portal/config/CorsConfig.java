@@ -23,7 +23,7 @@ public class CorsConfig {
 	static class MyWebMvcConfigurer implements WebMvcConfigurer {
 	    @Override
 	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/blog/portal/**")
+	        registry.addMapping("/**")
 	                .allowedOrigins("http://localhost:3000")
 	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 	                .allowedHeaders("*")

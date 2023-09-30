@@ -14,7 +14,7 @@ public class CommentPostMapper {
 		Comment comment = new Comment();
 		comment.setContent(inDto.getContent());
 		comment.setPostId(inDto.getPostId());
-		comment.setUserId(inDto.getUserId());
+		comment.setUserID(inDto.getUserId());
 		return comment;
 	}
 	/**

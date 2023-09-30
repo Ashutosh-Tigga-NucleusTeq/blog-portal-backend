@@ -1,70 +1,85 @@
 package com.blog.portal.responsePayload;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.Date;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class UnReviewedPostOutDtoTest {
-    
-    private UnReviewedPostOutDto postDto;
-    
-    @Before
+
+    private UnReviewedPostOutDto post1;
+    private UnReviewedPostOutDto post2;
+
+    @BeforeEach
     public void setUp() {
-        // Create a sample UnReviewedPostOutDto object for testing
-        postDto = new UnReviewedPostOutDto("fullname", "Test Post", "This is a test post.", new Date(), "12345");
+        Date createdAt = new Date(12);
+        post1 = new UnReviewedPostOutDto("User1", "Title1", "Content1", createdAt, "1");
+        post2 = new UnReviewedPostOutDto("User2", "Title2", "Content2", createdAt, "2");
     }
 
     @Test
     public void testGettersAndSetters() {
-        // Test all getters and setters
-        
-        // Test getUserName and setUserName
-        assertEquals("fullname", postDto.getUserName());
-        postDto.setUserName("JaneSmith");
-        assertEquals("JaneSmith", postDto.getUserName());
+        assertEquals("User1", post1.getUserName());
+        assertEquals("Title1", post1.getTitle());
+        assertEquals("Content1", post1.getContent());
+        assertEquals("1", post1.getId());
+        assertEquals("User2", post2.getUserName());
+        assertEquals("Title2", post2.getTitle());
+        assertEquals("Content2", post2.getContent());
+        assertEquals("2", post2.getId());
 
-        // Test getTitle and setTitle
-        assertEquals("Test Post", postDto.getTitle());
-        postDto.setTitle("Updated Post");
-        assertEquals("Updated Post", postDto.getTitle());
+        Date newCreatedAt = new Date();
+        post1.setUserName("User3");
+        post1.setTitle("Title3");
+        post1.setContent("Content3");
+        post1.setCreatedAt(newCreatedAt);
+        post1.setId("3");
 
-        // Test getContent and setContent
-        assertEquals("This is a test post.", postDto.getContent());
-        postDto.setContent("Updated content.");
-        assertEquals("Updated content.", postDto.getContent());
-
-        // Test getCreatedAt
-        assertNotNull(postDto.getCreatedAt());
+        assertEquals("User3", post1.getUserName());
+        assertEquals("Title3", post1.getTitle());
+        assertEquals("Content3", post1.getContent());
+        assertEquals("3", post1.getId());
+        assertEquals(newCreatedAt, post1.getCreatedAt());
     }
 
     @Test
-    public void testHashCode() {
-        // Create another UnReviewedPostOutDto object with the same values
-        UnReviewedPostOutDto identicalDto = new UnReviewedPostOutDto("fullname", "Test Post", "This is a test post.", postDto.getCreatedAt(), "12345");
+    public void testConstructors() {
+        assertEquals("User1", post1.getUserName());
+        assertEquals("Title1", post1.getTitle());
+        assertEquals("Content1", post1.getContent());
+        assertEquals("1", post1.getId());
+        assertNotNull(post1.getCreatedAt());
 
-        // Ensure that the hash codes of both objects are equal
-        assertEquals(postDto.hashCode(), identicalDto.hashCode());
+        UnReviewedPostOutDto defaultPost = new UnReviewedPostOutDto();
+        assertNull(defaultPost.getUserName());
+        assertNull(defaultPost.getTitle());
+        assertNull(defaultPost.getContent());
+        assertNull(defaultPost.getId());
+        assertNull(null);
     }
 
     @Test
-    public void testEquals() {
-        // Create another UnReviewedPostOutDto object with the same values
-        UnReviewedPostOutDto identicalDto = new UnReviewedPostOutDto("fullname", "Test Post", "This is a test post.", postDto.getCreatedAt(), "12345");
+    public void testEqualsAndHashCode() {
+        assertTrue(post1.equals(post1));
+        assertEquals(post1.hashCode(), post1.hashCode());
 
-        // Create a different UnReviewedPostOutDto object
-        UnReviewedPostOutDto differentDto = new UnReviewedPostOutDto("JaneSmith", "Different Post", "This is a different post.", new Date(), "54321");
+        assertFalse(post1.equals(post2));
+        assertFalse(post2.equals(post1));
+        assertEquals(post1.hashCode(), post1.hashCode());
 
-        // Test equality with an identical object
-        assertTrue(postDto.equals(identicalDto));
+        assertFalse(post1.equals(null));
+        assertFalse(post1.equals("string"));
 
-        // Test equality with a different object
-        assertFalse(postDto.equals(differentDto));
+        post2.setUserName("User4");
+        assertFalse(post1.equals(post2));
     }
 
     @Test
     public void testToString() {
-        String expectedToString = "UnReviewedPostOutDto [userName=fullname, title=Test Post, content=This is a test post., createdAt=" + postDto.getCreatedAt() + ", id=12345]";
-        assertEquals(expectedToString, postDto.toString());
+        String expectedToString = "UnReviewedPostOutDto [userName=User1, title=Title1, content=Content1, createdAt="
+                + post1.getCreatedAt() + ", id=1]";
+        assertEquals(expectedToString, post1.toString());
     }
 }

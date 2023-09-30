@@ -19,9 +19,8 @@ public class RegisterUserInDtoTest {
      */
     @BeforeEach
     public void setUp() {
-        // Initialize a sample RegisterUserInDto object for testing
-        user = new RegisterUserInDto("firstname", "lastname", Gender.Male, "firstnamelastname@example.com",
-        		"password", Designation.Intern, "1234567890");
+        user = new RegisterUserInDto("firstname", "lastname", Gender.MALE, "firstnamelastname@example.com",
+        		"password", Designation.INTERN, "1234567890");
     }
 
     /**
@@ -29,31 +28,28 @@ public class RegisterUserInDtoTest {
      */
     @Test
     public void testGettersAndSetters() {
-        // Test getters and setters for all properties
         assertEquals("firstname", user.getFirstName());
         assertEquals("lastname", user.getLastName());
-        assertEquals(Gender.Male, user.getGender());
+        assertEquals(Gender.MALE, user.getGender());
         assertEquals("firstnamelastname@example.com", user.getEmail());
         assertEquals("password", user.getPassword());
-        assertEquals(Designation.Intern, user.getDesignation());
+        assertEquals(Designation.INTERN, user.getDesignation());
         assertEquals("1234567890", user.getContactNumber());
 
-        // Modify the properties using setters
         user.setFirstName("fname");
         user.setLastName("lname");
-        user.setGender(Gender.Female);
+        user.setGender(Gender.FEMALE);
         user.setEmail("fnamelname@example.com");
         user.setPassword("newpassword");
-        user.setDesignation(Designation.Architect);
+        user.setDesignation(Designation.ARCHITECT);
         user.setContactNumber("9876543210");
 
-        // Check if the properties have been updated
         assertEquals("fname", user.getFirstName());
         assertEquals("lname", user.getLastName());
-        assertEquals(Gender.Female, user.getGender());
+        assertEquals(Gender.FEMALE, user.getGender());
         assertEquals("fnamelname@example.com", user.getEmail());
         assertEquals("newpassword", user.getPassword());
-        assertEquals(Designation.Architect, user.getDesignation());
+        assertEquals(Designation.ARCHITECT, user.getDesignation());
         assertEquals("9876543210", user.getContactNumber());
     }
 
@@ -62,11 +58,9 @@ public class RegisterUserInDtoTest {
      */
     @Test
     public void testHashCodeAndEquals() {
-        // Create a new RegisterUserInDto with the same properties as the original
-        RegisterUserInDto sameUser = new RegisterUserInDto("firstname", "lastname", Gender.Male, "firstnamelastname@example.com",
-        		"password", Designation.Intern, "1234567890");
+        RegisterUserInDto sameUser = new RegisterUserInDto("firstname", "lastname", Gender.MALE, "firstnamelastname@example.com",
+        		"password", Designation.INTERN, "1234567890");
 
-        // Check if the two objects have the same hash code and are equal
         assertEquals(user.hashCode(), sameUser.hashCode());
         assertEquals(user, sameUser);
     }
@@ -75,10 +69,9 @@ public class RegisterUserInDtoTest {
      */
     @Test
     public void testToString() {
-        // Check the string representation of the object
         String expectedToString = "RegisterInDto [firstName=firstname,"
-        		+ " lastName=lastname, gender=Male, email=firstnamelastname@example.com,"
-        		+ " password=password, designation=Intern, contactNumber=1234567890]";
+        		+ " lastName=lastname, gender=MALE, email=firstnamelastname@example.com,"
+        		+ " password=password, designation=INTERN, contactNumber=1234567890]";
         assertEquals(expectedToString, user.toString());
     }
 }

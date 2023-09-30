@@ -9,12 +9,12 @@ public enum React {
 	/**
 	 * It represent positive Reaction of User.
 	 */
-	Like,
+	LIKE,
 
 	/**
 	 * It represent negative Reaction of User.
 	 */
-	Dislike,
+	DISLIKE,
 
 
 }

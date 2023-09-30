@@ -18,20 +18,17 @@ public class PostBlogMapperTest {
 		 */
     @Test
     public void testInDtoToPost() {
-        // Create a PostBlogInDto for testing
         PostBlogInDto inDto = new PostBlogInDto();
         inDto.setTitle("Sample Post");
         inDto.setContent("This is a sample post content.");
         inDto.setCreatedAt(new Date());
-        inDto.setTechCategory(TechnologyCategory.Java);
+        inDto.setTechCategory(TechnologyCategory.JAVA);
 
-        // Call the inDtoToPost method
         Post post = PostBlogMapper.inDtoToPost(inDto);
 
-        // Check if the Post object is created with the correct values
         assertEquals("Sample Post", post.getTitle());
         assertEquals("This is a sample post content.", post.getContent());
-        assertEquals(TechnologyCategory.Java, post.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
         assertNotNull(post.getCreatedAt());
     }
     /**
@@ -39,22 +36,19 @@ public class PostBlogMapperTest {
      */
     @Test
     public void testPostToOutDto() {
-        // Create a Post object for testing
         Post post = new Post();
         post.setId("post123");
         post.setTitle("Sample Post");
         post.setContent("This is a sample post content.");
-        post.setTechCategory(TechnologyCategory.Java);
+        post.setTechCategory(TechnologyCategory.JAVA);
         post.setCreatedAt(new Date());
 
-        // Call the postToOutDto method
         PostBlogOutDto outDto = PostBlogMapper.postToOutDto(post);
 
-        // Check if the PostBlogOutDto object is created with the correct values
         assertEquals("post123", outDto.getId());
         assertEquals("Sample Post", outDto.getTitle());
         assertEquals("This is a sample post content.", outDto.getContent());
-        assertEquals(TechnologyCategory.Java, outDto.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, outDto.getTechCategory());
         assertNotNull(outDto.getCreatedAt());
     }
 }

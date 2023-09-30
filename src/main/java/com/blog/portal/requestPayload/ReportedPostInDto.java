@@ -16,6 +16,24 @@ public class ReportedPostInDto {
 	@NotBlank(message = "post id must not be blank")
 	private String postId;
 	/**
+	 * Reason of reporting post.
+	 */
+	private String reportReason;
+	/**
+	 * Gets the Reason of reporting.
+	 * @return reasonReport proper message for repoting.
+	 */
+	public String getReportReason() {
+		return reportReason;
+	}
+	/**
+	 * Sets the reason of reporting.
+	 * @param reportReason
+	 */
+	public void setReportReason(String reportReason) {
+		this.reportReason = reportReason;
+	}
+	/**
 	 * Gets the id of the user.
 	 * @return userId
 	 */

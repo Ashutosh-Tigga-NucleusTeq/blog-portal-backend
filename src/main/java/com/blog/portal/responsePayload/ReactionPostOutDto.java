@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.blog.portal.enumResource.React;
 
-public class LikeOrDislikePostOutDto {
+public class ReactionPostOutDto {
 	/**
 	 * id of the This Object.
 	 */
@@ -81,7 +81,7 @@ public class LikeOrDislikePostOutDto {
   /**
    * Default constructor for creating an empty LikeOrDislikePostOutDto object.
    */
-  public LikeOrDislikePostOutDto() {
+  public ReactionPostOutDto() {
       super();
   }
 
@@ -93,7 +93,7 @@ public class LikeOrDislikePostOutDto {
    * @param userId The identifier of the user who performed the like or dislike action.
    * @param type   The type of reaction (like or dislike).
    */
-  public LikeOrDislikePostOutDto(String id, String postId, String userId, React type) {
+  public ReactionPostOutDto(String id, String postId, String userId, React type) {
       super();
       this.id = id;
       this.postId = postId;
@@ -131,7 +131,7 @@ public class LikeOrDislikePostOutDto {
       if (getClass() != obj.getClass()) {
           return false;
       }
-      LikeOrDislikePostOutDto other = (LikeOrDislikePostOutDto) obj;
+      ReactionPostOutDto other = (ReactionPostOutDto) obj;
       return Objects.equals(id, other.id) && Objects.equals(postId, other.postId) && type == other.type
               && Objects.equals(userId, other.userId);
   }
@@ -144,7 +144,7 @@ public class LikeOrDislikePostOutDto {
    */
   @Override
   public String toString() {
-      return "LikeOrDislikePostOutDto [id=" + id + ", postId=" + postId + ", userId=" + userId + ", type=" + type + "]";
+      return "ReactionPostOutDto [id=" + id + ", postId=" + postId + ", userId=" + userId + ", type=" + type + "]";
   }
 
 }

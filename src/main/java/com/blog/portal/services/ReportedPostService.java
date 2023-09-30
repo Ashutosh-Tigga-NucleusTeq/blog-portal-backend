@@ -6,6 +6,7 @@ import java.util.List;
 import com.blog.portal.requestPayload.ReportedPostInDto;
 import com.blog.portal.requestPayload.ActionOnReportedPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.ReportedPostMessageOutDto;
 import com.blog.portal.responsePayload.ReportedPostOutDto;
 
 
@@ -32,5 +33,12 @@ public interface ReportedPostService {
 	 * @return response.
 	 */
 	ApiResponse actOnReportedBlog(ActionOnReportedPostInDto inDto);
+
+	/**
+	 * This returns the reporting message of particular post that we mentioned in path var.
+	 * @param postId
+	 * @return reason message of reporting.
+	 */
+	ReportedPostMessageOutDto getMessage(String postId);
 
 }

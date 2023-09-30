@@ -12,20 +12,17 @@ public class GetPostMapperTest {
 		 */
     @Test
     public void testEntityToOutDto() {
-        // Arrange
         Post post = new Post();
         post.setId("post123");
         post.setTitle("Sample Title");
         post.setContent("Sample Content");
-        post.setTechCategory(TechnologyCategory.Java);
+        post.setTechCategory(TechnologyCategory.JAVA);
 
-        // Act
         GetPostOutDto outDto = GetPostMapper.entityToOutDto(post);
 
-        // Assert
         assertEquals("Sample Title", outDto.getTitle());
         assertEquals("Sample Content", outDto.getContent());
-        assertEquals(TechnologyCategory.Java, outDto.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, outDto.getTechCategory());
         assertEquals("post123", outDto.getId());
     }
 }

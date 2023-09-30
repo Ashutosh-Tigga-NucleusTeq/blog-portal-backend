@@ -95,10 +95,10 @@ public class Comment {
 	}
 	/**
 	 * Sets the information of user.
-	 * @param userId
+	 * @param userID
 	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserID(String userID) {
+		this.userId = userID;
 	}
 
 	/**

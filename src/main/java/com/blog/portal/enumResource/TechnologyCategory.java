@@ -11,52 +11,52 @@ public enum TechnologyCategory {
     /**
      * Represents the Node.js technology category.
      */
-    NodeJs,
+    NODE_JS,
 
     /**
      * Represents the Java technology category.
      */
-    Java,
+    JAVA,
 
     /**
      * Represents the Blockchain technology category.
      */
-    Blockchain,
+    BLOCKCHAIN,
 
     /**
      * Represents the Data Science technology category.
      */
-    DataScience,
+    DATA_SCIENCE,
 
     /**
      * Represents the Cloud Technology category.
      */
-    CloudTechnology,
+    CLOUD_TECHNOLOGY,
 
     /**
      * Represents the Python technology category.
      */
-    Python,
+    PYTHON,
 
     /**
      * Represents the Data Engineering technology category.
      */
-    DataEngineering,
+    DATA_ENGINEERING,
 
     /**
      * Represents the NoSQL technology category.
      */
-    NoSQL,
+    NOSQL,
 
     /**
      * Represents the SQL Databases technology category.
      */
-    SQLDatabases,
+    SQL_DATABASES,
 
     /**
      * Represents the React.js technology category.
      */
-    ReactJs,
+    REACTJS,
 
     /**
      * Represents the HTML technology category.
@@ -71,25 +71,21 @@ public enum TechnologyCategory {
     /**
      * Represents the Microservices technology category.
      */
-    Microservices,
+    MICRO_SERVICES,
 
     /**
      * Represents the DevOps technology category.
      */
-    DeveOPS,
+    DEVEOPS,
 
     /**
      * Represents the Business Intelligence technology category.
      */
-    BusinessIntelligence,
+    BUSINESS_INTELLIGENCE,
 
     /**
      * A placeholder value that can be used for technology categories not covered by the predefined constants.
      */
-    Others;
+    OTHERS;
 
-		String valueOf(TechnologyCategory techCategory) {
-			// TODO Auto-generated method stub
-			return techCategory.toString();
-		}
 }

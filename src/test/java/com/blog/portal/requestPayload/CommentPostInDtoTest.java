@@ -1,66 +1,79 @@
 package com.blog.portal.requestPayload;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class CommentPostInDtoTest {
-	/**
-	 * Instance of CommentPostInDto.
-	 */
-    private CommentPostInDto comment;
 
-    /**
-     * Setting up before testing.
-     */
-    @Before
-    public void setUp() {
-        comment = new CommentPostInDto("This is a comment.", "user123", "post456");
-    }
-
-    /**
-     * Testing Getter and Setter.
-     */
     @Test
-    public void testGetterSetterMethods() {
-        assertEquals("This is a comment.", comment.getContent());
-        assertEquals("user123", comment.getUserId());
-        assertEquals("post456", comment.getPostId());
+    public void testGettersAndSetters() {
+        String content = "This is a test comment.";
+        String userId = "user123";
+        String postId = "post456";
 
-        comment.setContent("Updated comment.");
-        comment.setUserId("newUser");
-        comment.setPostId("newPost");
+        CommentPostInDto dto = new CommentPostInDto(content, userId, postId);
 
-        assertEquals("Updated comment.", comment.getContent());
-        assertEquals("newUser", comment.getUserId());
-        assertEquals("newPost", comment.getPostId());
+        assertEquals(content, dto.getContent());
+        assertEquals(userId, dto.getUserId());
+        assertEquals(postId, dto.getPostId());
+
+        String newContent = "Updated comment content.";
+        String newUserId = "user789";
+        String newPostId = "post101";
+
+        dto.setContent(newContent);
+        dto.setUserId(newUserId);
+        dto.setPostId(newPostId);
+
+        assertEquals(newContent, dto.getContent());
+        assertEquals(newUserId, dto.getUserId());
+        assertEquals(newPostId, dto.getPostId());
     }
 
-    /**
-     * Testing equals and Hashcode.
-     */
     @Test
     public void testEqualsAndHashCode() {
-        CommentPostInDto sameComment = new CommentPostInDto("This is a comment.", "user123", "post456");
-        CommentPostInDto differentComment = new CommentPostInDto("Different comment.", "user789", "post123");
+        String content1 = "This is a test comment.";
+        String userId1 = "user123";
+        String postId1 = "post456";
+        CommentPostInDto dto1 = new CommentPostInDto(content1, userId1, postId1);
 
-        assertEquals(comment, sameComment);
+        String content2 = "This is a test comment.";
+        String userId2 = "user123";
+        String postId2 = "post456";
+        CommentPostInDto dto2 = new CommentPostInDto(content2, userId2, postId2);
 
-        assertNotEquals(comment, differentComment);
+        assertTrue(dto1.equals(dto2));
+        assertTrue(dto2.equals(dto1));
 
-        assertEquals(comment.hashCode(), sameComment.hashCode());
-
-        assertNotEquals(comment.hashCode(), differentComment.hashCode());
+        assertEquals(dto1.hashCode(), dto2.hashCode());
     }
 
-    /**
-     * Testing toString.
-     */
+    @Test
+    public void testNotEquals() {
+        String content1 = "This is a test comment.";
+        String userId1 = "user123";
+        String postId1 = "post456";
+        CommentPostInDto dto1 = new CommentPostInDto(content1, userId1, postId1);
+
+        String content2 = "Another comment.";
+        String userId2 = "user789";
+        String postId2 = "post101";
+        CommentPostInDto dto2 = new CommentPostInDto(content2, userId2, postId2);
+
+        assertFalse(dto1.equals(dto2));
+        assertFalse(dto2.equals(dto1));
+
+        assertNotEquals(dto1.hashCode(), dto2.hashCode());
+    }
+
     @Test
     public void testToString() {
-        String expected = "CommentPostInDto [content=This is a comment., userId=user123, postId=post456]";
-        assertEquals(expected, comment.toString());
+        String content = "This is a test comment.";
+        String userId = "user123";
+        String postId = "post456";
+        CommentPostInDto dto = new CommentPostInDto(content, userId, postId);
+
+        String expectedToString = "CommentPostInDto [content=This is a test comment., userId=user123, postId=post456]";
+        assertEquals(expectedToString, dto.toString());
     }
 }

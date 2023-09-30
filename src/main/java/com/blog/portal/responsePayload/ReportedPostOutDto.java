@@ -1,5 +1,7 @@
 package com.blog.portal.responsePayload;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.blog.portal.entities.Post;
@@ -25,7 +27,7 @@ public class ReportedPostOutDto {
 		/**
 		 * Reason of reporting post.
 		 */
-		private String reportReason;
+		private List<String> reportReason = new ArrayList<String>();
 		/**
 		 * Gets Reported Post.
 		 * @return post.
@@ -86,14 +88,14 @@ public class ReportedPostOutDto {
 		 * Gets the reason for reporting.
 		 * @return reportReason.
 		 */
-		public String getReportReason() {
+		public List<String> getReportReason() {
 			return reportReason;
 		}
 		/**
 		 * Sets the reason of reporting.
 		 * @param reportReason
 		 */
-		public void setReportReason(String reportReason) {
+		public void setReportReason(List<String> reportReason) {
 			this.reportReason = reportReason;
 		}
 		/**
@@ -144,7 +146,7 @@ public class ReportedPostOutDto {
 		 * @param postId
 		 * @param reportReason
 		 */
-		public ReportedPostOutDto(String id, String userId, String postId, String reportReason) {
+		public ReportedPostOutDto(String id, String userId, String postId, List<String> reportReason) {
 			super();
 			this.id = id;
 			this.userId = userId;

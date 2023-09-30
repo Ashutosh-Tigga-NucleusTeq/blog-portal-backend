@@ -12,7 +12,7 @@ import com.blog.portal.enumResource.React;
  * @author [ Ashutosh Tigga]
  */
 @Document
-public class LikeOrDislike {
+public class Reaction {
 
 	/**
 	 * Id of the LikeOrDislike.
@@ -43,7 +43,7 @@ public class LikeOrDislike {
 	 * @param userId The User who performed the like or dislike.
 	 * @param type   The type of reaction, which can be either a like or a dislike.
 	 */
-	public LikeOrDislike(String id, String postId, String userId, React type) {
+	public Reaction(String id, String postId, String userId, React type) {
 		super();
 		this.id = id;
 		this.postId = postId;
@@ -54,7 +54,7 @@ public class LikeOrDislike {
 	/**
 	 * Default constructor for the LikeOrDislike class.
 	 */
-	public LikeOrDislike() {
+	public Reaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -161,7 +161,7 @@ public class LikeOrDislike {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		LikeOrDislike other = (LikeOrDislike) obj;
+		Reaction other = (Reaction) obj;
 		return Objects.equals(id, other.id) && Objects.equals(postId, other.postId) && type == other.type
 				&& Objects.equals(userId, other.userId);
 	}

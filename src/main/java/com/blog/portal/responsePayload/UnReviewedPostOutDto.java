@@ -136,7 +136,7 @@ public class UnReviewedPostOutDto {
 	 * @return The creation date.
 	 */
 	public Date getCreatedAt() {
-		return createdAt;
+		return new Date(createdAt.getTime());
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class UnReviewedPostOutDto {
 	 * @param createdAt The creation date to set.
 	 */
 	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+		 this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class UnReviewedPostOutDto {
 		this.userName = userName;
 		this.title = title;
 		this.content = content;
-		this.createdAt = createdAt;
+		 this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
 		this.id = id;
 	}
 

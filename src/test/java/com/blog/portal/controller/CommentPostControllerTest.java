@@ -1,79 +1,80 @@
 package com.blog.portal.controller;
 
-import com.blog.portal.controller.CommentPostController;
 import com.blog.portal.requestPayload.CommentPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Collections;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CommentPostControllerTest {
 
-    @InjectMocks
-    private CommentPostController commentPostController;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Mock
     private CommentPostService commentPostService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    @InjectMocks
+    private CommentPostController commentPostController;
+    
+		@BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(commentPostController).build();
     }
 
     @Test
-    public void testDoComment() {
-        // Create a sample input DTO
-        CommentPostInDto inDto = new CommentPostInDto("Sample Comment", "user123", "post123");
+    public void testDoComment() throws Exception {
+        new CommentPostInDto("Sample Comment", "user123", "post456");
 
-        // Create a sample output DTO
-        ApiResponse outDto = new CommentPostOutDto("comment123", "Sample Comment", "user123", "post123");
+        ApiResponse apiResponse = new ApiResponse("Comment added successfully", true);
 
-        // Mock the service method to return the sample output DTO when called with the input DTO
-        Mockito.when(commentPostService.doCommentOnPost(inDto)).thenReturn(outDto);
+        when(commentPostService.doCommentOnPost(any(CommentPostInDto.class))).thenReturn(apiResponse);
 
-        // Call the controller method
-        ResponseEntity<CommentPostOutDto> responseEntity = commentPostController.doComment(inDto);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                .post("/comment/blog")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"content\":\"Sample Comment\",\"userId\":\"user123\",\"postId\":\"post456\"}"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andReturn();
 
-        // Verify the response
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        CommentPostOutDto responseDto = responseEntity.getBody();
-        assertEquals(outDto, responseDto);
+        String content = result.getResponse().getContentAsString();
+         assertTrue(content.contains("Comment added successfully"));
     }
 
     @Test
-    public void testGetComments() {
-        // Define a sample postId
+    public void testGetComments() throws Exception {
         String postId = "post123";
 
-        // Create a sample list of CommentPostOutDto objects
         List<CommentPostOutDto> commentList = Collections.singletonList(
-                new CommentPostOutDto("comment123", "Sample Comment", "user123", "post123"));
+                new CommentPostOutDto("comment123", "Sample Comment", "user123", postId));
 
-        // Mock the service method to return the sample list of CommentPostOutDto when called with postId
-        Mockito.when(commentPostService.getComments(postId)).thenReturn(commentList);
+        when(commentPostService.getComments(postId)).thenReturn(commentList);
 
-        // Call the controller method
-        ResponseEntity<List<CommentPostOutDto>> responseEntity = commentPostController.getComments(postId);
-
-        // Verify the response
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        List<CommentPostOutDto> responseList = responseEntity.getBody();
-        assertEquals(commentList, responseList);
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/comment/{postId}", postId)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(commentList.size()));
     }
 }

@@ -34,7 +34,7 @@ public class PostBlogOutDtoTest {
     public void testParameterizedConstructor() {
         Date createdAt = new Date();
         User user = new User(); // You can create a User object as needed
-        PostBlogOutDto dto = new PostBlogOutDto("1", "Title", "Content", PostStatus.Pending,
+        PostBlogOutDto dto = new PostBlogOutDto("1", "Title", "Content", PostStatus.PENDING,
                 TechnologyCategory.CSS, createdAt, user);
 
         assertEquals("1", dto.getId());
@@ -43,7 +43,7 @@ public class PostBlogOutDtoTest {
         assertEquals(createdAt, dto.getCreatedAt());
         assertEquals(TechnologyCategory.CSS, dto.getTechCategory());
         assertEquals(user, dto.getUser());
-        assertEquals(PostStatus.Pending, dto.getStatus());
+        assertEquals(PostStatus.PENDING, dto.getStatus());
     }
 
     /**
@@ -59,17 +59,17 @@ public class PostBlogOutDtoTest {
         dto.setTitle("New Title");
         dto.setContent("New Content");
         dto.setCreatedAt(createdAt);
-        dto.setTechCategory(TechnologyCategory.Blockchain);
+        dto.setTechCategory(TechnologyCategory.BLOCKCHAIN);
         dto.setUser(user);
-        dto.setStatus(PostStatus.Approved);
+        dto.setStatus(PostStatus.APPROVED);
 
         assertEquals("2", dto.getId());
         assertEquals("New Title", dto.getTitle());
         assertEquals("New Content", dto.getContent());
         assertEquals(createdAt, dto.getCreatedAt());
-        assertEquals(TechnologyCategory.Blockchain, dto.getTechCategory());
+        assertEquals(TechnologyCategory.BLOCKCHAIN, dto.getTechCategory());
         assertEquals(user, dto.getUser());
-        assertEquals(PostStatus.Approved, dto.getStatus());
+        assertEquals(PostStatus.APPROVED, dto.getStatus());
     }
 
     /**
@@ -78,14 +78,14 @@ public class PostBlogOutDtoTest {
     @Test
     public void testHashCodeAndEquals() {
         Date createdAt = new Date();
-        User user = new User(); // You can create a User object as needed
+        User user = new User(); 
 
-        PostBlogOutDto dto1 = new PostBlogOutDto("1", "Title", "Content", PostStatus.Pending,
+        PostBlogOutDto dto1 = new PostBlogOutDto("1", "Title", "Content", PostStatus.PENDING,
                 TechnologyCategory.CSS, createdAt, user);
-        PostBlogOutDto dto2 = new PostBlogOutDto("1", "Title", "Content", PostStatus.Pending,
+        PostBlogOutDto dto2 = new PostBlogOutDto("1", "Title", "Content", PostStatus.PENDING,
                 TechnologyCategory.CSS, createdAt, user);
         PostBlogOutDto dto3 = new PostBlogOutDto("2", "Different Title", "Different Content",
-                PostStatus.Approved, TechnologyCategory.Blockchain, new Date(), new User());
+                PostStatus.APPROVED, TechnologyCategory.BLOCKCHAIN, new Date(), new User());
 
         assertEquals(dto1.hashCode(), dto2.hashCode());
         assertNotEquals(dto1.hashCode(), dto3.hashCode());
@@ -100,12 +100,12 @@ public class PostBlogOutDtoTest {
     @Test
     public void testToString() {
         Date createdAt = new Date();
-        User user = new User(); // You can create a User object as needed
+        User user = new User(); 
 
-        PostBlogOutDto dto = new PostBlogOutDto("1", "Title", "Content", PostStatus.Pending,
+        PostBlogOutDto dto = new PostBlogOutDto("1", "Title", "Content", PostStatus.PENDING,
                 TechnologyCategory.CSS, createdAt, user);
         String expectedString = "PostOutDto [id=1, title=Title, content=Content, createdAt="
-                + createdAt + ", techCategory=CSS, author=" + user + ", status=Pending]";
+                + createdAt + ", techCategory=CSS, author=" + user + ", status=PENDING]";
         assertEquals(expectedString, dto.toString());
     }
 }

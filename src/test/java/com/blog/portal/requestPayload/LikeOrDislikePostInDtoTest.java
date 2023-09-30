@@ -14,37 +14,33 @@ public class LikeOrDislikePostInDtoTest {
 		 */
     @Test
     public void testGetterSetterAndMethods() {
-        LikeOrDislikePostInDto likeOrDislikePostInDto1 = new LikeOrDislikePostInDto();
+        ReactionPostInDto likeOrDislikePostInDto1 = new ReactionPostInDto();
         likeOrDislikePostInDto1.setPostId("123");
         likeOrDislikePostInDto1.setUserId("user123");
-        likeOrDislikePostInDto1.setType(React.Like);
+        likeOrDislikePostInDto1.setType(React.LIKE);
 
-        LikeOrDislikePostInDto likeOrDislikePostInDto2 = new LikeOrDislikePostInDto();
+        ReactionPostInDto likeOrDislikePostInDto2 = new ReactionPostInDto();
         likeOrDislikePostInDto2.setPostId("123");
         likeOrDislikePostInDto2.setUserId("user123");
-        likeOrDislikePostInDto2.setType(React.Like);
+        likeOrDislikePostInDto2.setType(React.LIKE);
 
-        // Test hashCode and equals
         assertEquals(likeOrDislikePostInDto1.hashCode(), likeOrDislikePostInDto2.hashCode());
         assertTrue(likeOrDislikePostInDto1.equals(likeOrDislikePostInDto2));
 
 
-        // Test getters
         assertEquals("123", likeOrDislikePostInDto1.getPostId());
         assertEquals("user123", likeOrDislikePostInDto1.getUserId());
-        assertEquals(React.Like, likeOrDislikePostInDto1.getType());
+        assertEquals(React.LIKE, likeOrDislikePostInDto1.getType());
 
-        // Test setters
         likeOrDislikePostInDto2.setPostId("456");
         likeOrDislikePostInDto2.setUserId("user456");
-        likeOrDislikePostInDto2.setType(React.Dislike);
+        likeOrDislikePostInDto2.setType(React.DISLIKE);
 
         assertEquals("456", likeOrDislikePostInDto2.getPostId());
         assertEquals("user456", likeOrDislikePostInDto2.getUserId());
-        assertEquals(React.Dislike, likeOrDislikePostInDto2.getType());
+        assertEquals(React.DISLIKE, likeOrDislikePostInDto2.getType());
 
-        // Test toString
-        String expectedToString = "LikeOrDislikePostInDto [postId=456, userId=user456, type=Dislike]";
+        String expectedToString = "LikeOrDislikePostInDto [postId=456, userId=user456, type=DISLIKE]";
         assertEquals(expectedToString, likeOrDislikePostInDto2.toString());
 
 

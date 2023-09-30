@@ -1,17 +1,17 @@
 package com.blog.portal.mapper;
 
-import com.blog.portal.entities.LikeOrDislike;
-import com.blog.portal.requestPayload.LikeOrDislikePostInDto;
-import com.blog.portal.responsePayload.LikeOrDislikePostOutDto;
+import com.blog.portal.entities.Reaction;
+import com.blog.portal.requestPayload.ReactionPostInDto;
+import com.blog.portal.responsePayload.ReactionPostOutDto;
 
-public class LikeOrDislikePostMapper {
+public class ReactionPostMapper {
 	/**
 	 * This method converts {@code LikeOrDislikeInDto} into {@code LikeOrDislike}.
 	 * @param inDto
 	 * @return obj
 	 */
-	public static LikeOrDislike inDtoToEntity(LikeOrDislikePostInDto inDto) {
-		LikeOrDislike obj = new LikeOrDislike();
+	public static Reaction inDtoToEntity(ReactionPostInDto inDto) {
+		Reaction obj = new Reaction();
 		obj.setPostId(inDto.getPostId());
 		obj.setUserId(inDto.getUserId());
 		obj.setType(inDto.getType());
@@ -23,8 +23,8 @@ public class LikeOrDislikePostMapper {
 	 * @param obj
 	 * @return outDto
 	 */
-	public static LikeOrDislikePostOutDto entityToOutDto(LikeOrDislike obj) {
-		LikeOrDislikePostOutDto outDto = new LikeOrDislikePostOutDto();
+	public static ReactionPostOutDto entityToOutDto(Reaction obj) {
+		ReactionPostOutDto outDto = new ReactionPostOutDto();
 		outDto.setId(obj.getId());
 		outDto.setUserId(obj.getUserId());
 		outDto.setPostId(obj.getPostId());

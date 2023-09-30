@@ -12,35 +12,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.portal.requestPayload.LikeOrDislikePostInDto;
-import com.blog.portal.responsePayload.LikeOrDislikePostOutDto;
-import com.blog.portal.services.LikeOrDislikePostService;
+import com.blog.portal.requestPayload.ReactionPostInDto;
+import com.blog.portal.responsePayload.ReactionPostOutDto;
+import com.blog.portal.services.ReactionPostService;
+import com.blog.portal.util.RequestMappingConst;
 
 @RestController
-@RequestMapping("/blog/portal")
-public class LikeOrDislikePostController {
+@RequestMapping(RequestMappingConst.REACTON_URL)
+public class ReactionPostController {
 
   /**
    * An instance of the Logger class for logging.
    */
-  private Logger logger = LogManager.getLogger(LikeOrDislikePostController.class);
+  private Logger logger = LogManager.getLogger(ReactionPostController.class);
 
   /**
    * Instance of LikeAndDislikeService.
    */
   @Autowired
-  private LikeOrDislikePostService likeAndDislikeService;
+  private ReactionPostService likeAndDislikeService;
 
   /**
-   * Api to perform like on post.
+   * Api to perform like or dislike on post.
    * @param inDto
    * @return ResponseEntity.
    */
-  @PostMapping("/like/dislike/post")
-  public ResponseEntity<LikeOrDislikePostOutDto> reactOnPost(@Valid @RequestBody LikeOrDislikePostInDto inDto) {
+  @PostMapping("/")
+  public ResponseEntity<ReactionPostOutDto> reactOnPost(@Valid @RequestBody ReactionPostInDto inDto) {
   	logger.info(" like post controller with requestdto [" + inDto + "]");
-  	LikeOrDislikePostOutDto response = this.likeAndDislikeService.doReactOnPost(inDto);
+  	ReactionPostOutDto response = likeAndDislikeService.doReactOnPost(inDto);
   	logger.info(" Fetching response from doReactOnPost service [" + response + "]");
-  	return new ResponseEntity<LikeOrDislikePostOutDto>(response, HttpStatus.OK);
+  	return new ResponseEntity<ReactionPostOutDto>(response, HttpStatus.OK);
   }
 }

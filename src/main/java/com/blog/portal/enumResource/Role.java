@@ -8,10 +8,10 @@ public enum Role {
 	/**
 	 * `Employee`: Represents a standard user role with limited permissions.
 	 */
-    Employee,
+    EMPLOYEE,
 
     /**
      * `Admin`: Represents an administrative user role with elevated permissions.
      */
-    Admin
+    ADMIN
 }

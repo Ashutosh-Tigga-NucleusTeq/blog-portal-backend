@@ -18,15 +18,12 @@ public class AuthenticateUserMapperTest {
 	 */
     @Test
     public void testInDtoToUser() {
-        // Arrange
         AuthenticateUserInDto inDto = new AuthenticateUserInDto();
         inDto.setEmail("test@nucleusteq.com");
         inDto.setPassword("password");
 
-        // Act
         User user = AuthenticateUserMapper.inDtoToUser(inDto);
 
-        // Assert
         assertEquals("test@nucleusteq.com", user.getEmail());
         assertEquals("password", user.getPassword());
     }
@@ -36,28 +33,25 @@ public class AuthenticateUserMapperTest {
      */
     @Test
     public void testUserToOutDto() {
-        // Arrange
         User user = new User();
         user.setId("1");
         user.setFirstName("firstname");
         user.setLastName("lastname");
-        user.setGender(Gender.Male);
+        user.setGender(Gender.MALE);
         user.setEmail("firstnamelastname@example.com");
-        user.setDesignation(Designation.Intern);
+        user.setDesignation(Designation.INTERN);
         user.setContactNumber("1234567890");
-        user.setRole(Role.Admin);
+        user.setRole(Role.ADMIN);
 
-        // Act
         AuthenticateUserOutDto outDto = AuthenticateUserMapper.userToOutDto(user);
 
-        // Assert
         assertEquals("1", outDto.getId());
         assertEquals("firstname", outDto.getFirstName());
         assertEquals("lastname", outDto.getLastName());
-        assertEquals(Gender.Male, outDto.getGender());
+        assertEquals(Gender.MALE, outDto.getGender());
         assertEquals("firstnamelastname@example.com", outDto.getEmail());
-        assertEquals(Designation.Intern, outDto.getDesignation());
+        assertEquals(Designation.INTERN, outDto.getDesignation());
         assertEquals("1234567890", outDto.getContactNumber());
-        assertEquals(Role.Admin, outDto.getRole());
+        assertEquals(Role.ADMIN, outDto.getRole());
     }
 }

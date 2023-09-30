@@ -2,14 +2,11 @@ package com.blog.portal.serviceimpl;
 
 import javax.validation.Valid;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.blog.portal.controller.BlogUserController;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.ResourceNotFoundException;
+import com.blog.portal.exception.UnauthorizedUserExeption;
 import com.blog.portal.exception.UserRegistrationException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
@@ -20,6 +17,8 @@ import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
 import com.blog.portal.responsePayload.UserOutDto;
 import com.blog.portal.services.BlogUserService;
+import com.blog.portal.util.ExceptionMessage;
+import com.blog.portal.util.ResponseMessage;
 
 /**
  * Implementation of the UserService interface responsible for user-related
@@ -36,11 +35,6 @@ public class BlogUserServiceImpl implements BlogUserService {
     private BlogUserRepo blogUserRepo;
 
     /**
-     * instance of logger.
-     */
-    private Logger logger = LogManager.getLogger(BlogUserController.class);
-
-    /**
      * Creates an user based on the provided UserDto.
      *
      * @param inDto
@@ -50,16 +44,14 @@ public class BlogUserServiceImpl implements BlogUserService {
     @Override
     public ApiResponse createUser(@Valid RegisterUserInDto inDto)
             throws UserRegistrationException {
-        // Convert UserDto into User JPA Entity
-    	ApiResponse response = new ApiResponse();
+    		ApiResponse response = new ApiResponse();
         User user = RegisterUserMapper.inDtoToUser(inDto);
-        Optional<User> isExists = blogUserRepo.findByEmail(user.getEmail());
-        System.out.println(isExists);
-        if (isExists.isPresent()) {
-        	throw new UserRegistrationException("User Already Exists");
+        Optional<User> isUserExists = blogUserRepo.findByEmail(user.getEmail());
+        if (isUserExists.isPresent()) {
+        	throw new UserRegistrationException(ExceptionMessage.EMAIL_ALREADY_EXISTS);
         } else {
-        	this.blogUserRepo.save(user);
-        	response.setMessage("User Registered Succesfully");
+        	blogUserRepo.save(user);
+        	response.setMessage(ResponseMessage.USER_REGISTER_SUCCESS);
         	response.setSuccess(true);
         }
         return response;
@@ -75,30 +67,27 @@ public class BlogUserServiceImpl implements BlogUserService {
      */
     @Override
     public AuthenticateUserOutDto authenticateUser(@Valid AuthenticateUserInDto inDto) {
-        // TODO Auto-generated method stub
-        logger.info(" authentication in UserService " + inDto);
-        User user = this.blogUserRepo.findByEmail(inDto.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User",
-        		"email", inDto.getEmail()));
+        User user = blogUserRepo.findByEmail(inDto.getEmail()).orElseThrow(()
+        		-> new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER));
         AuthenticateUserOutDto outDto = null;
         if (user.getPassword()
                 .equals(inDto.getPassword())) {
             outDto = AuthenticateUserMapper.userToOutDto(user);
+        } else {
+        	throw new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER);
         }
-        logger.info(
-                " successfull authentication in UserService  authenticated user details:" + outDto);
-
         return outDto;
     }
 
     /**
-     * This mehtod gets the user by id.
+     * This method gets the user by id.
      * @param userId
      * @return responseOutDto
      */
 		@Override
 		public UserOutDto getUserById(String userId) {
-			// TODO Auto-generated method stub
-			User fetchedUser = blogUserRepo.findById(userId).orElseThrow();
+			User fetchedUser = blogUserRepo.findById(userId).orElseThrow(
+					() -> new ResourceNotFoundException("User", "userId", userId));
 			UserOutDto responseOutDto = new UserOutDto();
 			responseOutDto.setFirstName(fetchedUser.getFirstName());
 			responseOutDto.setLastName(fetchedUser.getLastName());

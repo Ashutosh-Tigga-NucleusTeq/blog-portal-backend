@@ -21,8 +21,10 @@ import com.blog.portal.repository.ReportedPostRepo;
 import com.blog.portal.requestPayload.ReportedPostInDto;
 import com.blog.portal.requestPayload.ActionOnReportedPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.ReportedPostMessageOutDto;
 import com.blog.portal.responsePayload.ReportedPostOutDto;
 import com.blog.portal.services.ReportedPostService;
+import com.blog.portal.util.ResponseMessage;
 
 @Service
 public class ReportedPostServiceImpl  implements ReportedPostService {
@@ -62,30 +64,23 @@ public class ReportedPostServiceImpl  implements ReportedPostService {
 	@Override
 	public ApiResponse reportPost(ReportedPostInDto inDto) {
 		ApiResponse response = new ApiResponse();
-		ReportedPost ifExists = reportedPostRepo.findByUserIdAndPostId(inDto.getUserId(), inDto.getPostId());
-		if (ifExists == null) {
+		ReportedPost isReportedPostExists = reportedPostRepo.findByUserIdAndPostId(inDto.getUserId(), inDto.getPostId());
+		if (isReportedPostExists == null) {
 			User isUserExists = blogUserRepo.findById(inDto.getUserId()).orElseThrow(
 					() -> new ResourceNotFoundException("User", "userId", inDto.getUserId()));
 			Post isPostExists = blogPostRepo.findById(inDto.getPostId()).orElseThrow(
 					() -> new ResourceNotFoundException("Post", "postId", inDto.getPostId()));
 			ReportedPost reportedPost = ReportedPostMapper.inDtoToEntity(inDto);
 			if (isPostExists != null && isUserExists != null) {
-			isPostExists.getReportedBy().add(inDto.getUserId());
-			Post savedPost = blogPostRepo.save(isPostExists);
-			savedPost.getUser().setPassword(null);
-			reportedPost.setPost(savedPost);
-			ReportedPost savedReportedPost = reportedPostRepo.save(reportedPost);
-			System.out.println(savedReportedPost);
-			if (savedReportedPost != null && savedPost != null) {
+				isPostExists.getReportedBy().add(inDto.getUserId());
+				Post savedPost = blogPostRepo.save(isPostExists);
+				reportedPost.setPost(savedPost);
+				reportedPostRepo.save(reportedPost);
 				response.setSuccess(true);
-				response.setMessage("Blog Reported");
-			} else {
-				response.setSuccess(false);
-				response.setMessage("Blog Reporting failed");
-			}
+				response.setMessage(ResponseMessage.BLOG_REPORT_SUCCESS);
 		}
 		} else {
-			response.setMessage("Already Reported");
+			response.setMessage(ResponseMessage.BLOG_ALREADY_REPORTED);
 			response.setSuccess(false);
 		}
 		return response;
@@ -121,32 +116,47 @@ public class ReportedPostServiceImpl  implements ReportedPostService {
 	 */
 	@Override
 	public ApiResponse actOnReportedBlog(ActionOnReportedPostInDto inDto) {
-		// TODO Auto-generated method stub
 		ApiResponse response = new ApiResponse();
 		AdminAction action = inDto.getAdminAction();
-		String postId = inDto.getpostId();
+		String postId = inDto.getPostId();
 		List<ReportedPost> fetchedReportedPost = reportedPostRepo.findByPostId(postId);
 		if (fetchedReportedPost.size() != 0) {
 			Post fetchedPost = blogPostRepo.findById(postId).orElseThrow(()
 					-> new ResourceNotFoundException("Post", "postId", postId));
-			if (action == AdminAction.Ignore) {
+			if (action == AdminAction.IGNORE) {
 				fetchedPost.getReportedBy().clear();
 				blogPostRepo.save(fetchedPost);
 				reportedPostRepo.deleteByPostId(postId);
-				response.setMessage("Post Ignored");
+				response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_IGNORED);
 				response.setSuccess(true);
-			} else if (action == AdminAction.Delete) {
+			} else if (action == AdminAction.DELETE) {
 				reportedPostRepo.deleteByPostId(postId);
 				blogPostRepo.deleteById(postId);
 				likeOrDislikePostRepo.deleteByPostId(postId);
 				commentPostRepo.deleteByPostId(postId);
-				response.setMessage("Post Deleted");
+				response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_DELETED);
 				response.setSuccess(true);
 			}
 		} else {
-			response.setMessage("No report found on this post");
+			response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_FAILED);
 			response.setSuccess(false);
 		}
+		return response;
+	}
+
+	/**
+	 * Gets Reporting Message.
+	 * return response Reporting message of post.
+	 */
+	@Override
+	public ReportedPostMessageOutDto getMessage(String postId) {
+		ReportedPostMessageOutDto response = new ReportedPostMessageOutDto();
+		List<ReportedPost> fetchReportedPost = reportedPostRepo.findByPostId(postId);
+		List<String> listOfMessage = new ArrayList<String>();
+		for (ReportedPost reportPost : fetchReportedPost) {
+			listOfMessage.add(reportPost.getReportReason());
+		}
+		response.setReasons(listOfMessage);
 		return response;
 	}
 }

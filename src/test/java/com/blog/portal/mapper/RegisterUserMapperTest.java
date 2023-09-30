@@ -17,26 +17,23 @@ public class RegisterUserMapperTest {
 	 */
     @Test
     public void testInDtoToUser() {
-        // Create a RegisterUserInDto for testing
         RegisterUserInDto inDto = new RegisterUserInDto();
         inDto.setFirstName("firstname");
         inDto.setLastName("lastname");
-        inDto.setGender(Gender.Male);
+        inDto.setGender(Gender.MALE);
         inDto.setEmail("test@nucleusteq.com");
         inDto.setPassword("password123");
-        inDto.setDesignation(Designation.Intern);
+        inDto.setDesignation(Designation.INTERN);
         inDto.setContactNumber("1234567890");
 
-        // Call the inDtoToUser method
         User user = RegisterUserMapper.inDtoToUser(inDto);
 
-        // Check if the User object is created with the correct values
-        assertEquals("firstname", user.getFirstName());
-        assertEquals("lastname", user.getLastName());
-        assertEquals(Gender.Male, user.getGender());
+        assertEquals("Firstname", user.getFirstName());
+        assertEquals("Lastname", user.getLastName());
+        assertEquals(Gender.MALE, user.getGender());
         assertEquals("test@nucleusteq.com", user.getEmail());
         assertEquals("password123", user.getPassword());
-        assertEquals(Designation.Intern, user.getDesignation());
+        assertEquals(Designation.INTERN, user.getDesignation());
         assertEquals("1234567890", user.getContactNumber());
     }
 
@@ -45,26 +42,23 @@ public class RegisterUserMapperTest {
      */
     @Test
     public void testUserToOutDto() {
-        // Create a User object for testing
         User user = new User();
         user.setId("user123");
         user.setFirstName("firstname");
         user.setLastName("lastname");
-        user.setGender(Gender.Male);
+        user.setGender(Gender.MALE);
         user.setEmail("test@nucleusteq.com");
-        user.setDesignation(Designation.Intern);
+        user.setDesignation(Designation.INTERN);
         user.setContactNumber("1234567890");
 
-        // Call the userToOutDto method
         RegisterUserOutDto outDto = RegisterUserMapper.userToOutDto(user);
 
-        // Check if the RegisterUserOutDto object is created with the correct values
         assertEquals("user123", outDto.getId());
         assertEquals("firstname", outDto.getFirstName());
         assertEquals("lastname", outDto.getLastName());
-        assertEquals(Gender.Male, outDto.getGender());
+        assertEquals(Gender.MALE, outDto.getGender());
         assertEquals("test@nucleusteq.com", outDto.getEmail());
-        assertEquals(Designation.Intern, outDto.getDesignation());
+        assertEquals(Designation.INTERN, outDto.getDesignation());
         assertEquals("1234567890", outDto.getContactNumber());
     }
 }

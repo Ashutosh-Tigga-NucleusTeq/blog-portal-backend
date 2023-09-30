@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.portal.entities.Comment;
+import com.blog.portal.entities.Post;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.CommentPostMapper;
+import com.blog.portal.repository.BlogPostRepo;
 import com.blog.portal.repository.BlogUserRepo;
 import com.blog.portal.repository.CommentPostRepo;
 import com.blog.portal.requestPayload.CommentPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
+import com.blog.portal.util.ResponseMessage;
 
 @Service
 public class CommentPostServiceImpl implements CommentPostService {
@@ -32,26 +35,33 @@ public class CommentPostServiceImpl implements CommentPostService {
 	@Autowired
 	private BlogUserRepo blogUserRepo;
 	/**
+	 * Instance of BlogPostRepo.
+	 */
+	@Autowired
+	private BlogPostRepo blogPostRepo;
+	/**
 	 * This method create the comment on post.
 	 * @param inDto
 	 * @return outDto
 	 */
 	@Override
 	public ApiResponse doCommentOnPost(CommentPostInDto inDto) {
-		// TODO Auto-generated method stub
-		System.err.println(" doCommentOnPost service implementation " + inDto);
 		User fetchedUser = blogUserRepo.findById(inDto.getUserId()).orElseThrow(() ->
 		new ResourceNotFoundException("User", "userId", inDto.getUserId()));
+		Post fetchedPost = blogPostRepo.findById(inDto.getPostId()).orElseThrow(() ->
+		new ResourceNotFoundException("Post", "postId", inDto.getPostId()));
+		fetchedPost.getCommentBy().add(inDto.getUserId());
+		blogPostRepo.save(fetchedPost);
 		fetchedUser.setPassword(null);
 		Comment comment = CommentPostMapper.inDtoToEntity(inDto);
 		comment.setUser(fetchedUser);
-		Comment savedComment = this.commentPostRepo.save(comment);
 		ApiResponse response = new ApiResponse();
-		if (savedComment != null) {
-			response.setMessage("Post commented ");
-			response.setSuccess(true);
-		} else {
-			response.setMessage("Post Commentation failed");
+		try {
+		commentPostRepo.save(comment);
+		response.setMessage(ResponseMessage.COMMENT_ON_BLOG_SUCCESS);
+		response.setSuccess(true);
+		} catch (RuntimeException ex) {
+			response.setMessage(ResponseMessage.COMMENT_ON_BLOG_FAILED);
 			response.setSuccess(false);
 		}
 		return response;
@@ -64,15 +74,11 @@ public class CommentPostServiceImpl implements CommentPostService {
 	 */
 	@Override
 	public List<CommentPostOutDto> getComments(String postId) {
-		// TODO Auto-generated method stub
-		System.err.println(" getcomment service implementation " + postId);
-		List<Comment> listOfComment = this.commentPostRepo.findByPostId(postId);
-		System.err.println(" doCommentOnPost service implementation " + listOfComment);
+		List<Comment> listOfComment = commentPostRepo.findByPostId(postId);
 		List<CommentPostOutDto> listOutDto = new ArrayList<CommentPostOutDto>();
 		for (Comment comment : listOfComment) {
 			listOutDto.add(CommentPostMapper.entityToOutDto(comment));
 		}
-		System.out.println("response dto " + listOfComment);
 		return listOutDto;
 	}
 

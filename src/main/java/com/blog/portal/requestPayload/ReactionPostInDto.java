@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.blog.portal.enumResource.React;
 
-public class LikeOrDislikePostInDto {
+public class ReactionPostInDto {
 	/**
 	 * post id of the user.
 	 */
@@ -21,6 +21,23 @@ public class LikeOrDislikePostInDto {
 	 * like or dislike type.
 	 */
 	private React type;
+	/**
+	 * Parameterized constructor.
+	 *
+	 * @param newUserId
+	 * @param newPostId
+	 * @param newReaction
+	 */
+	public ReactionPostInDto(String newUserId, String newPostId, React newReaction) {
+		this.userId = newUserId;
+		this.postId = newPostId;
+		this.type = newReaction;
+	}
+	/**
+	 * Default Constructor.
+	 */
+	public ReactionPostInDto() {
+	}
 	/**
 	 * Gets id of the post.
 	 * @return postId.
@@ -98,7 +115,7 @@ public class LikeOrDislikePostInDto {
       if (obj == null || getClass() != obj.getClass()) {
           return false;
       }
-      LikeOrDislikePostInDto other = (LikeOrDislikePostInDto) obj;
+      ReactionPostInDto other = (ReactionPostInDto) obj;
       return Objects.equals(postId, other.postId) && type == other.type && Objects.equals(userId, other.userId);
   }
 

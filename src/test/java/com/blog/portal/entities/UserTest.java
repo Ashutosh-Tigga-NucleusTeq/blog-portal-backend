@@ -1,121 +1,78 @@
 package com.blog.portal.entities;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.blog.portal.enumResource.Designation;
 import com.blog.portal.enumResource.Gender;
-import com.blog.portal.enumResource.PostStatus;
-import com.blog.portal.enumResource.Role;
-import com.blog.portal.enumResource.TechnologyCategory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
-	/**
-	 * Instance of User.
-	 */
-    private User user;
+    private User user1;
+    private User user2;
+    private User user3;
 
-    /**
-     * Setting up before testing.
-     */
-    @Before
+    @BeforeEach
     public void setUp() {
-        user = new User();
+        user1 = new User("firstname", "lastname", Gender.MALE, "firstname@example.com", "password123", Designation.INTERN, "1234567890");
+        user2 = new User("anotherfname", "anotherlname", Gender.FEMALE, "anotherfname@example.com", "password456", Designation.HR, "9876543210");
+        user3 = new User("firstname", "lastname", Gender.MALE, "firstname@example.com", "password123", Designation.INTERN, "1234567890");
     }
 
-    /**
-     * Setter and Getter testing.
-     */
     @Test
-    public void testSettersAndGetters() {
-        // Test setId and getId
-        user.setId("1");
-        assertEquals("1", user.getId());
+    public void testGettersAndSetters() {
+        assertEquals("firstname", user1.getFirstName());
+        assertEquals("lastname", user1.getLastName());
+        assertEquals(Gender.MALE, user1.getGender());
+        assertEquals("firstname@example.com", user1.getEmail());
+        assertEquals("password123", user1.getPassword());
+        assertEquals(Designation.INTERN, user1.getDesignation());
+        assertEquals("1234567890", user1.getContactNumber());
 
-        // Test setFirstName and getFirstName
-        user.setFirstName("John");
-        assertEquals("John", user.getFirstName());
+        user1.setFirstName("anotherfname");
+        user1.setLastName("anotherlname");
+        user1.setGender(Gender.FEMALE);
+        user1.setEmail("anotherfname@example.com");
+        user1.setPassword("newpassword");
+        user1.setDesignation(Designation.HR);
+        user1.setContactNumber("9876543210");
 
-        // Test setLastName and getLastName
-        user.setLastName("Doe");
-        assertEquals("Doe", user.getLastName());
-
-        // Test setGender and getGender
-        user.setGender(Gender.Male);
-        assertEquals(Gender.Male, user.getGender());
-
-        // Test setEmail and getEmail
-        user.setEmail("john@example.com");
-        assertEquals("john@example.com", user.getEmail());
-
-        // Test setPassword and getPassword
-        user.setPassword("password123");
-        assertEquals("password123", user.getPassword());
-
-        // Test setDesignation and getDesignation
-        user.setDesignation(Designation.Intern);
-        assertEquals(Designation.Intern, user.getDesignation());
-
-        // Test setContactNumber and getContactNumber
-        user.setContactNumber("1234567890");
-        assertEquals("1234567890", user.getContactNumber());
-
-        // Test setRole and getRole
-        user.setRole(Role.Admin);
-        assertEquals(Role.Admin, user.getRole());
-
-        // Test setPosts and getPosts
-        List<Post> posts = new ArrayList<>();
-        Post post1 = new Post("1", "Title 1", "Content 1",
-        		PostStatus.Pending, TechnologyCategory.Java, null, null, "1", user, null, null, null);
-        Post post2 = new Post("2", "Title 2", "Content 2",
-        		PostStatus.Approved, TechnologyCategory.Python, null, null, "1", user, null, null, null);
-        posts.add(post1);
-        posts.add(post2);
-        user.setPosts(posts);
-        assertEquals(posts, user.getPosts());
+        assertEquals("anotherfname", user1.getFirstName());
+        assertEquals("anotherlname", user1.getLastName());
+        assertEquals(Gender.FEMALE, user1.getGender());
+        assertEquals("anotherfname@example.com", user1.getEmail());
+        assertEquals("newpassword", user1.getPassword());
+        assertEquals(Designation.HR, user1.getDesignation());
+        assertEquals("9876543210", user1.getContactNumber());
     }
 
-    /**
-     * Testing of hashcode.
-     */
     @Test
-    public void testHashCode() {
-        User user1 = new User("John", "Doe", Gender.Male, "john@example.com", "password123", Designation.Intern, "1234567890");
-        User user2 = new User("John", "Doe", Gender.Male, "john@example.com", "password123", Designation.Intern, "1234567890");
+    public void testEqualsAndHashCode() {
+        assertTrue(user1.equals(user1));
+        assertEquals(user1.hashCode(), user1.hashCode());
 
-        assertEquals(user1.hashCode(), user2.hashCode());
+        assertTrue(user1.equals(user3));
+        assertTrue(user3.equals(user1));
+        assertEquals(user1.hashCode(), user3.hashCode());
+
+        assertFalse(user1.equals(null));
+        assertFalse(user1.equals("string"));
+
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
+        assertNotEquals(user1.hashCode(), user2.hashCode());
+
+        user2.setEmail("different@example.com");
+        assertFalse(user1.equals(user2));
     }
 
-    /**
-     * Testing of equals.
-     */
-    @Test
-    public void testEquals() {
-        User user1 = new User("John", "Doe", Gender.Male, "john@example.com", "password123", Designation.Intern, "1234567890");
-        User user2 = new User("John", "Doe", Gender.Male, "john@example.com", "password123", Designation.Intern, "1234567890");
-
-        assertTrue(user1.equals(user2));
-    }
-
-    /**
-     * Testing of toString.
-     */
     @Test
     public void testToString() {
-        User usercheck = new User("John", "Doe", Gender.Male,
-        		"john@example.com", "password123", Designation.Intern, "1234567890");
-        String expectedString = "User [id=null, firstName=John,"
-        		+ "lastName=Doe, gender=Male, email=john@example.com, password=password123,"
-        		+ " designation=Intern, contactNumber=1234567890, role=Employee, posts=null]";
-
-        assertEquals(expectedString, usercheck.toString());
+        String expectedToString = "User [id=null, firstName=firstname, lastName=lastname, gender=MALE, " +
+                "email=firstname@example.com, password=password123, designation=INTERN, " +
+                "contactNumber=1234567890, role=EMPLOYEE, posts=null]";
+        assertEquals(expectedToString, user1.toString());
     }
 }

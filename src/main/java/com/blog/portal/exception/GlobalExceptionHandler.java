@@ -129,4 +129,20 @@ public class GlobalExceptionHandler {
         ApiResponse apiResponse = new ApiResponse(message, false);
         return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    /**
+     * Exception handler for {@link UnauthorizedUserExeption}.
+     *
+     * @param ex The exception of type {@link UnauthorizedUserExeption}.
+     * @return A {@link ResponseEntity} containing an {@link ApiResponse}
+     * with an error message and status code.
+     */
+    @ExceptionHandler(UnauthorizedUserExeption.class)
+    public ResponseEntity<ApiResponse> handleUnauthorizedUserException(
+            final UnauthorizedUserExeption ex
+    ) {
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.UNAUTHORIZED);
+    }
 }

@@ -11,10 +11,8 @@ public class UserRegistrationExceptionTest {
 		 */
     @Test
     public void testUserRegistrationExceptionWithMessage() {
-        // Create a UserRegistrationException with a custom message
         UserRegistrationException exception = new UserRegistrationException("User registration failed");
 
-        // Test getMessage method
         assertEquals("User registration failed", exception.getMessage());
     }
 
@@ -23,16 +21,12 @@ public class UserRegistrationExceptionTest {
      */
     @Test
     public void testUserRegistrationExceptionWithoutMessage() {
-        // Create a UserRegistrationException without a custom message
         UserRegistrationException exception = new UserRegistrationException();
 
-        // Test getMessage method (should return null for an exception without a message)
         assertNull(exception.getMessage());
 
-        // Update the message using setMessage method
         exception.setMessage("New error message");
 
-        // Test getMessage method again
         assertEquals("New error message", exception.getMessage());
     }
 
@@ -41,10 +35,8 @@ public class UserRegistrationExceptionTest {
      */
     @Test
     public void testToString() {
-        // Create a UserRegistrationException with a custom message
         UserRegistrationException exception = new UserRegistrationException("User registration failed");
 
-        // Test the toString method
         assertEquals("UserRegistrationException [message=User registration failed]", exception.toString());
     }
 }

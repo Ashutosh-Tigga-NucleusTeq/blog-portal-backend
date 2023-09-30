@@ -18,9 +18,9 @@ public class GetPostOutDtoTest {
         post.setId("1");
         post.setTitle("Sample Post");
         post.setContent("This is a sample post content.");
-        post.setTechCategory(TechnologyCategory.Java);
+        post.setTechCategory(TechnologyCategory.JAVA);
 
-        String expected = "GetPostOutDto [id=1, title=Sample Post, content=This is a sample post content., techCategory=Java]";
+        String expected = "GetPostOutDto [id=1, title=Sample Post, content=This is a sample post content., techCategory=JAVA]";
         assertEquals(expected, post.toString());
     }
     /**
@@ -32,13 +32,13 @@ public class GetPostOutDtoTest {
         post1.setId("1");
         post1.setTitle("Sample Post");
         post1.setContent("This is a sample post content.");
-        post1.setTechCategory(TechnologyCategory.Java);
+        post1.setTechCategory(TechnologyCategory.JAVA);
 
         GetPostOutDto post2 = new GetPostOutDto();
         post2.setId("1");
         post2.setTitle("Sample Post");
         post2.setContent("This is a sample post content.");
-        post2.setTechCategory(TechnologyCategory.Java);
+        post2.setTechCategory(TechnologyCategory.JAVA);
 
         assertEquals(post1.hashCode(), post2.hashCode());
     }
@@ -51,13 +51,13 @@ public class GetPostOutDtoTest {
         post1.setId("1");
         post1.setTitle("Sample Post");
         post1.setContent("This is a sample post content.");
-        post1.setTechCategory(TechnologyCategory.Java);
+        post1.setTechCategory(TechnologyCategory.JAVA);
 
         GetPostOutDto post2 = new GetPostOutDto();
         post2.setId("1");
         post2.setTitle("Sample Post");
         post2.setContent("This is a sample post content.");
-        post2.setTechCategory(TechnologyCategory.Java);
+        post2.setTechCategory(TechnologyCategory.JAVA);
 
         assertTrue(post1.equals(post2));
     }
@@ -70,21 +70,21 @@ public class GetPostOutDtoTest {
         post.setId("1");
         post.setTitle("Sample Post");
         post.setContent("This is a sample post content.");
-        post.setTechCategory(TechnologyCategory.Java);
+        post.setTechCategory(TechnologyCategory.JAVA);
 
         assertEquals("1", post.getId());
         assertEquals("Sample Post", post.getTitle());
         assertEquals("This is a sample post content.", post.getContent());
-        assertEquals(TechnologyCategory.Java, post.getTechCategory());
+        assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
         // Modify properties using setters
         post.setId("2");
         post.setTitle("Updated Post");
         post.setContent("Updated content");
-        post.setTechCategory(TechnologyCategory.Python);
+        post.setTechCategory(TechnologyCategory.PYTHON);
 
         assertEquals("2", post.getId());
         assertEquals("Updated Post", post.getTitle());
         assertEquals("Updated content", post.getContent());
-        assertEquals(TechnologyCategory.Python, post.getTechCategory());
+        assertEquals(TechnologyCategory.PYTHON, post.getTechCategory());
     }
 }

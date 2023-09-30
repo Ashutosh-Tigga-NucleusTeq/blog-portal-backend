@@ -33,9 +33,9 @@ public class FilterMyBlogPostMapper {
 		outDto.setEditedAt(post.getEditedAt());
 		outDto.setContent(post.getContent());
 		outDto.setId(post.getId());
-		outDto.setComments(post.getComments());
+		outDto.setCommentBy(post.getCommentBy());
 		outDto.setLikedBy(post.getLikedBy());
-		outDto.setDisLikedBy(post.getDislikedBy());
+		outDto.setDisLikedBy(post.getDisLikedBy());
 		outDto.setReportedBy(post.getReportedBy());
 		return outDto;
 	}

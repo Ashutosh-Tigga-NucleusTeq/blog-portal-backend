@@ -1,24 +1,44 @@
 package com.blog.portal.requestPayload;
 
+import com.blog.portal.enumResource.TechnologyCategory;
+
 public class UnReviewedPostInDto {
 	/**
 	 * This field for searching by title of post.
 	 */
-	private String keyword;
+	private String title;
 
 	/**
-	 * Gets the Keyword.
-	 * @return keyword
+	 * Technology category.
 	 */
-	public String getKeyword() {
-		return keyword;
+	private TechnologyCategory technologyCategory;
+	/**
+	 * Gets the Category of Technology.
+	 * @return technologyCategory
+	 */
+	public TechnologyCategory getTechnologyCategory() {
+		return technologyCategory;
 	}
 	/**
-	 * Sets the Keyword.
-	 * @param keyword
+	 * Sets the category of the Technology.
+	 * @param technologyCategory
 	 */
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setTechnologyCategory(TechnologyCategory technologyCategory) {
+		this.technologyCategory = technologyCategory;
+	}
+	/**
+	 * Gets the title.
+	 * @return title
+	 */
+	public String getTitle() {
+		return title;
+	}
+	/**
+	 * Sets the title.
+	 * @param title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

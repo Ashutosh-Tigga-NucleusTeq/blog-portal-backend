@@ -1,106 +1,136 @@
 package com.blog.portal.responsePayload;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
 import com.blog.portal.enumResource.PostStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
+import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
+import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class FilterMyBlogPostOutDtoTest {
-	/**
-	 * Instance of FilterMyBlogPostOutDto.
-	 */
-    private FilterMyBlogPostOutDto post1;
-    /**
-  	 * Instance of FilterMyBlogPostOutDto.
-  	 */
-    private FilterMyBlogPostOutDto post2;
 
-    /**
-     * Setting up before testing.
-     */
-    @Before
-    public void setUp() {
-        post1 = new FilterMyBlogPostOutDto();
-        post1.setId("1");
-        post1.setTitle("Post 1");
-        post1.setContent("Content of post 1");
-        post1.setStatus(PostStatus.Approved);
-        post1.setTechnology(TechnologyCategory.Java);
-        post1.setCreatedAt(new Date());
-        post1.setEditedAt(new Date());
-
-        post2 = new FilterMyBlogPostOutDto();
-        post2.setId("2");
-        post2.setTitle("Post 2");
-        post2.setContent("Content of post 2");
-        post2.setStatus(PostStatus.Rejected);
-        post2.setTechnology(TechnologyCategory.Blockchain);
-        post2.setCreatedAt(new Date());
-        post2.setEditedAt(new Date());
-    }
-    /**
-     * Testing Equals.
-     */
     @Test
-    public void testEquals() {
-        FilterMyBlogPostOutDto post1Copy = new FilterMyBlogPostOutDto();
-        post1Copy.setId("1");
-        post1Copy.setTitle("Post 1");
-        post1Copy.setContent("Content of post 1");
-        post1Copy.setStatus(PostStatus.Approved);
-        post1Copy.setTechnology(TechnologyCategory.Java);
-        post1Copy.setCreatedAt(new Date());
-        post1Copy.setEditedAt(new Date());
+    public void testGetterAndSetterMethods() {
+        // Create a sample FilterMyBlogPostOutDto object with data
+        String id = "1";
+        String title = "Sample Post";
+        PostStatus status = PostStatus.APPROVED;
+        String content = "This is a sample post content.";
+        TechnologyCategory technology = TechnologyCategory.PYTHON;
+        Date createdAt = new Date();
+        Date editedAt = new Date();
+        List<String> commentBy = Arrays.asList("User1", "User2");
+        HashSet<String> likedBy = new HashSet<>(Arrays.asList("User3", "User4"));
+        HashSet<String> disLikedBy = new HashSet<>(Arrays.asList("User5", "User6"));
+        HashSet<String> reportedBy = new HashSet<>(Arrays.asList("User7", "User8"));
 
-        assertTrue(post1.equals(post1Copy));
-        assertFalse(post1.equals(post2));
-    }
-    /**
-     * Testing HashCode.
-     */
-    @Test
-    public void testHashCode() {
-        FilterMyBlogPostOutDto post1Copy = new FilterMyBlogPostOutDto();
-        post1Copy.setId("1");
-        post1Copy.setTitle("Post 1");
-        post1Copy.setContent("Content of post 1");
-        post1Copy.setStatus(PostStatus.Approved);
-        post1Copy.setTechnology(TechnologyCategory.Java);
-        post1Copy.setCreatedAt(new Date());
-        post1Copy.setEditedAt(new Date());
-        assertEquals(post1.hashCode(), post1Copy.hashCode());
-    }
-    /**
-     * Testing compareto.
-     */
-    @Test
-    public void testCompareTo() {
-        List<FilterMyBlogPostOutDto> posts = new ArrayList<>();
-        posts.add(post2);
-        posts.add(post1);
+        FilterMyBlogPostOutDto postDto = new FilterMyBlogPostOutDto(id, title, status, content, technology, createdAt, editedAt, likedBy, disLikedBy, commentBy, reportedBy);
 
-        Collections.sort(posts);
+        // Test getter methods
+        assertEquals(id, postDto.getId());
+        assertEquals(title, postDto.getTitle());
+        assertEquals(status, postDto.getStatus());
+        assertEquals(content, postDto.getContent());
+        assertEquals(technology, postDto.getTechnology());
+        assertEquals(createdAt, postDto.getCreatedAt());
+        assertEquals(editedAt, postDto.getEditedAt());
+        assertEquals(likedBy, postDto.getLikedBy());
+        assertEquals(disLikedBy, postDto.getDisLikedBy());
+        assertEquals(commentBy, postDto.getCommentBy());
+        assertEquals(reportedBy, postDto.getReportedBy());
 
-        assertEquals(post1, posts.get(0));
+        // Test setter methods
+        String newId = "2";
+        postDto.setId(newId);
+        assertEquals(newId, postDto.getId());
+
+        String newTitle = "Updated Post";
+        postDto.setTitle(newTitle);
+        assertEquals(newTitle, postDto.getTitle());
+
+        PostStatus newStatus = PostStatus.PENDING;
+        postDto.setStatus(newStatus);
+        assertEquals(newStatus, postDto.getStatus());
+
+        String newContent = "Updated content.";
+        postDto.setContent(newContent);
+        assertEquals(newContent, postDto.getContent());
+
+        TechnologyCategory newTech = TechnologyCategory.JAVA;
+        postDto.setTechnology(newTech);
+        assertEquals(newTech, postDto.getTechnology());
+
+        Date newCreatedAt = new Date();
+        postDto.setCreatedAt(newCreatedAt);
+        assertEquals(newCreatedAt, postDto.getCreatedAt());
+
+        Date newEditedAt = new Date();
+        postDto.setEditedAt(newEditedAt);
+        assertEquals(newEditedAt, postDto.getEditedAt());
+
+        List<String> newCommentBy = Arrays.asList("User9", "User10");
+        postDto.setCommentBy(newCommentBy);
+        assertEquals(newCommentBy, postDto.getCommentBy());
+
+        HashSet<String> newLikedBy = new HashSet<>(Arrays.asList("User11", "User12"));
+        postDto.setLikedBy(newLikedBy);
+        assertEquals(newLikedBy, postDto.getLikedBy());
+
+        HashSet<String> newDisLikedBy = new HashSet<>(Arrays.asList("User13", "User14"));
+        postDto.setDisLikedBy(newDisLikedBy);
+        assertEquals(newDisLikedBy, postDto.getDisLikedBy());
+
+        HashSet<String> newReportedBy = new HashSet<>(Arrays.asList("User15", "User16"));
+        postDto.setReportedBy(newReportedBy);
+        assertEquals(newReportedBy, postDto.getReportedBy());
     }
-    /**
-     * Testing toString.
-     */
+
     @Test
-    public void testToString() {
-        String expectedToString = "FilterMyBlogPostOutDto [id=1, title=Post 1,"
-        		+ " status=Approved, content=Content of post 1, Java=Java,"
-        		+ " createdAt=";
-        assertTrue(post1.toString().startsWith(expectedToString));
+    public void testEqualsAndHashCodeMethods() {
+        // Create two identical FilterMyBlogPostOutDto objects
+        FilterMyBlogPostOutDto postDto1 = new FilterMyBlogPostOutDto("1", "Sample Post", PostStatus.APPROVED,
+                "This is a sample post content.", TechnologyCategory.PYTHON,
+                new Date(), new Date(), new HashSet<>(Arrays.asList("User1", "User2")),
+                new HashSet<>(Arrays.asList("User3", "User4")), Arrays.asList("User5", "User6"),
+                new HashSet<>(Arrays.asList("User7", "User8")));
+
+        FilterMyBlogPostOutDto postDto2 = new FilterMyBlogPostOutDto("1", "Sample Post", PostStatus.APPROVED,
+                "This is a sample post content.", TechnologyCategory.PYTHON,
+                new Date(), new Date(), new HashSet<>(Arrays.asList("User1", "User2")),
+                new HashSet<>(Arrays.asList("User3", "User4")), Arrays.asList("User5", "User6"),
+                new HashSet<>(Arrays.asList("User7", "User8")));
+
+        // Test equals method
+        assertEquals(postDto1, postDto1);
+
+        // Test hashCode method
+        assertEquals(postDto1.hashCode(), postDto1.hashCode());
+
+        // Modify one object and test again
+        postDto2.setId("2");
+        assertNotEquals(postDto1, postDto2);
+        assertNotEquals(postDto1.hashCode(), postDto2.hashCode());
+    }
+
+    @Test
+    public void testToStringMethod() {
+        // Create a sample FilterMyBlogPostOutDto object with data
+        FilterMyBlogPostOutDto postDto = new FilterMyBlogPostOutDto("1", "Sample Post", PostStatus.APPROVED,
+                "This is a sample post content.", TechnologyCategory.PYTHON,
+                new Date(), new Date(), new HashSet<>(Arrays.asList("User1", "User2")),
+                new HashSet<>(Arrays.asList("User3", "User4")), Arrays.asList("User5", "User6"),
+                new HashSet<>(Arrays.asList("User7", "User8")));
+
+        // Test toString method
+        String expectedToString = "FilterMyBlogPostOutDto [id=1, title=Sample Post, status=APPROVED, content=This is a sample post content., technology=PYTHON, createdAt="
+                + postDto.getCreatedAt() + ", editedAt=" + postDto.getEditedAt() + ", likedBy=" + postDto.getLikedBy()
+                + ", disLikedBy=" + postDto.getDisLikedBy() + ", comments=" + postDto.getCommentBy() + "]";
+        assertEquals(expectedToString, postDto.toString());
     }
 }

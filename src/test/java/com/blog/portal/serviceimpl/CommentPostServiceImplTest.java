@@ -1,80 +1,127 @@
 package com.blog.portal.serviceimpl;
 
-import com.blog.portal.entities.Comment;
-import com.blog.portal.mapper.CommentPostMapper;
-import com.blog.portal.repository.CommentPostRepo;
-import com.blog.portal.requestPayload.CommentPostInDto;
-import com.blog.portal.responsePayload.CommentPostOutDto;
-import com.blog.portal.services.CommentPostService;
-import com.blog.portal.serviceimpl.CommentPostServiceImpl;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import com.blog.portal.entities.Comment;
+import com.blog.portal.entities.Post;
+import com.blog.portal.entities.User;
+import com.blog.portal.exception.ResourceNotFoundException;
+import com.blog.portal.repository.BlogPostRepo;
+import com.blog.portal.repository.BlogUserRepo;
+import com.blog.portal.repository.CommentPostRepo;
+import com.blog.portal.requestPayload.CommentPostInDto;
+import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.CommentPostOutDto;
+import com.blog.portal.services.CommentPostService;
+import com.blog.portal.util.ResponseMessage;
 
 @SpringBootTest
 public class CommentPostServiceImplTest {
 
-    @InjectMocks
-    private CommentPostServiceImpl commentPostService;
-
     @Mock
     private CommentPostRepo commentPostRepo;
 
+    @Mock
+    private BlogUserRepo blogUserRepo;
+
+    @Mock
+    private BlogPostRepo blogPostRepo;
+
+    @InjectMocks
+    private CommentPostService commentPostService = new CommentPostServiceImpl();
+
     @BeforeEach
-    public void setup() {
-        Mockito.when(commentPostRepo.save(any(Comment.class))).thenAnswer(invocation -> {
-            Comment comment = invocation.getArgument(0);
-            comment.setId("comment123"); // Set a sample ID for the saved comment
-            return comment;
-        });
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     public void testDoCommentOnPost() {
-        // Create a sample input DTO
-        CommentPostInDto inDto = new CommentPostInDto("Sample Comment", "user123", "post123");
+        CommentPostInDto inDto = new CommentPostInDto();
+        inDto.setUserId("user123");
+        inDto.setPostId("post123");
+        inDto.setContent("This is a test comment");
 
-        // Call the service method
-        CommentPostOutDto outDto = commentPostService.doCommentOnPost(inDto);
+        User mockUser = new User();
+        mockUser.setId("user123");
+        mockUser.setPassword("password"); 
+        when(blogUserRepo.findById("user123")).thenReturn(Optional.of(mockUser));
 
-        // Verify the response
-        assertEquals("comment123", outDto.getId());
-        assertEquals("Sample Comment", outDto.getContent());
-        assertEquals("user123", outDto.getUserId());
-        assertEquals("post123", outDto.getPostId());
+        Post mockPost = new Post();
+        mockPost.setId("post123");
+        mockPost.setCommentBy(new ArrayList<>());
+        when(blogPostRepo.findById("post123")).thenReturn(Optional.of(mockPost));
+
+        Comment mockComment = new Comment();
+        when(commentPostRepo.save(any(Comment.class))).thenReturn(mockComment);
+
+        ApiResponse response = commentPostService.doCommentOnPost(inDto);
+
+        assertNotNull(response);
+        assertTrue(response.isSuccess());
+        assertEquals(ResponseMessage.COMMENT_ON_BLOG_SUCCESS, response.getMessage());
+        assertNull(mockUser.getPassword()); 
+
+        assertTrue(mockPost.getCommentBy().contains("user123"));
+    }
+
+    @Test
+    public void testDoCommentOnPost_UserNotFound() {
+        CommentPostInDto inDto = new CommentPostInDto();
+        inDto.setUserId("user123");
+        inDto.setPostId("post123");
+        inDto.setContent("This is a test comment");
+
+        when(blogUserRepo.findById("user123")).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            commentPostService.doCommentOnPost(inDto);
+        });
+    }
+
+    @Test
+    public void testDoCommentOnPost_PostNotFound() {
+        CommentPostInDto inDto = new CommentPostInDto();
+        inDto.setUserId("user123");
+        inDto.setPostId("post123");
+        inDto.setContent("This is a test comment");
+
+        when(blogUserRepo.findById("user123")).thenReturn(Optional.of(new User()));
+        when(blogPostRepo.findById("post123")).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            commentPostService.doCommentOnPost(inDto);
+        });
     }
 
     @Test
     public void testGetComments() {
-        // Define a sample postId
-        String postId = "post123";
+        List<Comment> comments = new ArrayList<>();
+        Comment comment1 = new Comment();
+        comment1.setContent("Comment 1");
+        Comment comment2 = new Comment();
+        comment2.setContent("Comment 2");
+        comments.add(comment1);
+        comments.add(comment2);
 
-        // Create a sample list of Comment entities
-        List<Comment> commentList = new ArrayList<>();
-        commentList.add(new Comment("comment1", "Sample Comment 1", "user123", "post123"));
-        commentList.add(new Comment("comment2", "Sample Comment 2", "user456", "post123"));
+        when(commentPostRepo.findByPostId("post123")).thenReturn(comments);
 
-        // Mock the repository to return the sample list when called with postId
-        Mockito.when(commentPostRepo.findByPostId(eq(postId))).thenReturn(commentList);
+        List<CommentPostOutDto> response = commentPostService.getComments("post123");
 
-        // Call the service method
-        List<CommentPostOutDto> outDtoList = commentPostService.getComments(postId);
-
-        // Verify the response
-        assertEquals(2, outDtoList.size());
-        assertEquals("comment1", outDtoList.get(0).getId());
-        assertEquals("Sample Comment 1", outDtoList.get(0).getContent());
-        assertEquals("user123", outDtoList.get(0).getUserId());
-        assertEquals("post123", outDtoList.get(0).getPostId());
+        assertNotNull(response);
+        assertEquals(2, response.size());
+        assertEquals("Comment 1", response.get(0).getContent());
+        assertEquals("Comment 2", response.get(1).getContent());
     }
 }

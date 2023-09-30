@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.blog.portal.entities.Comment;
 import com.blog.portal.entities.User;
 import com.blog.portal.enumResource.PostStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
@@ -54,7 +53,7 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
   /**
    * The technology category of the blog post.
    */
-  private TechnologyCategory techCategory;
+  private TechnologyCategory technology;
 
   /**
    * The author's ID associated with the blog post.
@@ -69,7 +68,7 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
   /**
    * List of comment.
    */
-  private List<Comment> comments;
+  private List<String> commentBy;
 
 
 	/**
@@ -103,15 +102,15 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
    * Gets the list of comments.
    * @return comments
    */
-  public List<Comment> getComments() {
-		return comments;
+  public List<String> getCommentBy() {
+		return commentBy;
 	}
   /**
-   * Sets the list of comments.
-   * @param comments
+   * Sets the user who comment.
+   * @param commentBy
    */
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setCommentBy(List<String> commentBy) {
+		this.commentBy = commentBy;
 	}
 
 	/**
@@ -161,7 +160,7 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
       this.title = title;
       this.content = content;
       this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
-      this.techCategory = techCategory;
+      this.technology = techCategory;
       this.user = user;
       this.status = status;
   }
@@ -268,8 +267,8 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
    *
    * @return The technology category.
    */
-  public TechnologyCategory getTechCategory() {
-      return techCategory;
+  public TechnologyCategory getTechnology() {
+      return technology;
   }
 
   /**
@@ -277,8 +276,8 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
    *
    * @param techCategory The technology category to set.
    */
-  public void setTechCategory(TechnologyCategory techCategory) {
-      this.techCategory = techCategory;
+  public void setTechnology(TechnologyCategory techCategory) {
+      this.technology = techCategory;
   }
 
   /**
@@ -314,7 +313,7 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
    */
   @Override
   public int hashCode() {
-      return Objects.hash(comments, content, createdAt, disLikedBy, id, likedBy, status, techCategory, title, user);
+      return Objects.hash(commentBy, content, createdAt, disLikedBy, id, likedBy, status, technology, title, user);
   }
 
   /**
@@ -335,10 +334,10 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
           return false;
       }
       FilterDashboardOutDto other = (FilterDashboardOutDto) obj;
-      return Objects.equals(comments, other.comments) && Objects.equals(content, other.content)
+      return Objects.equals(commentBy, other.commentBy) && Objects.equals(content, other.content)
               && Objects.equals(createdAt, other.createdAt) && Objects.equals(disLikedBy, other.disLikedBy)
               && Objects.equals(id, other.id) && Objects.equals(likedBy, other.likedBy) && status == other.status
-              && techCategory == other.techCategory && Objects.equals(title, other.title) && Objects.equals(user, other.user);
+              && technology == other.technology && Objects.equals(title, other.title) && Objects.equals(user, other.user);
   }
 
   /**
@@ -350,7 +349,7 @@ public class FilterDashboardOutDto implements Comparable<FilterDashboardOutDto> 
   @Override
   public String toString() {
       return "FilterDashboardOutDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
-              + ", techCategory=" + techCategory + ", user=" + user + ", status=" + status + ", comments=" + comments
+              + ", technology=" + technology + ", user=" + user + ", status=" + status + ", commentBy=" + commentBy
               + ", likedBy=" + likedBy + ", disLikedBy=" + disLikedBy + "]";
   }
 

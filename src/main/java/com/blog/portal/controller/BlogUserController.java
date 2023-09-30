@@ -9,8 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +18,8 @@ import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
-import com.blog.portal.responsePayload.UserOutDto;
 import com.blog.portal.services.BlogUserService;
+import com.blog.portal.util.RequestMappingConst;
 
 /**
  * The {@code UserController} class handles HTTP requests related to user
@@ -30,8 +28,9 @@ import com.blog.portal.services.BlogUserService;
  * @author Ashutosh Tigga.
  */
 @RestController
-@RequestMapping("/blog/portal")
+@RequestMapping(RequestMappingConst.USER_URL)
 public class BlogUserController {
+
     /**
      * An instance of the {@link BlogUserService} class for handling user operations.
      */
@@ -52,7 +51,7 @@ public class BlogUserController {
      */
     @PostMapping("/register")
     public final ResponseEntity<ApiResponse> registerUser(
-            @Valid @RequestBody final RegisterUserInDto user) {
+        @Valid @RequestBody final RegisterUserInDto user) {
         logger.info("Registering user controller invoked with request payload [" + user + "]");
         ApiResponse response = blogUserService.createUser(user);
         logger.info("Fetching response from  createUser service [" + response + "]");
@@ -61,31 +60,21 @@ public class BlogUserController {
 
     /**
      * API endpoint to perform user authentication.
-     *
+      *
      * @param inDto Request DTO for user authentication.
      * @return ResponseEntity containing the authenticated user and HTTP status code.
      */
     @PostMapping("/login")
-    public final ResponseEntity<AuthenticateUserOutDto> authenticate(@Valid @RequestBody AuthenticateUserInDto inDto) {
+    public final ResponseEntity<AuthenticateUserOutDto> authenticate(
+    		@Valid @RequestBody AuthenticateUserInDto inDto) {
         logger.info("Authenticating user controller invoked with request payload [" + inDto + "]");
         inDto.setPassword(encoder(inDto.getPassword()));
-        AuthenticateUserOutDto response =
-                this.blogUserService.authenticateUser(inDto);
+        AuthenticateUserOutDto response = blogUserService.authenticateUser(inDto);
         logger.info("Fetching response from authenticateUser service [" + response + "]");
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
-    /**
-     * Api endpoint for searching user by id.
-     * @param userId
-     * @return response
-     */
-    @GetMapping("/get/user/{userid}")
-    public final ResponseEntity<UserOutDto> getUserById(@PathVariable("userid") String userId) {
-    	UserOutDto response = blogUserService.getUserById(userId);
-    	return new ResponseEntity<UserOutDto>(response, HttpStatus.OK);
-    }
     /**
      * Encodes the password using Base64 encoding.
      *

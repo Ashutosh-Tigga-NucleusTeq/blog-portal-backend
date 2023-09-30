@@ -8,59 +8,59 @@ public enum Designation {
   /**
    * Represents a junior-level software engineer role in an organization.
    */
-  SoftwareEngineer,
+  SOFTWARE_ENGINEER,
 
   /**
    * Represents a senior-level software engineer role, typically with more
    * experience and responsibilities than a junior software engineer.
    */
-  SeniorSoftwareEngineer,
+  SENIOR_SOFTWARE_ENGINEER,
 
   /**
    * Represents an internship position, usually for students or individuals
    * gaining practical experience in the field.
    */
-  Intern,
+  INTERN,
 
   /**
    * Represents a role that involves leading a technical team or a group of software engineers.
    */
-  TechnicalLead,
+  TECHNICAL_LEAD,
 
   /**
    * Represents a role that involves high-level design and planning of software systems or solutions.
    */
-  Architect,
+  ARCHITECT,
 
   /**
    * Represents a senior-level architectural role with extensive experience in designing complex systems.
    */
-  SeniorArchitect,
+  SENIOR_ARCHITECT,
 
   /**
    * Represents a position responsible for overseeing project deliveries and ensuring successful project execution.
    */
-  Deliveryhead,
+  DELIVERY_HEAD,
 
   /**
    * Represents the head of a specific department within an organization, often overseeing multiple teams or functions.
    */
-  DepartmentHead,
+  DEPARTMENT_HEAD,
 
   /**
    * Represents a role focused on analyzing and interpreting data to provide insights and support decision-making.
    */
-  DataAnalyst,
+  DATA_ANALYST,
 
   /**
    * Represents a role responsible for managing and maintaining an organization's computer networks and infrastructure.
    */
-  NetworkAdministrator,
+  NETWORK_ADMINISTRATOR,
 
   /**
    * Represents a role focused on DevOps practices, including automation, continuous integration, and continuous deployment.
    */
-  DevopsEngineer,
+  DEVOPS_ENGINEER,
 
   /**
    * Represents a role within the Human Resources department, responsible for various HR-related functions.
@@ -70,7 +70,7 @@ public enum Designation {
   /**
    * A placeholder value that can be used for designations not covered by the predefined constants.
    */
-  Others
+  OTHERS
 
 
 }

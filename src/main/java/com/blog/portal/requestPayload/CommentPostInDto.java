@@ -18,13 +18,13 @@ public class CommentPostInDto {
     /**
      * The ID of the user who is making the comment.
      */
-		@NotBlank
+		@NotBlank(message = "user id must not be null")
     private String userId;
 
     /**
      * The ID of the post on which the comment is being made.
      */
-		@NotBlank
+		@NotBlank(message = "post id  must not be null or blank")
     private String postId;
 
     /**

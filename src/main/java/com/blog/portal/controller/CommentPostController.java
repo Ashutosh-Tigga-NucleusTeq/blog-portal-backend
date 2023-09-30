@@ -18,9 +18,10 @@ import com.blog.portal.requestPayload.CommentPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentPostOutDto;
 import com.blog.portal.services.CommentPostService;
+import com.blog.portal.util.RequestMappingConst;
 
 @RestController
-@RequestMapping("/blog/portal")
+@RequestMapping(RequestMappingConst.COMMENT_URL)
 public class CommentPostController {
 
 	/**
@@ -38,10 +39,10 @@ public class CommentPostController {
    * @param inDto
    * @return ResponseEntity<CommentOutDto>
    */
-  @PostMapping("/do/comment")
+  @PostMapping("/blog")
   public ResponseEntity<ApiResponse> doComment(@RequestBody CommentPostInDto inDto) {
   	logger.info(" do comment controller called with inDto [" + inDto + "]");
-  	ApiResponse response = this.commentPostService.doCommentOnPost(inDto);
+  	ApiResponse response = commentPostService.doCommentOnPost(inDto);
   	logger.info("Fetcing response from doCommentOnPost service [" + response + "]");
   	return new ResponseEntity<ApiResponse>(response, HttpStatus.CREATED);
   }
@@ -51,7 +52,7 @@ public class CommentPostController {
    * @param postId
    * @return ResponseEntity
    */
-  @GetMapping("/get/comment/{postId}")
+  @GetMapping("/{postId}")
   public ResponseEntity<List<CommentPostOutDto>> getComments(@PathVariable String postId) {
   	logger.info("get comment controoler called with path variable [" + postId + "]");
   	List<CommentPostOutDto> response = commentPostService.getComments(postId);

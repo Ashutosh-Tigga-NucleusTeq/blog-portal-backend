@@ -24,4 +24,10 @@ public interface BlogUserRepo extends MongoRepository<User, String> {
 	 */
 	Optional<User> findByEmail(String email);
 
+	/**
+	 * Fetches the user entity by contactNumber.
+	 * @return Optiona<User>
+	 */
+	Optional<User> findByContactNumber();
+
 }

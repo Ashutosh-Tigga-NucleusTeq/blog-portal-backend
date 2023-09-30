@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import com.blog.portal.entities.Comment;
 import com.blog.portal.enumResource.PostStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
 
@@ -31,7 +29,7 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
      */
     private PostStatus status;
 
-    /**
+		/**
      * The description of the post.
      */
     private String content;
@@ -62,12 +60,51 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
     /**
      * List of comment.
      */
-    private List<Comment> comments;
+    private List<String> commentBy;
     /**
      * Sets of user who reported Post.
      */
+
     private Set<String> reportedBy = new HashSet<String>();
     /**
+     * Parameterized Constructor.
+     * @param id
+     * @param title
+     * @param status
+     * @param content
+     * @param technology
+     * @param createdAt
+     * @param editedAt
+     * @param likedBy
+     * @param disLikedBy
+     * @param commentBy
+     * @param reportedBy
+     */
+    public FilterMyBlogPostOutDto(String id, String title, PostStatus status, String content,
+				TechnologyCategory technology, Date createdAt, Date editedAt, Set<String> likedBy,
+				Set<String> disLikedBy,
+				List<String> commentBy, Set<String> reportedBy) {
+			super();
+			this.id = id;
+			this.title = title;
+			this.status = status;
+			this.content = content;
+			this.technology = technology;
+			this.createdAt = createdAt;
+			this.editedAt = editedAt;
+			this.likedBy = likedBy;
+			this.disLikedBy = disLikedBy;
+			this.commentBy = commentBy;
+			this.reportedBy = reportedBy;
+		}
+    /**
+     * Default constructor.
+     */
+    public FilterMyBlogPostOutDto() {
+			super();
+		}
+
+		/**
      * Gets the Collection of user who reported post.
      * @return reportedBy
      */
@@ -86,15 +123,15 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
      * Gets the list of comments.
      * @return comments
      */
-    public List<Comment> getComments() {
-  		return comments;
+    public List<String> getCommentBy() {
+  		return commentBy;
   	}
     /**
      * Sets the list of comments.
-     * @param comments
+     * @param commentBy
      */
-  	public void setComments(List<Comment> comments) {
-  		this.comments = comments;
+  	public void setCommentBy(List<String> commentBy) {
+  		this.commentBy = commentBy;
   	}
 
     /**
@@ -285,7 +322,7 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
      */
     @Override
     public int hashCode() {
-        return Objects.hash(comments, content, createdAt, disLikedBy, editedAt, id, likedBy, status, technology, title);
+        return Objects.hash(commentBy, content, createdAt, disLikedBy, editedAt, id, likedBy, status, technology, title);
     }
 
     /**
@@ -308,7 +345,7 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
             return false;
         }
         FilterMyBlogPostOutDto other = (FilterMyBlogPostOutDto) obj;
-        return Objects.equals(comments, other.comments) && Objects.equals(content, other.content)
+        return Objects.equals(commentBy, other.commentBy) && Objects.equals(content, other.content)
                 && Objects.equals(createdAt, other.createdAt) && Objects.equals(disLikedBy, other.disLikedBy)
                 && Objects.equals(editedAt, other.editedAt) && Objects.equals(id, other.id)
                 && Objects.equals(likedBy, other.likedBy) && status == other.status && technology == other.technology
@@ -326,7 +363,7 @@ public class FilterMyBlogPostOutDto implements Comparable<FilterMyBlogPostOutDto
     public String toString() {
         return "FilterMyBlogPostOutDto [id=" + id + ", title=" + title + ", status=" + status + ", content=" + content
                 + ", technology=" + technology + ", createdAt=" + createdAt + ", editedAt=" + editedAt + ", likedBy="
-                + likedBy + ", disLikedBy=" + disLikedBy + ", comments=" + comments + "]";
+                + likedBy + ", disLikedBy=" + disLikedBy + ", comments=" + commentBy + "]";
     }
 
 }

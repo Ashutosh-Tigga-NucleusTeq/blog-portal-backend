@@ -1,69 +1,85 @@
 package com.blog.portal.responsePayload;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.blog.portal.entities.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CommentPostOutDtoTest {
 
-	/**
-	 * Instance of CommentPostOutDto.
-	 */
-    private CommentPostOutDto comment;
+    private CommentPostOutDto comment1;
+    private CommentPostOutDto comment2;
+    private CommentPostOutDto comment3;
 
-    /**
-     * Settting up before testing.
-     */
-    @Before
+    @BeforeEach
     public void setUp() {
-        comment = new CommentPostOutDto("1", "Test Comment", "user1", "post1");
+        // Create three CommentPostOutDto objects with dummy data
+        comment1 = new CommentPostOutDto("1", "Great post!", "user1", "post1");
+        comment2 = new CommentPostOutDto("2", "Nice article.", "user2", "post1");
+        comment3 = new CommentPostOutDto("1", "Great post!", "user1", "post1");
     }
 
-    /**
-     *Testing of setter and getter.
-     */
     @Test
     public void testGettersAndSetters() {
-        assertEquals("1", comment.getId());
-        assertEquals("Test Comment", comment.getContent());
-        assertEquals("user1", comment.getUserId());
-        assertEquals("post1", comment.getPostId());
+        assertEquals("1", comment1.getId());
+        assertEquals("Great post!", comment1.getContent());
+        assertEquals("user1", comment1.getUserId());
+        assertEquals("post1", comment1.getPostId());
 
-        comment.setId("2");
-        comment.setContent("Updated Comment");
-        comment.setUserId("user2");
-        comment.setPostId("post2");
+        // Test setters
+        comment1.setId("3");
+        comment1.setContent("Updated comment");
+        comment1.setUserId("user3");
+        comment1.setPostId("post3");
 
-        assertEquals("2", comment.getId());
-        assertEquals("Updated Comment", comment.getContent());
-        assertEquals("user2", comment.getUserId());
-        assertEquals("post2", comment.getPostId());
+        assertEquals("3", comment1.getId());
+        assertEquals("Updated comment", comment1.getContent());
+        assertEquals("user3", comment1.getUserId());
+        assertEquals("post3", comment1.getPostId());
     }
 
-    /**
-     * Testing of hashcode.
-     */
+    @Test
+    public void testConstructors() {
+        // Test constructor with parameters
+        assertEquals("1", comment1.getId());
+        assertEquals("Great post!", comment1.getContent());
+        assertEquals("user1", comment1.getUserId());
+        assertEquals("post1", comment1.getPostId());
+
+        // Test default constructor
+        CommentPostOutDto defaultComment = new CommentPostOutDto();
+        assertNull(defaultComment.getId());
+        assertNull(defaultComment.getContent());
+        assertNull(defaultComment.getUserId());
+        assertNull(defaultComment.getPostId());
+    }
+
     @Test
     public void testEqualsAndHashCode() {
-        CommentPostOutDto anotherComment = new CommentPostOutDto("1", "Test Comment", "user1", "post1");
-        CommentPostOutDto differentComment = new CommentPostOutDto("2", "Different Comment", "user2", "post2");
+        assertTrue(comment1.equals(comment1));
+        assertEquals(comment1.hashCode(), comment1.hashCode());
 
-        assertTrue(comment.equals(anotherComment));
-        assertTrue(comment.hashCode() == anotherComment.hashCode());
+        assertTrue(comment1.equals(comment3));
+        assertTrue(comment3.equals(comment1));
+        assertEquals(comment1.hashCode(), comment3.hashCode());
 
-        assertFalse(comment.equals(differentComment));
-        assertFalse(comment.hashCode() == differentComment.hashCode());
+        assertFalse(comment1.equals(null));
+        assertFalse(comment1.equals("string"));
+
+        assertFalse(comment1.equals(comment2));
+        assertFalse(comment2.equals(comment1));
+        assertNotEquals(comment1.hashCode(), comment2.hashCode());
+
+        comment2.setContent("Updated comment");
+        assertFalse(comment1.equals(comment2));
     }
 
-    /**
-     * Testing of toString.
-     */
     @Test
     public void testToString() {
-        String expectedString = "CommentPostOutDto [id=1, content=Test Comment, userId=user1, postId=post1]";
-        assertEquals(expectedString, comment.toString());
+        String expectedToString = "CommentPostOutDto [id=1, content=Great post!, userId=user1, postId=post1]";
+        assertEquals(expectedToString, comment1.toString());
     }
 }

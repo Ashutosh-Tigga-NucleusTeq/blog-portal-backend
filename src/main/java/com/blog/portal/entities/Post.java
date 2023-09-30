@@ -45,7 +45,7 @@ public class Post {
      * The status of the blog post.
      * By default set to pending.
      */
-    private PostStatus status = PostStatus.Pending;
+    private PostStatus status = PostStatus.PENDING;
 
     /**
      * The technology category of the blog post.
@@ -99,13 +99,12 @@ public class Post {
     /**
      * Represent User who disliked post.
      */
-    private Set<String> dislikedBy = new HashSet<String>();
+    private Set<String> disLikedBy = new HashSet<String>();
 
     /**
      * List of Comment.
      */
-    @DBRef
-    private List<Comment> comments = new ArrayList<Comment>();
+    private List<String> commentBy = new ArrayList<String>();
 
     /**
      * Default constructor for the {@code Post} class.
@@ -131,15 +130,15 @@ public class Post {
 		 * Gets user who disliked.
 		 * @return dislikedBy
 		 */
-		public Set<String> getDislikedBy() {
-			return dislikedBy;
+		public Set<String> getDisLikedBy() {
+			return disLikedBy;
 		}
 		/**
 		 * Sets user who disliked.
 		 * @param dislikedBy
 		 */
-		public void setDislikedBy(Set<String> dislikedBy) {
-			this.dislikedBy = dislikedBy;
+		public void setDisLikedBy(Set<String> dislikedBy) {
+			this.disLikedBy = dislikedBy;
 		}
 
 		/**
@@ -253,16 +252,16 @@ public class Post {
      * Gets comments of post.
      * @return comments
      */
-    public List<Comment> getComments() {
-			return comments;
+    public List<String> getCommentBy() {
+			return commentBy;
 		}
 
     /**
      * Sets the comments of post.
      * @param comments
      */
-		public void setComments(List<Comment> comments) {
-			this.comments = comments;
+		public void setCommentBy(List<String> comments) {
+			this.commentBy = comments;
 		}
 
 		/**
@@ -330,7 +329,7 @@ public class Post {
 		@Override
 		public int hashCode() {
 		    return Objects.hash(
-		        comments, content, createdAt, dislikedBy, editedAt, id, likedBy,
+		    		commentBy, content, createdAt, disLikedBy, editedAt, id, likedBy,
 		        status, techCategory, title, user, userId
 		    );
 		}
@@ -353,10 +352,10 @@ public class Post {
 		        return false;
 		    }
 		    Post other = (Post) obj;
-		    return Objects.equals(comments, other.comments)
+		    return Objects.equals(commentBy, other.commentBy)
 		    		&& Objects.equals(content, other.content)
 		    		&& Objects.equals(createdAt, other.createdAt)
-		    		&& Objects.equals(dislikedBy, other.dislikedBy)
+		    		&& Objects.equals(disLikedBy, other.disLikedBy)
 		    		&& Objects.equals(editedAt, other.editedAt)
 		    		&& Objects.equals(id, other.id)
 		    		&& Objects.equals(likedBy, other.likedBy)
@@ -380,7 +379,7 @@ public class Post {
 		 * @param user
 		 * @param likedBy
 		 * @param dislikedBy
-		 * @param comments
+		 * @param commentBy
 		 */
 		public Post(String id, String title, String content, PostStatus status,
 				TechnologyCategory techCategory,
@@ -390,20 +389,20 @@ public class Post {
 				User user,
 				Set<String> likedBy,
 				Set<String> dislikedBy,
-				List<Comment> comments) {
+				List<String> commentBy) {
 			super();
 			this.id = id;
 			this.title = title;
 			this.content = content;
 			this.status = status;
 			this.techCategory = techCategory;
-			this.createdAt = createdAt;
-			this.editedAt = editedAt;
+			this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
+			this.editedAt = (editedAt != null) ? new Date(editedAt.getTime()) : null;
 			this.userId = userId;
 			this.user = user;
 			this.likedBy = likedBy;
-			this.dislikedBy = dislikedBy;
-			this.comments = comments;
+			this.disLikedBy = dislikedBy;
+			this.commentBy = commentBy;
 		}
 
 		/**
@@ -420,7 +419,15 @@ public class Post {
 		    		+ ", status=" + status + ", techCategory=" + techCategory
 		    		+ ", createdAt=" + createdAt + ", editedAt=" + editedAt
 		    		+ ", userId=" + userId + ", user=" + user + ", likedBy=" + likedBy
-		    		+ ", dislikedBy=" + dislikedBy + ", comments=" + comments + "]";
+		    		+ ", dislikedBy=" + disLikedBy + ", commentBy=" + commentBy + "]";
+		}
+		/**
+		 * Initailizing object with passing one paramether id of the post.
+		 * @param id
+		 */
+		public Post(String id) {
+			super();
+			this.id = id;
 		}
 
 }

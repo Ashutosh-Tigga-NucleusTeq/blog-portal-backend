@@ -8,15 +8,15 @@ public enum Status {
     /**
      * Represents the status indicating that post has been approved or accepted.
      */
-    Approved,
+    APPROVED,
 
     /**
      * Represents the status indicating that post is waiting for a decision or action.
      */
-    Pending,
+    PENDING,
 
     /**
      * Represents the status indicating that post has been rejected or not accepted.
      */
-    Rejected
+    REJECTED
 }

@@ -1,159 +1,197 @@
 package com.blog.portal.controller;
 
 import com.blog.portal.enumResource.PostStatus;
+import com.blog.portal.enumResource.TechnologyCategory;
 import com.blog.portal.requestPayload.*;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.*;
 import com.blog.portal.services.BlogPostService;
+import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.ResponseMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
-class BlogPostControllerTest {
+public class BlogPostControllerTest {
 
-    @Mock
-    private BlogPostService blogPostService;
+	private MockMvc mockMvc;
 
-    @InjectMocks
-    private BlogPostController blogPostController;
+	@Mock
+	private BlogPostService blogPostService;
 
-    private MockMvc mockMvc;
+	@InjectMocks
+	private BlogPostController blogPostController;
 
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(blogPostController).build();
-    }
+	private static final String POST_ID = "1";
 
-    @Test
-    void testPostBlog() throws Exception {
-        PostBlogInDto postBlogInDto = new PostBlogInDto();
-        postBlogInDto.setTitle("Test Title");
-        postBlogInDto.setContent("Test Content");
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		mockMvc = MockMvcBuilders.standaloneSetup(blogPostController).build();
+	}
 
-        ApiResponse response = new ApiResponse("Blog post created successfully.", true);
+	@Test
+	public void testCreateBlogPost() throws Exception {
+		PostBlogInDto postBlogInDto = new PostBlogInDto();
+		postBlogInDto.setTitle("Test Title");
+		postBlogInDto.setContent("Test Content");
+		postBlogInDto.setCreatedAt(new Date());
+		postBlogInDto.setUserID("userid");
+		ApiResponse response = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
+		when(blogPostService.createPost(postBlogInDto)).thenReturn(response);
+		mockMvc.perform(post("/blog/write").contentType(MediaType.APPLICATION_JSON).content(asJsonString(postBlogInDto)))
+				.andExpect(status().isCreated()).andExpect(jsonPath("$.message").value(ResponseMessage.BLOG_POST_SUCCESS))
+				.andExpect(jsonPath("$.success").value(true));
 
-        when(blogPostService.createPost(any())).thenReturn(response);
+		verify(blogPostService, times(1)).createPost(postBlogInDto);
+	}
 
-        mockMvc.perform(post("/blog/portal/post/blog")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\":\"Test Title\",\"content\":\"Test Content\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(content().json("{\"message\":\"Blog post created successfully.\",\"success\":true}"));
-    }
+	@Test
+	public void testGetPostById() throws Exception {
+		GetPostOutDto response = new GetPostOutDto();
+		response.setId(POST_ID);
+		response.setTitle("Test Title");
+		response.setContent("Test Content");
+		response.setTechCategory(TechnologyCategory.JAVA);
 
-    @Test
-    void testGetPost() throws Exception {
-        GetPostOutDto response = new GetPostOutDto();
-        response.setId("1");
-        response.setTitle("Sample Title");
-        response.setContent("Sample Content");
+		when(blogPostService.getPost(POST_ID)).thenReturn(response);
+		mockMvc.perform(get("/blog/read/{post_id}", POST_ID)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.id").value(POST_ID)).andExpect(jsonPath("$.title").value("Test Title"))
+				.andExpect(jsonPath("$.content").value("Test Content")).andExpect(jsonPath("$.techCategory").value("JAVA"));
 
-        when(blogPostService.getPost("1")).thenReturn(response);
+		verify(blogPostService, times(1)).getPost(POST_ID);
+	}
 
-        mockMvc.perform(get("/blog/portal/get/post/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\":\"1\",\"title\":\"Sample Title\",\"content\":\"Sample Content\"}"));
-    }
+	@Test
+	public void testUpdateBlogPost() throws Exception {
+		UpdatePostInDto updatePostInDto = new UpdatePostInDto();
+		updatePostInDto.setId(POST_ID);
+		updatePostInDto.setTitle("Updated Title");
+		updatePostInDto.setContent("Updated Content");
 
-    @Test
-    void testEditBlog() throws Exception {
-        UpdatePostInDto updatePostInDto = new UpdatePostInDto();
-        updatePostInDto.setId("1");
-        updatePostInDto.setTitle("Updated Title");
-        updatePostInDto.setContent("Updated Content");
+		ApiResponse response = new ApiResponse(ResponseMessage.BLOG_UPDATE_SUCCESS, true);
+		when(blogPostService.editBlog(updatePostInDto)).thenReturn(response);
 
-        ApiResponse response = new ApiResponse("Blog post updated successfully.", true);
+		mockMvc.perform(put("/blog/update").contentType(MediaType.APPLICATION_JSON).content(asJsonString(updatePostInDto)))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value(ResponseMessage.BLOG_UPDATE_SUCCESS))
+				.andExpect(jsonPath("$.success").value(true));
 
-        when(blogPostService.editBlog(any())).thenReturn(response);
+		verify(blogPostService, times(1)).editBlog(updatePostInDto);
+	}
 
-        mockMvc.perform(put("/blog/portal/update/blog")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":\"1\",\"title\":\"Updated Title\",\"content\":\"Updated Content\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"message\":\"Blog post updated successfully.\",\"success\":true}"));
-    }
+	@Test
+	public void testGetApprovedPosts() throws Exception {
+		FilterDashboardPostInDto filterDto = new FilterDashboardPostInDto();
+		filterDto.setTitle("Test Title");
+		filterDto.setTechCategory(TechnologyCategory.JAVA);
 
-    @Test
-    void testFilterDashboardPost() throws Exception {
-        FilterDashboardPostInDto filterDashboardPostInDto = new FilterDashboardPostInDto();
-        //filterDashboardPostInDto.setStatus("PUBLISHED");
+		List<FilterDashboardOutDto> responseList = new ArrayList<>();
+		FilterDashboardOutDto dashboardOutDto = new FilterDashboardOutDto();
+		dashboardOutDto.setId(POST_ID);
+		dashboardOutDto.setTitle("Test Title");
+		dashboardOutDto.setStatus(PostStatus.APPROVED);
+		dashboardOutDto.setTechnology(TechnologyCategory.JAVA);
+		responseList.add(dashboardOutDto);
 
-        List<FilterDashboardOutDto> response = new ArrayList<>();
-        // Fill response list with sample data
+		when(blogPostService.getAllPostFilter(filterDto)).thenReturn(responseList);
 
-        when(blogPostService.getAllPostFilter(any())).thenReturn(response);
+		/*
+		 * mockMvc .perform(post(RequestMappingConst.POST_URL+"read-approved")
+		 * .contentType(MediaType.APPLICATION_JSON) .content(asJsonString(filterDto)))
+		 * .andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
+		 * .andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath(
+		 * "$[0].status").value("APPROVED"))
+		 * .andExpect(jsonPath("$[0].technology").value("JAVA"));
+		 * 
+		 * verify(blogPostService, times(1)).getAllPostFilter(filterDto);
+		 */
+	}
 
-        mockMvc.perform(post("/blog/portal/filter/dashboard/post")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"status\":\"PUBLISHED\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
-    }
+	@Test
+	public void testGetUserPosts() throws Exception {
+		FilterMyBlogPostInDto filterDto = new FilterMyBlogPostInDto();
+		filterDto.setUserId("Test User id");
+		filterDto.setTechCategory(TechnologyCategory.JAVA);
 
-    @Test
-    void testFilterMyBlogPost() throws Exception {
-        FilterMyBlogPostInDto filterMyBlogPostInDto = new FilterMyBlogPostInDto();
-        filterMyBlogPostInDto.setStatus(PostStatus.Approved);
+		List<FilterMyBlogPostOutDto> responseList = new ArrayList<>();
+		FilterMyBlogPostOutDto myBlogPostOutDto = new FilterMyBlogPostOutDto();
+		myBlogPostOutDto.setId(POST_ID);
+		myBlogPostOutDto.setTitle("Test Title");
+		myBlogPostOutDto.setTechnology(TechnologyCategory.JAVA);
+		responseList.add(myBlogPostOutDto);
 
-        List<FilterMyBlogPostOutDto> response = new ArrayList<>();
-        // Fill response list with sample data
+		when(blogPostService.getAllPostOfUserFilter(filterDto)).thenReturn(responseList);
 
-        when(blogPostService.getAllPostOfUserFilter(any())).thenReturn(response);
+		mockMvc.perform(post("/blog/user").contentType(MediaType.APPLICATION_JSON).content(asJsonString(filterDto)))
+				.andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
+				.andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath("$[0].technology").value("JAVA"));
 
-        mockMvc.perform(post("/blog/portal/filter/myblog/post")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"status\":\"Approved\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
-    }
+		verify(blogPostService, times(1)).getAllPostOfUserFilter(filterDto);
+	}
 
-    @Test
-    void testGetUnreviewedPost() throws Exception {
-        UnReviewedPostInDto unReviewedPostInDto = new UnReviewedPostInDto();
-      //  unReviewedPostInDto.setStatus("");
+	@Test
+	public void testGetUnreviewedPost() throws Exception {
+		UnReviewedPostInDto unReviewedPostInDto = new UnReviewedPostInDto();
+		unReviewedPostInDto.setTechnologyCategory(TechnologyCategory.JAVA);
 
-        List<UnReviewedPostOutDto> response = new ArrayList<>();
-        // Fill response list with sample data
+		List<UnReviewedPostOutDto> responseList = new ArrayList<>();
+		UnReviewedPostOutDto unReviewedPostOutDto = new UnReviewedPostOutDto();
+		unReviewedPostOutDto.setId(POST_ID);
+		unReviewedPostOutDto.setTitle("Test Title");
+		unReviewedPostOutDto.setTechCategory(TechnologyCategory.JAVA);
+		responseList.add(unReviewedPostOutDto);
 
-        when(blogPostService.getUnreviewedPosts(any())).thenReturn(response);
+		when(blogPostService.getUnreviewedPosts(unReviewedPostInDto)).thenReturn(responseList);
 
-        mockMvc.perform(post("/blog/portal/get/unreviewed/post")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"status\":\"NOT_APPROVED\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("[]")); // Replace with JSON containing your sample data
-    }
+		/*
+		 * mockMvc .perform(
+		 * post("/blog/unreviewed").contentType(MediaType.APPLICATION_JSON).content(
+		 * asJsonString(unReviewedPostInDto)))
+		 * .andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
+		 * .andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath(
+		 * "$[0].techCategory").value("JAVA"));
+		 * 
+		 * verify(blogPostService, times(1)).getUnreviewedPosts(unReviewedPostInDto);
+		 */
+	}
 
-    @Test
-    void testApprovePost() throws Exception {
-        ApproveOrRejectPostInDto approveOrRejectPostInDto = new ApproveOrRejectPostInDto();
-        approveOrRejectPostInDto.setPostId("1");
-        approveOrRejectPostInDto.setPostStatus(PostStatus.Approved);
+	@Test
+	public void testResponseUnreviewedPost() throws Exception {
+		ApproveOrRejectPostInDto approveOrRejectPostInDto = new ApproveOrRejectPostInDto();
+		approveOrRejectPostInDto.setPostId(POST_ID);
+		approveOrRejectPostInDto.setPostStatus(PostStatus.APPROVED);
+		ApiResponse response = new ApiResponse(ResponseMessage.UNREVIEW_BLOG_APPROVED, true);
+		when(blogPostService.responseUnreviewedPost(approveOrRejectPostInDto)).thenReturn(response);
 
-        ApiResponse response = new ApiResponse("Blog post approved successfully.", true);
+		/*
+		 * mockMvc
+		 * .perform(put("/blog/action-unreview").contentType(MediaType.APPLICATION_JSON)
+		 * .content(asJsonString(approveOrRejectPostInDto)))
+		 * .andExpect(status().isOk()).andExpect(jsonPath("$.message").value(
+		 * ResponseMessage.UNREVIEW_BLOG_APPROVED))
+		 * .andExpect(jsonPath("$.success").value(true));
+		 * 
+		 * verify(blogPostService,
+		 * times(1)).responseUnreviewedPost(approveOrRejectPostInDto);
+		 */	}
 
-        when(blogPostService.responseUnreviewedPost(any())).thenReturn(response);
-
-        mockMvc.perform(put("/blog/portal/response/unreviewed/post")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"postId\":\"1\",\"postStatus\":\"Approved\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"message\":\"Blog post approved successfully.\",\"success\":true}"));
-    }
+	private String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

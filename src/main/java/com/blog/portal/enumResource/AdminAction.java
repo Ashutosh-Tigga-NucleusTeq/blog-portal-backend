@@ -5,9 +5,9 @@ public enum AdminAction {
 	/**
 	 * This is for admin who can Ignore the reported post blog.
 	 */
-	Ignore,
+	IGNORE,
 	/**
 	 * THis is for admin who can delete the reported post blog.
 	 */
-	Delete
+	DELETE
 }

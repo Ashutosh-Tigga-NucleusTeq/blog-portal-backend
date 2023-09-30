@@ -1,6 +1,8 @@
 package com.blog.portal.serviceimpl;
 
 import com.blog.portal.entities.User;
+import com.blog.portal.exception.ResourceNotFoundException;
+import com.blog.portal.exception.UnauthorizedUserExeption;
 import com.blog.portal.exception.UserRegistrationException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
@@ -9,106 +11,114 @@ import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
 import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDto;
+import com.blog.portal.services.BlogUserService;
+import com.blog.portal.util.ResponseMessage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 public class BlogUserServiceImplTest {
 
     @InjectMocks
-    private BlogUserServiceImpl userService;
+    private BlogUserServiceImpl blogUserService;
 
     @Mock
     private BlogUserRepo blogUserRepo;
 
     @BeforeEach
-    public void init() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testCreateUser_Success() throws UserRegistrationException {
-        // Mock the behavior of blogUserRepo.findByEmail
-        when(blogUserRepo.findByEmail(Mockito.anyString())).thenReturn(Optional.empty());
+        RegisterUserInDto userDto = new RegisterUserInDto();
+        userDto.setFirstName("firstname");
+        userDto.setLastName("lastname");
+        userDto.setEmail("firstname.lastname@example.com");
 
-        // Create a sample RegisterUserInDto
-        RegisterUserInDto inputDto = new RegisterUserInDto();
-        inputDto.setEmail("test@example.com");
-        inputDto.setPassword("password");
+        User user = RegisterUserMapper.inDtoToUser(userDto);
 
-        // Call the createUser method
-        ApiResponse response = userService.createUser(inputDto);
+        when(blogUserRepo.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+        when(blogUserRepo.save(any(User.class))).thenReturn(user);
 
-        // Verify that the user was saved and the response is as expected
-        verify(blogUserRepo, times(1)).save(any(User.class));
+        ApiResponse response = blogUserService.createUser(userDto);
+
+        assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals("User Registered Succesfully", response.getMessage());
+        assertEquals(ResponseMessage.USER_REGISTER_SUCCESS, response.getMessage());
     }
 
     @Test
     public void testCreateUser_UserAlreadyExists() {
-        // Mock the behavior of blogUserRepo.findByEmail to return a user
-        when(blogUserRepo.findByEmail(Mockito.anyString())).thenReturn(Optional.of(new User()));
+        RegisterUserInDto userDto = new RegisterUserInDto();
+        userDto.setFirstName("firstname");
+        userDto.setLastName("lastname");
+        userDto.setEmail("firstname.lastname@example.com");
 
-        // Create a sample RegisterUserInDto
-        RegisterUserInDto inputDto = new RegisterUserInDto();
-        inputDto.setEmail("test@example.com");
-        inputDto.setPassword("password");
+        User user = RegisterUserMapper.inDtoToUser(userDto);
 
-        // Call the createUser method and expect a UserRegistrationException
-        assertThrows(UserRegistrationException.class, () -> userService.createUser(inputDto));
+        when(blogUserRepo.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        // Verify that the user was not saved
-        verify(blogUserRepo, never()).save(any(User.class));
+        assertThrows(UserRegistrationException.class, () -> blogUserService.createUser(userDto));
     }
 
     @Test
     public void testAuthenticateUser_Success() {
-        // Mock the behavior of blogUserRepo.findByEmail to return a user
-        User mockUser = new User();
-        mockUser.setEmail("test@example.com");
-        mockUser.setPassword("password");
-        when(blogUserRepo.findByEmail(Mockito.anyString())).thenReturn(Optional.of(mockUser));
+        AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+        authDto.setEmail("firstname.lastname@example.com");
+        authDto.setPassword("password123");
 
-        // Create a sample AuthenticateUserInDto
-        AuthenticateUserInDto inputDto = new AuthenticateUserInDto();
-        inputDto.setEmail("test@example.com");
-        inputDto.setPassword("password");
+        User user = new User();
+        user.setEmail(authDto.getEmail());
+        user.setPassword(authDto.getPassword());
 
-        // Call the authenticateUser method
-        AuthenticateUserOutDto outDto = userService.authenticateUser(inputDto);
+        when(blogUserRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.of(user));
 
-        // Verify that the authenticated user is returned
+        AuthenticateUserOutDto outDto = blogUserService.authenticateUser(authDto);
+
         assertNotNull(outDto);
-        assertEquals(mockUser.getEmail(), outDto.getEmail());
-        assertEquals(AuthenticateUserMapper.userToOutDto(mockUser).getId(), outDto.getId());
+        assertEquals(authDto.getEmail(), outDto.getEmail());
     }
 
     @Test
-    public void testAuthenticateUser_InvalidCredentials() {
-        // Mock the behavior of blogUserRepo.findByEmail to return a user with a different password
-        User mockUser = new User();
-        mockUser.setEmail("test@example.com");
-        mockUser.setPassword("password");
-        when(blogUserRepo.findByEmail(Mockito.anyString())).thenReturn(Optional.of(mockUser));
+    public void testAuthenticateUser_UserNotFound() {
+        AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+        authDto.setEmail("firstname.lastname@example.com");
+        authDto.setPassword("password123");
 
-        // Create a sample AuthenticateUserInDto with incorrect password
-        AuthenticateUserInDto inputDto = new AuthenticateUserInDto();
-        inputDto.setEmail("test@example.com");
-        inputDto.setPassword("wrong_password");
+        when(blogUserRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.empty());
 
-        // Call the authenticateUser method and expect null output
-        AuthenticateUserOutDto outDto = userService.authenticateUser(inputDto);
-
-        // Verify that no user is authenticated
-        assertNull(outDto);
+        Exception exception = assertThrows(UnauthorizedUserExeption.class, () -> blogUserService.authenticateUser(authDto));
+        assertEquals("The user is not authenticated", exception.getMessage());
     }
+
+
+    @Test
+    public void testGetUserById_Success() {
+        String userId = "1";
+        User user = new User();
+        user.setId(userId);
+        user.setFirstName("firstname");
+        user.setLastName("lastname");
+
+        when(blogUserRepo.findById(userId)).thenReturn(Optional.of(user));
+
+        UserOutDto userOutDto = blogUserService.getUserById(userId);
+
+        assertNotNull(userOutDto);
+        assertEquals(user.getFirstName(), userOutDto.getFirstName());
+        assertEquals(user.getLastName(), userOutDto.getLastName());
+    }
+
 }

@@ -10,15 +10,15 @@ public enum PostStatus {
 	/**
 	 * approved post will be visible to every user.
 	 */
-	Approved,
+	APPROVED,
 
 	/**
 	 * pending post will be visible to user itself who posted that post and visible to admin too.
 	 */
-	Pending,
+	PENDING,
 
 	/**
 	 * rejected then it won't be allowed to visible to anyone.
 	 */
-	Rejected;
+	REJECTED;
 }

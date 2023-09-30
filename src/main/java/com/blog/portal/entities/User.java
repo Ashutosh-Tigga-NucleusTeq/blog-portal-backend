@@ -70,7 +70,7 @@ public final class User {
     /**
      * The role of the user.
      */
-    private Role role = Role.Employee;
+    private Role role = Role.EMPLOYEE;
 
     /**
      * The list of blog posts authored by the user.
@@ -304,8 +304,36 @@ public final class User {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
-
     /**
+     * Parameterized Constructor.
+     *
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param gender
+     * @param email
+     * @param password
+     * @param designation
+     * @param contactNumber
+     * @param role
+     * @param posts
+     */
+    public User(String id, String firstName, String lastName, @NotNull Gender gender, String email, String password,
+				Designation designation, String contactNumber, Role role, List<Post> posts) {
+			super();
+			this.id = id;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.gender = gender;
+			this.email = email;
+			this.password = password;
+			this.designation = designation;
+			this.contactNumber = contactNumber;
+			this.role = role;
+			this.posts = posts;
+		}
+
+		/**
      * Generates a hash code for this {@code User} object based on its contactNumber, designation, email,
      * firstName, gender, id, lastName, password, posts, and role.
      *

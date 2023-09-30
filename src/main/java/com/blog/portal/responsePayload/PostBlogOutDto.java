@@ -81,7 +81,7 @@ public class PostBlogOutDto {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
+        this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
         this.techCategory = techCategory;
         this.user = user;
         this.status = status;

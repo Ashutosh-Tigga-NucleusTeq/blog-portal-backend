@@ -28,12 +28,12 @@ public class FilterDashboardPostMapper {
   	res.setUser(post.getUser());
   	res.setStatus(post.getStatus());
   	res.setContent(post.getContent());
-  	res.setTechCategory(post.getTechCategory());
+  	res.setTechnology(post.getTechCategory());
   	res.setTitle(post.getTitle());
   	res.setCreatedAt(post.getCreatedAt());
   	res.setLikedBy(post.getLikedBy());
-  	res.setDisLikedBy(post.getDislikedBy());
-  	res.setComments(post.getComments());
+  	res.setDisLikedBy(post.getDisLikedBy());
+  	res.setCommentBy(post.getCommentBy());
   	res.setReportedBy(post.getReportedBy());
   	return res;
   }
