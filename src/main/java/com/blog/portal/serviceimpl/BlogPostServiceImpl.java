@@ -61,7 +61,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 		ApiResponse reponse = null;
 		User user = blogUserRepo.findById(postBlogInDto.getUserId())
-				.orElseThrow(() -> new ResourceNotFoundException(null, null, null));
+				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", postBlogInDto.getUserId()));
 		user.setPassword(null);
 		Post post = PostBlogMapper.inDtoToPost(postBlogInDto);
 		post.setUser(user);
@@ -70,7 +70,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 			blogPostRepo.save(post);
 			reponse = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
 		} catch (RuntimeException ex) {
-			throw new RuntimeException();
+			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
 		} catch (Exception e) {
 			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
 		}
@@ -156,7 +156,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	public ApiResponse editBlog(UpdatePostInDto inDto) {
 		ApiResponse response = new ApiResponse();
 		Post fetchPost = blogPostRepo.findById(inDto.getId())
-				.orElseThrow(() -> new ResourceNotFoundException(null, null, null));
+				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", inDto.getId()));
 		fetchPost.setContent(inDto.getContent());
 		fetchPost.setTitle(inDto.getTitle());
 		fetchPost.setEditedAt(new Date());
@@ -181,7 +181,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	@Override
 	public GetPostOutDto getPost(String postId) {
 		Post post = blogPostRepo.findById(postId)
-				.orElseThrow(() -> new ResourceNotFoundException(postId, postId, postId));
+				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 		GetPostOutDto outDto = GetPostMapper.entityToOutDto(post);
 		return outDto;
 	}

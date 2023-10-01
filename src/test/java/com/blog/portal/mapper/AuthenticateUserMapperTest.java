@@ -13,9 +13,7 @@ import com.blog.portal.responsePayload.AuthenticateUserOutDto;
 
 public class AuthenticateUserMapperTest {
 
-	/**
-	 * Testing of inDto to entity.
-	 */
+
     @Test
     public void testInDtoToUser() {
         AuthenticateUserInDto inDto = new AuthenticateUserInDto();
@@ -28,9 +26,7 @@ public class AuthenticateUserMapperTest {
         assertEquals("password", user.getPassword());
     }
 
-    /**
-     * Testing of Entity to outDto.
-     */
+
     @Test
     public void testUserToOutDto() {
         User user = new User();

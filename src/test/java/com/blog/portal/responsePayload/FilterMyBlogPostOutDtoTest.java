@@ -17,7 +17,6 @@ public class FilterMyBlogPostOutDtoTest {
 
     @Test
     public void testGetterAndSetterMethods() {
-        // Create a sample FilterMyBlogPostOutDto object with data
         String id = "1";
         String title = "Sample Post";
         PostStatus status = PostStatus.APPROVED;
@@ -45,7 +44,6 @@ public class FilterMyBlogPostOutDtoTest {
         assertEquals(commentBy, postDto.getCommentBy());
         assertEquals(reportedBy, postDto.getReportedBy());
 
-        // Test setter methods
         String newId = "2";
         postDto.setId(newId);
         assertEquals(newId, postDto.getId());
@@ -93,7 +91,6 @@ public class FilterMyBlogPostOutDtoTest {
 
     @Test
     public void testEqualsAndHashCodeMethods() {
-        // Create two identical FilterMyBlogPostOutDto objects
         FilterMyBlogPostOutDto postDto1 = new FilterMyBlogPostOutDto("1", "Sample Post", PostStatus.APPROVED,
                 "This is a sample post content.", TechnologyCategory.PYTHON,
                 new Date(), new Date(), new HashSet<>(Arrays.asList("User1", "User2")),
@@ -106,13 +103,10 @@ public class FilterMyBlogPostOutDtoTest {
                 new HashSet<>(Arrays.asList("User3", "User4")), Arrays.asList("User5", "User6"),
                 new HashSet<>(Arrays.asList("User7", "User8")));
 
-        // Test equals method
         assertEquals(postDto1, postDto1);
 
-        // Test hashCode method
         assertEquals(postDto1.hashCode(), postDto1.hashCode());
 
-        // Modify one object and test again
         postDto2.setId("2");
         assertNotEquals(postDto1, postDto2);
         assertNotEquals(postDto1.hashCode(), postDto2.hashCode());
@@ -120,14 +114,12 @@ public class FilterMyBlogPostOutDtoTest {
 
     @Test
     public void testToStringMethod() {
-        // Create a sample FilterMyBlogPostOutDto object with data
         FilterMyBlogPostOutDto postDto = new FilterMyBlogPostOutDto("1", "Sample Post", PostStatus.APPROVED,
                 "This is a sample post content.", TechnologyCategory.PYTHON,
                 new Date(), new Date(), new HashSet<>(Arrays.asList("User1", "User2")),
                 new HashSet<>(Arrays.asList("User3", "User4")), Arrays.asList("User5", "User6"),
                 new HashSet<>(Arrays.asList("User7", "User8")));
 
-        // Test toString method
         String expectedToString = "FilterMyBlogPostOutDto [id=1, title=Sample Post, status=APPROVED, content=This is a sample post content., technology=PYTHON, createdAt="
                 + postDto.getCreatedAt() + ", editedAt=" + postDto.getEditedAt() + ", likedBy=" + postDto.getLikedBy()
                 + ", disLikedBy=" + postDto.getDisLikedBy() + ", comments=" + postDto.getCommentBy() + "]";

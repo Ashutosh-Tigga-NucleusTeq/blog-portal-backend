@@ -9,22 +9,16 @@ import org.junit.jupiter.api.Test;
 
 public class AuthenticateUserInDtoTest {
 
-	/**
-	 * Instance of AuthencateUserInDto.
-	 */
+
     private AuthenticateUserInDto authenticateUserInDto;
 
-    /**
-     * Setting up before testing.
-     */
+
     @BeforeEach
     public void setUp() {
         authenticateUserInDto = new AuthenticateUserInDto();
     }
 
-    /**
-     * Testing setter and getter.
-     */
+
     @Test
     public void testGettersAndSetters() {
         authenticateUserInDto.setEmail("test@example.com");
@@ -39,9 +33,7 @@ public class AuthenticateUserInDtoTest {
         assertEquals("newpassword456", authenticateUserInDto.getPassword());
     }
 
-    /**
-     * Testing hashCode.
-     */
+
     @Test
     public void testHashCode() {
         authenticateUserInDto.setEmail("test@example.com");
@@ -51,9 +43,7 @@ public class AuthenticateUserInDtoTest {
         assertEquals(other.hashCode(), authenticateUserInDto.hashCode());
     }
 
-    /**
-     * Testing equals.
-     */
+
     @Test
     public void testEquals() {
         authenticateUserInDto.setEmail("test@example.com");
@@ -70,9 +60,7 @@ public class AuthenticateUserInDtoTest {
         assertFalse(authenticateUserInDto.equals("Not an AuthenticateUserInDto"));
     }
 
-    /**
-     * Testing toString.
-     */
+
     @Test
     public void testToString() {
         authenticateUserInDto.setEmail("test@example.com");

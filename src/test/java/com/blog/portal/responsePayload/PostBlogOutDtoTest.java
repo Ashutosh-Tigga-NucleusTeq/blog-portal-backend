@@ -13,9 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Date;
 public class PostBlogOutDtoTest {
 
-	/**
-	 * Default constructor testing.
-	 */
+
     @Test
     public void testDefaultConstructor() {
         PostBlogOutDto dto = new PostBlogOutDto();
@@ -27,13 +25,11 @@ public class PostBlogOutDtoTest {
         assertNull(dto.getUser());
         assertNull(dto.getStatus());
     }
-    /**
-     * Testing paratererized testing.
-     */
+
     @Test
     public void testParameterizedConstructor() {
         Date createdAt = new Date();
-        User user = new User(); // You can create a User object as needed
+        User user = new User(); 
         PostBlogOutDto dto = new PostBlogOutDto("1", "Title", "Content", PostStatus.PENDING,
                 TechnologyCategory.CSS, createdAt, user);
 
@@ -46,14 +42,12 @@ public class PostBlogOutDtoTest {
         assertEquals(PostStatus.PENDING, dto.getStatus());
     }
 
-    /**
-     * testing setter and getter.
-     */
+
     @Test
     public void testSetterAndGetterMethods() {
         PostBlogOutDto dto = new PostBlogOutDto();
         Date createdAt = new Date();
-        User user = new User(); // You can create a User object as needed
+        User user = new User(); 
 
         dto.setId("2");
         dto.setTitle("New Title");
@@ -72,9 +66,7 @@ public class PostBlogOutDtoTest {
         assertEquals(PostStatus.APPROVED, dto.getStatus());
     }
 
-    /**
-     * testing hashcode and equals.
-     */
+
     @Test
     public void testHashCodeAndEquals() {
         Date createdAt = new Date();
@@ -94,9 +86,7 @@ public class PostBlogOutDtoTest {
         assertNotEquals(dto1, dto3);
     }
 
-    /**
-     * testing toString.
-     */
+
     @Test
     public void testToString() {
         Date createdAt = new Date();

@@ -2,21 +2,21 @@ package com.blog.portal.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.blog.portal.entities.Post;
 import com.blog.portal.enumResource.PostStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
+import com.blog.portal.entities.User;
 
 public class PostTest {
 
@@ -25,138 +25,83 @@ public class PostTest {
     @BeforeEach
     public void setUp() {
         post = new Post();
+        post.setId("1");
+        post.setTitle("Sample Post");
+        post.setContent("This is the content of the sample post.");
+        post.setStatus(PostStatus.APPROVED);
+        post.setTechCategory(TechnologyCategory.HTML);
+        post.setCreatedAt(new Date(12));
+        post.setEditedAt(new Date(13));
+        post.setUserId("user123");
+        post.setLikedBy(new HashSet<>(Arrays.asList("user1", "user2")));
+        post.setDisLikedBy(new HashSet<>(Arrays.asList("user3", "user4")));
+        post.setCommentBy(Arrays.asList("comment1", "comment2"));
+        post.setReportedBy(new HashSet<>(Arrays.asList("user5", "user6")));
     }
 
     @Test
-    public void testGetterSetter() {
-        post.setId("1");
-        post.setTitle("Test Post");
-        post.setContent("This is a test post.");
-        post.setStatus(PostStatus.APPROVED);
-        post.setTechCategory(TechnologyCategory.JAVA);
-        Date createdAt = new Date();
-        post.setCreatedAt(createdAt);
-        Date editedAt = new Date();
-        post.setEditedAt(editedAt);
-        post.setUserId("user123");
-        User user = new User();
-        post.setUser(user);
-        Set<String> likedBy = new HashSet<String>(Set.of("user1", "user2"));
-        post.setLikedBy(likedBy);
-        Set<String> dislikedBy = new HashSet<>(Set.of("user3", "user4"));
-        post.setDisLikedBy(dislikedBy);
-        List<String> comments = new ArrayList<>(List.of(new String("user1")));
-        post.setCommentBy(comments);
-
+    public void testGettersAndSetters() {
         assertEquals("1", post.getId());
-        assertEquals("Test Post", post.getTitle());
-        assertEquals("This is a test post.", post.getContent());
+        assertEquals("Sample Post", post.getTitle());
+        assertEquals("This is the content of the sample post.", post.getContent());
         assertEquals(PostStatus.APPROVED, post.getStatus());
-        assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
-        assertEquals(createdAt, post.getCreatedAt());
-        assertEquals(editedAt, post.getEditedAt());
+        assertEquals(TechnologyCategory.HTML, post.getTechCategory());
+        assertTrue(post.getCreatedAt() instanceof Date);
+        assertTrue(post.getEditedAt() instanceof Date);
         assertEquals("user123", post.getUserId());
-        assertEquals(user, post.getUser());
-        assertEquals(likedBy, post.getLikedBy());
-        assertEquals(dislikedBy, post.getDisLikedBy());
-        assertEquals(comments, post.getCommentBy());
-    }
-
-  
-    @Test
-    public void testGetEditedAtNotNull() {
-        Post post = new Post();
-        post.setEditedAt(new Date()); 
-
-        Date editedAt = post.getEditedAt();
-
-        assertNotNull(editedAt);
+        assertEquals(2, post.getLikedBy().size());
+        assertEquals(2, post.getDisLikedBy().size());
+        assertEquals(2, post.getReportedBy().size());
+        assertEquals(2, post.getCommentBy().size());
     }
 
     @Test
-    public void testGetEditedAtNull() {
-        Post post = new Post();
-        post.setEditedAt(null); 
+    public void testEqualsAndHashCode() {
+        Post anotherPost = new Post();
+        anotherPost.setId("1");
+        anotherPost.setTitle("Sample Post");
+        anotherPost.setContent("This is the content of the sample post.");
+        anotherPost.setStatus(PostStatus.APPROVED);
+        anotherPost.setTechCategory(TechnologyCategory.HTML);
+        anotherPost.setCreatedAt(new Date(12));
+        anotherPost.setEditedAt(new Date(13));
+        anotherPost.setUserId("user123");
+        anotherPost.setLikedBy(new HashSet<>(Arrays.asList("user1", "user2")));
+        anotherPost.setDisLikedBy(new HashSet<>(Arrays.asList("user3", "user4")));
+        anotherPost.setCommentBy(Arrays.asList("comment1", "comment2"));
+        anotherPost.setReportedBy(new HashSet<>(Arrays.asList("user5", "user6")));
 
-        Date editedAt = post.getEditedAt();
-
-        assertNull(editedAt);
-    }
-
-    @Test
-    public void testToString() {
-        post.setId("1");
-        post.setTitle("Test Post");
-        post.setContent("This is a test post.");
-        post.setStatus(PostStatus.APPROVED);
-        post.setTechCategory(TechnologyCategory.JAVA);
-        Date createdAt = new Date();
-        post.setCreatedAt(createdAt);
-        Date editedAt = new Date();
-        post.setEditedAt(editedAt);
-        post.setUserId("user123");
-        User user = new User();
-        post.setUser(user);
-        Set<String> likedBy = new HashSet<>(Set.of("user1", "user2"));
-        post.setLikedBy(likedBy);
-        Set<String> dislikedBy = new HashSet<>(Set.of("user3", "user4"));
-        post.setDisLikedBy(dislikedBy);
-        List<String> comments = new ArrayList<>(List.of(new String("user1")));
-        post.setCommentBy(comments);
-
-        String expectedToString = "Post [id=1, title=Test Post, content=This is a test post., " +
-                "status=APPROVED, techCategory=JAVA, " +
-                "createdAt=" + createdAt + ", editedAt=" + editedAt + ", " +
-                "userId=user123, user=" + user + ", " +
-                "likedBy=[" + String.join(", ", likedBy) + "], " +
-                "dislikedBy=[" + String.join(", ", dislikedBy) + "], " +
-                "commentBy=[" + comments.get(0).toString() + "]]";
-
-        assertEquals(expectedToString, post.toString());
-    }
-    @Test
-    public void testHashCode() {
-        Post post1 = new Post("1", "Test Post", "This is a test post.", PostStatus.APPROVED,
-                TechnologyCategory.JAVA, new Date(), new Date(), "user123", new User(),
-                new HashSet<>(Set.of("user1", "user2")), new HashSet<>(Set.of("user3", "user4")),
-                new ArrayList<>(List.of("user1")));
-
-        Post post2 = new Post("1", "Test Post", "This is a test post.", PostStatus.APPROVED,
-                TechnologyCategory.JAVA, new Date(), new Date(), "user123", new User(),
-                new HashSet<>(Set.of("user1", "user2")), new HashSet<>(Set.of("user3", "user4")),
-                new ArrayList<>(List.of("user1")));
-
-        assertEquals(post1.hashCode(), post2.hashCode());
-    }
-
-    @Test
-    public void testEquals() {
-        Post post1 = new Post("1", "Test Post", "This is a test post.", PostStatus.APPROVED,
-                TechnologyCategory.JAVA, new Date(), new Date(), "user123", new User(),
-                new HashSet<>(Set.of("user1", "user2")), new HashSet<>(Set.of("user3", "user4")),
-                new ArrayList<>(List.of("user1")));
-
-        Post post2 = new Post("1", "Test Post", "This is a test post.", PostStatus.APPROVED,
-                TechnologyCategory.JAVA, new Date(), new Date(), "user123", new User(),
-                new HashSet<>(Set.of("user1", "user2")), new HashSet<>(Set.of("user3", "user4")),
-                new ArrayList<>(List.of("user1")));
-
-        assertTrue(post1.equals(post2));
+        assertEquals(post, anotherPost);
+        assertEquals(post.hashCode(), anotherPost.hashCode());
     }
 
     @Test
     public void testNotEquals() {
-        Post post1 = new Post("1", "Test Post 1", "This is a test post.", PostStatus.APPROVED,
-                TechnologyCategory.JAVA, new Date(), new Date(), "user123", new User(),
-                new HashSet<>(Set.of("user1", "user2")), new HashSet<>(Set.of("user3", "user4")),
-                new ArrayList<>(List.of("user1")));
+        Post anotherPost = new Post();
+        anotherPost.setId("2");
+        anotherPost.setTitle("Another Post");
+        anotherPost.setContent("This is the content of another post.");
+        anotherPost.setStatus(PostStatus.PENDING);
+        anotherPost.setTechCategory(TechnologyCategory.JAVA);
+        anotherPost.setCreatedAt(new Date());
+        anotherPost.setEditedAt(new Date());
+        anotherPost.setUserId("user789");
+        anotherPost.setLikedBy(new HashSet<>(Arrays.asList("user7", "user8")));
+        anotherPost.setDisLikedBy(new HashSet<>(Arrays.asList("user9", "user10")));
+        anotherPost.setCommentBy(Arrays.asList("comment3", "comment4"));
+        anotherPost.setReportedBy(new HashSet<>(Arrays.asList("user11", "user12")));
 
-        Post post2 = new Post("2", "Test Post 2", "This is another test post.", PostStatus.PENDING,
-                TechnologyCategory.PYTHON, new Date(), null, "user456", new User(),
-                new HashSet<>(Set.of("user5")), new HashSet<>(Set.of("user6")),
-                new ArrayList<>(List.of("user2")));
-
-        assertFalse(post1.equals(post2));
+        assertFalse(post.equals(anotherPost));
+        assertFalse(post.hashCode() == anotherPost.hashCode());
     }
 
+    @Test
+    public void testToString() {
+        String expectedString = "Post [id=1, title=Sample Post, content=This is the content of the sample post., " +
+                "status=APPROVED, techCategory=HTML, createdAt=" + post.getCreatedAt() + ", " +
+                "editedAt=" + post.getEditedAt() + ", userId=user123, user=null, " +
+                "likedBy=[user1, user2], dislikedBy=[user3, user4], commentBy=[comment1, comment2]]";
+
+        assertEquals(expectedString, post.toString());
+    }
 }

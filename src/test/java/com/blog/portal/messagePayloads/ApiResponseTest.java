@@ -11,22 +11,16 @@ import com.blog.portal.responseMessage.ApiResponse;
 
 public class ApiResponseTest {
 
-	/**
-	 * Instance of ApiResponse.
-	 */
+
     private ApiResponse apiResponse;
 
-    /**
-     * Setting up before testing.
-     */
+
     @BeforeEach
     public void setUp() {
         apiResponse = new ApiResponse();
     }
 
-    /**
-     * Testing setter and getter.
-     */
+
     @Test
     public void testMessageGetterAndSetter() {
         apiResponse.setMessage("Test Message");
@@ -39,9 +33,7 @@ public class ApiResponseTest {
         assertEquals("Another Message", apiResponse.getMessage());
     }
 
-    /**
-     * Testing Setter and getter.
-     */
+
     @Test
     public void testSuccessGetterAndSetter() {
         apiResponse.setSuccess(true);
@@ -54,9 +46,7 @@ public class ApiResponseTest {
         assertTrue(apiResponse.isSuccess());
     }
 
-    /**
-     * Testing hashcoode.
-     */
+
     @Test
     public void testHashCode() {
         apiResponse.setMessage("Test Message");
@@ -66,9 +56,7 @@ public class ApiResponseTest {
         assertEquals(other.hashCode(), apiResponse.hashCode());
     }
 
-    /**
-     * Testing equals.
-     */
+
     @Test
     public void testEquals() {
         apiResponse.setMessage("Test Message");
@@ -100,9 +88,7 @@ public class ApiResponseTest {
         assertFalse(response1.equals("SomeString"));
     }
 
-    /**
-     * Testing to string.
-     */
+
     @Test
     public void testToString() {
         apiResponse.setMessage("Test Message");

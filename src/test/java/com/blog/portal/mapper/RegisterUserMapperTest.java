@@ -12,9 +12,6 @@ import com.blog.portal.responsePayload.RegisterUserOutDto;
 
 public class RegisterUserMapperTest {
 
-	/**
-	 * Testing inDtoToUser method.
-	 */
     @Test
     public void testInDtoToUser() {
         RegisterUserInDto inDto = new RegisterUserInDto();
@@ -37,9 +34,6 @@ public class RegisterUserMapperTest {
         assertEquals("1234567890", user.getContactNumber());
     }
 
-    /**
-     * Testing User to OutDto method.
-     */
     @Test
     public void testUserToOutDto() {
         User user = new User();

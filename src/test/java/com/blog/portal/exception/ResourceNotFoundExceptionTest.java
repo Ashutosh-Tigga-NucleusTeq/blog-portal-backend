@@ -25,12 +25,10 @@ public class ResourceNotFoundExceptionTest {
     public void testSettersAndGetters() {
         ResourceNotFoundException exception = new ResourceNotFoundException("User", "id", "123");
 
-        // Use setters to change values
         exception.setResourceName("Post");
         exception.setFieldName("title");
         exception.setFieldValue("Title123");
 
-        // Verify that the getter methods return the updated values
         assertEquals("Post", exception.getResourceName());
         assertEquals("title", exception.getFieldName());
         assertEquals("Title123", exception.getFieldValue());

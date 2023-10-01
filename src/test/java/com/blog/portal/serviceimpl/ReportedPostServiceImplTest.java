@@ -14,6 +14,7 @@ import com.blog.portal.repository.ReportedPostRepo;
 import com.blog.portal.requestPayload.ReportedPostInDto;
 import com.blog.portal.requestPayload.ActionOnReportedPostInDto;
 import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.ReportedPostMessageOutDto;
 import com.blog.portal.responsePayload.ReportedPostOutDto;
 import com.blog.portal.services.ReportedPostService;
 import com.blog.portal.util.ResponseMessage;
@@ -198,6 +199,45 @@ public class ReportedPostServiceImplTest {
         verify(blogPostRepo, never()).deleteById(anyString());
 
         assertFalse(response.isSuccess());
+    }
+    
+    @Test
+    public void testGetMessage_Success() {
+        String postId = "postId";
+
+        List<ReportedPost> reportedPosts = new ArrayList<>();
+        ReportedPost reportedPost1 = new ReportedPost();
+        reportedPost1.setReportReason("Reason 1");
+        ReportedPost reportedPost2 = new ReportedPost();
+        reportedPost2.setReportReason("Reason 2");
+        reportedPosts.add(reportedPost1);
+        reportedPosts.add(reportedPost2);
+        when(reportedPostRepo.findByPostId(postId)).thenReturn(reportedPosts);
+
+        ReportedPostMessageOutDto response = reportedPostService.getMessage(postId);
+
+        verify(reportedPostRepo, times(1)).findByPostId(postId);
+
+        assertNotNull(response);
+        List<String> reasons = response.getReasons();
+        assertEquals(2, reasons.size());
+        assertTrue(reasons.contains("Reason 1"));
+        assertTrue(reasons.contains("Reason 2"));
+    }
+
+    @Test
+    public void testGetMessage_NoReportedPosts() {
+        String postId = "postId";
+
+        when(reportedPostRepo.findByPostId(postId)).thenReturn(new ArrayList<>());
+
+        ReportedPostMessageOutDto response = reportedPostService.getMessage(postId);
+
+        verify(reportedPostRepo, times(1)).findByPostId(postId);
+
+        assertNotNull(response);
+        List<String> reasons = response.getReasons();
+        assertTrue(reasons.isEmpty());
     }
 
 }

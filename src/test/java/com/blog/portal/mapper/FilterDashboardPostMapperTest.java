@@ -16,9 +16,7 @@ import com.blog.portal.responsePayload.FilterDashboardOutDto;
 
 public class FilterDashboardPostMapperTest {
 
-	/**
-	 * Testing of inDto to post method.
-	 */
+
     @Test
     public void testInDtoToPost() {
         FilterDashboardPostInDto inDto = new FilterDashboardPostInDto();
@@ -31,9 +29,7 @@ public class FilterDashboardPostMapperTest {
         assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
     }
 
-    /**
-     * Testing of post to outDto method.
-     */
+
     @Test
     public void testPostToOutDto() {
         Post post = new Post();

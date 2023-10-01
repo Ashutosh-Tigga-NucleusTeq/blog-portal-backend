@@ -9,9 +9,7 @@ import com.blog.portal.enumResource.TechnologyCategory;
 
 
 public class GetPostOutDtoTest {
-		/**
-		 * Testing to string.
-		 */
+		
     @Test
     public void testToString() {
         GetPostOutDto post = new GetPostOutDto();
@@ -23,9 +21,7 @@ public class GetPostOutDtoTest {
         String expected = "GetPostOutDto [id=1, title=Sample Post, content=This is a sample post content., techCategory=JAVA]";
         assertEquals(expected, post.toString());
     }
-    /**
-     * Testing hashcode.
-     */
+
     @Test
     public void testHashCode() {
         GetPostOutDto post1 = new GetPostOutDto();
@@ -42,9 +38,7 @@ public class GetPostOutDtoTest {
 
         assertEquals(post1.hashCode(), post2.hashCode());
     }
-    /**
-     * Testing equals.
-     */
+
     @Test
     public void testEquals() {
         GetPostOutDto post1 = new GetPostOutDto();
@@ -61,9 +55,7 @@ public class GetPostOutDtoTest {
 
         assertTrue(post1.equals(post2));
     }
-    /**
-     * Testing Getter and Setter.
-     */
+
     @Test
     public void testGetterAndSetter() {
         GetPostOutDto post = new GetPostOutDto();
@@ -76,7 +68,6 @@ public class GetPostOutDtoTest {
         assertEquals("Sample Post", post.getTitle());
         assertEquals("This is a sample post content.", post.getContent());
         assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
-        // Modify properties using setters
         post.setId("2");
         post.setTitle("Updated Post");
         post.setContent("Updated content");

@@ -5,23 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-public class UserRegistrationExceptionTest {
-		/**
-		 * Testting of exception with message.
-		 */
+public class UserAlreadyExistsExceptionTest {
+		
     @Test
     public void testUserRegistrationExceptionWithMessage() {
-        UserRegistrationException exception = new UserRegistrationException("User registration failed");
+        UserAlreadyExistsException exception = new UserAlreadyExistsException("User registration failed");
 
         assertEquals("User registration failed", exception.getMessage());
     }
 
-    /**
-     * Testing of exception without message.
-     */
+
     @Test
     public void testUserRegistrationExceptionWithoutMessage() {
-        UserRegistrationException exception = new UserRegistrationException();
+        UserAlreadyExistsException exception = new UserAlreadyExistsException();
 
         assertNull(exception.getMessage());
 
@@ -30,13 +26,11 @@ public class UserRegistrationExceptionTest {
         assertEquals("New error message", exception.getMessage());
     }
 
-    /**
-     * Testing of toString.
-     */
+
     @Test
     public void testToString() {
-        UserRegistrationException exception = new UserRegistrationException("User registration failed");
+        UserAlreadyExistsException exception = new UserAlreadyExistsException("User registration failed");
 
-        assertEquals("UserRegistrationException [message=User registration failed]", exception.toString());
+        assertEquals("UserAlreadyExistsException [message=User registration failed]", exception.toString());
     }
 }

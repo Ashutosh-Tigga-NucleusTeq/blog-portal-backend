@@ -25,7 +25,6 @@ public class ActionOnReportedPostInDtoTest {
         assertEquals("2", action2.getPostId());
         assertEquals(AdminAction.IGNORE, action2.getAdminAction());
 
-        // Test setters
         action1.setPostId("3");
         action1.setAdminAction(AdminAction.DELETE);
 

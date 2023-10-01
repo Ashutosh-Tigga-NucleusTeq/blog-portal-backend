@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.exception.UnauthorizedUserExeption;
-import com.blog.portal.exception.UserRegistrationException;
+import com.blog.portal.exception.UserAlreadyExistsException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
 import com.blog.portal.repository.BlogUserRepo;
@@ -43,12 +43,12 @@ public class BlogUserServiceImpl implements BlogUserService {
      */
     @Override
     public ApiResponse createUser(@Valid RegisterUserInDto inDto)
-            throws UserRegistrationException {
+            throws UserAlreadyExistsException {
     		ApiResponse response = new ApiResponse();
         User user = RegisterUserMapper.inDtoToUser(inDto);
         Optional<User> isUserExists = blogUserRepo.findByEmail(user.getEmail());
         if (isUserExists.isPresent()) {
-        	throw new UserRegistrationException(ExceptionMessage.EMAIL_ALREADY_EXISTS);
+        	throw new UserAlreadyExistsException(ExceptionMessage.EMAIL_ALREADY_EXISTS);
         } else {
         	blogUserRepo.save(user);
         	response.setMessage(ResponseMessage.USER_REGISTER_SUCCESS);

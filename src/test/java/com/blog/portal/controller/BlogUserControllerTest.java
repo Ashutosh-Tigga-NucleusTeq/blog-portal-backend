@@ -44,7 +44,6 @@ public class BlogUserControllerTest {
 
 	@Test
 	public void testRegisterUser() throws Exception {
-		// Create a sample RegisterUserInDto
 		RegisterUserInDto userDto = new RegisterUserInDto();
 		userDto.setFirstName("firstname");
 		userDto.setLastName("lastname");
@@ -56,10 +55,8 @@ public class BlogUserControllerTest {
 
 		ApiResponse expectedApiResponse = new ApiResponse(ResponseMessage.USER_REGISTER_SUCCESS, true);
 
-		// Mock the service response
 		when(blogUserService.createUser(any(RegisterUserInDto.class))).thenReturn(expectedApiResponse);
 
-		// Perform a POST request with JSON content
 		mockMvc
 				.perform(post(RequestMappingConst.USER_URL + "/register").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(userDto)))
@@ -70,12 +67,10 @@ public class BlogUserControllerTest {
 
 	@Test
 	public void testAuthenticateUser() throws Exception {
-		// Create a sample AuthenticateUserInDto
 		AuthenticateUserInDto authDto = new AuthenticateUserInDto();
 		authDto.setEmail("firstname.lastname@nucleusteq.com");
 		authDto.setPassword("password123");
 
-		// Define the expected AuthenticateUserOutDto
 		AuthenticateUserOutDto expectedOutDto = new AuthenticateUserOutDto();
 		expectedOutDto.setId("1");
 		expectedOutDto.setFirstName("firstname");
@@ -85,10 +80,8 @@ public class BlogUserControllerTest {
 		expectedOutDto.setGender(Gender.MALE);
 		expectedOutDto.setDesignation(Designation.INTERN);
 
-		// Mock the service response
 		when(blogUserService.authenticateUser(any(AuthenticateUserInDto.class))).thenReturn(expectedOutDto);
 
-		// Perform a POST request with JSON content
 		mockMvc
 				.perform(post(RequestMappingConst.USER_URL + "/login").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(authDto)))
@@ -100,7 +93,6 @@ public class BlogUserControllerTest {
 				.andExpect(jsonPath("$.contactNumber").value(expectedOutDto.getContactNumber()));
 	}
 
-	// Helper method to convert an object to JSON string
 	private String asJsonString(Object object) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(object);

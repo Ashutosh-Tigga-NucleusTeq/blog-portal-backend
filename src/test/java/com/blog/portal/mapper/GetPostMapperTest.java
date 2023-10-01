@@ -7,9 +7,7 @@ import com.blog.portal.enumResource.TechnologyCategory;
 import com.blog.portal.responsePayload.GetPostOutDto;
 
 public class GetPostMapperTest {
-		/**
-		 * Testing of entity to outDto method mapper.
-		 */
+	
     @Test
     public void testEntityToOutDto() {
         Post post = new Post();

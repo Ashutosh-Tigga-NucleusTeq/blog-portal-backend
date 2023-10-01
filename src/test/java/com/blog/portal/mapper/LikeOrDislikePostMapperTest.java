@@ -8,9 +8,7 @@ import com.blog.portal.requestPayload.ReactionPostInDto;
 import com.blog.portal.responsePayload.ReactionPostOutDto;
 
 public class LikeOrDislikePostMapperTest {
-		/**
-		 * Testing inDto to Entity method mapper.
-		 */
+		
     @Test
     public void testInDtoToEntity() {
         ReactionPostInDto inDto = new ReactionPostInDto();
@@ -24,9 +22,7 @@ public class LikeOrDislikePostMapperTest {
         assertEquals("user123", reaction.getUserId());
         assertEquals(React.LIKE, reaction.getType());
     }
-    /**
-     * Testing of Entity to OutDto method mapper.
-     */
+
     @Test
     public void testEntityToOutDto() {
         Reaction reaction = new Reaction();

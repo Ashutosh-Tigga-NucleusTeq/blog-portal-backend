@@ -1,7 +1,7 @@
 package com.blog.portal.exception;
 
 /**
- * The `UserRegistrationException` class represents an exception that can be
+ * The `UserAlreadyExistsException` class represents an exception that can be
  * thrown during user registration. It extends the `RuntimeException` class and
  * is used to handle registration-related errors.
  */
@@ -17,7 +17,7 @@ public class UnauthorizedUserExeption extends RuntimeException {
 	private String message;
 
 	/**
-	 * Constructs a new `UserRegistrationException` with the specified error
+	 * Constructs a new `UserAlreadyExistsException` with the specified error
 	 * message.
 	 *
 	 * @param message The error message describing the registration exception.
@@ -46,18 +46,18 @@ public class UnauthorizedUserExeption extends RuntimeException {
 	}
 
 	/**
-	 * Returns a string representation of the `UserRegistrationException` object.
+	 * Returns a string representation of the `UserAlreadyExistsException` object.
 	 *
 	 * @return A string representation of the exception, including the error
 	 *         message.
 	 */
 	@Override
 	public String toString() {
-		return "UserRegistrationException [message=" + message + "]";
+		return "UserAlreadyExistsException [message=" + message + "]";
 	}
 
 	/**
-	 * Constructs a new `UserRegistrationException`.
+	 * Constructs a new `UserAlreadyExistsException`.
 	 */
 	public UnauthorizedUserExeption() {
 		super();

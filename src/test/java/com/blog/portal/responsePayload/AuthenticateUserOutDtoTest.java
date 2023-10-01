@@ -24,7 +24,6 @@ public class AuthenticateUserOutDtoTest {
 
     @Test
     public void testConstructors() {
-        // Test constructor with all parameters
         assertEquals("1", user1.getId());
         assertEquals("firstname", user1.getFirstName());
         assertEquals("lastname", user1.getLastName());
@@ -34,7 +33,6 @@ public class AuthenticateUserOutDtoTest {
         assertEquals("1234567890", user1.getContactNumber());
         assertEquals(Role.EMPLOYEE, user1.getRole());
 
-        // Test default constructor
         AuthenticateUserOutDto defaultUser = new AuthenticateUserOutDto();
         assertNull(defaultUser.getId());
         assertNull(defaultUser.getFirstName());
@@ -57,7 +55,6 @@ public class AuthenticateUserOutDtoTest {
         assertEquals("1234567890", user1.getContactNumber());
         assertEquals(Role.EMPLOYEE, user1.getRole());
 
-        // Test setters
         user1.setId("3");
         user1.setFirstName("anotherfirstname");
         user1.setLastName("anotherlastname");

@@ -16,7 +16,6 @@ public class CommentPostOutDtoTest {
 
     @BeforeEach
     public void setUp() {
-        // Create three CommentPostOutDto objects with dummy data
         comment1 = new CommentPostOutDto("1", "Great post!", "user1", "post1");
         comment2 = new CommentPostOutDto("2", "Nice article.", "user2", "post1");
         comment3 = new CommentPostOutDto("1", "Great post!", "user1", "post1");
@@ -43,13 +42,11 @@ public class CommentPostOutDtoTest {
 
     @Test
     public void testConstructors() {
-        // Test constructor with parameters
         assertEquals("1", comment1.getId());
         assertEquals("Great post!", comment1.getContent());
         assertEquals("user1", comment1.getUserId());
         assertEquals("post1", comment1.getPostId());
 
-        // Test default constructor
         CommentPostOutDto defaultComment = new CommentPostOutDto();
         assertNull(defaultComment.getId());
         assertNull(defaultComment.getContent());

@@ -3,23 +3,10 @@ package com.blog.portal.serviceimpl;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.blog.portal.entities.Post;
-import com.blog.portal.entities.User;
-import com.blog.portal.enumResource.PostStatus;
-import com.blog.portal.enumResource.TechnologyCategory;
-import com.blog.portal.exception.ResourceNotFoundException;
-import com.blog.portal.mapper.FilterDashboardPostMapper;
-import com.blog.portal.mapper.FilterMyBlogPostMapper;
-import com.blog.portal.mapper.GetPostMapper;
-import com.blog.portal.mapper.PostBlogMapper;
-import com.blog.portal.mapper.UnReviewedPostMapper;
-import com.blog.portal.repository.BlogPostRepo;
-import com.blog.portal.repository.BlogUserRepo;
-import com.blog.portal.requestPayload.*;
-import com.blog.portal.responseMessage.ApiResponse;
-import com.blog.portal.responsePayload.*;
-import com.blog.portal.services.BlogPostService;
-import com.blog.portal.util.ResponseMessage;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,11 +14,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import com.blog.portal.entities.Post;
+import com.blog.portal.entities.User;
+import com.blog.portal.enumResource.PostStatus;
+import com.blog.portal.enumResource.TechnologyCategory;
+import com.blog.portal.exception.ResourceNotFoundException;
+import com.blog.portal.mapper.*;
+import com.blog.portal.repository.BlogPostRepo;
+import com.blog.portal.repository.BlogUserRepo;
+import com.blog.portal.requestPayload.*;
+import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.*;
+import com.blog.portal.util.ResponseMessage;
 
 public class BlogPostServiceImplTest {
 
@@ -45,144 +39,244 @@ public class BlogPostServiceImplTest {
     private BlogUserRepo blogUserRepo;
 
     @BeforeEach
-    void setUp() {
+    public void init() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testCreatePost() {
-        // Create a sample PostBlogInDto
-        PostBlogInDto postBlogInDto = new PostBlogInDto();
-        postBlogInDto.setUserID("user123");
-        postBlogInDto.setTitle("Sample Title");
-        postBlogInDto.setContent("Sample Content");
-        postBlogInDto.setCreatedAt(new Date());
-        postBlogInDto.setTechCategory(TechnologyCategory.JAVA);
-        // Mock the UserRepo to return a user
-        User mockUser = new User();
-        mockUser.setId("user123");
-        Post post = new Post("postid");
-        when(blogUserRepo.findById("user123")).thenReturn(Optional.of(mockUser));
+    public void testCreatePost_Success() {
+        PostBlogInDto postDto = new PostBlogInDto("Test Title", "Test Content", new Date(), "userId", TechnologyCategory.JAVA);
+        User user = new User();
+        user.setId("userId");
+        user.setPassword("password");
 
-        // Mock the PostBlogMapper
-        when(blogPostRepo.save(any())).thenReturn(post);
+        when(blogUserRepo.findById("userId")).thenReturn(Optional.of(user));
+        when(blogPostRepo.save(any(Post.class))).thenReturn(new Post());
 
-        // Call the createPost method
-        ApiResponse response = blogPostService.createPost(postBlogInDto);
+        ApiResponse response = blogPostService.createPost(postDto);
 
-        // Assert the response
+        assertNotNull(response);
         assertTrue(response.isSuccess());
         assertEquals(ResponseMessage.BLOG_POST_SUCCESS, response.getMessage());
     }
 
     @Test
-    public void testCreatePostWithInvalidUser() {
-        // Create a sample PostBlogInDto with an invalid user ID
+    public void testCreatePostWithRuntimeException() {
         PostBlogInDto postBlogInDto = new PostBlogInDto();
-        postBlogInDto.setUserID("invalidUser");
-        postBlogInDto.setTitle("Sample Title");
-        postBlogInDto.setContent("Sample Content");
+        postBlogInDto.setUserID("userId");
+        postBlogInDto.setContent("content");
+        postBlogInDto.setTechCategory(TechnologyCategory.JAVA);
+        postBlogInDto.setTitle("title");
+        postBlogInDto.setCreatedAt(new Date(12));
+        User user = new User();
+        user.setId("userId");
 
-        // Mock the UserRepo to throw a ResourceNotFoundException
-        when(blogUserRepo.findById("invalidUser")).thenThrow(new ResourceNotFoundException("User", "userId", "userId"));
+        when(blogUserRepo.findById(postBlogInDto.getUserId())).thenReturn(java.util.Optional.of(user));
+        when(blogPostRepo.save(any(Post.class))).thenThrow(new RuntimeException("Test exception"));
 
+        ApiResponse response = blogPostService.createPost(postBlogInDto);
+
+        assertNotNull(response);
+        assertFalse(response.isSuccess());
+        assertEquals(ResponseMessage.BLOG_POST_FAILED, response.getMessage());
     }
 
-    @Test
-    public void testGetAllPostFilter() {
-        FilterDashboardPostInDto inDto = new FilterDashboardPostInDto();
-        inDto.setTitle("Sample Title");
 
-        when(blogPostRepo.findByStatus(PostStatus.APPROVED)).thenReturn(new ArrayList<>());
+    @Test
+    public void testGetAllPostFilter_NoFilters() {
+        FilterDashboardPostInDto inDto = new FilterDashboardPostInDto(null, null);
+        List<Post> mockedPosts = new ArrayList<>();
+        Post post = new Post();
+        post.setId("id");
+        post.setContent("content");
+        post.setStatus(PostStatus.APPROVED);
+        post.setTitle("title");
+        post.setUser(new User());
+        post.setUserId("userid");
+        post.setTechCategory(TechnologyCategory.JAVA);
+        post.setCreatedAt(new Date(12));
+        post.setDisLikedBy(null);
+        post.setCommentBy(null);
+        mockedPosts.add(post);
+
+        when(blogPostRepo.findByStatus(PostStatus.APPROVED)).thenReturn(mockedPosts);
 
         List<FilterDashboardOutDto> result = blogPostService.getAllPostFilter(inDto);
 
         assertNotNull(result);
-        assertEquals(0, result.size());
+        assertFalse(result.isEmpty());
+        assertEquals(mockedPosts.size(), result.size());
     }
 
     @Test
-    public void testGetAllPostOfUserFilter() {
+    public void testGetAllPostOfUserFilter_NoFilters() {
         FilterMyBlogPostInDto inDto = new FilterMyBlogPostInDto();
-        inDto.setUserId("user123");
-        inDto.setTitle("Sample Title");
+        inDto.setStatus(null);
+        inDto.setTitle(null);
+        inDto.setTechCategory(null);
+        inDto.setUserId("userId");
+        List<Post> mockedPosts = new ArrayList<>();
+        Post post = new Post();
+        post.setId("id");
+        post.setContent("content");
+        post.setStatus(PostStatus.APPROVED);
+        post.setTitle("title");
+        post.setUser(new User());
+        post.setUserId("userid");
+        post.setTechCategory(TechnologyCategory.JAVA);
+        post.setCreatedAt(new Date(12));
+        post.setDisLikedBy(null);
+        post.setCommentBy(null);
+        mockedPosts.add(post);
+        
+        when(blogPostRepo.findByUserId("userId")).thenReturn(mockedPosts);
 
-        // Mock the blogPostRepo to return an empty list of posts
-        when(blogPostRepo.findByTitleContainingIgnoreCaseAndUserId("Sample Title", "user123")).thenReturn(new ArrayList<>());
-
-        // Call the getAllPostOfUserFilter method
         List<FilterMyBlogPostOutDto> result = blogPostService.getAllPostOfUserFilter(inDto);
 
-        // Assert the result
         assertNotNull(result);
-        assertEquals(0, result.size());
+        assertFalse(result.isEmpty());
+        assertEquals(mockedPosts.size(), result.size());
     }
 
     @Test
-    public void testEditBlog() {
-        // Create a sample UpdatePostInDto
-        UpdatePostInDto inDto = new UpdatePostInDto();
-        inDto.setId("post123");
-        inDto.setTitle("Updated Title");
-        inDto.setContent("Updated Content");
+    public void testEditBlog_Success() {
+        UpdatePostInDto inDto = new UpdatePostInDto("postId", "Updated Title", "Updated Content");
+        Post post = new Post();
+        post.setId("postId");
 
-        // Mock the blogPostRepo to return a post
-        Post mockPost = new Post();
-        mockPost.setId("post123");
-        when(blogPostRepo.findById("post123")).thenReturn(Optional.of(mockPost));
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.of(post));
+        when(blogPostRepo.save(any(Post.class))).thenReturn(new Post());
 
-        // Mock the blogPostRepo.save method
-        when(blogPostRepo.save(any())).thenReturn(new Post());
-
-        // Call the editBlog method
         ApiResponse response = blogPostService.editBlog(inDto);
 
-        // Assert the response
+        assertNotNull(response);
         assertTrue(response.isSuccess());
         assertEquals(ResponseMessage.BLOG_UPDATE_SUCCESS, response.getMessage());
     }
 
     @Test
-    public void testEditBlogWithInvalidPostId() {
-        // Create a sample UpdatePostInDto with an invalid post ID
-        UpdatePostInDto inDto = new UpdatePostInDto();
-        inDto.setId("invalidPost");
-        inDto.setTitle("Updated Title");
-        inDto.setContent("Updated Content");
+    public void testEditBlog_PostNotFound() {
+        UpdatePostInDto inDto = new UpdatePostInDto("postId", "Updated Title", "Updated Content");
 
-        // Mock the blogPostRepo to throw a ResourceNotFoundException
-        when(blogPostRepo.findById("invalidPost")).thenThrow(new ResourceNotFoundException(null, null, null));
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.empty());
 
+        assertThrows(ResourceNotFoundException.class, () -> {
+            blogPostService.editBlog(inDto);
+        });
     }
 
     @Test
-    public void testGetPost() {
-        // Create a sample post ID
-        String postId = "post123";
+    public void testGetPost_Success() {
+        String postId = "postId";
+        Post post = new Post();
+        post.setId(postId);
 
-        // Mock the blogPostRepo to return a post
-        Post mockPost = new Post();
-        mockPost.setId("post123");
-        when(blogPostRepo.findById(postId)).thenReturn(Optional.of(mockPost));
+        when(blogPostRepo.findById(postId)).thenReturn(Optional.of(post));
 
-        // Call the getPost method
         GetPostOutDto result = blogPostService.getPost(postId);
 
-        // Assert the result
         assertNotNull(result);
-        assertEquals("post123", result.getId());
+        assertEquals(postId, result.getId());
     }
 
     @Test
-    public void testGetPostWithInvalidPostId() {
-        // Create an invalid post ID
-        String invalidPostId = "invalidPost";
+    public void testGetPost_PostNotFound() {
+        String postId = "postId";
 
-        // Mock the blogPostRepo to throw a ResourceNotFoundException
-        when(blogPostRepo.findById(invalidPostId)).thenThrow(new ResourceNotFoundException(null, null, null));
+        when(blogPostRepo.findById(postId)).thenReturn(Optional.empty());
 
-        // Call the getPost method
-        assertThrows(ResourceNotFoundException.class, () -> blogPostService.getPost(invalidPostId));
+        assertThrows(ResourceNotFoundException.class, () -> {
+            blogPostService.getPost(postId);
+        });
+    }
+
+    @Test
+    public void testGetUnreviewedPosts_NoFilters() {
+        UnReviewedPostInDto inDto = new UnReviewedPostInDto();
+        inDto.setTitle(null);
+        inDto.setTechnologyCategory(null);
+        List<Post> mockedPosts = new ArrayList<>();
+        Post post = new Post();
+        post.setId("id");
+        post.setStatus(PostStatus.PENDING);
+        post.setContent("content");
+        post.setTitle("title");
+        post.setEditedAt(new Date(12));
+        post.setCreatedAt(new Date(11));
+        post.setUser(new User());
+        post.setUserId("userid");
+        post.setDisLikedBy(null);
+        post.setLikedBy(null);
+        mockedPosts.add(post);
+
+        when(blogPostRepo.findByStatus(PostStatus.PENDING)).thenReturn(mockedPosts);
+
+        List<UnReviewedPostOutDto> result = blogPostService.getUnreviewedPosts(inDto);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(mockedPosts.size(), result.size());
+    }
+
+    @Test
+    public void testResponseUnreviewedPost_ApproveSuccess() {
+        ApproveOrRejectPostInDto inDto = new ApproveOrRejectPostInDto("postId", PostStatus.APPROVED);
+        Post post = new Post();
+        post.setId("postId");
+        post.setStatus(PostStatus.PENDING);
+
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.of(post));
+        when(blogPostRepo.save(any(Post.class))).thenReturn(new Post());
+
+        ApiResponse response = blogPostService.responseUnreviewedPost(inDto);
+
+        assertNotNull(response);
+        assertTrue(response.isSuccess());
+        assertEquals(ResponseMessage.UNREVIEW_BLOG_APPROVED, response.getMessage());
+    }
+
+    @Test
+    public void testResponseUnreviewedPost_RejectSuccess() {
+        ApproveOrRejectPostInDto inDto = new ApproveOrRejectPostInDto("postId", PostStatus.REJECTED);
+        Post post = new Post();
+        post.setId("postId");
+        post.setStatus(PostStatus.PENDING);
+
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.of(post));
+        when(blogPostRepo.save(any(Post.class))).thenReturn(new Post());
+
+        ApiResponse response = blogPostService.responseUnreviewedPost(inDto);
+
+        assertNotNull(response);
+        assertTrue(response.isSuccess());
+        assertEquals(ResponseMessage.UNREVIEW_BLOG_REJECTED, response.getMessage());
+    }
+
+    @Test
+    public void testResponseUnreviewedPost_PostNotFound() {
+        ApproveOrRejectPostInDto inDto = new ApproveOrRejectPostInDto("postId", PostStatus.APPROVED);
+
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            blogPostService.responseUnreviewedPost(inDto);
+        });
+    }
+
+    @Test
+    public void testResponseUnreviewedPost_PostNotPending() {
+        ApproveOrRejectPostInDto inDto = new ApproveOrRejectPostInDto("postId", PostStatus.APPROVED);
+        Post post = new Post();
+        post.setId("postId");
+        post.setStatus(PostStatus.APPROVED);
+
+        when(blogPostRepo.findById("postId")).thenReturn(Optional.of(post));
+
+        ApiResponse response = blogPostService.responseUnreviewedPost(inDto);
+
+        assertNotNull(response);
+        assertFalse(response.isSuccess());
+        assertEquals(ResponseMessage.UNREVIEW_BLOG_FAILED, response.getMessage());
     }
 
 }

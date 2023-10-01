@@ -11,25 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class FilterDashboardOutDtoTest {
 
-	/**
-	 * Instance of FilterDashboardOutDto.
-	 */
+
     private FilterDashboardOutDto post1;
-  	/**
-  	 * Instance of FilterDashboardOutDto.
-  	 */
+  	
     private FilterDashboardOutDto post2;
-  	/**
-  	 * Instance of FilterDashboardOutDto.
-  	 */
+  	
     private FilterDashboardOutDto post3;
 
   	final	int year = 2023;
   	final	int month = 9;
   	final	int day = 1;
-    /**
-     * Setting up before testing.
-     */
+   
 		@BeforeEach
     public void setUp() {
 
@@ -43,9 +35,7 @@ public class FilterDashboardOutDtoTest {
                 TechnologyCategory.DATA_SCIENCE, new Date(year, month, day ), new User("user3", null));
     }
 
-    /**
-     * Testing setter and getter.
-     */
+
     @Test
     public void testGettersAndSetters() {
         assertEquals("1", post1.getId());
@@ -67,12 +57,9 @@ public class FilterDashboardOutDtoTest {
         assertEquals("New Content", post1.getContent());
         assertEquals(PostStatus.APPROVED, post1.getStatus());
         assertEquals(TechnologyCategory.DATA_SCIENCE, post1.getTechnology());
-				/* assertEquals("newUser", post1.getUser().getFirstName()); */
     }
 
-    /**
-     * testing hashcode and equals.
-     */
+
     @Test
     public void testEqualsAndHashCode() {
         FilterDashboardOutDto post1Copy = new FilterDashboardOutDto("1", "Title 1", "Content 1",
@@ -92,17 +79,13 @@ public class FilterDashboardOutDtoTest {
         assertNotEquals(post1.hashCode(), post3.hashCode());
     }
 
-    /**
-     * Testing compareTo.
-     */
+
     @Test
     public void testCompareTo() {
 
     }
 
-    /**
-     * Testing toString.
-     */
+
     @Test
     public void testToString() {
         String expected = "FilterDashboardOutDto [id=1, title=Title 1, content=Content 1, "

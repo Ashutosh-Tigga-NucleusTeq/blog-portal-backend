@@ -9,7 +9,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import com.blog.portal.responseMessage.ApiResponse;
 
 /**
@@ -99,15 +98,15 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Exception handler for {@link UserRegistrationException}.
+     * Exception handler for {@link UserAlreadyExistsException}.
      *
-     * @param ex The exception of type {@link UserRegistrationException}.
+     * @param ex The exception of type {@link UserAlreadyExistsException}.
      * @return A {@link ResponseEntity} containing an {@link ApiResponse}
      * with an error message and status code.
      */
-    @ExceptionHandler(UserRegistrationException.class)
+    @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ApiResponse> handleRegistrationException(
-            final UserRegistrationException ex
+            final UserAlreadyExistsException ex
     ) {
         String message = ex.getMessage();
         ApiResponse apiResponse = new ApiResponse(message, false);

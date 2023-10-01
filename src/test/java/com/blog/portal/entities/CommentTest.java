@@ -10,27 +10,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CommentTest {
-		/**
-		 * Instance 1 of Comment.
-		 */
+	
     private Comment comment1;
-    /**
-     * Instance 2 of Comment.
-     */
+    
     private Comment comment2;
 
-    /**
-     * Setup before testing.
-     */
+
     @BeforeEach
     public void setUp() {
         comment1 = new Comment("1", "Test Content", "user123", "post456");
         comment2 = new Comment("1", "Test Content", "user123", "post456");
     }
 
-    /**
-     * Testing setter and getter.
-     */
+
     @Test
     public void testSetterAndGetters() {
         comment1.setId("2");
@@ -44,18 +36,14 @@ public class CommentTest {
         assertEquals("newPost", comment1.getPostId());
     }
 
-    /**
-     * Test hashcode.
-     */
+
     @Test
     public void testHashCode() {
 
         assertEquals(comment1.hashCode(), comment2.hashCode());
     }
 
-    /**
-     * Testing toString method.
-     */
+
     @Test
     public void testToString() {
         String expectedToString = "Comment [id=1, content=Test Content, userId=user123, postId=post456]";

@@ -12,9 +12,7 @@ import com.blog.portal.enumResource.Role;
 
 
 public class RegisterUserOutDtoTest {
-		/**
-		 * Testing default constructor.
-		 */
+		
     @Test
     public void testDefaultConstructor() {
         RegisterUserOutDto dto = new RegisterUserOutDto();
@@ -27,9 +25,7 @@ public class RegisterUserOutDtoTest {
         assertNull(dto.getContactNumber());
         assertNull(dto.getRole());
     }
-    /**
-     * Testing parameterized constructor.
-     */
+
     @Test
     public void testParameterizedConstructor() {
         RegisterUserOutDto dto = new RegisterUserOutDto("1", "firstname",
@@ -45,9 +41,7 @@ public class RegisterUserOutDtoTest {
         assertEquals("1234567890", dto.getContactNumber());
         assertEquals(Role.EMPLOYEE, dto.getRole());
     }
-    /**
-     * Testing Setter and Getter.
-     */
+
     @Test
     public void testSetterAndGetterMethods() {
         RegisterUserOutDto dto = new RegisterUserOutDto();
@@ -70,9 +64,7 @@ public class RegisterUserOutDtoTest {
         assertEquals(Role.ADMIN, dto.getRole());
     }
 
-    /**
-     * Testing hashcode and equals.
-     */
+
     @Test
     public void testHashCodeAndEquals() {
         RegisterUserOutDto dto1 = new RegisterUserOutDto("1",
@@ -91,9 +83,7 @@ public class RegisterUserOutDtoTest {
         assertNotEquals(dto1, dto3);
     }
 
-    /**
-     * Testing tostring.
-     */
+
     @Test
     public void testToString() {
         RegisterUserOutDto dto = new RegisterUserOutDto("1", "firstname",

@@ -16,9 +16,6 @@ public class GetPostMapper {
 		outDto.setTitle(post.getTitle());
 		outDto.setContent(post.getContent());
 		outDto.setTechCategory(post.getTechCategory());
-		System.out.println(" Mapper responsing " + outDto.getContent());
-		System.out.println(" Mapper responsing " + outDto.getTitle());
-		System.out.println(" Mapper responsing " + outDto.getTechCategory());
 		return outDto;
 	}
 }

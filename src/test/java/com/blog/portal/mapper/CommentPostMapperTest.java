@@ -8,9 +8,7 @@ import com.blog.portal.responsePayload.CommentPostOutDto;
 
 public class CommentPostMapperTest {
 
-	/**
-	 * Testing of inDto to Entity.
-	 */
+	
     @Test
     public void testInDtoToEntity() {
         CommentPostInDto inDto = new CommentPostInDto();
@@ -25,9 +23,7 @@ public class CommentPostMapperTest {
         assertEquals("user123", comment.getUserId());
     }
 
-    /**
-     * Testing of Entity to outDto.
-     */
+
     @Test
     public void testEntityToOutDto() {
         Comment comment = new Comment();

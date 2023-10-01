@@ -14,9 +14,7 @@ import com.blog.portal.responsePayload.FilterMyBlogPostOutDto;
 
 public class FilterMyBlogPostMapperTest {
 
-	/**
-	 * Testing of inDto to Post mapper method.
-	 */
+
     @Test
     public void testInDtoToPost() {
         FilterMyBlogPostInDto inDto = new FilterMyBlogPostInDto();
@@ -33,9 +31,7 @@ public class FilterMyBlogPostMapperTest {
         assertEquals(PostStatus.APPROVED, post.getStatus());
     }
 
-    /**
-     * Testing of Post to OutDto mapper method.
-     */
+
     @Test
     public void testPostToOutDto() {
         Post post = new Post();

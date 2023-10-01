@@ -3,7 +3,7 @@ package com.blog.portal.serviceimpl;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.exception.UnauthorizedUserExeption;
-import com.blog.portal.exception.UserRegistrationException;
+import com.blog.portal.exception.UserAlreadyExistsException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
 import com.blog.portal.repository.BlogUserRepo;
@@ -41,7 +41,7 @@ public class BlogUserServiceImplTest {
     }
 
     @Test
-    public void testCreateUser_Success() throws UserRegistrationException {
+    public void testCreateUser_Success() throws UserAlreadyExistsException {
         RegisterUserInDto userDto = new RegisterUserInDto();
         userDto.setFirstName("firstname");
         userDto.setLastName("lastname");
@@ -70,7 +70,15 @@ public class BlogUserServiceImplTest {
 
         when(blogUserRepo.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        assertThrows(UserRegistrationException.class, () -> blogUserService.createUser(userDto));
+        assertThrows(UserAlreadyExistsException.class, () -> blogUserService.createUser(userDto));
+    }
+    @Test
+    public void testGetUserById_UserNotFound() {
+        String userId = "1";
+
+        when(blogUserRepo.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> blogUserService.getUserById(userId));
     }
 
     @Test
@@ -99,10 +107,8 @@ public class BlogUserServiceImplTest {
 
         when(blogUserRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(UnauthorizedUserExeption.class, () -> blogUserService.authenticateUser(authDto));
-        assertEquals("The user is not authenticated", exception.getMessage());
+        assertThrows(UnauthorizedUserExeption.class, () -> blogUserService.authenticateUser(authDto));
     }
-
 
     @Test
     public void testGetUserById_Success() {

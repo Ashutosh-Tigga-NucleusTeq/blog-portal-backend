@@ -12,9 +12,7 @@ import com.blog.portal.enumResource.TechnologyCategory;
 
 public class FilterMyBlogPostInDtoTest {
 
-	/**
-	 * Testing of setter and getter.
-	 */
+
     @Test
     public void testGetterSetterMethods() {
         FilterMyBlogPostInDto filter = new FilterMyBlogPostInDto();
@@ -32,9 +30,7 @@ public class FilterMyBlogPostInDtoTest {
         assertEquals(PostStatus.APPROVED, filter.getStatus());
     }
 
-    /**
-     * Testing of equals and hashcode.
-     */
+
     @Test
     public void testEqualsAndHashCode() {
         FilterMyBlogPostInDto filter1 = new FilterMyBlogPostInDto();
@@ -61,9 +57,7 @@ public class FilterMyBlogPostInDtoTest {
         assertNotEquals(filter1.hashCode(), filter2.hashCode());
     }
 
-    /**
-     * testing tostring method.
-     */
+
     @Test
     public void testToString() {
         FilterMyBlogPostInDto filter = new FilterMyBlogPostInDto();

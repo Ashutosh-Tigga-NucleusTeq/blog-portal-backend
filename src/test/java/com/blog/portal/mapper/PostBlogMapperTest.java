@@ -13,9 +13,7 @@ import com.blog.portal.responsePayload.PostBlogOutDto;
 
 public class PostBlogMapperTest {
 
-		/**
-		 * Testing of inDto to Post mathod mapper.
-		 */
+
     @Test
     public void testInDtoToPost() {
         PostBlogInDto inDto = new PostBlogInDto();
@@ -31,9 +29,7 @@ public class PostBlogMapperTest {
         assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
         assertNotNull(post.getCreatedAt());
     }
-    /**
-     * Testing of Post to OutDto mapper method.
-     */
+
     @Test
     public void testPostToOutDto() {
         Post post = new Post();

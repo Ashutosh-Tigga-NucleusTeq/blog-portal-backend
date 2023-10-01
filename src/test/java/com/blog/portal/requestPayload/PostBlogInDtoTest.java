@@ -10,23 +10,17 @@ import com.blog.portal.enumResource.TechnologyCategory;
 
 public class PostBlogInDtoTest {
 
-	/**
-	 * Instance of PostBlogInDto.
-	 */
+
     private PostBlogInDto post;
 
-    /**
-     * Setting up before testing.
-     */
+
     @BeforeEach
     public void setUp() {
-        post = new PostBlogInDto("Sample Title", "Sample Content", new Date(), "sampleUserId", TechnologyCategory.JAVA);
+        post = new PostBlogInDto("Sample Title", "Sample Content", new Date(12), "sampleUserId", TechnologyCategory.JAVA);
         post.setId("sampleId");
     }
 
-    /**
-     * Testing setter and getter.
-     */
+
     @Test
     public void testGettersAndSetters() {
         assertEquals("sampleId", post.getId());
@@ -51,22 +45,18 @@ public class PostBlogInDtoTest {
         assertEquals(TechnologyCategory.HTML, post.getTechCategory());
     }
 
-    /**
-     * Testing hashcode and equals.
-     */
+
     @Test
     public void testHashCodeAndEquals() {
         PostBlogInDto samePost = new PostBlogInDto("Sample Title", "Sample Content",
-        		new Date(), "sampleUserId", TechnologyCategory.JAVA);
+        		new Date(12), "sampleUserId", TechnologyCategory.JAVA);
         samePost.setId("sampleId");
 
         assertEquals(post.hashCode(), samePost.hashCode());
-        assertEquals(post, post);
+        assertEquals(post, samePost);
     }
 
-    /**
-     * Testing toString.
-     */
+
     @Test
     public void testToString() {
         String expectedToString = "PostBlogInDto [id=sampleId,"
