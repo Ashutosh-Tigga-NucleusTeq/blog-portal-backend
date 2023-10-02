@@ -8,7 +8,7 @@ import com.blog.portal.responsePayload.AuthenticateUserOutDto;
  * The {@code AuthenticateMapper} class provides static methods for mapping
  * between authentication-related DTOs and the User entity.
  *
- * @author Your Name
+ * @author Ashutosh Tigga
  */
 public class AuthenticateUserMapper {
 
@@ -18,7 +18,7 @@ public class AuthenticateUserMapper {
      * @param inDto The input DTO containing authentication data.
      * @return A {@link User} object with the email and password from the input DTO.
      */
-    public static User inDtoToUser(AuthenticateUserInDto inDto) {
+    public static User inDtoToUser(final AuthenticateUserInDto inDto) {
         return new User(
                 inDto.getEmail(),
                 inDto.getPassword()
@@ -31,7 +31,7 @@ public class AuthenticateUserMapper {
      * @param user The user entity object to be converted.
      * @return An {@link AuthenticateUserOutDto} containing user information.
      */
-    public static AuthenticateUserOutDto userToOutDto(User user) {
+    public static AuthenticateUserOutDto userToOutDto(final User user) {
         return new AuthenticateUserOutDto(
         				user.getId(),
                 user.getFirstName(),

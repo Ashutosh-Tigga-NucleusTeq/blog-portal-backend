@@ -72,7 +72,7 @@ public class UserTest {
     public void testToString() {
         String expectedToString = "User [id=null, firstName=firstname, lastName=lastname, gender=MALE, " +
                 "email=firstname@example.com, password=password123, designation=INTERN, " +
-                "contactNumber=1234567890, role=EMPLOYEE, posts=null]";
+                "contactNumber=1234567890, role=EMPLOYEE, blogs=null]";
         assertEquals(expectedToString, user1.toString());
     }
 }

@@ -3,6 +3,8 @@ package com.blog.portal.exception;
 /**
  * The `UserAlreadyExistsException` class represents an exception that can be thrown during user registration.
  * It extends the `RuntimeException` class and is used to handle registration-related errors.
+ *
+ * @author Ashutosh Tigga
  */
 public class UserAlreadyExistsException extends RuntimeException {
     /**
@@ -20,7 +22,7 @@ public class UserAlreadyExistsException extends RuntimeException {
      *
      * @param message The error message describing the registration exception.
      */
-    public UserAlreadyExistsException(String message) {
+    public UserAlreadyExistsException(final String message) {
         super();
         this.message = message;
     }
@@ -39,7 +41,7 @@ public class UserAlreadyExistsException extends RuntimeException {
      *
      * @param message The error message to set.
      */
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 

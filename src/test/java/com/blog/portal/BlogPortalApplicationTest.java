@@ -17,4 +17,5 @@ class BlogPortalApplicationTest {
 	public void main() {
 		BlogPortalApplication.main(new String[] {});
 	}
+
 }

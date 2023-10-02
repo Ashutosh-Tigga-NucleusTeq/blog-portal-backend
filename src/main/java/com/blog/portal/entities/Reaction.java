@@ -8,10 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.blog.portal.enumResource.React;
 
 /**
- * This entity represents user reactions to posts, including likes and dislikes.
+ * The {@code Reaction} class represents a Reaction entity in the application. It stores
+ * information about a reaction on BLOG post.
+ *
  * @author [ Ashutosh Tigga]
  */
-@Document
+@Document("reaction")
 public class Reaction {
 
 	/**
@@ -21,7 +23,7 @@ public class Reaction {
 	private String id;
 
 	/**
-	 * The Post to which this like or dislike is associated.
+	 * The Blog to which this like or dislike is associated.
 	 */
 	private String postId;
 
@@ -39,11 +41,14 @@ public class Reaction {
 	 * Constructs a new LikeOrDislike object with the provided parameters.
 	 *
 	 * @param id     The unique identifier for this LikeOrDislike.
-	 * @param postId The Post to which this like or dislike is associated.
+	 * @param postId The Blog to which this like or dislike is associated.
 	 * @param userId The User who performed the like or dislike.
 	 * @param type   The type of reaction, which can be either a like or a dislike.
 	 */
-	public Reaction(String id, String postId, String userId, React type) {
+	public Reaction(final String id,
+			final String postId,
+			final String userId,
+			final React type) {
 		super();
 		this.id = id;
 		this.postId = postId;
@@ -73,25 +78,25 @@ public class Reaction {
 	 *
 	 * @param id The id to set.
 	 */
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
 	/**
-	 * Gets the Post to which this like or dislike is associated.
+	 * Gets the Blog to which this like or dislike is associated.
 	 *
-	 * @return The Post to which this reaction is associated.
+	 * @return The Blog to which this reaction is associated.
 	 */
 	public String getPostId() {
 		return postId;
 	}
 
 	/**
-	 * Sets the Post to which this like or dislike is associated.
+	 * Sets the Blog to which this like or dislike is associated.
 	 *
-	 * @param postId The Post to set.
+	 * @param postId The Blog to set.
 	 */
-	public void setPostId(String postId) {
+	public void setPostId(final String postId) {
 		this.postId = postId;
 	}
 
@@ -109,7 +114,7 @@ public class Reaction {
 	 *
 	 * @param userId The User to set.
 	 */
-	public void setUserId(String userId) {
+	public void setUserId(final String userId) {
 		this.userId = userId;
 	}
 
@@ -127,7 +132,7 @@ public class Reaction {
 	 *
 	 * @param type The type of reaction to set.
 	 */
-	public void setType(React type) {
+	public void setType(final React type) {
 		this.type = type;
 	}
 
@@ -144,14 +149,14 @@ public class Reaction {
 
 	/**
 	 * Compares this LikeOrDislike object with another object to determine if they
-	 * are equal. Two LikeOrDislike objects are considered equal if their id, postId,
-	 * type, and userId are the same.
+	 * are equal. Two LikeOrDislike objects are considered equal if their id,
+	 * postId, type, and userId are the same.
 	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal; false otherwise.
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -165,11 +170,12 @@ public class Reaction {
 		return Objects.equals(id, other.id) && Objects.equals(postId, other.postId) && type == other.type
 				&& Objects.equals(userId, other.userId);
 	}
+
 	/**
 	 * Overriden toString method.
 	 */
 	@Override
 	public String toString() {
-		return "LikeOrDislike [id=" + id + ", postId=" + postId + ", userId=" + userId + ", type=" + type + "]";
+		return "Reaction [id=" + id + ", postId=" + postId + ", userId=" + userId + ", type=" + type + "]";
 	}
 }

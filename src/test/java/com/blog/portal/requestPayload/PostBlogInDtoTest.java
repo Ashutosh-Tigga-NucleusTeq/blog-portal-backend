@@ -17,27 +17,23 @@ public class PostBlogInDtoTest {
     @BeforeEach
     public void setUp() {
         post = new PostBlogInDto("Sample Title", "Sample Content", new Date(12), "sampleUserId", TechnologyCategory.JAVA);
-        post.setId("sampleId");
     }
 
 
     @Test
     public void testGettersAndSetters() {
-        assertEquals("sampleId", post.getId());
         assertEquals("Sample Title", post.getTitle());
         assertEquals("Sample Content", post.getContent());
         assertNotNull(post.getCreatedAt());
         assertEquals("sampleUserId", post.getUserId());
         assertEquals(TechnologyCategory.JAVA, post.getTechCategory());
 
-        post.setId("newId");
         post.setTitle("New Title");
         post.setContent("New Content");
         post.setCreatedAt(new Date());
         post.setUserID("newUserId");
         post.setTechCategory(TechnologyCategory.HTML);
 
-        assertEquals("newId", post.getId());
         assertEquals("New Title", post.getTitle());
         assertEquals("New Content", post.getContent());
         assertNotNull(post.getCreatedAt());
@@ -50,8 +46,6 @@ public class PostBlogInDtoTest {
     public void testHashCodeAndEquals() {
         PostBlogInDto samePost = new PostBlogInDto("Sample Title", "Sample Content",
         		new Date(12), "sampleUserId", TechnologyCategory.JAVA);
-        samePost.setId("sampleId");
-
         assertEquals(post.hashCode(), samePost.hashCode());
         assertEquals(post, samePost);
     }
@@ -59,8 +53,7 @@ public class PostBlogInDtoTest {
 
     @Test
     public void testToString() {
-        String expectedToString = "PostBlogInDto [id=sampleId,"
-        		+ " title=Sample Title, content=Sample Content, createdAt="
+        String expectedToString = "PostBlogInDto [title=Sample Title, content=Sample Content, createdAt="
         		+ post.getCreatedAt() + ", userId=sampleUserId, techCategory=JAVA]";
         assertEquals(expectedToString, post.toString());
     }

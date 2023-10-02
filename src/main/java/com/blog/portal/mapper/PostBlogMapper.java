@@ -1,47 +1,29 @@
 package com.blog.portal.mapper;
 
-import com.blog.portal.entities.Post;
+import com.blog.portal.entities.Blog;
 import com.blog.portal.requestPayload.PostBlogInDto;
-import com.blog.portal.responsePayload.PostBlogOutDto;
 
 /**
  * The {@code PostMapper} class provides static methods for mapping
- * between DTOs and the Post entity.
+ * between DTOs and the Blog entity.
  *
- * @author Your Name
+ * @author Ashutosh Tigga
  */
 public class PostBlogMapper {
 
     /**
-     * Converts a {@link PostBlogInDto} to a {@link Post}.
+     * Converts a {@link PostBlogInDto} to a {@link Blog}.
      *
      * @param inDto The input DTO containing post data.
-     * @return A {@link Post} object with the data from the input DTO.
+     * @return A {@link Blog} object with the data from the input DTO.
      */
-    public static Post inDtoToPost(PostBlogInDto inDto) {
-    	Post post = new Post();
-    	post.setTitle(inDto.getTitle());
-    	post.setContent(inDto.getContent());
-    	post.setCreatedAt(inDto.getCreatedAt());
-    	post.setTechCategory(inDto.getTechCategory());
-      return post;
+    public static Blog inDtoToPost(final PostBlogInDto inDto) {
+    	Blog blog = new Blog();
+    	blog.setTitle(inDto.getTitle());
+    	blog.setContent(inDto.getContent());
+    	blog.setCreatedAt(inDto.getCreatedAt());
+    	blog.setTechCategory(inDto.getTechCategory());
+      return blog;
     }
 
-    /**
-     * Converts a {@link Post} to a {@link PostBlogOutDto}.
-     *
-     * @param post The post entity object to be converted.
-     * @return A {@link PostBlogOutDto} containing post information.
-     */
-    public static PostBlogOutDto postToOutDto(Post post) {
-        return new PostBlogOutDto(
-        				post.getId(),
-                post.getTitle(),
-                post.getContent(),
-                post.getStatus(),
-                post.getTechCategory(),
-                post.getCreatedAt(),
-                post.getUser()
-        );
-    }
 }

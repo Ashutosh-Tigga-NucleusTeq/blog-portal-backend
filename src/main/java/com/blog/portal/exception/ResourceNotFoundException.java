@@ -5,54 +5,52 @@ package com.blog.portal.exception;
  * RuntimeException. It is used to indicate that a specific resource was not
  * found.
  *
- *@author Ashutosh Tigga
+ * @author Ashutosh Tigga
  */
 public class ResourceNotFoundException extends RuntimeException {
-  private static final long serialVersionUID = 5072947128220942876L;
 
-  /**
-   * The name of the resource that was not found.
+	 /**
+   * The serial version UID for serialization and deserialization.
    */
-  private String resourceName;
+	private static final long serialVersionUID = 4892890817943756296L;
 
-  /**
-   * The name of the field that was used as a query parameter.
-   */
-  private String fieldName;
+	/**
+	 * The name of the resource that was not found.
+	 */
+	private String resourceName;
 
-  /**
-   * The value of the field that was used as a query parameter.
-   */
-  private String fieldValue;
+	/**
+	 * The name of the field that was used as a query parameter.
+	 */
+	private String fieldName;
 
-  /**
-   * Constructor for ResourceNotFoundException.
-   *
-   * @param resourceNameParam The name of the resource that was not found.
-   * @param fieldNameParam    The name of the field that was used
-   *     as a query parameter.
-   * @param fieldValueParam   The value of the field that was used as a query
-   *                     parameter.
-   */
-  public ResourceNotFoundException(
-      final String resourceNameParam,
-      final String fieldNameParam,
-      final String fieldValueParam
-  ) {
-    super(
-        String.format("%s not found with %s : %s", resourceNameParam,
-        fieldNameParam, fieldValueParam)
-    );
-    this.resourceName = resourceNameParam;
-    this.fieldName = fieldNameParam;
-    this.fieldValue = fieldValueParam;
-  }
+	/**
+	 * The value of the field that was used as a query parameter.
+	 */
+	private String fieldValue;
 
-  /**
-   * gets resource name.
-   *
-   * @return resourceName resource name.
-   */
+	/**
+	 * Constructor for ResourceNotFoundException.
+	 *
+	 * @param resourceNameParam The name of the resource that was not found.
+	 * @param fieldNameParam    The name of the field that was used as a query
+	 *                          parameter.
+	 * @param fieldValueParam   The value of the field that was used as a query
+	 *                          parameter.
+	 */
+	public ResourceNotFoundException(final String resourceNameParam, final String fieldNameParam,
+			final String fieldValueParam) {
+		super(String.format("%s not found with %s : %s", resourceNameParam, fieldNameParam, fieldValueParam));
+		this.resourceName = resourceNameParam;
+		this.fieldName = fieldNameParam;
+		this.fieldValue = fieldValueParam;
+	}
+
+	/**
+	 * gets resource name.
+	 *
+	 * @return resourceName resource name.
+	 */
 	public String getResourceName() {
 		return resourceName;
 	}
@@ -62,7 +60,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 *
 	 * @param resourceNameParam resource name.
 	 */
-	public void setResourceName(String resourceNameParam) {
+	public void setResourceName(final String resourceNameParam) {
 		this.resourceName = resourceNameParam;
 	}
 
@@ -80,7 +78,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 *
 	 * @param fieldNameParam name of the field.
 	 */
-	public void setFieldName(String fieldNameParam) {
+	public void setFieldName(final String fieldNameParam) {
 		this.fieldName = fieldNameParam;
 	}
 
@@ -98,7 +96,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	 *
 	 * @param fieldValueParam field value.
 	 */
-	public void setFieldValue(String fieldValueParam) {
+	public void setFieldValue(final String fieldValueParam) {
 		this.fieldValue = fieldValueParam;
 	}
 

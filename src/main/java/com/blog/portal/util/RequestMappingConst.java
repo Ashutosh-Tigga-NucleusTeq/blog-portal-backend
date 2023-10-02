@@ -4,7 +4,7 @@ public class RequestMappingConst {
 	/**
 	 * message: Request mapping url for blog.
 	 */
-	public static final String POST_URL = "/blog";
+	public static final String BLOG_URL = "/blog";
 	/**
 	 * message: Request mapping url for user.
 	 */

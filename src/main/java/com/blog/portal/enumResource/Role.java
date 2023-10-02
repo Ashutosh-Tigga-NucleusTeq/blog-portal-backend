@@ -1,17 +1,17 @@
 package com.blog.portal.enumResource;
 
 /**
- * The `Role` enum represents different roles or levels of authority within an application.
- * It provides a set of predefined constants for common roles.
+ * The `Role` enum represents different roles or levels of authority within an
+ * application. It provides a set of predefined constants for common roles.
  */
 public enum Role {
 	/**
 	 * `Employee`: Represents a standard user role with limited permissions.
 	 */
-    EMPLOYEE,
+	EMPLOYEE,
 
-    /**
-     * `Admin`: Represents an administrative user role with elevated permissions.
-     */
-    ADMIN
+	/**
+	 * `Admin`: Represents an administrative user role with elevated permissions.
+	 */
+	ADMIN
 }

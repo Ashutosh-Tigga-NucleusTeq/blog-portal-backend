@@ -88,6 +88,7 @@
 						<configuration>
 							<excludes>
 								<exclude>com/blog/portal/util/**</exclude>
+								
 							</excludes>
 							<rules>
 								<rule>
