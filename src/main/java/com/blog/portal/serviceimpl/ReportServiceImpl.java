@@ -110,7 +110,7 @@ public class ReportServiceImpl implements ReportService {
 	 * @return response Collection of ReportedBlogsOutDto.
 	 */
 	public List<ReportedBlogsOutDto> getReportedBlogs() {
-		List<ReportedBlogsOutDto> response = new ArrayList<>();
+		List<ReportedBlogsOutDto> responseDto = new ArrayList<>();
 		List<ReportedBlog> fetchedListOfReportedPost = reportRepository.findAll();
 
 		Set<String> uniquePostReferences = new HashSet<>();
@@ -118,11 +118,11 @@ public class ReportServiceImpl implements ReportService {
 		for (ReportedBlog reportedBlog : fetchedListOfReportedPost) {
 			String postReference = reportedBlog.getPost().getId();
 			if (!uniquePostReferences.contains(postReference)) {
-				response.add(ReportBlogMapper.entityToOutDto(reportedBlog));
+				responseDto.add(ReportBlogMapper.entityToOutDto(reportedBlog));
 				uniquePostReferences.add(postReference);
 			}
 		}
-		return response;
+		return responseDto;
 	}
 
 	/**
@@ -167,16 +167,19 @@ public class ReportServiceImpl implements ReportService {
 
 	/**
 	 * Gets Reporting Message. return response Reporting message of post.
+	 *
+	 * @param  postId
+	 * @return responseDto
 	 */
 	@Override
 	public ReportedBlogReasonsOutDto getReportedBlogReason(final String postId) {
-		ReportedBlogReasonsOutDto response = new ReportedBlogReasonsOutDto();
+		ReportedBlogReasonsOutDto responseDto = new ReportedBlogReasonsOutDto();
 		List<ReportedBlog> fetchReportedPost = reportRepository.findByPostId(postId);
 		List<String> listOfMessage = new ArrayList<String>();
 		for (ReportedBlog reportPost : fetchReportedPost) {
 			listOfMessage.add(reportPost.getReportReason());
 		}
-		response.setReasons(listOfMessage);
-		return response;
+		responseDto.setReasons(listOfMessage);
+		return responseDto;
 	}
 }

@@ -208,15 +208,15 @@ public class BlogServiceImpl implements BlogService {
 	 * This method for getting post by id.
 	 *
 	 * @param postId
-   * @return response in the form of String and boolean field.
+   * @return responseDto.
 	 */
 	@Override
 	public BlogOutDto getBlogById(final String postId) {
 		Blog blog = blogRepository.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
 						BlogConst.FIELD_POST_ID, postId));
-		BlogOutDto outDto = FetchBlogMapper.entityToOutDto(blog);
-		return outDto;
+		BlogOutDto responseDto = FetchBlogMapper.entityToOutDto(blog);
+		return responseDto;
 	}
 
 	/**

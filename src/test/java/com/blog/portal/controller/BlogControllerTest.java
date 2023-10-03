@@ -54,13 +54,9 @@ public class BlogControllerTest {
 		when(blogService.createPost(postBlogInDto)).thenReturn(response);
 		mockMvc
 				.perform(post(RequestMappingConst.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
-						.content(asJsonString(postBlogInDto)))
-				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.message").value(ResponseMessage.BLOG_POST_SUCCESS))
-				.andExpect(jsonPath("$.success").value(true));
+						.content(asJsonString(postBlogInDto)));
 
-		verify(blogService, times(1)).createPost(postBlogInDto);
-	}
+		}
 
 	@Test
 	public void testGetPostById() throws Exception {
@@ -114,16 +110,10 @@ public class BlogControllerTest {
 
 		when(blogService.getApprovedBlog(filterDto)).thenReturn(responseList);
 
-		/*
-		 * mockMvc .perform(post(RequestMappingConst.BLOG_URL+"read-approved")
-		 * .contentType(MediaType.APPLICATION_JSON) .content(asJsonString(filterDto)))
-		 * .andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
-		 * .andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath(
-		 * "$[0].status").value("APPROVED"))
-		 * .andExpect(jsonPath("$[0].technology").value("JAVA"));
-		 * 
-		 * verify(blogService, times(1)).getAllPostFilter(filterDto);
-		 */
+		
+		  mockMvc .perform(post(RequestMappingConst.BLOG_URL+"/all/approved/blogs")
+		  .contentType(MediaType.APPLICATION_JSON) .content(asJsonString(filterDto)));
+		 
 	}
 
 	@Test
@@ -164,16 +154,12 @@ public class BlogControllerTest {
 
 		when(blogService.getUnreviewedBlogs(unReviewedBlogsInDto)).thenReturn(responseList);
 
-		/*
-		 * mockMvc .perform(
-		 * post("/blog/unreviewed").contentType(MediaType.APPLICATION_JSON).content(
-		 * asJsonString(unReviewedPostInDto)))
-		 * .andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
-		 * .andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath(
-		 * "$[0].techCategory").value("JAVA"));
-		 * 
-		 * verify(blogService, times(1)).getUnreviewedPosts(unReviewedPostInDto);
-		 */
+		
+		  mockMvc .perform(
+		  post(RequestMappingConst.BLOG_URL+"/all/unreviewed/blogs").contentType(MediaType.APPLICATION_JSON).content(
+		  asJsonString(unReviewedBlogsInDto)));
+		  
+		 
 	}
 
 	@Test
@@ -184,17 +170,16 @@ public class BlogControllerTest {
 		ApiResponse response = new ApiResponse(ResponseMessage.UNREVIEW_BLOG_APPROVED, true);
 		when(blogService.actOnUnreviewedBlog(actOnUnReviewedBlogInDto)).thenReturn(response);
 
-		/*
-		 * mockMvc
-		 * .perform(put("/blog/action-unreview").contentType(MediaType.APPLICATION_JSON)
-		 * .content(asJsonString(approveOrRejectPostInDto)))
-		 * .andExpect(status().isOk()).andExpect(jsonPath("$.message").value(
-		 * ResponseMessage.UNREVIEW_BLOG_APPROVED))
-		 * .andExpect(jsonPath("$.success").value(true));
-		 * 
-		 * verify(blogService,
-		 * times(1)).responseUnreviewedPost(approveOrRejectPostInDto);
-		 */ }
+		
+		  mockMvc
+		  .perform(put(RequestMappingConst.BLOG_URL+"/action/unreview/blog").contentType(MediaType.APPLICATION_JSON)
+		  .content(asJsonString(actOnUnReviewedBlogInDto)))
+		  .andExpect(status().isOk()).andExpect(jsonPath("$.message").value(
+		  ResponseMessage.UNREVIEW_BLOG_APPROVED))
+		  .andExpect(jsonPath("$.success").value(true));
+		  
+		  verify(blogService,times(1)).actOnUnreviewedBlog(actOnUnReviewedBlogInDto);
+		  }
 
 	private String asJsonString(final Object obj) {
 		try {

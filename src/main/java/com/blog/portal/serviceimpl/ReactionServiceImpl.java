@@ -37,8 +37,12 @@ public class ReactionServiceImpl implements ReactionService {
 	 */
 	@Autowired
 	private BlogRepository blogRepository;
+
 	/**
 	 * This method for performing like or dislike functionality.
+	 *
+	 * @param inDto
+	 * @return outDto
 	 */
 	@Override
 	public ReactionOnBlogOutDto doReactOnBlog(final ReactOnBlogInDto inDto) {
