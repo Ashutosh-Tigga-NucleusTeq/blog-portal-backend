@@ -31,7 +31,6 @@ public class UserBlogsOutDtoTest {
 
         UserBlogsOutDto postDto = new UserBlogsOutDto(id, title, status, content, technology, createdAt, editedAt, likedBy, disLikedBy, commentBy, reportedBy);
 
-        // Test getter methods
         assertEquals(id, postDto.getId());
         assertEquals(title, postDto.getTitle());
         assertEquals(status, postDto.getStatus());

@@ -9,23 +9,17 @@ import com.blog.portal.enumResource.Gender;
 
 public class RegisterUserInDtoTest {
 
-	/**
-	 * Instance of RegisterUserInDto.
-	 */
+
     private RegisterUserInDto user;
 
-    /**
-     * Setting up before testing.
-     */
+
     @BeforeEach
     public void setUp() {
         user = new RegisterUserInDto("firstname", "lastname", Gender.MALE, "firstnamelastname@example.com",
         		"password", Designation.INTERN, "1234567890");
     }
 
-    /**
-     * Testing of setter and getter.
-     */
+
     @Test
     public void testGettersAndSetters() {
         assertEquals("firstname", user.getFirstName());
@@ -53,9 +47,7 @@ public class RegisterUserInDtoTest {
         assertEquals("9876543210", user.getContactNumber());
     }
 
-    /**
-     * Testing HashCode and equals method.
-     */
+
     @Test
     public void testHashCodeAndEquals() {
         RegisterUserInDto sameUser = new RegisterUserInDto("firstname", "lastname", Gender.MALE, "firstnamelastname@example.com",
@@ -64,9 +56,7 @@ public class RegisterUserInDtoTest {
         assertEquals(user.hashCode(), sameUser.hashCode());
         assertEquals(user, sameUser);
     }
-    /**
-     * Testing toString method.
-     */
+
     @Test
     public void testToString() {
         String expectedToString = "RegisterInDto [firstName=firstname,"

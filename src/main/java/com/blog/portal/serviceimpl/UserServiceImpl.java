@@ -1,6 +1,8 @@
 package com.blog.portal.serviceimpl;
 
 import javax.validation.Valid;
+
+import java.util.Locale;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
 		return response;
 	}
 
-	/**
+	/**t
 	 * Authenticate an user based on the provided AuthenicateInDto.
 	 *
 	 * @param inDto The AuthenticateInDto containing the details of the user to be
@@ -61,8 +63,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public AuthenticateUserOutDto authenticateUser(@Valid final AuthenticateUserInDto inDto) {
-		User user = userRepository.findByEmail(inDto.getEmail().toLowerCase())
-				.orElseThrow(() -> new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER));
+		String emailLowerCase = inDto.getEmail().toLowerCase(Locale.ENGLISH);
+		User user = userRepository.findByEmail(emailLowerCase)
+		        .orElseThrow(() -> new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER));
 		AuthenticateUserOutDto outDto = null;
 		if (!user.getPassword().equals(inDto.getPassword())) {
 			throw new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER);

@@ -1,5 +1,7 @@
 package com.blog.portal.serviceimpl;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Reaction;
@@ -48,7 +50,7 @@ public class ReactionServiceImpl implements ReactionService {
 	            		BlogConst.FIELD_POST_ID,
 	            		inDto.getPostId()));
 
-	    if (userReaction == null) {
+	    if (Objects.isNull(userReaction)) {
 		    Reaction reaction = new Reaction();
 	        if (inDto.getType().equals(React.LIKE)) {
 	            blog.getLikedBy().add(inDto.getUserId());

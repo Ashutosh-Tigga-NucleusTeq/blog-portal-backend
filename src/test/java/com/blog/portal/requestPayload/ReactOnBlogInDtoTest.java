@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.blog.portal.enumResource.React;
 
 public class ReactOnBlogInDtoTest {
-		/**
-		 * Tesing of full Method.
-		 */
+		
     @Test
     public void testGetterSetterAndMethods() {
         ReactOnBlogInDto likeOrDislikePostInDto1 = new ReactOnBlogInDto();

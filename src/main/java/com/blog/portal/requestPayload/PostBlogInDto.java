@@ -34,9 +34,17 @@ public class PostBlogInDto {
 	private String title;
 
 	/**
+	 * Minimum size of title.
+	 */
+	private static final int MIN_CONTENT_SIZE = 50;
+
+
+	/**
 	 * The Content of the BLOG post.
 	 */
 	@NotBlank(message = "Content is Required")
+	@Size(min = MIN_CONTENT_SIZE,
+			message = "length of Content must be between [" + MIN_CONTENT_SIZE + "]")
 	private String content;
 
 	/**

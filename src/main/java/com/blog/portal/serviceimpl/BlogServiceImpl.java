@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 /**
@@ -72,14 +74,12 @@ public class BlogServiceImpl implements BlogService {
 		Blog blog = PostBlogMapper.inDtoToPost(postBlogInDto);
 		blog.setUser(user);
 		blog.setUserId(user.getId());
-		try {
-			blogRepository.save(blog);
-			reponse = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
-		} catch (RuntimeException ex) {
+		Blog savedBlog = blogRepository.save(blog);
+		if (Objects.isNull(savedBlog)) {
 			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
-		} catch (Exception e) {
-			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
+			return reponse;
 		}
+		reponse = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
 		return reponse;
 	}
 
@@ -193,14 +193,14 @@ public class BlogServiceImpl implements BlogService {
 		fetchPost.setTitle(inDto.getTitle());
 		fetchPost.setEditedAt(new Date());
 		fetchPost.setStatus(BlogStatus.PENDING);
-		try {
-			blogRepository.save(fetchPost);
-			response.setSuccess(true);
-			response.setMessage(ResponseMessage.BLOG_UPDATE_SUCCESS);
-		} catch (Exception ex) {
+		Blog fetchedBlog = blogRepository.save(fetchPost);
+		if (Objects.isNull(fetchedBlog)) {
 			response.setMessage(ResponseMessage.BLOG_UPDATE_FAILED);
 			response.setSuccess(false);
+			return response;
 		}
+		response.setSuccess(true);
+		response.setMessage(ResponseMessage.BLOG_UPDATE_SUCCESS);
 		return response;
 	}
 

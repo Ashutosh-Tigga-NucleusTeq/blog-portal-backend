@@ -28,7 +28,6 @@ public class CommentBlogOutDtoTest {
         assertEquals("user1", comment1.getUserId());
         assertEquals("post1", comment1.getPostId());
 
-        // Test setters
         comment1.setId("3");
         comment1.setContent("Updated comment");
         comment1.setUserId("user3");

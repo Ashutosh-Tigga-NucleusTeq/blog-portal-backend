@@ -12,22 +12,16 @@ import com.blog.portal.enumResource.TechnologyCategory;
 
 public class ApprovedBlogsInDtoTest {
 
-	/**
-	 * Instance of FilterDashboatdPostInDto.
-	 */
+
     private ApprovedBlogsInDto approvedBlogsInDto;
 
-    /**
-     * Setting up before testing.
-     */
+
     @BeforeEach
     public void setUp() {
         approvedBlogsInDto = new ApprovedBlogsInDto();
     }
 
-    /**
-     * Testing Getter and Setter.
-     */
+
     @Test
     public void testGettersAndSetters() {
         approvedBlogsInDto.setTitle("Sample Title");
@@ -42,9 +36,7 @@ public class ApprovedBlogsInDtoTest {
         assertEquals(TechnologyCategory.PYTHON, approvedBlogsInDto.getTechCategory());
     }
 
-    /**
-     * Testing hashcode.
-     */
+
     @Test
     public void testHashCode() {
         approvedBlogsInDto.setTitle("Sample Title");
@@ -57,9 +49,7 @@ public class ApprovedBlogsInDtoTest {
         assertEquals(other.hashCode(), approvedBlogsInDto.hashCode());
     }
 
-    /**
-     * Testing equals.
-     */
+
     @Test
     public void testEquals() {
         approvedBlogsInDto.setTitle("Sample Title");
@@ -84,9 +74,7 @@ public class ApprovedBlogsInDtoTest {
         assertFalse(approvedBlogsInDto.equals("Not a ApprovedBlogsInDto"));
     }
 
-    /**
-     * Testing toString.
-     */
+
     @Test
     public void testToString() {
         approvedBlogsInDto.setTitle("Sample Title");

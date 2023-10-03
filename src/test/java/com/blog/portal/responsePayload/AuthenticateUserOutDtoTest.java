@@ -15,7 +15,6 @@ public class AuthenticateUserOutDtoTest {
 
     @BeforeEach
     public void setUp() {
-        // Create three AuthenticateUserOutDto objects with dummy data
         user1 = new AuthenticateUserOutDto("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);
         user2 = new AuthenticateUserOutDto("2", "anotherfirstname", "anotherlastname", Gender.FEMALE, "anotherfirstname@example.com", Designation.HR, "9876543210", Role.ADMIN);
         user3 = new AuthenticateUserOutDto("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);

@@ -43,7 +43,6 @@ public class ApprovedBlogsOutDtoTest {
         assertEquals("Content 1", post1.getContent());
         assertEquals(BlogStatus.PENDING, post1.getStatus());
         assertEquals(TechnologyCategory.CSS, post1.getTechnology());
-				/* assertEquals("user1", post1.getUser().getFirstName()); */
 
         post1.setId("newId");
         post1.setTitle("New Title");
