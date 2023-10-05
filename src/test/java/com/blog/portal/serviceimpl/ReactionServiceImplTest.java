@@ -7,8 +7,8 @@ import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.ReactOnBlogMapper;
 import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.ReactionRepository;
-import com.blog.portal.requestPayload.ReactOnBlogInDto;
-import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
+import com.blog.portal.requestPayload.ReactionBlogInDto;
+import com.blog.portal.responsePayload.ReactionBlogOutDto;
 import com.blog.portal.services.ReactionService;
 import com.blog.portal.serviceimpl.ReactionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +42,7 @@ public class ReactionServiceImplTest {
 
     @Test
     public void testDoReactOnPost_ReactLike_NewReaction() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto("userId", "postId", React.LIKE);
+        ReactionBlogInDto inDto = new ReactionBlogInDto("userId", "postId", React.LIKE);
         Reaction userReaction = null;
         Blog blog = createSamplePost();
         when(likeAndDislikeRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
@@ -50,9 +50,8 @@ public class ReactionServiceImplTest {
         when(blogRepository.save(blog)).thenReturn(blog);
         when(likeAndDislikeRepo.save(any(Reaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ReactionOnBlogOutDto result = reactionService.doReactOnBlog(inDto);
+        ReactionBlogOutDto result = reactionService.reactOnBlog(inDto);
 
-        assertNotNull(result);
         assertEquals(React.LIKE, result.getType());
         assertTrue(blog.getLikedBy().contains("userId"));
         assertFalse(blog.getDisLikedBy().contains("userId"));
@@ -60,7 +59,7 @@ public class ReactionServiceImplTest {
 
     @Test
     public void testDoReactOnPost_ReactDislike_NewReaction() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto("userId", "postId", React.DISLIKE);
+        ReactionBlogInDto inDto = new ReactionBlogInDto("userId", "postId", React.DISLIKE);
         Reaction userReaction = null;
         Blog blog = createSamplePost();
         when(likeAndDislikeRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
@@ -68,9 +67,8 @@ public class ReactionServiceImplTest {
         when(blogRepository.save(blog)).thenReturn(blog);
         when(likeAndDislikeRepo.save(any(Reaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ReactionOnBlogOutDto result = reactionService.doReactOnBlog(inDto);
+        ReactionBlogOutDto result = reactionService.reactOnBlog(inDto);
 
-        assertNotNull(result);
         assertEquals(React.DISLIKE, result.getType());
         assertFalse(blog.getLikedBy().contains("userId"));
         assertTrue(blog.getDisLikedBy().contains("userId"));
@@ -78,7 +76,7 @@ public class ReactionServiceImplTest {
 
     @Test
     public void testDoReactOnPost_ReactLike_UpdateReaction() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto("userId", "postId", React.LIKE);
+        ReactionBlogInDto inDto = new ReactionBlogInDto("userId", "postId", React.LIKE);
         Reaction userReaction = createSampleReaction("userId", "postId", React.DISLIKE);
         Blog blog = createSamplePost();
         when(likeAndDislikeRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
@@ -86,9 +84,8 @@ public class ReactionServiceImplTest {
         when(blogRepository.save(blog)).thenReturn(blog);
         when(likeAndDislikeRepo.save(any(Reaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ReactionOnBlogOutDto result = reactionService.doReactOnBlog(inDto);
+        ReactionBlogOutDto result = reactionService.reactOnBlog(inDto);
 
-        assertNotNull(result);
         assertEquals(React.LIKE, result.getType());
         assertTrue(blog.getLikedBy().contains("userId"));
         assertFalse(blog.getDisLikedBy().contains("userId"));
@@ -96,7 +93,7 @@ public class ReactionServiceImplTest {
 
     @Test
     public void testDoReactOnPost_ReactDislike_UpdateReaction() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto("userId", "postId", React.DISLIKE);
+        ReactionBlogInDto inDto = new ReactionBlogInDto("userId", "postId", React.DISLIKE);
         Reaction userReaction = createSampleReaction("userId", "postId", React.LIKE);
         Blog blog = createSamplePost();
         when(likeAndDislikeRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(userReaction);
@@ -104,9 +101,8 @@ public class ReactionServiceImplTest {
         when(blogRepository.save(blog)).thenReturn(blog);
         when(likeAndDislikeRepo.save(any(Reaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ReactionOnBlogOutDto result = reactionService.doReactOnBlog(inDto);
+        ReactionBlogOutDto result = reactionService.reactOnBlog(inDto);
 
-        assertNotNull(result);
         assertEquals(React.DISLIKE, result.getType());
         assertFalse(blog.getLikedBy().contains("userId"));
         assertTrue(blog.getDisLikedBy().contains("userId"));
@@ -114,12 +110,12 @@ public class ReactionServiceImplTest {
 
     @Test
     public void testDoReactOnPost_PostNotFound() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto("userId", "postId", React.LIKE);
+        ReactionBlogInDto inDto = new ReactionBlogInDto("userId", "postId", React.LIKE);
         when(likeAndDislikeRepo.findByUserIdAndPostId("userId", "postId")).thenReturn(null);
         when(blogRepository.findById("postId")).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
-            reactionService.doReactOnBlog(inDto);
+            reactionService.reactOnBlog(inDto);
         });
     }
 

@@ -9,7 +9,7 @@ import com.blog.portal.enumResource.React;
  * of post for performing like or dislike operation on specific post.
  * @author [ Ashutosh Tigga]
  */
-public class ReactOnBlogInDto {
+public class ReactionBlogInDto {
 	/**
 	 * BLOG Blog ID of the user.
 	 */
@@ -33,7 +33,7 @@ public class ReactOnBlogInDto {
 	 * @param newPostId
 	 * @param newReaction
 	 */
-	public ReactOnBlogInDto(final String newUserId, final String newPostId, final React newReaction) {
+	public ReactionBlogInDto(final String newUserId, final String newPostId, final React newReaction) {
 		this.userId = newUserId;
 		this.postId = newPostId;
 		this.type = newReaction;
@@ -42,7 +42,7 @@ public class ReactOnBlogInDto {
 	/**
 	 * Default Constructor.
 	 */
-	public ReactOnBlogInDto() {
+	public ReactionBlogInDto() {
 	}
 
 	/**
@@ -128,8 +128,10 @@ public class ReactOnBlogInDto {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
-		ReactOnBlogInDto other = (ReactOnBlogInDto) obj;
-		return Objects.equals(postId, other.postId) && type == other.type && Objects.equals(userId, other.userId);
+		ReactionBlogInDto other = (ReactionBlogInDto) obj;
+		return Objects.equals(postId, other.postId)
+				&& type == other.type
+				&& Objects.equals(userId, other.userId);
 	}
 
 }

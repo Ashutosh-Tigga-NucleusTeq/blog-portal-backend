@@ -24,7 +24,7 @@ import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.requestPayload.*;
 import com.blog.portal.responsePayload.*;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.ResponseMessageConstants;
 
 public class BlogServiceImplTest {
 
@@ -56,7 +56,7 @@ public class BlogServiceImplTest {
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.BLOG_POST_SUCCESS, response.getMessage());
+        assertEquals(ResponseMessageConstants.BLOG_POST_SUCCESS, response.getMessage());
     }
 
     @Test
@@ -145,7 +145,7 @@ public class BlogServiceImplTest {
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.BLOG_UPDATE_SUCCESS, response.getMessage());
+        assertEquals(ResponseMessageConstants.BLOG_UPDATE_SUCCESS, response.getMessage());
     }
 
     @Test
@@ -226,7 +226,7 @@ public class BlogServiceImplTest {
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.UNREVIEW_BLOG_APPROVED, response.getMessage());
+        assertEquals(ResponseMessageConstants.UNREVIEW_BLOG_APPROVED, response.getMessage());
     }
 
     @Test
@@ -243,7 +243,7 @@ public class BlogServiceImplTest {
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.UNREVIEW_BLOG_REJECTED, response.getMessage());
+        assertEquals(ResponseMessageConstants.UNREVIEW_BLOG_REJECTED, response.getMessage());
     }
 
     @Test
@@ -270,7 +270,7 @@ public class BlogServiceImplTest {
 
         assertNotNull(response);
         assertFalse(response.isSuccess());
-        assertEquals(ResponseMessage.UNREVIEW_BLOG_FAILED, response.getMessage());
+        assertEquals(ResponseMessageConstants.UNREVIEW_BLOG_FAILED, response.getMessage());
     }
 
 }

@@ -3,14 +3,15 @@ package com.blog.portal.serviceimpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Blog;
 import com.blog.portal.entities.ReportedBlog;
 import com.blog.portal.entities.User;
 import com.blog.portal.enumResource.ReportedBlogAction;
+import com.blog.portal.exception.EmptyDataException;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.ReportBlogMapper;
 import com.blog.portal.repository.BlogRepository;
@@ -24,9 +25,9 @@ import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
-import com.blog.portal.util.BlogConst;
-import com.blog.portal.util.ResponseMessage;
-import com.blog.portal.util.UserConst;
+import com.blog.portal.util.Constants;
+import com.blog.portal.util.ErrorConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 
 /**
  * Implementation of the ReportService interface responsible for Report blog
@@ -37,32 +38,32 @@ import com.blog.portal.util.UserConst;
 public class ReportServiceImpl implements ReportService {
 
 	/**
-	 * This  ReportRepository deal with db to perform taks on data.
+	 * This ReportRepository deal with db to perform taks on data.
 	 */
 	@Autowired
 	private ReportRepository reportRepository;
 
 	/**
-	 * This  BlogRepository deals with db to perform task related to Blog
+	 * This BlogRepository deals with db to perform task related to Blog
 	 * entity.
 	 */
 	@Autowired
 	private BlogRepository blogRepository;
 
 	/**
-	 * This  UserRepository deals with db operation related to BlogUser
+	 * This UserRepository deals with db operation related to BlogUser
 	 * entity.
 	 */
 	@Autowired
 	private UserRepository userRepository;
 	/**
-	 * This  ReactionRepository deals with db operation perform on
+	 * This ReactionRepository deals with db operation perform on
 	 * LikeOrDislike entity.
 	 */
 	@Autowired
 	private ReactionRepository reactionRepository;
 	/**
-	 * This  CommentRepository deals with db operation to be performm on
+	 * This CommentRepository deals with db operation to be performm on
 	 * Comment entity.
 	 */
 	@Autowired
@@ -76,15 +77,16 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public ResponseOutDTO reportOnBlog(final ReportBlogInDto inDto) {
 		ResponseOutDTO response = new ResponseOutDTO();
-		ReportedBlog isReportedPostExists = reportRepository.findByUserIdAndPostId(inDto.getUserId(), inDto.getPostId());
+		ReportedBlog isReportedPostExists = reportRepository.findByUserIdAndPostId(
+				inDto.getUserId(), inDto.getPostId());
 		if (isReportedPostExists == null) {
 			User isUserExists = userRepository.findById(inDto.getUserId()).orElseThrow(
-					() -> new ResourceNotFoundException(UserConst.CLASS_NAME,
-							UserConst.FIELD_USER_ID,
+					() -> new ResourceNotFoundException(
+							Constants.USER_CLASS_NAME, Constants.USER_ID,
 							inDto.getUserId()));
 			Blog isPostExists = blogRepository.findById(inDto.getPostId()).orElseThrow(
-					() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-							BlogConst.FIELD_POST_ID,
+					() -> new ResourceNotFoundException(
+							Constants.POST_CLASS_NAME, Constants.POST_ID,
 							inDto.getPostId()));
 			ReportedBlog reportedBlog = ReportBlogMapper.inDtoToEntity(inDto);
 			if (isPostExists != null && isUserExists != null) {
@@ -93,10 +95,10 @@ public class ReportServiceImpl implements ReportService {
 				reportedBlog.setPost(savedPost);
 				reportRepository.save(reportedBlog);
 				response.setSuccess(true);
-				response.setMessage(ResponseMessage.BLOG_REPORT_SUCCESS);
+				response.setMessage(ResponseMessageConstants.BLOG_REPORT_SUCCESS);
 			}
 		} else {
-			response.setMessage(ResponseMessage.BLOG_ALREADY_REPORTED);
+			response.setMessage(ResponseMessageConstants.BLOG_ALREADY_REPORTED);
 			response.setSuccess(false);
 		}
 		return response;
@@ -119,6 +121,10 @@ public class ReportServiceImpl implements ReportService {
 				uniquePostReferences.add(postReference);
 			}
 		}
+
+		if (Objects.isNull(responseDto)) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_REPORT_REASON);
+		}
 		return responseDto;
 	}
 
@@ -136,26 +142,25 @@ public class ReportServiceImpl implements ReportService {
 		String postId = inDto.getPostId();
 		List<ReportedBlog> fetchedReportedPost = reportRepository.findByPostId(postId);
 		if (fetchedReportedPost.size() != 0) {
-			Blog fetchedPost = blogRepository.findById(postId)
-					.orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-							BlogConst.FIELD_POST_ID,
-							postId));
+			Blog fetchedPost = blogRepository.findById(postId).orElseThrow(
+					() -> new ResourceNotFoundException(Constants.POST_CLASS_NAME,
+							Constants.POST_ID, postId));
 			if (action == ReportedBlogAction.IGNORE) {
 				fetchedPost.getReportedBy().clear();
 				blogRepository.save(fetchedPost);
 				reportRepository.deleteByPostId(postId);
-				response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_IGNORED);
+				response.setMessage(ResponseMessageConstants.REPORTED_BLOG_ACT_IGNORED);
 				response.setSuccess(true);
 			} else if (action == ReportedBlogAction.DELETE) {
 				reportRepository.deleteByPostId(postId);
 				blogRepository.deleteById(postId);
 				reactionRepository.deleteByPostId(postId);
 				commentRepository.deleteByPostId(postId);
-				response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_DELETED);
+				response.setMessage(ResponseMessageConstants.REPORTED_BLOG_ACT_DELETED);
 				response.setSuccess(true);
 			}
 		} else {
-			response.setMessage(ResponseMessage.REPORTED_BLOG_ACT_FAILED);
+			response.setMessage(ResponseMessageConstants.REPORTED_BLOG_ACT_FAILED);
 			response.setSuccess(false);
 		}
 		return response;
@@ -163,7 +168,7 @@ public class ReportServiceImpl implements ReportService {
 
 	/**
 	 * Gets Reporting Message. return response Reporting message of post.
-	 * @param  postId
+	 * @param postId
 	 * @return responseDto
 	 */
 	@Override

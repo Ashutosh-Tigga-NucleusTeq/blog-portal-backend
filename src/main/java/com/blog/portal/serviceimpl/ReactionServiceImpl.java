@@ -10,10 +10,10 @@ import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.ReactOnBlogMapper;
 import com.blog.portal.repository.ReactionRepository;
 import com.blog.portal.repository.BlogRepository;
-import com.blog.portal.requestPayload.ReactOnBlogInDto;
-import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
+import com.blog.portal.requestPayload.ReactionBlogInDto;
+import com.blog.portal.responsePayload.ReactionBlogOutDto;
 import com.blog.portal.services.ReactionService;
-import com.blog.portal.util.BlogConst;
+import com.blog.portal.util.Constants;
 
 /**
  * Implementation of the ReactionService interface responsible for React on Blog related
@@ -41,13 +41,13 @@ public class ReactionServiceImpl implements ReactionService {
 	 * @return outDto
 	 */
 	@Override
-	public ReactionOnBlogOutDto doReactOnBlog(final ReactOnBlogInDto inDto) {
+	public ReactionBlogOutDto reactOnBlog(final ReactionBlogInDto inDto) {
 	    Reaction userReaction = likeAndDislikeRepo.findByUserIdAndPostId(
 	            inDto.getUserId(), inDto.getPostId());
 
 	    Blog blog = blogRepository.findById(inDto.getPostId())
-	            .orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-	            		BlogConst.FIELD_POST_ID,
+	            .orElseThrow(() -> new ResourceNotFoundException(Constants.POST_CLASS_NAME,
+	            		Constants.POST_ID,
 	            		inDto.getPostId()));
 
 	    if (Objects.isNull(userReaction)) {
@@ -77,7 +77,7 @@ public class ReactionServiceImpl implements ReactionService {
 	    }
 	    blogRepository.save(blog);
 	    Reaction savedResponse = likeAndDislikeRepo.save(userReaction);
-	    ReactionOnBlogOutDto outDto = ReactOnBlogMapper.entityToOutDto(savedResponse);
+	    ReactionBlogOutDto outDto = ReactOnBlogMapper.entityToOutDto(savedResponse);
 	    return outDto;
 	}
 

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.portal.requestPayload.ReactOnBlogInDto;
-import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
+import com.blog.portal.requestPayload.ReactionBlogInDto;
+import com.blog.portal.responsePayload.ReactionBlogOutDto;
 import com.blog.portal.services.ReactionService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 /**
  * This class handles HTTP requests related to REACTION on BLOG.
@@ -23,7 +23,7 @@ import com.blog.portal.util.RequestMappingConst;
  * @author [Ashutosh Tigga]
  */
 @RestController
-@RequestMapping(RequestMappingConst.REACTON_URL)
+@RequestMapping(RestPathConstants.REACTON_URL)
 public class ReactionController {
 
 	/**
@@ -43,10 +43,10 @@ public class ReactionController {
 	 * @return ResponseEntity.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<ReactionOnBlogOutDto> reactOnBlog(@Valid @RequestBody final ReactOnBlogInDto inDto) {
+	public ResponseEntity<ReactionBlogOutDto> reactOnBlog(@Valid @RequestBody final ReactionBlogInDto inDto) {
 		LOGGER.info(" like post controller with requestdto [" + inDto + "]");
-		ReactionOnBlogOutDto response = reactionService.doReactOnBlog(inDto);
+		ReactionBlogOutDto response = reactionService.reactOnBlog(inDto);
 		LOGGER.info(" Fetching response from doReactOnPost service [" + response + "]");
-		return new ResponseEntity<ReactionOnBlogOutDto>(response, HttpStatus.OK);
+		return new ResponseEntity<ReactionBlogOutDto>(response, HttpStatus.OK);
 	}
 }

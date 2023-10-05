@@ -8,15 +8,15 @@ import com.blog.portal.entities.User;
 import com.blog.portal.enumResource.Designation;
 import com.blog.portal.enumResource.Gender;
 import com.blog.portal.enumResource.Role;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.requestPayload.UserInDTO;
+import com.blog.portal.responsePayload.UserOutDTO;
 
 public class AuthenticateUserMapperTest {
 
 
     @Test
     public void testInDtoToUser() {
-        AuthenticateUserInDto inDto = new AuthenticateUserInDto();
+        UserInDTO inDto = new UserInDTO();
         inDto.setEmail("test@nucleusteq.com");
         inDto.setPassword("password");
 
@@ -39,7 +39,7 @@ public class AuthenticateUserMapperTest {
         user.setContactNumber("1234567890");
         user.setRole(Role.ADMIN);
 
-        AuthenticateUserOutDto outDto = AuthenticateUserMapper.userToOutDto(user);
+        UserOutDTO outDto = AuthenticateUserMapper.userToOutDto(user);
 
         assertEquals("1", outDto.getId());
         assertEquals("firstname", outDto.getFirstName());

@@ -12,22 +12,6 @@ public class ResourceNotFoundException extends RuntimeException {
    * The serial version UID for serialization and deserialization.
    */
 	private static final long serialVersionUID = 4892890817943756296L;
-
-	/**
-	 * The name of the resource that was not found.
-	 */
-	private String resourceName;
-
-	/**
-	 * The name of the field that was used as a query parameter.
-	 */
-	private String fieldName;
-
-	/**
-	 * The value of the field that was used as a query parameter.
-	 */
-	private String fieldValue;
-
 	/**
 	 * Constructor for ResourceNotFoundException.
 	 * @param resourceNameParam The name of the resource that was not found.
@@ -39,57 +23,5 @@ public class ResourceNotFoundException extends RuntimeException {
 	public ResourceNotFoundException(final String resourceNameParam, final String fieldNameParam,
 			final String fieldValueParam) {
 		super(String.format("%s not found with %s : %s", resourceNameParam, fieldNameParam, fieldValueParam));
-		this.resourceName = resourceNameParam;
-		this.fieldName = fieldNameParam;
-		this.fieldValue = fieldValueParam;
 	}
-
-	/**
-	 * gets resource name.
-	 * @return resourceName resource name.
-	 */
-	public String getResourceName() {
-		return resourceName;
-	}
-
-	/**
-	 * sets resource name.
-	 * @param resourceNameParam resource name.
-	 */
-	public void setResourceName(final String resourceNameParam) {
-		this.resourceName = resourceNameParam;
-	}
-
-	/**
-	 * gets field name.
-	 * @return fieldName name of the field.
-	 */
-	public String getFieldName() {
-		return fieldName;
-	}
-
-	/**
-	 * sets fieldName.
-	 * @param fieldNameParam name of the field.
-	 */
-	public void setFieldName(final String fieldNameParam) {
-		this.fieldName = fieldNameParam;
-	}
-
-	/**
-	 * gets fieldValue.
-	 * @return fieldValue field value.
-	 */
-	public String getFieldValue() {
-		return fieldValue;
-	}
-
-	/**
-	 * sets fieldValue.
-	 * @param fieldValueParam field value.
-	 */
-	public void setFieldValue(final String fieldValueParam) {
-		this.fieldValue = fieldValueParam;
-	}
-
 }

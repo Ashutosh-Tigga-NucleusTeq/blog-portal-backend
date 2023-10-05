@@ -26,7 +26,7 @@ import com.blog.portal.responsePayload.BlogOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.responsePayload.UnReviewedBlogsOutDto;
 import com.blog.portal.services.BlogService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 /**
  * This class handles HTTP requests related to BLOG posts. It provides API
@@ -34,7 +34,7 @@ import com.blog.portal.util.RequestMappingConst;
  * @author [Ashutosh Tigga]
  */
 @RestController
-@RequestMapping(RequestMappingConst.BLOG_URL)
+@RequestMapping(RestPathConstants.BLOG_URL)
 public class BlogController {
 
 	/**
@@ -50,8 +50,8 @@ public class BlogController {
 
 	/**
 	 * API end-point to create a new BLOG post.
-	 * @param  postBlogInDto The input DTO containing BLOG post data.
-	 * @return               ResponseEntity containing the created BLOG post DTO.
+	 * @param postBlogInDto The input DTO containing BLOG post data.
+	 * @return ResponseEntity containing the created BLOG post DTO.
 	 */
 	@PostMapping("/")
 	public ResponseEntity<ResponseOutDTO> postBlog(@Valid @RequestBody final PostBlogInDto postBlogInDto) {
@@ -63,8 +63,8 @@ public class BlogController {
 
 	/**
 	 * API end-point to get BLOG by it's id.
-	 * @param  postId
-	 * @return        ResponseEntity
+	 * @param postId
+	 * @return ResponseEntity
 	 */
 	@GetMapping("/{postId}")
 	public ResponseEntity<BlogOutDto> getBlog(@PathVariable("postId") final String postId) {
@@ -76,8 +76,8 @@ public class BlogController {
 
 	/**
 	 * API end-point to update already existing BLOG post.
-	 * @param  inDto
-	 * @return       ResponseEntity
+	 * @param inDto
+	 * @return ResponseEntity
 	 */
 	@PutMapping("/")
 	public ResponseEntity<ResponseOutDTO> editBlog(@Valid @RequestBody final UpdateBlogInDto inDto) {
@@ -90,8 +90,8 @@ public class BlogController {
 	/**
 	 * API end-point to Gets all Approved post based on filtering status, title,
 	 * technology category.
-	 * @param  inDto
-	 * @return       ResponseEntity
+	 * @param inDto
+	 * @return ResponseEntity
 	 */
 	@PostMapping("/all/approved/blogs")
 	public ResponseEntity<List<ApprovedBlogsOutDto>> getApprovedBlogs(
@@ -104,8 +104,8 @@ public class BlogController {
 
 	/**
 	 * Gets all post of particular user by status , title , technology category.
-	 * @param  inDto
-	 * @return       ResponseEntity
+	 * @param inDto
+	 * @return ResponseEntity
 	 */
 	@PostMapping("/all/user/blogs")
 	public ResponseEntity<List<UserBlogsOutDto>> getUserBlogs(@Valid @RequestBody final UserBlogsInDto inDto) {
@@ -117,8 +117,8 @@ public class BlogController {
 
 	/**
 	 * API to Gets all the post which status is Not Approved yet by ADMIN side.
-	 * @param  inDto Contains the status for filtering.
-	 * @return       response Collection of post which is not approved yet.
+	 * @param inDto Contains the status for filtering.
+	 * @return response Collection of post which is not approved yet.
 	 */
 	@PostMapping("/all/unreviewed/blogs")
 	public ResponseEntity<List<UnReviewedBlogsOutDto>> getUnreviewedBlogs(
@@ -132,11 +132,12 @@ public class BlogController {
 	/**
 	 * API to approve the BLOG posted by employee from ADMIN. Based on postId it
 	 * will search for BLOG and approved.
-	 * @param  inDto
-	 * @return       response message if approved then successful Or else failed.
+	 * @param inDto
+	 * @return response message if approved then successful Or else failed.
 	 */
 	@PutMapping("/action/unreview/blog")
-	public ResponseEntity<ResponseOutDTO> actOnUnreviewedBlog(@Valid @RequestBody final ActOnUnReviewedBlogInDto inDto) {
+	public ResponseEntity<ResponseOutDTO> actOnUnreviewedBlog(
+			@Valid @RequestBody final ActOnUnReviewedBlogInDto inDto) {
 		LOGGER.info(" Act on unreviewed post invoked with request payload [" + inDto + "]");
 		ResponseOutDTO response = blogService.actOnUnreviewedBlog(inDto);
 		LOGGER.info(" fetching response from actOnUnreviewedPost method of service  [" + response + "]");

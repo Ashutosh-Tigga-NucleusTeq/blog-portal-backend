@@ -7,7 +7,7 @@ import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ public class ReportControllerTest {
 
         when(reportService.reportOnBlog(reportBlogInDto)).thenReturn(responseOutDTO);
 
-        mockMvc.perform(post(RequestMappingConst.REPORT_URL +"/")
+        mockMvc.perform(post(RestPathConstants.REPORT_URL +"/")
                 .contentType("application/json")
                 .content("{\"userId\":\"userId\",\"postId\":\"postId\",\"reportReason\":\"reportReason\"}")
                 .accept("application/json"))
@@ -73,7 +73,7 @@ public class ReportControllerTest {
 
         when(reportService.getReportedBlogs()).thenReturn(reportedPostList);
 
-        mockMvc.perform(get(RequestMappingConst.REPORT_URL +"/all/reported/blogs")
+        mockMvc.perform(get(RestPathConstants.REPORT_URL +"/all/reported/blogs")
                 .contentType("application/json")
                 .accept("application/json"))
                 .andExpect(status().isOk())
@@ -96,7 +96,7 @@ public class ReportControllerTest {
 
         when(reportService.actOnReportedBlog(actOnReportedBlogInDto)).thenReturn(responseOutDTO);
 
-        mockMvc.perform(post(RequestMappingConst.REPORT_URL +"/blog/action")
+        mockMvc.perform(post(RestPathConstants.REPORT_URL +"/blog/action")
                 .contentType("application/json")
                 .content("{\"postId\":\"postId\",\"adminAction\":\"IGNORE\"}")
                 .accept("application/json"))
@@ -120,7 +120,7 @@ public class ReportControllerTest {
 
         when(reportService.getReportedBlogReason(postId)).thenReturn(mockResponse);
 
-        mockMvc.perform(get(RequestMappingConst.REPORT_URL +"/{postId}", postId))
+        mockMvc.perform(get(RestPathConstants.REPORT_URL +"/{postId}", postId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.reasons[0]").value("Reason 1"))

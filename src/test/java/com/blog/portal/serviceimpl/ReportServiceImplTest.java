@@ -17,7 +17,7 @@ import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.ResponseMessageConstants;
 import com.blog.portal.serviceimpl.ReportServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,7 +84,7 @@ public class ReportServiceImplTest {
         verify(reportRepository, times(1)).save(any(ReportedBlog.class));
 
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.BLOG_REPORT_SUCCESS, response.getMessage());
+        assertEquals(ResponseMessageConstants.BLOG_REPORT_SUCCESS, response.getMessage());
     }
     @Test
     public void testReportPost_AlreadyReported() {
@@ -152,7 +152,7 @@ public class ReportServiceImplTest {
         verify(blogRepository, times(1)).findById("postId");
 
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.REPORTED_BLOG_ACT_IGNORED, response.getMessage());
+        assertEquals(ResponseMessageConstants.REPORTED_BLOG_ACT_IGNORED, response.getMessage());
 
         assertTrue(fetchedPost.getReportedBy().isEmpty());
         verify(reportRepository, times(1)).deleteByPostId("postId");
@@ -180,7 +180,7 @@ public class ReportServiceImplTest {
         verify(reportRepository, times(1)).deleteByPostId("postId");
         verify(blogRepository, times(1)).deleteById("postId");
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.REPORTED_BLOG_ACT_DELETED, response.getMessage());
+        assertEquals(ResponseMessageConstants.REPORTED_BLOG_ACT_DELETED, response.getMessage());
     }
 
     @Test

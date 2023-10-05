@@ -1,10 +1,10 @@
 package com.blog.portal.controller;
 
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,14 +42,14 @@ public class CommentControllerTest {
 
     @Test
     public void testDoComment() throws Exception {
-        new CommentOnBlogInDto("Sample Comment", "user123", "post456");
+        new CommentBlogInDto("Sample Comment", "user123", "post456");
 
         ResponseOutDTO responseOutDTO = new ResponseOutDTO("Comment added successfully", true);
 
-        when(commentService.doCommentOnBlog(any(CommentOnBlogInDto.class))).thenReturn(responseOutDTO);
+        when(commentService.postComment(any(CommentBlogInDto.class))).thenReturn(responseOutDTO);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .post(RequestMappingConst.COMMENT_URL +"/")
+                .post(RestPathConstants.COMMENT_URL +"/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"content\":\"Sample Comment\",\"userId\":\"user123\",\"postId\":\"post456\"}"))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -69,7 +69,7 @@ public class CommentControllerTest {
         when(commentService.getComments(postId)).thenReturn(commentList);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get(RequestMappingConst.COMMENT_URL +"/{postId}", postId)
+                .get(RestPathConstants.COMMENT_URL +"/{postId}", postId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(commentList.size()));

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Blog;
 import com.blog.portal.entities.User;
 import com.blog.portal.enumResource.BlogStatus;
+import com.blog.portal.exception.EmptyDataException;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.ApprovedBlogMapper;
 import com.blog.portal.mapper.UserBlogMapper;
@@ -25,9 +26,9 @@ import com.blog.portal.responsePayload.BlogOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.responsePayload.UnReviewedBlogsOutDto;
 import com.blog.portal.services.BlogService;
-import com.blog.portal.util.BlogConst;
-import com.blog.portal.util.ResponseMessage;
-import com.blog.portal.util.UserConst;
+import com.blog.portal.util.Constants;
+import com.blog.portal.util.ErrorConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -59,22 +60,21 @@ public class BlogServiceImpl implements BlogService {
 	 * @return response in the form of String and boolean field.
 	 */
 	@Override
-	public ResponseOutDTO createPost(@Valid
-	final PostBlogInDto postBlogInDto) {
+	public ResponseOutDTO createPost(@Valid final PostBlogInDto postBlogInDto) {
 		ResponseOutDTO reponse = null;
 		User user = userRepository.findById(postBlogInDto.getUserId()).orElseThrow(() ->
 		new ResourceNotFoundException(
-				UserConst.CLASS_NAME, UserConst.FIELD_USER_ID, postBlogInDto.getUserId()));
+				Constants.USER_CLASS_NAME, Constants.USER_ID, postBlogInDto.getUserId()));
 		user.setPassword(null);
 		Blog blog = PostBlogMapper.inDtoToPost(postBlogInDto);
 		blog.setUser(user);
 		blog.setUserId(user.getId());
 		Blog savedBlog = blogRepository.save(blog);
 		if (Objects.isNull(savedBlog)) {
-			reponse = new ResponseOutDTO(ResponseMessage.BLOG_POST_FAILED, false);
+			reponse = new ResponseOutDTO(ResponseMessageConstants.BLOG_POST_FAILED, false);
 			return reponse;
 		}
-		reponse = new ResponseOutDTO(ResponseMessage.BLOG_POST_SUCCESS, true);
+		reponse = new ResponseOutDTO(ResponseMessageConstants.BLOG_POST_SUCCESS, true);
 		return reponse;
 	}
 
@@ -83,8 +83,7 @@ public class BlogServiceImpl implements BlogService {
 	 * @param inDto
 	 * @return outDtoList collection of approved Blogs.
 	 */
-	public List<ApprovedBlogsOutDto> getApprovedBlog(@Valid
-	final ApprovedBlogsInDto inDto) {
+	public List<ApprovedBlogsOutDto> getApprovedBlog(@Valid final ApprovedBlogsInDto inDto) {
 		BlogStatus status = BlogStatus.APPROVED;
 		List<Blog> fetchedPost = new ArrayList<Blog>();
 		List<ApprovedBlogsOutDto> outDtoList = new ArrayList<ApprovedBlogsOutDto>();
@@ -102,6 +101,9 @@ public class BlogServiceImpl implements BlogService {
 					inDto.getTitle(),
 					status,
 					inDto.getTechCategory());
+		}
+		if (Objects.isNull(fetchedPost)) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
 		}
 		for (Blog p : fetchedPost) {
 			ApprovedBlogsOutDto outDto = ApprovedBlogMapper.postToOutDto(p);
@@ -153,6 +155,9 @@ public class BlogServiceImpl implements BlogService {
 					inDto.getStatus(),
 					inDto.getTechCategory(), inDto.getTitle(), inDto.getUserId());
 		}
+		if (Objects.isNull(fetchedPost)) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
+		}
 		List<UserBlogsOutDto> outDtoList = new ArrayList<UserBlogsOutDto>();
 		for (Blog p : fetchedPost) {
 			UserBlogsOutDto outDto = UserBlogMapper.postToOutDto(p);
@@ -171,19 +176,19 @@ public class BlogServiceImpl implements BlogService {
 	public ResponseOutDTO editBlog(final UpdateBlogInDto inDto) {
 		ResponseOutDTO response = new ResponseOutDTO();
 		Blog fetchPost = blogRepository.findById(inDto.getId()).orElseThrow(() -> new ResourceNotFoundException(
-				BlogConst.CLASS_NAME, BlogConst.FIELD_POST_ID, inDto.getId()));
+				Constants.POST_CLASS_NAME, Constants.POST_ID, inDto.getId()));
 		fetchPost.setContent(inDto.getContent());
 		fetchPost.setTitle(inDto.getTitle());
 		fetchPost.setEditedAt(new Date());
 		fetchPost.setStatus(BlogStatus.PENDING);
 		Blog fetchedBlog = blogRepository.save(fetchPost);
 		if (Objects.isNull(fetchedBlog)) {
-			response.setMessage(ResponseMessage.BLOG_UPDATE_FAILED);
+			response.setMessage(ResponseMessageConstants.BLOG_UPDATE_FAILED);
 			response.setSuccess(false);
 			return response;
 		}
 		response.setSuccess(true);
-		response.setMessage(ResponseMessage.BLOG_UPDATE_SUCCESS);
+		response.setMessage(ResponseMessageConstants.BLOG_UPDATE_SUCCESS);
 		return response;
 	}
 
@@ -195,8 +200,8 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public BlogOutDto getBlogById(final String postId) {
 		Blog blog = blogRepository.findById(postId).orElseThrow(() ->
-		new ResourceNotFoundException(BlogConst.CLASS_NAME,
-				BlogConst.FIELD_POST_ID, postId));
+		new ResourceNotFoundException(Constants.POST_CLASS_NAME,
+				Constants.POST_ID, postId));
 		BlogOutDto responseDto = FetchBlogMapper.entityToOutDto(blog);
 		return responseDto;
 	}
@@ -227,6 +232,9 @@ public class BlogServiceImpl implements BlogService {
 					inDto.getTitle(),
 					status, inDto.getTechnologyCategory());
 		}
+		if (Objects.isNull(fetchedListOfPost)) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
+		}
 		for (Blog blog : fetchedListOfPost) {
 			responseDto.add(UnReviewedBlogMapper.entityToOutDto(blog));
 		}
@@ -244,21 +252,21 @@ public class BlogServiceImpl implements BlogService {
 		BlogStatus status = inDto.getPostStatus();
 		Blog fetchedPost = blogRepository.findById(inDto.getPostId()).orElseThrow(() ->
 		new ResourceNotFoundException(
-				BlogConst.CLASS_NAME, BlogConst.FIELD_POST_ID, inDto.getPostId()));
+				Constants.POST_CLASS_NAME, Constants.POST_ID, inDto.getPostId()));
 		if (fetchedPost.getStatus() == BlogStatus.PENDING) {
 			if (status == BlogStatus.APPROVED) {
 				fetchedPost.setStatus(BlogStatus.APPROVED);
 				blogRepository.save(fetchedPost);
-				response.setMessage(ResponseMessage.UNREVIEW_BLOG_APPROVED);
+				response.setMessage(ResponseMessageConstants.UNREVIEW_BLOG_APPROVED);
 				response.setSuccess(true);
 			} else if (status == BlogStatus.REJECTED) {
 				fetchedPost.setStatus(BlogStatus.REJECTED);
 				blogRepository.save(fetchedPost);
-				response.setMessage(ResponseMessage.UNREVIEW_BLOG_REJECTED);
+				response.setMessage(ResponseMessageConstants.UNREVIEW_BLOG_REJECTED);
 				response.setSuccess(true);
 			}
 		} else {
-			response.setMessage(ResponseMessage.UNREVIEW_BLOG_FAILED);
+			response.setMessage(ResponseMessageConstants.UNREVIEW_BLOG_FAILED);
 			response.setSuccess(false);
 		}
 		return response;

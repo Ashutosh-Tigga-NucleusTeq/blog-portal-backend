@@ -12,12 +12,12 @@ public class ReactOnBlogInDtoTest {
 		
     @Test
     public void testGetterSetterAndMethods() {
-        ReactOnBlogInDto likeOrDislikePostInDto1 = new ReactOnBlogInDto();
+        ReactionBlogInDto likeOrDislikePostInDto1 = new ReactionBlogInDto();
         likeOrDislikePostInDto1.setPostId("123");
         likeOrDislikePostInDto1.setUserId("user123");
         likeOrDislikePostInDto1.setType(React.LIKE);
 
-        ReactOnBlogInDto likeOrDislikePostInDto2 = new ReactOnBlogInDto();
+        ReactionBlogInDto likeOrDislikePostInDto2 = new ReactionBlogInDto();
         likeOrDislikePostInDto2.setPostId("123");
         likeOrDislikePostInDto2.setUserId("user123");
         likeOrDislikePostInDto2.setType(React.LIKE);

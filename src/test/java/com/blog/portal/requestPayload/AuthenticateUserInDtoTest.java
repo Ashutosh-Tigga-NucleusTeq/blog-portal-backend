@@ -10,63 +10,63 @@ import org.junit.jupiter.api.Test;
 public class AuthenticateUserInDtoTest {
 
 
-    private AuthenticateUserInDto authenticateUserInDto;
+    private UserInDTO userInDTO;
 
 
     @BeforeEach
     public void setUp() {
-        authenticateUserInDto = new AuthenticateUserInDto();
+        userInDTO = new UserInDTO();
     }
 
 
     @Test
     public void testGettersAndSetters() {
-        authenticateUserInDto.setEmail("test@example.com");
-        assertEquals("test@example.com", authenticateUserInDto.getEmail());
+        userInDTO.setEmail("test@example.com");
+        assertEquals("test@example.com", userInDTO.getEmail());
 
-        authenticateUserInDto.setPassword("password123");
-        assertEquals("password123", authenticateUserInDto.getPassword());
+        userInDTO.setPassword("password123");
+        assertEquals("password123", userInDTO.getPassword());
 
-        authenticateUserInDto.setEmail("new@example.com");
-        authenticateUserInDto.setPassword("newpassword456");
-        assertEquals("new@example.com", authenticateUserInDto.getEmail());
-        assertEquals("newpassword456", authenticateUserInDto.getPassword());
+        userInDTO.setEmail("new@example.com");
+        userInDTO.setPassword("newpassword456");
+        assertEquals("new@example.com", userInDTO.getEmail());
+        assertEquals("newpassword456", userInDTO.getPassword());
     }
 
 
     @Test
     public void testHashCode() {
-        authenticateUserInDto.setEmail("test@example.com");
-        authenticateUserInDto.setPassword("password123");
+        userInDTO.setEmail("test@example.com");
+        userInDTO.setPassword("password123");
 
-        AuthenticateUserInDto other = new AuthenticateUserInDto("test@example.com", "password123");
-        assertEquals(other.hashCode(), authenticateUserInDto.hashCode());
+        UserInDTO other = new UserInDTO("test@example.com", "password123");
+        assertEquals(other.hashCode(), userInDTO.hashCode());
     }
 
 
     @Test
     public void testEquals() {
-        authenticateUserInDto.setEmail("test@example.com");
-        authenticateUserInDto.setPassword("password123");
+        userInDTO.setEmail("test@example.com");
+        userInDTO.setPassword("password123");
 
-        AuthenticateUserInDto same = new AuthenticateUserInDto("test@example.com", "password123");
-        AuthenticateUserInDto differentEmail = new AuthenticateUserInDto("different@example.com", "password123");
-        AuthenticateUserInDto differentPassword = new AuthenticateUserInDto("test@example.com", "different123");
+        UserInDTO same = new UserInDTO("test@example.com", "password123");
+        UserInDTO differentEmail = new UserInDTO("different@example.com", "password123");
+        UserInDTO differentPassword = new UserInDTO("test@example.com", "different123");
 
-        assertTrue(authenticateUserInDto.equals(same));
-        assertFalse(authenticateUserInDto.equals(differentEmail));
-        assertFalse(authenticateUserInDto.equals(differentPassword));
-        assertFalse(authenticateUserInDto.equals(null));
-        assertFalse(authenticateUserInDto.equals("Not an AuthenticateUserInDto"));
+        assertTrue(userInDTO.equals(same));
+        assertFalse(userInDTO.equals(differentEmail));
+        assertFalse(userInDTO.equals(differentPassword));
+        assertFalse(userInDTO.equals(null));
+        assertFalse(userInDTO.equals("Not an UserInDTO"));
     }
 
 
     @Test
     public void testToString() {
-        authenticateUserInDto.setEmail("test@example.com");
-        authenticateUserInDto.setPassword("password123");
+        userInDTO.setEmail("test@example.com");
+        userInDTO.setPassword("password123");
 
         String expected = "AuthenticateInDto [email=test@example.com, password=password123]";
-        assertEquals(expected, authenticateUserInDto.toString());
+        assertEquals(expected, userInDTO.toString());
     }
 }

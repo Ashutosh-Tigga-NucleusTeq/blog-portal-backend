@@ -2,23 +2,26 @@ package com.blog.portal.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Comment;
 import com.blog.portal.entities.Blog;
 import com.blog.portal.entities.User;
+import com.blog.portal.exception.EmptyDataException;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.mapper.CommentBlogMapper;
 import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.repository.CommentRepository;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
-import com.blog.portal.util.BlogConst;
-import com.blog.portal.util.ResponseMessage;
-import com.blog.portal.util.UserConst;
+import com.blog.portal.util.Constants;
+import com.blog.portal.util.ErrorConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 
 /**
  * Implementation of the UserService interface responsible for Comment-related
@@ -52,11 +55,13 @@ public class CommentServiceImpl implements CommentService {
 	 * @return outDto
 	 */
 	@Override
-	public ResponseOutDTO doCommentOnBlog(final CommentOnBlogInDto inDto) {
+	public ResponseOutDTO postComment(final CommentBlogInDto inDto) {
 		User fetchedUser = userRepository.findById(inDto.getUserId()).orElseThrow(() ->
-			new ResourceNotFoundException(UserConst.CLASS_NAME, UserConst.FIELD_USER_ID, inDto.getUserId()));
+			new ResourceNotFoundException(Constants.USER_CLASS_NAME, Constants.USER_ID,
+					inDto.getUserId()));
 		Blog fetchedPost = blogRepository.findById(inDto.getPostId()).orElseThrow(() ->
-			new ResourceNotFoundException(BlogConst.CLASS_NAME, BlogConst.FIELD_POST_ID, inDto.getPostId()));
+			new ResourceNotFoundException(Constants.POST_CLASS_NAME, Constants.POST_ID,
+					inDto.getPostId()));
 		fetchedPost.getCommentBy().add(inDto.getUserId());
 		blogRepository.save(fetchedPost);
 		fetchedUser.setPassword(null);
@@ -64,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
 		comment.setUser(fetchedUser);
 		ResponseOutDTO response = new ResponseOutDTO();
 		commentRepository.save(comment);
-		response.setMessage(ResponseMessage.COMMENT_ON_BLOG_SUCCESS);
+		response.setMessage(ResponseMessageConstants.COMMENT_ON_BLOG_SUCCESS);
 		response.setSuccess(true);
 		return response;
 	}
@@ -80,6 +85,9 @@ public class CommentServiceImpl implements CommentService {
 		List<CommentsOutDto> listOutDto = new ArrayList<CommentsOutDto>();
 		for (Comment comment : listOfComment) {
 			listOutDto.add(CommentBlogMapper.entityToOutDto(comment));
+		}
+		if (Objects.isNull(listOutDto)) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_COMMENT);
 		}
 		return listOutDto;
 	}

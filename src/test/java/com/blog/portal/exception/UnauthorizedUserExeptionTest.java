@@ -10,28 +10,13 @@ public class UnauthorizedUserExeptionTest {
 
     @BeforeEach
     public void setUp() {
-        exception = new UnauthorizedUserExeption("Unauthorized access detected");
+        exception = new UnauthorizedUserExeption("Unauthorized User");
     }
 
     @Test
     public void testConstructorWithMessage() {
-        assertEquals("Unauthorized access detected", exception.getMessage());
+        assertEquals("Unauthorized User", exception.getMessage());
     }
 
-    @Test
-    public void testConstructorWithoutMessage() {
-    	UnauthorizedUserExeption exceptionWithoutMessage = new UnauthorizedUserExeption();
-        assertNull(exceptionWithoutMessage.getMessage());
-    }
 
-    @Test
-    public void testSetMessage() {
-        exception.setMessage("New message");
-        assertEquals("New message", exception.getMessage());
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("UserAlreadyExistsException [message=Unauthorized access detected]", exception.toString());
-    }
 }

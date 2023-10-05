@@ -5,8 +5,8 @@ import com.blog.portal.enumResource.TechnologyCategory;
 import com.blog.portal.requestPayload.*;
 import com.blog.portal.responsePayload.*;
 import com.blog.portal.services.BlogService;
-import com.blog.portal.util.RequestMappingConst;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.RestPathConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,10 +49,10 @@ public class BlogControllerTest {
 		postBlogInDto.setCreatedAt(new Date(12));
 		postBlogInDto.setUserID("userid");
 		postBlogInDto.setTechCategory(TechnologyCategory.JAVA);
-		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.BLOG_POST_SUCCESS, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessageConstants.BLOG_POST_SUCCESS, true);
 		when(blogService.createPost(postBlogInDto)).thenReturn(response);
 		mockMvc
-				.perform(post(RequestMappingConst.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
+				.perform(post(RestPathConstants.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(postBlogInDto)));
 
 		}
@@ -66,7 +66,7 @@ public class BlogControllerTest {
 		response.setTechCategory(TechnologyCategory.JAVA);
 
 		when(blogService.getBlogById(POST_ID)).thenReturn(response);
-		mockMvc.perform(get(RequestMappingConst.BLOG_URL + "/{post_id}", POST_ID))
+		mockMvc.perform(get(RestPathConstants.BLOG_URL + "/{post_id}", POST_ID))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(POST_ID)).andExpect(jsonPath("$.title").value("Test Title"))
 				.andExpect(jsonPath("$.content").value("Test Content")).andExpect(jsonPath("$.techCategory").value("JAVA"));
@@ -81,13 +81,13 @@ public class BlogControllerTest {
 		updateBlogInDto.setTitle("Updated Title");
 		updateBlogInDto.setContent("Updated Content");
 
-		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.BLOG_UPDATE_SUCCESS, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessageConstants.BLOG_UPDATE_SUCCESS, true);
 		when(blogService.editBlog(updateBlogInDto)).thenReturn(response);
 
 		mockMvc
-				.perform(put(RequestMappingConst.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
+				.perform(put(RestPathConstants.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(updateBlogInDto)))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value(ResponseMessage.BLOG_UPDATE_SUCCESS))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value(ResponseMessageConstants.BLOG_UPDATE_SUCCESS))
 				.andExpect(jsonPath("$.success").value(true));
 
 		verify(blogService, times(1)).editBlog(updateBlogInDto);
@@ -110,7 +110,7 @@ public class BlogControllerTest {
 		when(blogService.getApprovedBlog(filterDto)).thenReturn(responseList);
 
 		
-		  mockMvc .perform(post(RequestMappingConst.BLOG_URL+"/all/approved/blogs")
+		  mockMvc .perform(post(RestPathConstants.BLOG_URL+"/all/approved/blogs")
 		  .contentType(MediaType.APPLICATION_JSON) .content(asJsonString(filterDto)));
 		 
 	}
@@ -131,7 +131,7 @@ public class BlogControllerTest {
 		when(blogService.getUserBlogs(filterDto)).thenReturn(responseList);
 
 		mockMvc
-				.perform(post(RequestMappingConst.BLOG_URL + "/all/user/blogs").contentType(MediaType.APPLICATION_JSON)
+				.perform(post(RestPathConstants.BLOG_URL + "/all/user/blogs").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(filterDto)))
 				.andExpect(status().isOk()).andExpect(jsonPath("$[0].id").value(POST_ID))
 				.andExpect(jsonPath("$[0].title").value("Test Title")).andExpect(jsonPath("$[0].technology").value("JAVA"));
@@ -155,7 +155,7 @@ public class BlogControllerTest {
 
 		
 		  mockMvc .perform(
-		  post(RequestMappingConst.BLOG_URL+"/all/unreviewed/blogs").contentType(MediaType.APPLICATION_JSON).content(
+		  post(RestPathConstants.BLOG_URL+"/all/unreviewed/blogs").contentType(MediaType.APPLICATION_JSON).content(
 		  asJsonString(unReviewedBlogsInDto)));
 		  
 		 
@@ -166,15 +166,15 @@ public class BlogControllerTest {
 		ActOnUnReviewedBlogInDto actOnUnReviewedBlogInDto = new ActOnUnReviewedBlogInDto();
 		actOnUnReviewedBlogInDto.setPostId(POST_ID);
 		actOnUnReviewedBlogInDto.setPostStatus(BlogStatus.APPROVED);
-		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.UNREVIEW_BLOG_APPROVED, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessageConstants.UNREVIEW_BLOG_APPROVED, true);
 		when(blogService.actOnUnreviewedBlog(actOnUnReviewedBlogInDto)).thenReturn(response);
 
 		
 		  mockMvc
-		  .perform(put(RequestMappingConst.BLOG_URL+"/action/unreview/blog").contentType(MediaType.APPLICATION_JSON)
+		  .perform(put(RestPathConstants.BLOG_URL+"/action/unreview/blog").contentType(MediaType.APPLICATION_JSON)
 		  .content(asJsonString(actOnUnReviewedBlogInDto)))
 		  .andExpect(status().isOk()).andExpect(jsonPath("$.message").value(
-		  ResponseMessage.UNREVIEW_BLOG_APPROVED))
+		  ResponseMessageConstants.UNREVIEW_BLOG_APPROVED))
 		  .andExpect(jsonPath("$.success").value(true));
 		  
 		  verify(blogService,times(1)).actOnUnreviewedBlog(actOnUnReviewedBlogInDto);

@@ -4,14 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import com.blog.portal.entities.Reaction;
 import com.blog.portal.enumResource.React;
-import com.blog.portal.requestPayload.ReactOnBlogInDto;
-import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
+import com.blog.portal.requestPayload.ReactionBlogInDto;
+import com.blog.portal.responsePayload.ReactionBlogOutDto;
 
 public class ReactionMapperTest {
 		
     @Test
     public void testInDtoToEntity() {
-        ReactOnBlogInDto inDto = new ReactOnBlogInDto();
+        ReactionBlogInDto inDto = new ReactionBlogInDto();
         inDto.setPostId("post123");
         inDto.setUserId("user123");
         inDto.setType(React.LIKE);
@@ -31,7 +31,7 @@ public class ReactionMapperTest {
         reaction.setUserId("user123");
         reaction.setType(React.LIKE);
 
-        ReactionOnBlogOutDto outDto = ReactOnBlogMapper.entityToOutDto(reaction);
+        ReactionBlogOutDto outDto = ReactOnBlogMapper.entityToOutDto(reaction);
 
         assertEquals("like123", outDto.getId());
         assertEquals("post123", outDto.getPostId());

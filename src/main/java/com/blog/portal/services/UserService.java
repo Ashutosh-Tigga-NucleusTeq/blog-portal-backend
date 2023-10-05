@@ -2,9 +2,9 @@ package com.blog.portal.services;
 
 import javax.validation.Valid;
 
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
+import com.blog.portal.requestPayload.UserInDTO;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDTO;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 
 /**
@@ -24,6 +24,6 @@ public interface UserService {
 	 * @param inDto
 	 * @return AuthenticateOutDto.
 	 */
-	AuthenticateUserOutDto authenticateUser(@Valid AuthenticateUserInDto inDto);
+	UserOutDTO authenticateUser(@Valid UserInDTO inDto);
 
 }

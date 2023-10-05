@@ -11,7 +11,7 @@ public class CommentBlogInDtoTest {
         String userId = "user123";
         String postId = "post456";
 
-        CommentOnBlogInDto dto = new CommentOnBlogInDto(content, userId, postId);
+        CommentBlogInDto dto = new CommentBlogInDto(content, userId, postId);
 
         assertEquals(content, dto.getContent());
         assertEquals(userId, dto.getUserId());
@@ -35,12 +35,12 @@ public class CommentBlogInDtoTest {
         String content1 = "This is a test comment.";
         String userId1 = "user123";
         String postId1 = "post456";
-        CommentOnBlogInDto dto1 = new CommentOnBlogInDto(content1, userId1, postId1);
+        CommentBlogInDto dto1 = new CommentBlogInDto(content1, userId1, postId1);
 
         String content2 = "This is a test comment.";
         String userId2 = "user123";
         String postId2 = "post456";
-        CommentOnBlogInDto dto2 = new CommentOnBlogInDto(content2, userId2, postId2);
+        CommentBlogInDto dto2 = new CommentBlogInDto(content2, userId2, postId2);
 
         assertTrue(dto1.equals(dto2));
         assertTrue(dto2.equals(dto1));
@@ -53,12 +53,12 @@ public class CommentBlogInDtoTest {
         String content1 = "This is a test comment.";
         String userId1 = "user123";
         String postId1 = "post456";
-        CommentOnBlogInDto dto1 = new CommentOnBlogInDto(content1, userId1, postId1);
+        CommentBlogInDto dto1 = new CommentBlogInDto(content1, userId1, postId1);
 
         String content2 = "Another comment.";
         String userId2 = "user789";
         String postId2 = "post101";
-        CommentOnBlogInDto dto2 = new CommentOnBlogInDto(content2, userId2, postId2);
+        CommentBlogInDto dto2 = new CommentBlogInDto(content2, userId2, postId2);
 
         assertFalse(dto1.equals(dto2));
         assertFalse(dto2.equals(dto1));
@@ -71,9 +71,9 @@ public class CommentBlogInDtoTest {
         String content = "This is a test comment.";
         String userId = "user123";
         String postId = "post456";
-        CommentOnBlogInDto dto = new CommentOnBlogInDto(content, userId, postId);
+        CommentBlogInDto dto = new CommentBlogInDto(content, userId, postId);
 
-        String expectedToString = "CommentOnBlogInDto [content=This is a test comment., userId=user123, postId=post456]";
+        String expectedToString = "CommentBlogInDto [content=This is a test comment., userId=user123, postId=post456]";
         assertEquals(expectedToString, dto.toString());
     }
 }

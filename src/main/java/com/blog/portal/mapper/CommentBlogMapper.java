@@ -1,7 +1,7 @@
 package com.blog.portal.mapper;
 
 import com.blog.portal.entities.Comment;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 
 /**
@@ -15,7 +15,7 @@ public class CommentBlogMapper {
 	 * @param inDto
 	 * @return comment
 	 */
-	public static Comment inDtoToEntity(final CommentOnBlogInDto inDto) {
+	public static Comment inDtoToEntity(final CommentBlogInDto inDto) {
 		Comment comment = new Comment();
 		comment.setContent(inDto.getContent());
 		comment.setPostId(inDto.getPostId());

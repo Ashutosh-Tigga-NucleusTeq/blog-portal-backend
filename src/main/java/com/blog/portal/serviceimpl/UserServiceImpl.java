@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.UnauthorizedUserExeption;
-import com.blog.portal.exception.UserAlreadyExistsException;
+import com.blog.portal.exception.BadRequestException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
 import com.blog.portal.repository.UserRepository;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
+import com.blog.portal.requestPayload.UserInDTO;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDTO;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
-import com.blog.portal.util.ExceptionMessage;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.ErrorConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 
 /**
  * Implementation of the UserService interface responsible for user-related
@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService {
 		User user = RegisterUserMapper.inDtoToUser(inDto);
 		Optional<User> isUserExists = userRepository.findByEmail(user.getEmail());
 		if (isUserExists.isPresent()) {
-			throw new UserAlreadyExistsException(ExceptionMessage.EMAIL_ALREADY_EXISTS);
+			throw new BadRequestException(ErrorConstants.EMAIL_ALREADY_EXISTS);
 		}
 		userRepository.save(user);
-		response.setMessage(ResponseMessage.USER_REGISTER_SUCCESS);
+		response.setMessage(ResponseMessageConstants.USER_REGISTER_SUCCESS);
 		response.setSuccess(true);
 		return response;
 	}
@@ -60,14 +60,14 @@ public class UserServiceImpl implements UserService {
 	 * @return AuthenticateOutDto representing authenticated user.
 	 */
 	@Override
-	public AuthenticateUserOutDto authenticateUser(@Valid final AuthenticateUserInDto inDto) {
+	public UserOutDTO authenticateUser(@Valid final UserInDTO inDto) {
 		inDto.setPassword(encoder(inDto.getPassword()));
 		String emailLowerCase = inDto.getEmail().toLowerCase(Locale.ENGLISH);
 		User user = userRepository.findByEmail(emailLowerCase)
-		        .orElseThrow(() -> new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER));
-		AuthenticateUserOutDto outDto = null;
+		        .orElseThrow(() -> new UnauthorizedUserExeption(ErrorConstants.UNAUTHORIZED_USER));
+		UserOutDTO outDto = null;
 		if (!user.getPassword().equals(inDto.getPassword())) {
-			throw new UnauthorizedUserExeption(ExceptionMessage.UNAUTHORIZED_USER);
+			throw new UnauthorizedUserExeption(ErrorConstants.UNAUTHORIZED_USER);
 		}
 		outDto = AuthenticateUserMapper.userToOutDto(user);
 		return outDto;

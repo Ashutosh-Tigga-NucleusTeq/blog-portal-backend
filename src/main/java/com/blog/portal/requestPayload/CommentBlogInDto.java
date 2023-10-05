@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
  * ID.
  * @author [ Ashutosh Tigga]
  */
-public class CommentOnBlogInDto {
+public class CommentBlogInDto {
 
 	/**
 	 * Minimum length of comment.
@@ -91,13 +91,13 @@ public class CommentOnBlogInDto {
 	}
 
 	/**
-	 * Constructs a new instance of the CommentOnBlogInDto class with the
+	 * Constructs a new instance of the CommentBlogInDto class with the
 	 * specified parameters.
 	 * @param content The content of the comment.
 	 * @param userId  The ID of the user making the comment.
 	 * @param postId  The ID of the post on which the comment is being made.
 	 */
-	public CommentOnBlogInDto(final String content, final String userId, final String postId) {
+	public CommentBlogInDto(final String content, final String userId, final String postId) {
 		super();
 		this.content = content;
 		this.userId = userId;
@@ -105,9 +105,9 @@ public class CommentOnBlogInDto {
 	}
 
 	/**
-	 * Default constructor for the CommentOnBlogInDto class.
+	 * Default constructor for the CommentBlogInDto class.
 	 */
-	public CommentOnBlogInDto() {
+	public CommentBlogInDto() {
 		super();
 	}
 
@@ -133,7 +133,7 @@ public class CommentOnBlogInDto {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
-		CommentOnBlogInDto other = (CommentOnBlogInDto) obj;
+		CommentBlogInDto other = (CommentBlogInDto) obj;
 		return Objects.equals(content, other.content)
 				&& Objects.equals(postId, other.postId)
 				&& Objects.equals(userId, other.userId);
@@ -145,7 +145,7 @@ public class CommentOnBlogInDto {
 	 */
 	@Override
 	public String toString() {
-		return "CommentOnBlogInDto [content=" + content
+		return "CommentBlogInDto [content=" + content
 				+ ", userId=" + userId
 				+ ", postId=" + postId + "]";
 	}

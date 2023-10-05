@@ -7,7 +7,7 @@ import com.blog.portal.enumResource.React;
  * This class Represents Response Dto that contains information of REACTION on BLOG .
  * @author [ Ashutosh Tigga]
  */
-public class ReactionOnBlogOutDto {
+public class ReactionBlogOutDto {
 	/**
 	 * ID of the This Object.
 	 */
@@ -95,7 +95,7 @@ public class ReactionOnBlogOutDto {
 	/**
 	 * Default constructor for creating an empty LikeOrDislikePostOutDto object.
 	 */
-	public ReactionOnBlogOutDto() {
+	public ReactionBlogOutDto() {
 		super();
 	}
 
@@ -108,7 +108,7 @@ public class ReactionOnBlogOutDto {
 	 *               action.
 	 * @param type   The type of reaction (like or dislike).
 	 */
-	public ReactionOnBlogOutDto(final String id, final String postId, final String userId, final React type) {
+	public ReactionBlogOutDto(final String id, final String postId, final String userId, final React type) {
 		super();
 		this.id = id;
 		this.postId = postId;
@@ -144,7 +144,7 @@ public class ReactionOnBlogOutDto {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		ReactionOnBlogOutDto other = (ReactionOnBlogOutDto) obj;
+		ReactionBlogOutDto other = (ReactionBlogOutDto) obj;
 		return Objects.equals(id, other.id)
 				&& Objects.equals(postId, other.postId)
 				&& type == other.type
@@ -159,7 +159,7 @@ public class ReactionOnBlogOutDto {
 	 */
 	@Override
 	public String toString() {
-		return "ReactionOnBlogOutDto [id=" + id
+		return "ReactionBlogOutDto [id=" + id
 				+ ", postId=" + postId
 				+ ", userId=" + userId
 				+ ", type=" + type + "]";

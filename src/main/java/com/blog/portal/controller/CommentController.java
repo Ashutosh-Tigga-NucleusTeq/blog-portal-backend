@@ -1,8 +1,6 @@
 package com.blog.portal.controller;
 
 import java.util.List;
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 /**
- * This class handles HTTP requests related to COMMENT of  posts.
+ * This class handles HTTP requests related to COMMENT of posts.
  * It provides API end-points for creating COMMENTS.
  * @author [Ashutosh Tigga]
  */
 @RestController
-@RequestMapping(RequestMappingConst.COMMENT_URL)
+@RequestMapping(RestPathConstants.COMMENT_URL)
 public class CommentController {
 
 	/**
@@ -46,9 +44,9 @@ public class CommentController {
 	 * @return ResponseEntity<CommentOutDto>
 	 */
 	@PostMapping("/")
-	public ResponseEntity<ResponseOutDTO> doComment(@RequestBody final CommentOnBlogInDto inDto) {
+	public ResponseEntity<ResponseOutDTO> postComment(@RequestBody final CommentBlogInDto inDto) {
 		LOGGER.info(" do comment controller called with inDto [" + inDto + "]");
-		ResponseOutDTO response = commentService.doCommentOnBlog(inDto);
+		ResponseOutDTO response = commentService.postComment(inDto);
 		LOGGER.info("Fetcing response from doCommentOnPost service [" + response + "]");
 		return new ResponseEntity<ResponseOutDTO>(response, HttpStatus.CREATED);
 	}

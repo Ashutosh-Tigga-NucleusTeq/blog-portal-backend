@@ -11,7 +11,7 @@ import com.blog.portal.enumResource.Role;
  * email, designation, and contact number.
  * @author [ Ashutosh Tigga]
  */
-public class AuthenticateUserOutDto {
+public class UserOutDTO {
 	/**
 	 * ID of the USER.
 	 */
@@ -63,7 +63,7 @@ public class AuthenticateUserOutDto {
 	 * @param contactNumber The contact number of the user.
 	 * @param role          The role of the user.
 	 */
-	public AuthenticateUserOutDto(final String id, final String firstName, final String lastName,
+	public UserOutDTO(final String id, final String firstName, final String lastName,
 			final Gender gender,
 			final String email,
 			final Designation designation,
@@ -82,7 +82,7 @@ public class AuthenticateUserOutDto {
 	/**
 	 * Default constructor for the `AuthenticateOutDto` class.
 	 */
-	public AuthenticateUserOutDto() {
+	public UserOutDTO() {
 		super();
 	}
 
@@ -230,7 +230,7 @@ public class AuthenticateUserOutDto {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		AuthenticateUserOutDto other = (AuthenticateUserOutDto) obj;
+		UserOutDTO other = (UserOutDTO) obj;
 		return Objects.equals(contactNumber, other.contactNumber)
 				&& designation == other.designation
 				&& Objects.equals(email, other.email)

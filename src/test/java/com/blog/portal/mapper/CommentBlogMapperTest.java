@@ -3,7 +3,7 @@ package com.blog.portal.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import com.blog.portal.entities.Comment;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 
 public class CommentBlogMapperTest {
@@ -11,7 +11,7 @@ public class CommentBlogMapperTest {
 	
     @Test
     public void testInDtoToEntity() {
-        CommentOnBlogInDto inDto = new CommentOnBlogInDto();
+        CommentBlogInDto inDto = new CommentBlogInDto();
         inDto.setContent("This is a test comment");
         inDto.setPostId("1");
         inDto.setUserId("user123");

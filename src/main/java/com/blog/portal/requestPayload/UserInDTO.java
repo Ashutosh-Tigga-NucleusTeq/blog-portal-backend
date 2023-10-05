@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
  * contains the user's email address and password for authentication.
  * @author [ Ashutosh Tigga]
  */
-public class AuthenticateUserInDto {
+public class UserInDTO {
 	/**
 	 * The email address of the user.
 	 */
@@ -28,7 +28,7 @@ public class AuthenticateUserInDto {
 	 * @param email    The email address of the user.
 	 * @param password The password of the user.
 	 */
-	public AuthenticateUserInDto(final String email, final String password) {
+	public UserInDTO(final String email, final String password) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -37,7 +37,7 @@ public class AuthenticateUserInDto {
 	/**
 	 * Default constructor for the AuthenticateInDto class.
 	 */
-	public AuthenticateUserInDto() {
+	public UserInDTO() {
 		super();
 	}
 
@@ -101,7 +101,7 @@ public class AuthenticateUserInDto {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		AuthenticateUserInDto other = (AuthenticateUserInDto) obj;
+		UserInDTO other = (UserInDTO) obj;
 		return Objects.equals(email, other.email)
 				&& Objects.equals(password, other.password);
 	}

@@ -2,13 +2,13 @@ package com.blog.portal.controller;
 
 import com.blog.portal.enumResource.Designation;
 import com.blog.portal.enumResource.Gender;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
+import com.blog.portal.requestPayload.UserInDTO;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDTO;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
-import com.blog.portal.util.RequestMappingConst;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.RestPathConstants;
+import com.blog.portal.util.ResponseMessageConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -53,12 +53,12 @@ public class UserControllerTest {
 		userDto.setPassword("password");
 		userDto.setDesignation(Designation.INTERN);
 
-		ResponseOutDTO expectedApiResponse = new ResponseOutDTO(ResponseMessage.USER_REGISTER_SUCCESS, true);
+		ResponseOutDTO expectedApiResponse = new ResponseOutDTO(ResponseMessageConstants.USER_REGISTER_SUCCESS, true);
 
 		when(userService.createUser(any(RegisterUserInDto.class))).thenReturn(expectedApiResponse);
 
 		mockMvc
-				.perform(post(RequestMappingConst.USER_URL + "/register").contentType(MediaType.APPLICATION_JSON)
+				.perform(post(RestPathConstants.USER_URL + "/register").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(userDto)))
 				.andExpect(status().isCreated()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.message").value(expectedApiResponse.getMessage()))
@@ -67,11 +67,11 @@ public class UserControllerTest {
 
 	@Test
 	public void testAuthenticateUser() throws Exception {
-		AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+		UserInDTO authDto = new UserInDTO();
 		authDto.setEmail("firstname.lastname@nucleusteq.com");
 		authDto.setPassword("password123");
 
-		AuthenticateUserOutDto expectedOutDto = new AuthenticateUserOutDto();
+		UserOutDTO expectedOutDto = new UserOutDTO();
 		expectedOutDto.setId("1");
 		expectedOutDto.setFirstName("firstname");
 		expectedOutDto.setLastName("lastname");
@@ -80,10 +80,10 @@ public class UserControllerTest {
 		expectedOutDto.setGender(Gender.MALE);
 		expectedOutDto.setDesignation(Designation.INTERN);
 
-		when(userService.authenticateUser(any(AuthenticateUserInDto.class))).thenReturn(expectedOutDto);
+		when(userService.authenticateUser(any(UserInDTO.class))).thenReturn(expectedOutDto);
 
 		mockMvc
-				.perform(post(RequestMappingConst.USER_URL + "/login").contentType(MediaType.APPLICATION_JSON)
+				.perform(post(RestPathConstants.USER_URL + "/login").contentType(MediaType.APPLICATION_JSON)
 						.content(asJsonString(authDto)))
 				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(expectedOutDto.getId()))

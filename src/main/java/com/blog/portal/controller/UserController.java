@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
+import com.blog.portal.requestPayload.UserInDTO;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDTO;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 /**
  * This class handles HTTP requests related to USER Management.
  * @author Ashutosh Tigga.
  */
 @RestController
-@RequestMapping(RequestMappingConst.USER_URL)
+@RequestMapping(RestPathConstants.USER_URL)
 public class UserController {
 
 	/**
@@ -58,9 +58,9 @@ public class UserController {
 	 *         code.
 	 */
 	@PostMapping("/login")
-	public final ResponseEntity<AuthenticateUserOutDto> authenticate(@Valid @RequestBody final AuthenticateUserInDto inDto) {
+	public final ResponseEntity<UserOutDTO> authenticate(@Valid @RequestBody final UserInDTO inDto) {
 		LOGGER.info("Authenticating user controller invoked with request payload [" + inDto + "]");
-		AuthenticateUserOutDto response = userService.authenticateUser(inDto);
+		UserOutDTO response = userService.authenticateUser(inDto);
 		LOGGER.info("Fetching response from authenticateUser service [" + response + "]");
 		return new ResponseEntity<>(response, HttpStatus.OK);
 

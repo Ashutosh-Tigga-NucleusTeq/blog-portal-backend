@@ -1,8 +1,8 @@
 package com.blog.portal.services;
 
 import org.springframework.stereotype.Service;
-import com.blog.portal.requestPayload.ReactOnBlogInDto;
-import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
+import com.blog.portal.requestPayload.ReactionBlogInDto;
+import com.blog.portal.responsePayload.ReactionBlogOutDto;
 
 /**
  * Interface ReactionService that represent the rule of Reaction that would follow by it's child.
@@ -16,5 +16,5 @@ public interface ReactionService {
 	 * @param inDto
 	 * @return LikeOrDislikeOutDto.
 	 */
-	ReactionOnBlogOutDto doReactOnBlog(ReactOnBlogInDto inDto);
+	ReactionBlogOutDto reactOnBlog(ReactionBlogInDto inDto);
 }

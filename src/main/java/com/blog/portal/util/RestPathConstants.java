@@ -1,6 +1,6 @@
 package com.blog.portal.util;
 
-public class RequestMappingConst {
+public class RestPathConstants {
 	/**
 	 * message: Request mapping url for blog.
 	 */

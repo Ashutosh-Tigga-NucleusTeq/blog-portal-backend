@@ -2,7 +2,7 @@ package com.blog.portal.services;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 
@@ -18,7 +18,7 @@ public interface CommentService {
 	 * @param inDto
 	 * @return CommentOutDto
 	 */
-	ResponseOutDTO doCommentOnBlog(CommentOnBlogInDto inDto);
+	ResponseOutDTO postComment(CommentBlogInDto inDto);
 
 	/**
 	 * This method gets all comment of particular post.

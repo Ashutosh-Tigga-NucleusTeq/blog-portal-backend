@@ -9,15 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticateUserOutDtoTest {
 
-    private AuthenticateUserOutDto user1;
-    private AuthenticateUserOutDto user2;
-    private AuthenticateUserOutDto user3;
+    private UserOutDTO user1;
+    private UserOutDTO user2;
+    private UserOutDTO user3;
 
     @BeforeEach
     public void setUp() {
-        user1 = new AuthenticateUserOutDto("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);
-        user2 = new AuthenticateUserOutDto("2", "anotherfirstname", "anotherlastname", Gender.FEMALE, "anotherfirstname@example.com", Designation.HR, "9876543210", Role.ADMIN);
-        user3 = new AuthenticateUserOutDto("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);
+        user1 = new UserOutDTO("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);
+        user2 = new UserOutDTO("2", "anotherfirstname", "anotherlastname", Gender.FEMALE, "anotherfirstname@example.com", Designation.HR, "9876543210", Role.ADMIN);
+        user3 = new UserOutDTO("1", "firstname", "lastname", Gender.MALE, "firstname@example.com", Designation.INTERN, "1234567890", Role.EMPLOYEE);
     }
 
 
@@ -32,7 +32,7 @@ public class AuthenticateUserOutDtoTest {
         assertEquals("1234567890", user1.getContactNumber());
         assertEquals(Role.EMPLOYEE, user1.getRole());
 
-        AuthenticateUserOutDto defaultUser = new AuthenticateUserOutDto();
+        UserOutDTO defaultUser = new UserOutDTO();
         assertNull(defaultUser.getId());
         assertNull(defaultUser.getFirstName());
         assertNull(defaultUser.getLastName());

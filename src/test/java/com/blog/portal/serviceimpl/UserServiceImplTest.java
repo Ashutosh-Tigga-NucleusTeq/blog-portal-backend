@@ -3,16 +3,16 @@ package com.blog.portal.serviceimpl;
 import com.blog.portal.entities.User;
 import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.exception.UnauthorizedUserExeption;
-import com.blog.portal.exception.UserAlreadyExistsException;
+import com.blog.portal.exception.BadRequestException;
 import com.blog.portal.mapper.AuthenticateUserMapper;
 import com.blog.portal.mapper.RegisterUserMapper;
 import com.blog.portal.repository.UserRepository;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
+import com.blog.portal.requestPayload.UserInDTO;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.UserOutDTO;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.ResponseMessageConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -39,7 +39,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testCreateUser_Success() throws UserAlreadyExistsException {
+    public void testCreateUser_Success() throws BadRequestException {
         RegisterUserInDto userDto = new RegisterUserInDto();
         userDto.setFirstName("firstname");
         userDto.setLastName("lastname");
@@ -52,13 +52,12 @@ public class UserServiceImplTest {
 
         ResponseOutDTO response = userService.createUser(userDto);
 
-        assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.USER_REGISTER_SUCCESS, response.getMessage());
+        assertEquals(ResponseMessageConstants.USER_REGISTER_SUCCESS, response.getMessage());
     }
 
     @Test
-    public void testCreateUser_UserAlreadyExists() {
+    public void testUserAlreadyExists() {
         RegisterUserInDto userDto = new RegisterUserInDto();
         userDto.setFirstName("firstname");
         userDto.setLastName("lastname");
@@ -68,29 +67,29 @@ public class UserServiceImplTest {
 
         when(userRepo.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        assertThrows(UserAlreadyExistsException.class, () -> userService.createUser(userDto));
+        assertThrows(BadRequestException.class, () -> userService.createUser(userDto));
     }
 
     @Test
-    public void testAuthenticateUser_Success() {
-        AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+    public void testAuthenticateUserSuccess() {
+        UserInDTO authDto = new UserInDTO();
         authDto.setEmail("test@nucleusteq.com");
         authDto.setPassword("Ashu@1234");
 
         User user = new User();
         user.setEmail(authDto.getEmail());
-        user.setPassword(authDto.getPassword());
+        user.setPassword(userService.encoder(authDto.getPassword()));
 
         when(userRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.of(user));
         
-        AuthenticateUserOutDto outDto = userService.authenticateUser(authDto);
-
+        UserOutDTO outDto = userService.authenticateUser(authDto);
+        
         assertEquals(authDto.getEmail(), outDto.getEmail());
     }
 
     @Test
-    public void testAuthenticateUser_UserNotFound() {
-        AuthenticateUserInDto authDto = new AuthenticateUserInDto();
+    public void testAuthenticateUserNotFound() {
+        UserInDTO authDto = new UserInDTO();
         authDto.setEmail("test@nucleusteq.com");
         authDto.setPassword("password123");
 

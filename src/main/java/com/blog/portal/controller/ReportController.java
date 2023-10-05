@@ -17,7 +17,7 @@ import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
-import com.blog.portal.util.RequestMappingConst;
+import com.blog.portal.util.RestPathConstants;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import javax.validation.Valid;
  * @author [Ashutosh Tigga]
  */
 @RestController
-@RequestMapping(RequestMappingConst.REPORT_URL)
+@RequestMapping(RestPathConstants.REPORT_URL)
 public class ReportController {
 
 	/**

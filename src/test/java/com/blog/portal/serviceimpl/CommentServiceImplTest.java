@@ -20,11 +20,11 @@ import com.blog.portal.exception.ResourceNotFoundException;
 import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.repository.CommentRepository;
-import com.blog.portal.requestPayload.CommentOnBlogInDto;
+import com.blog.portal.requestPayload.CommentBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
-import com.blog.portal.util.ResponseMessage;
+import com.blog.portal.util.ResponseMessageConstants;
 
 @SpringBootTest
 public class CommentServiceImplTest {
@@ -48,7 +48,7 @@ public class CommentServiceImplTest {
 
     @Test
     public void testDoCommentOnPost() {
-        CommentOnBlogInDto inDto = new CommentOnBlogInDto();
+        CommentBlogInDto inDto = new CommentBlogInDto();
         inDto.setUserId("user123");
         inDto.setPostId("post123");
         inDto.setContent("This is a test comment");
@@ -66,11 +66,11 @@ public class CommentServiceImplTest {
         Comment mockComment = new Comment();
         when(commentRepository.save(any(Comment.class))).thenReturn(mockComment);
 
-        ResponseOutDTO response = commentService.doCommentOnBlog(inDto);
+        ResponseOutDTO response = commentService.postComment(inDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
-        assertEquals(ResponseMessage.COMMENT_ON_BLOG_SUCCESS, response.getMessage());
+        assertEquals(ResponseMessageConstants.COMMENT_ON_BLOG_SUCCESS, response.getMessage());
         assertNull(mockUser.getPassword()); 
 
         assertTrue(mockPost.getCommentBy().contains("user123"));
@@ -78,7 +78,7 @@ public class CommentServiceImplTest {
 
     @Test
     public void testDoCommentOnPost_UserNotFound() {
-        CommentOnBlogInDto inDto = new CommentOnBlogInDto();
+        CommentBlogInDto inDto = new CommentBlogInDto();
         inDto.setUserId("user123");
         inDto.setPostId("post123");
         inDto.setContent("This is a test comment");
@@ -86,13 +86,13 @@ public class CommentServiceImplTest {
         when(userRepository.findById("user123")).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
-            commentService.doCommentOnBlog(inDto);
+            commentService.postComment(inDto);
         });
     }
 
     @Test
     public void testDoCommentOnPost_PostNotFound() {
-        CommentOnBlogInDto inDto = new CommentOnBlogInDto();
+        CommentBlogInDto inDto = new CommentBlogInDto();
         inDto.setUserId("user123");
         inDto.setPostId("post123");
         inDto.setContent("This is a test comment");
@@ -101,7 +101,7 @@ public class CommentServiceImplTest {
         when(blogRepository.findById("post123")).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
-            commentService.doCommentOnBlog(inDto);
+            commentService.postComment(inDto);
         });
     }
 

@@ -4,7 +4,7 @@ package com.blog.portal.util;
  * This class contains response messages that are returned by the backend. It's
  * important to ensure that these messages are clear and informative.
  */
-public class ResponseMessage {
+public final class ResponseMessageConstants {
 	/**
 	 * Message: User registration was successful.
 	 */

@@ -1,8 +1,8 @@
 package com.blog.portal.mapper;
 
 import com.blog.portal.entities.User;
-import com.blog.portal.requestPayload.AuthenticateUserInDto;
-import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.requestPayload.UserInDTO;
+import com.blog.portal.responsePayload.UserOutDTO;
 
 /**
  * This class provides static methods for mapping
@@ -12,11 +12,11 @@ import com.blog.portal.responsePayload.AuthenticateUserOutDto;
 public class AuthenticateUserMapper {
 
     /**
-     * Converts an  AuthenticateUserInDto to a  User.
+     * Converts an  UserInDTO to a  User.
      * @param inDto The input DTO containing authentication data.
      * @return A  User object with the email and password from the input DTO.
      */
-    public static User inDtoToUser(final AuthenticateUserInDto inDto) {
+    public static User inDtoToUser(final UserInDTO inDto) {
         return new User(
                 inDto.getEmail(),
                 inDto.getPassword()
@@ -24,12 +24,12 @@ public class AuthenticateUserMapper {
     }
 
     /**
-     * Converts a  User to an  AuthenticateUserOutDto.
+     * Converts a  User to an  UserOutDTO.
      * @param user The user entity object to be converted.
-     * @return An AuthenticateUserOutDto containing user information.
+     * @return An UserOutDTO containing user information.
      */
-    public static AuthenticateUserOutDto userToOutDto(final User user) {
-        return new AuthenticateUserOutDto(
+    public static UserOutDTO userToOutDto(final User user) {
+        return new UserOutDTO(
         				user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
