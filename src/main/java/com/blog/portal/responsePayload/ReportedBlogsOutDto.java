@@ -7,7 +7,6 @@ import com.blog.portal.entities.Blog;
 
 /**
  * This is class Represents Response Dto that contains informartion about Reported Blog.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ReportedBlogsOutDto {
@@ -39,7 +38,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Gets Reported Blog.
-	 *
 	 * @return blog.
 	 */
 	public Blog getPost() {
@@ -48,7 +46,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Sets ReportedBlog.
-	 *
 	 * @param newBlog
 	 */
 	public void setPost(final Blog newBlog) {
@@ -57,7 +54,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -66,7 +62,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -75,7 +70,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Gets the id of the ReportedBlog.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -84,7 +78,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Sets the id of the ReportedBlog.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -93,7 +86,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Gets the id of the blog.
-	 *
 	 * @return postId
 	 */
 	public String getPostId() {
@@ -102,7 +94,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Sets the id of the blog.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -111,7 +102,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Gets the reason for reporting.
-	 *
 	 * @return reportReason.
 	 */
 	public List<String> getReportReason() {
@@ -120,7 +110,6 @@ public class ReportedBlogsOutDto {
 
 	/**
 	 * Sets the reason of reporting.
-	 *
 	 * @param reportReason
 	 */
 	public void setReportReason(final List<String> reportReason) {
@@ -128,9 +117,8 @@ public class ReportedBlogsOutDto {
 	}
 
 	/**
-	 * Generates hashcode of {@code ReportBlogInDto} based on postId,
+	 * Generates hashcode of ReportBlogInDto based on postId,
 	 * reoprtReason, userId, id.
-	 *
 	 * @return The generated hashcode.
 	 */
 	@Override
@@ -139,11 +127,10 @@ public class ReportedBlogsOutDto {
 	}
 
 	/**
-	 * Compares this {@code ReportBlogInDto} object with another object to
+	 * Compares this ReportBlogInDto object with another object to
 	 * determine if they are equal.
-	 *
-	 * @param obj * @return {@code true} if the objects are equal; {@code false}
-	 *            otherwise.
+	 * @param obj
+	 * @return true if the objects are equal, false otherwise.
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -164,9 +151,8 @@ public class ReportedBlogsOutDto {
 	}
 
 	/**
-	 * Generate string representation of {@code ReportBlogInDto} object.
-	 *
-	 * @return string representation of {@code ReportBlogInDto} object.
+	 * This method Represents String representation of ReportedBlogsOutDto.
+	 * @return String representation of ReportedBlogsOutDto.
 	 */
 	@Override
 	public String toString() {
@@ -177,8 +163,7 @@ public class ReportedBlogsOutDto {
 	}
 
 	/**
-	 * Initialize {@code ReportBlogInDto} based on userId, postId, reportedReason.
-	 *
+	 * Initialize ReportBlogInDto based on userId, postId, reportedReason.
 	 * @param id
 	 * @param userId
 	 * @param postId
@@ -193,11 +178,10 @@ public class ReportedBlogsOutDto {
 	}
 
 	/**
-	 * Default constructor of {@code ReportBlogInDto}.
+	 * Default constructor of ReportBlogInDto.
 	 */
 	public ReportedBlogsOutDto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

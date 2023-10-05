@@ -6,9 +6,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * The {@code Comment} class represents an entity for COMMENTS in the
+ * This class represents an entity for COMMENTS in the
  * application. and associated post (postId).
- *
  * @author [ Ashutosh Tigga]
  */
 @Document("comment")
@@ -43,7 +42,6 @@ public class Comment {
 
 	/**
 	 * Constructs a new Comment object with the given content.
-	 *
 	 * @param content The content of the comment.
 	 */
 	public Comment(final String content) {
@@ -52,7 +50,6 @@ public class Comment {
 
 	/**
 	 * Gets the data of user.
-	 *
 	 * @return user
 	 */
 	public User getUser() {
@@ -61,7 +58,6 @@ public class Comment {
 
 	/**
 	 * Sets the data of the user.
-	 *
 	 * @param user
 	 */
 	public void setUser(final User user) {
@@ -70,7 +66,6 @@ public class Comment {
 
 	/**
 	 * Constructs a new Comment object with the provided parameters.
-	 *
 	 * @param id      The unique identifier (id) of the comment.
 	 * @param content The content of the comment.
 	 * @param userId  The id of the user associated with this comment.
@@ -89,7 +84,6 @@ public class Comment {
 
 	/**
 	 * Gets the information of user.
-	 *
 	 * @return userId.
 	 */
 	public String getUserId() {
@@ -98,7 +92,6 @@ public class Comment {
 
 	/**
 	 * Sets the information of user.
-	 *
 	 * @param userID
 	 */
 	public void setUserID(final String userID) {
@@ -107,7 +100,6 @@ public class Comment {
 
 	/**
 	 * Gets the information of post.
-	 *
 	 * @return postId.
 	 */
 	public String getPostId() {
@@ -116,7 +108,6 @@ public class Comment {
 
 	/**
 	 * Sets the information of post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -132,7 +123,6 @@ public class Comment {
 
 	/**
 	 * Gets the unique identifier (id) of the comment.
-	 *
 	 * @return The id of the comment.
 	 */
 	public String getId() {
@@ -141,7 +131,6 @@ public class Comment {
 
 	/**
 	 * Sets the unique identifier (id) of the comment.
-	 *
 	 * @param id The id to set.
 	 */
 	public void setId(final String id) {
@@ -150,7 +139,6 @@ public class Comment {
 
 	/**
 	 * Gets the content or message of the comment.
-	 *
 	 * @return The content of the comment.
 	 */
 	public String getContent() {
@@ -159,7 +147,6 @@ public class Comment {
 
 	/**
 	 * Sets the content or message of the comment.
-	 *
 	 * @param content The content to set.
 	 */
 	public void setContent(final String content) {
@@ -169,7 +156,6 @@ public class Comment {
 	/**
 	 * Calculates the hash code for this Comment object based on its content, id,
 	 * userId, and postId.
-	 *
 	 * @return The calculated hash code value.
 	 */
 	@Override
@@ -180,7 +166,6 @@ public class Comment {
 	/**
 	 * Checks if this Comment object is equal to another object by comparing their
 	 * content, id, userId, and postId.
-	 *
 	 * @param obj The object to compare with this Comment.
 	 * @return True if the objects are equal, false otherwise.
 	 */
@@ -199,7 +184,6 @@ public class Comment {
 
 	/**
 	 * Generates a string representation of this Comment object.
-	 *
 	 * @return A string containing the Comment's id, content, userId, and postId.
 	 */
 	@Override

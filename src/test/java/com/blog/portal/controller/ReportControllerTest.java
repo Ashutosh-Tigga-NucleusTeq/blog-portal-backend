@@ -3,9 +3,9 @@ package com.blog.portal.controller;
 import com.blog.portal.requestPayload.ReportBlogInDto;
 import com.blog.portal.enumResource.ReportedBlogAction;
 import com.blog.portal.requestPayload.ActOnReportedBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
 import com.blog.portal.util.RequestMappingConst;
 
@@ -46,9 +46,9 @@ public class ReportControllerTest {
         reportBlogInDto.setUserId("userId");
         reportBlogInDto.setPostId("postId");
         reportBlogInDto.setReportReason("reportReason");
-        ApiResponse apiResponse = new ApiResponse("Reported successfully", true);
+        ResponseOutDTO responseOutDTO = new ResponseOutDTO("Reported successfully", true);
 
-        when(reportService.reportOnBlog(reportBlogInDto)).thenReturn(apiResponse);
+        when(reportService.reportOnBlog(reportBlogInDto)).thenReturn(responseOutDTO);
 
         mockMvc.perform(post(RequestMappingConst.REPORT_URL +"/")
                 .contentType("application/json")
@@ -92,9 +92,9 @@ public class ReportControllerTest {
         ActOnReportedBlogInDto actOnReportedBlogInDto = new ActOnReportedBlogInDto();
         actOnReportedBlogInDto.setPostId("postId");
         actOnReportedBlogInDto.setAdminAction(ReportedBlogAction.IGNORE);
-        ApiResponse apiResponse = new ApiResponse("Action taken successfully", true);
+        ResponseOutDTO responseOutDTO = new ResponseOutDTO("Action taken successfully", true);
 
-        when(reportService.actOnReportedBlog(actOnReportedBlogInDto)).thenReturn(apiResponse);
+        when(reportService.actOnReportedBlog(actOnReportedBlogInDto)).thenReturn(responseOutDTO);
 
         mockMvc.perform(post(RequestMappingConst.REPORT_URL +"/blog/action")
                 .contentType("application/json")

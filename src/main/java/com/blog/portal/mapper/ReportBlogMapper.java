@@ -5,15 +5,14 @@ import com.blog.portal.requestPayload.ReportBlogInDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
 
 /**
- * The {@code ReportBlogMapper} class provides static methods for mapping
+ * This class provides static methods for mapping
  * between DTOs and the ReportedBlog entity.
- *
  * @author Ashutosh Tigga
  */
 public class ReportBlogMapper {
 
 	/**
-	 * This method converts {@code ReportBlogInDto} into {@code ReportedBlog}.
+	 * This method converts ReportBlogInDto into ReportedBlog.
 	 * @param inDto
 	 * @return reportedPostEntity.
 	 */
@@ -25,7 +24,7 @@ public class ReportBlogMapper {
 		return reportedPostEntity;
 	}
 	/**
-	 * This method converts {@code Blog} into {@code ReportedBlog}.
+	 * This method converts Blog into ReportedBlog.
 	 * @param reportedBlog
 	 * @return outDto
 	 */

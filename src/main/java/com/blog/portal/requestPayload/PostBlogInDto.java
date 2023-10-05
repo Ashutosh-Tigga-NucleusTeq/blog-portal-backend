@@ -8,9 +8,8 @@ import javax.validation.constraints.Size;
 import com.blog.portal.enumResource.TechnologyCategory;
 
 /**
- * This class Represents a Request DTO that contains fields id, title, content,
- * createdAt, userId, Technology category posting blog post.
- *
+ * This class Represents a Request DTO that contains fields id, title, content, createdAt, userId, Technology
+ * category posting blog post.
  * @author [ Ashutosh Tigga]
  */
 public class PostBlogInDto {
@@ -29,7 +28,8 @@ public class PostBlogInDto {
 	 * The Title of the BLOG post.
 	 */
 	@NotBlank(message = "Title is Required")
-	@Size(min = MIN_TITLE_SIZE, max = MAX_TITLE_SIZE, message = "length of title must be between [" + MIN_TITLE_SIZE + "-"
+	@Size(min = MIN_TITLE_SIZE, max = MAX_TITLE_SIZE, message = "length of title must be between ["
+	+ MIN_TITLE_SIZE + "-"
 			+ MAX_TITLE_SIZE + "]")
 	private String title;
 
@@ -38,13 +38,11 @@ public class PostBlogInDto {
 	 */
 	private static final int MIN_CONTENT_SIZE = 50;
 
-
 	/**
 	 * The Content of the BLOG post.
 	 */
 	@NotBlank(message = "Content is Required")
-	@Size(min = MIN_CONTENT_SIZE,
-			message = "length of Content must be between [" + MIN_CONTENT_SIZE + "]")
+	@Size(min = MIN_CONTENT_SIZE, message = "length of Content must be between [" + MIN_CONTENT_SIZE + "]")
 	private String content;
 
 	/**
@@ -66,15 +64,14 @@ public class PostBlogInDto {
 
 	/**
 	 * Constructor for creating a `PostInDto` object.
-	 *
-	 * @param title        The title of the blog post.
-	 * @param content      The content of the blog post.
-	 * @param createdAt    The creation date of the blog post.
-	 * @param user         id of the author who posted the post.
+	 * @param title The title of the blog post.
+	 * @param content The content of the blog post.
+	 * @param createdAt The creation date of the blog post.
+	 * @param user id of the author who posted the post.
 	 * @param techCategory The technology category of the post.
 	 */
-	public PostBlogInDto(final String title, final String content, final Date createdAt,
-			final String user, final TechnologyCategory techCategory) {
+	public PostBlogInDto(final String title, final String content, final Date createdAt, final String user,
+			final TechnologyCategory techCategory) {
 		this.title = title;
 		this.content = content;
 		this.createdAt = (createdAt != null) ? new Date(createdAt.getTime()) : null;
@@ -91,7 +88,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Gets the id of the author who posted the post.
-	 *
 	 * @return userId The author's data.
 	 */
 	public String getUserId() {
@@ -100,7 +96,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Sets the id of the author who posted the post.
-	 *
 	 * @param user The author's data to set.
 	 */
 	public void setUserID(final String user) {
@@ -109,7 +104,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Gets the title of the blog post.
-	 *
 	 * @return The blog post title.
 	 */
 	public String getTitle() {
@@ -118,7 +112,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Sets the title of the blog post.
-	 *
 	 * @param title The title to set.
 	 */
 	public void setTitle(final String title) {
@@ -127,7 +120,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Gets the content of the blog post.
-	 *
 	 * @return The blog post content.
 	 */
 	public String getContent() {
@@ -136,7 +128,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Sets the content of the blog post.
-	 *
 	 * @param content The content to set.
 	 */
 	public void setContent(final String content) {
@@ -145,7 +136,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Gets the creation date of the blog post.
-	 *
 	 * @return The creation date.
 	 */
 	public Date getCreatedAt() {
@@ -154,7 +144,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Sets the creation date of the blog post.
-	 *
 	 * @param createdAt The creation date to set.
 	 */
 	public void setCreatedAt(final Date createdAt) {
@@ -163,7 +152,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Gets the technology category of the blog post.
-	 *
 	 * @return The technology category.
 	 */
 	public TechnologyCategory getTechCategory() {
@@ -172,7 +160,6 @@ public class PostBlogInDto {
 
 	/**
 	 * Sets the technology category of the blog post.
-	 *
 	 * @param techCategory The technology category to set.
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -180,9 +167,8 @@ public class PostBlogInDto {
 	}
 
 	/**
-	 * This method calculates the hash code for the PostBlogInDto object. The hash
-	 * code is based on the values of the object's properties.
-	 *
+	 * This method calculates the hash code for the PostBlogInDto object. The hash code is based on the values
+	 * of the object's properties.
 	 * @return The calculated hash code.
 	 */
 	@Override
@@ -192,10 +178,8 @@ public class PostBlogInDto {
 	}
 
 	/**
-	 * This method compares the PostBlogInDto object with another object to
-	 * determine equality. Two PostBlogInDto objects are considered equal if all
-	 * their properties are equal.
-	 *
+	 * This method compares the PostBlogInDto object with another object to determine equality. Two
+	 * PostBlogInDto objects are considered equal if all their properties are equal.
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */
@@ -211,15 +195,16 @@ public class PostBlogInDto {
 
 		PostBlogInDto other = (PostBlogInDto) obj;
 
-		return Objects.equals(content, other.content) && Objects.equals(createdAt, other.createdAt)
-				&& techCategory == other.techCategory && Objects.equals(title, other.title)
+		return Objects.equals(content, other.content)
+				&& Objects.equals(createdAt, other.createdAt)
+				&& techCategory == other.techCategory
+				&& Objects.equals(title, other.title)
 				&& Objects.equals(userId, other.userId);
 	}
 
 	/**
-	 * This method generates a string representation of the PostBlogInDto object.
-	 * The string includes the values of all the object's properties.
-	 *
+	 * This method generates a string representation of the PostBlogInDto object. The string includes the values
+	 * of all the object's properties.
 	 * @return A string representation of the object.
 	 */
 	@Override

@@ -3,7 +3,6 @@ package com.blog.portal.controller;
 import com.blog.portal.enumResource.BlogStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
 import com.blog.portal.requestPayload.*;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.*;
 import com.blog.portal.services.BlogService;
 import com.blog.portal.util.RequestMappingConst;
@@ -50,7 +49,7 @@ public class BlogControllerTest {
 		postBlogInDto.setCreatedAt(new Date(12));
 		postBlogInDto.setUserID("userid");
 		postBlogInDto.setTechCategory(TechnologyCategory.JAVA);
-		ApiResponse response = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.BLOG_POST_SUCCESS, true);
 		when(blogService.createPost(postBlogInDto)).thenReturn(response);
 		mockMvc
 				.perform(post(RequestMappingConst.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +81,7 @@ public class BlogControllerTest {
 		updateBlogInDto.setTitle("Updated Title");
 		updateBlogInDto.setContent("Updated Content");
 
-		ApiResponse response = new ApiResponse(ResponseMessage.BLOG_UPDATE_SUCCESS, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.BLOG_UPDATE_SUCCESS, true);
 		when(blogService.editBlog(updateBlogInDto)).thenReturn(response);
 
 		mockMvc
@@ -167,7 +166,7 @@ public class BlogControllerTest {
 		ActOnUnReviewedBlogInDto actOnUnReviewedBlogInDto = new ActOnUnReviewedBlogInDto();
 		actOnUnReviewedBlogInDto.setPostId(POST_ID);
 		actOnUnReviewedBlogInDto.setPostStatus(BlogStatus.APPROVED);
-		ApiResponse response = new ApiResponse(ResponseMessage.UNREVIEW_BLOG_APPROVED, true);
+		ResponseOutDTO response = new ResponseOutDTO(ResponseMessage.UNREVIEW_BLOG_APPROVED, true);
 		when(blogService.actOnUnreviewedBlog(actOnUnReviewedBlogInDto)).thenReturn(response);
 
 		

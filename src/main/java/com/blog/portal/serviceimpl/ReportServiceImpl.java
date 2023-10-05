@@ -20,9 +20,9 @@ import com.blog.portal.repository.ReactionRepository;
 import com.blog.portal.repository.ReportRepository;
 import com.blog.portal.requestPayload.ReportBlogInDto;
 import com.blog.portal.requestPayload.ActOnReportedBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
 import com.blog.portal.util.BlogConst;
 import com.blog.portal.util.ResponseMessage;
@@ -31,39 +31,38 @@ import com.blog.portal.util.UserConst;
 /**
  * Implementation of the ReportService interface responsible for Report blog
  * related operations.
- *
  * @author Ashutosh Tigga.
  */
 @Service
 public class ReportServiceImpl implements ReportService {
 
 	/**
-	 * This {@code ReportRepository} deal with db to perform taks on data.
+	 * This  ReportRepository deal with db to perform taks on data.
 	 */
 	@Autowired
 	private ReportRepository reportRepository;
 
 	/**
-	 * This {@code BlogRepository} deals with db to perform task related to Blog
+	 * This  BlogRepository deals with db to perform task related to Blog
 	 * entity.
 	 */
 	@Autowired
 	private BlogRepository blogRepository;
 
 	/**
-	 * This {@code UserRepository} deals with db operation related to BlogUser
+	 * This  UserRepository deals with db operation related to BlogUser
 	 * entity.
 	 */
 	@Autowired
 	private UserRepository userRepository;
 	/**
-	 * This {@code ReactionRepository} deals with db operation perform on
+	 * This  ReactionRepository deals with db operation perform on
 	 * LikeOrDislike entity.
 	 */
 	@Autowired
 	private ReactionRepository reactionRepository;
 	/**
-	 * This {@code CommentRepository} deals with db operation to be performm on
+	 * This  CommentRepository deals with db operation to be performm on
 	 * Comment entity.
 	 */
 	@Autowired
@@ -71,13 +70,12 @@ public class ReportServiceImpl implements ReportService {
 
 	/**
 	 * This method is for report on post by employee.
-	 *
 	 * @param inDto
 	 * @return response
 	 */
 	@Override
-	public ApiResponse reportOnBlog(final ReportBlogInDto inDto) {
-		ApiResponse response = new ApiResponse();
+	public ResponseOutDTO reportOnBlog(final ReportBlogInDto inDto) {
+		ResponseOutDTO response = new ResponseOutDTO();
 		ReportedBlog isReportedPostExists = reportRepository.findByUserIdAndPostId(inDto.getUserId(), inDto.getPostId());
 		if (isReportedPostExists == null) {
 			User isUserExists = userRepository.findById(inDto.getUserId()).orElseThrow(
@@ -106,7 +104,6 @@ public class ReportServiceImpl implements ReportService {
 
 	/**
 	 * Gets All ReportedBlog.
-	 *
 	 * @return response Collection of ReportedBlogsOutDto.
 	 */
 	public List<ReportedBlogsOutDto> getReportedBlogs() {
@@ -129,13 +126,12 @@ public class ReportServiceImpl implements ReportService {
 	 * This method is for admin who can act on reported Blog post if he clicked on
 	 * delete then reported post must be deleted or if he clicked on ignore then all
 	 * the reports must be clear from blog post.
-	 *
 	 * @param inDto
 	 * @return reponse.
 	 */
 	@Override
-	public ApiResponse actOnReportedBlog(final ActOnReportedBlogInDto inDto) {
-		ApiResponse response = new ApiResponse();
+	public ResponseOutDTO actOnReportedBlog(final ActOnReportedBlogInDto inDto) {
+		ResponseOutDTO response = new ResponseOutDTO();
 		ReportedBlogAction action = inDto.getAdminAction();
 		String postId = inDto.getPostId();
 		List<ReportedBlog> fetchedReportedPost = reportRepository.findByPostId(postId);
@@ -167,7 +163,6 @@ public class ReportServiceImpl implements ReportService {
 
 	/**
 	 * Gets Reporting Message. return response Reporting message of post.
-	 *
 	 * @param  postId
 	 * @return responseDto
 	 */

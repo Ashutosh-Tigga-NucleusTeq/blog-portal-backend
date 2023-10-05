@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
  * This class Represents a Request DTO for creating a comment on a post.
  * This class contains information about the comment content, user ID, and post
  * ID.
- *
  * @author [ Ashutosh Tigga]
  */
 public class CommentOnBlogInDto {
@@ -45,7 +44,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Gets the content of the comment.
-	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -54,7 +52,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Sets the content of the comment.
-	 *
 	 * @param content
 	 */
 	public void setContent(final String content) {
@@ -63,7 +60,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -72,7 +68,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -81,7 +76,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Gets id of the post.
-	 *
 	 * @return postId.
 	 */
 	public String getPostId() {
@@ -90,7 +84,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -98,9 +91,8 @@ public class CommentOnBlogInDto {
 	}
 
 	/**
-	 * Constructs a new instance of the {@code CommentOnBlogInDto} class with the
+	 * Constructs a new instance of the CommentOnBlogInDto class with the
 	 * specified parameters.
-	 *
 	 * @param content The content of the comment.
 	 * @param userId  The ID of the user making the comment.
 	 * @param postId  The ID of the post on which the comment is being made.
@@ -113,7 +105,7 @@ public class CommentOnBlogInDto {
 	}
 
 	/**
-	 * Default constructor for the {@code CommentOnBlogInDto} class.
+	 * Default constructor for the CommentOnBlogInDto class.
 	 */
 	public CommentOnBlogInDto() {
 		super();
@@ -121,7 +113,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Computes the hash code of this object based on its attributes.
-	 *
 	 * @return The hash code value.
 	 */
 	@Override
@@ -131,7 +122,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Compares this object to another object to check for equality.
-	 *
 	 * @param obj The object to compare to.
 	 * @return {@code true} if the objects are equal, {@code false} otherwise.
 	 */
@@ -151,7 +141,6 @@ public class CommentOnBlogInDto {
 
 	/**
 	 * Returns a string representation of this object.
-	 *
 	 * @return The string representation.
 	 */
 	@Override

@@ -4,7 +4,6 @@ package com.blog.portal.exception;
  * ResourceNotFoundException is a custom exception class that extends
  * RuntimeException. It is used to indicate that a specific resource was not
  * found.
- *
  * @author Ashutosh Tigga
  */
 public class ResourceNotFoundException extends RuntimeException {
@@ -31,7 +30,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * Constructor for ResourceNotFoundException.
-	 *
 	 * @param resourceNameParam The name of the resource that was not found.
 	 * @param fieldNameParam    The name of the field that was used as a query
 	 *                          parameter.
@@ -48,7 +46,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * gets resource name.
-	 *
 	 * @return resourceName resource name.
 	 */
 	public String getResourceName() {
@@ -57,7 +54,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * sets resource name.
-	 *
 	 * @param resourceNameParam resource name.
 	 */
 	public void setResourceName(final String resourceNameParam) {
@@ -66,7 +62,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * gets field name.
-	 *
 	 * @return fieldName name of the field.
 	 */
 	public String getFieldName() {
@@ -75,7 +70,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * sets fieldName.
-	 *
 	 * @param fieldNameParam name of the field.
 	 */
 	public void setFieldName(final String fieldNameParam) {
@@ -84,7 +78,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * gets fieldValue.
-	 *
 	 * @return fieldValue field value.
 	 */
 	public String getFieldValue() {
@@ -93,7 +86,6 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * sets fieldValue.
-	 *
 	 * @param fieldValueParam field value.
 	 */
 	public void setFieldValue(final String fieldValueParam) {

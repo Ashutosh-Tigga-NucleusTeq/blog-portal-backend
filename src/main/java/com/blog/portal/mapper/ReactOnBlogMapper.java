@@ -5,14 +5,13 @@ import com.blog.portal.requestPayload.ReactOnBlogInDto;
 import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
 
 /**
- * The {@code ReactOnBlogMapper} class provides static methods for mapping
+ * The ReactOnBlogMapper class provides static methods for mapping
  * between ReactOnBlogMapper related DTOs and the Reaction entity.
- *
  * @author Ashutosh Tigga
  */
 public class ReactOnBlogMapper {
 	/**
-	 * This method converts {@code LikeOrDislikeInDto} into {@code LikeOrDislike}.
+	 * This method converts  ReactionOnBlogInDto into  Reaction.
 	 * @param inDto
 	 * @return obj
 	 */
@@ -25,7 +24,7 @@ public class ReactOnBlogMapper {
 	}
 
 	/**
-	 * This method converts {@code LikeOrDislike} into {@code LikeOrDislike}.
+	 * This method converts  Reaction into  ReactionOnBlogOutDto.
 	 * @param obj
 	 * @return outDto
 	 */

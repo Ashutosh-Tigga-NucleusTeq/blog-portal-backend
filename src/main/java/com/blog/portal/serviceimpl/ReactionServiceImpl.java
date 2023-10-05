@@ -1,7 +1,6 @@
 package com.blog.portal.serviceimpl;
 
 import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Reaction;
@@ -16,11 +15,9 @@ import com.blog.portal.responsePayload.ReactionOnBlogOutDto;
 import com.blog.portal.services.ReactionService;
 import com.blog.portal.util.BlogConst;
 
-
 /**
  * Implementation of the ReactionService interface responsible for React on Blog related
  * operations.
- *
  * @author Ashutosh Tigga.
  */
 @Service
@@ -40,7 +37,6 @@ public class ReactionServiceImpl implements ReactionService {
 
 	/**
 	 * This method for performing like or dislike functionality.
-	 *
 	 * @param inDto
 	 * @return outDto
 	 */

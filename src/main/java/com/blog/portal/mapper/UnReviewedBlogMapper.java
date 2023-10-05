@@ -4,14 +4,13 @@ import com.blog.portal.entities.Blog;
 import com.blog.portal.responsePayload.UnReviewedBlogsOutDto;
 
 /**
- * The {@code UnReviewedBlogMapper} class provides static methods for mapping
+ * The UnReviewedBlogMapper class provides static methods for mapping
  * between DTOs and the Blog entity.
- *
  * @author Ashutosh Tigga
  */
 public class UnReviewedBlogMapper {
 	/**
-	 * This method converts {@code Blog} into UnReviewedBlogsOutDto.
+	 * This method converts Blog into UnReviewedBlogsOutDto.
 	 * @param blog
 	 * @return outDto.
 	 */

@@ -7,7 +7,6 @@ import javax.validation.constraints.Pattern;
 /**
  * This class Represents a Request DTO used for authenticating a user. It
  * contains the user's email address and password for authentication.
- *
  * @author [ Ashutosh Tigga]
  */
 public class AuthenticateUserInDto {
@@ -24,9 +23,8 @@ public class AuthenticateUserInDto {
 	private String password;
 
 	/**
-	 * Creates a new instance of the {@code AuthenticateInDto} class with the
+	 * Creates a new instance of the AuthenticateInDto class with the
 	 * specified email and password.
-	 *
 	 * @param email    The email address of the user.
 	 * @param password The password of the user.
 	 */
@@ -37,7 +35,7 @@ public class AuthenticateUserInDto {
 	}
 
 	/**
-	 * Default constructor for the {@code AuthenticateInDto} class.
+	 * Default constructor for the AuthenticateInDto class.
 	 */
 	public AuthenticateUserInDto() {
 		super();
@@ -45,7 +43,6 @@ public class AuthenticateUserInDto {
 
 	/**
 	 * Gets the email address of the user.
-	 *
 	 * @return The user's email address.
 	 */
 	public String getEmail() {
@@ -54,7 +51,6 @@ public class AuthenticateUserInDto {
 
 	/**
 	 * Sets the email address of the user.
-	 *
 	 * @param email The email address to set.
 	 */
 	public void setEmail(final String email) {
@@ -63,7 +59,6 @@ public class AuthenticateUserInDto {
 
 	/**
 	 * Gets the password of the user.
-	 *
 	 * @return The user's password.
 	 */
 	public String getPassword() {
@@ -72,7 +67,6 @@ public class AuthenticateUserInDto {
 
 	/**
 	 * Sets the password of the user.
-	 *
 	 * @param password The password to set.
 	 */
 	public void setPassword(final String password) {
@@ -80,9 +74,8 @@ public class AuthenticateUserInDto {
 	}
 
 	/**
-	 * Generates a hash code for this {@code AuthenticateInDto} object based on its
+	 * Generates a hash code for this AuthenticateInDto object based on its
 	 * email and password.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -91,10 +84,9 @@ public class AuthenticateUserInDto {
 	}
 
 	/**
-	 * Compares this {@code AuthenticateInDto} object with another object to
-	 * determine if they are equal. Two {@code AuthenticateInDto} objects are
+	 * Compares this AuthenticateInDto object with another object to
+	 * determine if they are equal. Two AuthenticateInDto objects are
 	 * considered equal if their email and password are the same.
-	 *
 	 * @param obj The object to compare with.
 	 * @return {@code true} if the objects are equal; {@code false} otherwise.
 	 */
@@ -115,9 +107,8 @@ public class AuthenticateUserInDto {
 	}
 
 	/**
-	 * Generates a string representation of this {@code AuthenticateInDto} object.
-	 *
-	 * @return The string representation of the {@code AuthenticateInDto} object.
+	 * Generates a string representation of this AuthenticateInDto object.
+	 * @return The string representation of the AuthenticateInDto object.
 	 */
 	@Override
 	public String toString() {

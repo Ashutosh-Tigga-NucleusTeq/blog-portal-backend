@@ -13,9 +13,9 @@ import com.blog.portal.repository.ReactionRepository;
 import com.blog.portal.repository.ReportRepository;
 import com.blog.portal.requestPayload.ReportBlogInDto;
 import com.blog.portal.requestPayload.ActOnReportedBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
 import com.blog.portal.util.ResponseMessage;
 import com.blog.portal.serviceimpl.ReportServiceImpl;
@@ -75,7 +75,7 @@ public class ReportServiceImplTest {
         when(blogRepository.save(blog)).thenReturn(blog);
         when(reportRepository.save(any(ReportedBlog.class))).thenReturn(reportedBlog);
 
-        ApiResponse response = reportService.reportOnBlog(inDto);
+        ResponseOutDTO response = reportService.reportOnBlog(inDto);
 
         verify(userRepository, times(1)).findById("userId");
         verify(blogRepository, times(1)).findById("postId");
@@ -101,7 +101,7 @@ public class ReportServiceImplTest {
         when(blogRepository.findById("postId")).thenReturn(Optional.of(blog));
         when(reportRepository.findByUserIdAndPostId("userId", "postId")).thenReturn(new ReportedBlog());
 
-        ApiResponse response = reportService.reportOnBlog(inDto);
+        ResponseOutDTO response = reportService.reportOnBlog(inDto);
 
 
     }
@@ -146,7 +146,7 @@ public class ReportServiceImplTest {
         when(reportRepository.findByPostId("postId")).thenReturn(fetchedReportedPosts);
         when(blogRepository.findById("postId")).thenReturn(Optional.of(fetchedPost));
 
-        ApiResponse response = reportService.actOnReportedBlog(inDto);
+        ResponseOutDTO response = reportService.actOnReportedBlog(inDto);
 
         verify(reportRepository, times(1)).findByPostId("postId");
         verify(blogRepository, times(1)).findById("postId");
@@ -173,7 +173,7 @@ public class ReportServiceImplTest {
         when(reportRepository.findByPostId("postId")).thenReturn(fetchedReportedPosts);
         when(blogRepository.findById("postId")).thenReturn(Optional.of(fetchedPost));
 
-        ApiResponse response = reportService.actOnReportedBlog(inDto);
+        ResponseOutDTO response = reportService.actOnReportedBlog(inDto);
 
         verify(reportRepository, times(1)).findByPostId("postId");
         verify(blogRepository, times(1)).findById("postId");
@@ -191,7 +191,7 @@ public class ReportServiceImplTest {
 
         when(reportRepository.findByPostId("postId")).thenReturn(new ArrayList<>());
 
-        ApiResponse response = reportService.actOnReportedBlog(inDto);
+        ResponseOutDTO response = reportService.actOnReportedBlog(inDto);
 
         verify(reportRepository, times(1)).findByPostId("postId");
         verify(blogRepository, never()).findById(anyString());

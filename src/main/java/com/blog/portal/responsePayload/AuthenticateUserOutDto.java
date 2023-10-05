@@ -9,7 +9,6 @@ import com.blog.portal.enumResource.Role;
  * Represents a Data Transfer Object (DTO) used for sending user authentication
  * data. It contains information about the user's first name, last name, gender,
  * email, designation, and contact number.
- *
  * @author [ Ashutosh Tigga]
  */
 public class AuthenticateUserOutDto {
@@ -55,7 +54,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Constructor for creating an `AuthenticateOutDto` object.
-	 *
 	 * @param id            The id of the user.
 	 * @param firstName     The first name of the user.
 	 * @param lastName      The last name of the user.
@@ -90,7 +88,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return id id of the user.
 	 */
 	public String getId() {
@@ -99,7 +96,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param id The id to set.
 	 */
 	public void setId(final String id) {
@@ -108,7 +104,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the first name of the user.
-	 *
 	 * @return The user's first name.
 	 */
 	public String getFirstName() {
@@ -117,7 +112,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the first name of the user.
-	 *
 	 * @param firstName The first name to set.
 	 */
 	public void setFirstName(final String firstName) {
@@ -126,7 +120,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the last name of the user.
-	 *
 	 * @return The user's last name.
 	 */
 	public String getLastName() {
@@ -135,7 +128,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the last name of the user.
-	 *
 	 * @param lastName The last name to set.
 	 */
 	public void setLastName(final String lastName) {
@@ -144,7 +136,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the gender of the user.
-	 *
 	 * @return The user's gender.
 	 */
 	public Gender getGender() {
@@ -153,7 +144,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the gender of the user.
-	 *
 	 * @param gender The gender to set.
 	 */
 	public void setGender(final Gender gender) {
@@ -162,7 +152,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the email address of the user.
-	 *
 	 * @return The user's email address.
 	 */
 	public String getEmail() {
@@ -171,7 +160,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the email address of the user.
-	 *
 	 * @param email The email address to set.
 	 */
 	public void setEmail(final String email) {
@@ -180,7 +168,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the designation of the user.
-	 *
 	 * @return The user's designation.
 	 */
 	public Designation getDesignation() {
@@ -189,7 +176,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the designation of the user.
-	 *
 	 * @param designation The designation to set.
 	 */
 	public void setDesignation(final Designation designation) {
@@ -198,7 +184,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the contact number of the user.
-	 *
 	 * @return The user's contact number.
 	 */
 	public String getContactNumber() {
@@ -207,7 +192,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the contact number of the user.
-	 *
 	 * @param contactNumber The contact number to set.
 	 */
 	public void setContactNumber(final String contactNumber) {
@@ -216,7 +200,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Gets the role of the user.
-	 *
 	 * @return The user's role.
 	 */
 	public Role getRole() {
@@ -225,7 +208,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Sets the role of the user.
-	 *
 	 * @param role The role to set.
 	 */
 	public void setRole(final Role role) {
@@ -234,7 +216,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Compares this object to another object to check for equality.
-	 *
 	 * @param obj The object to compare to.
 	 * @return {@code true} if the objects are equal, {@code false} otherwise.
 	 */
@@ -262,7 +243,6 @@ public class AuthenticateUserOutDto {
 
 	/**
 	 * Generates a hash code value for this object based on its attributes.
-	 *
 	 * @return The hash code value.
 	 */
 	@Override
@@ -273,7 +253,6 @@ public class AuthenticateUserOutDto {
 	/**
 	 * Converts this object into a string representation for debugging and logging
 	 * purposes.
-	 *
 	 * @return The string representation of this object.
 	 */
 	@Override

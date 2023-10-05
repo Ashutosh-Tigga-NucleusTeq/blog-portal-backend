@@ -18,7 +18,7 @@ public enum Designation {
 	SENIOR_SOFTWARE_ENGINEER,
 
 	/**
-	 * Represents an internship position, usually for students or individuals
+	 * Represents an INTERNSHIP position, usually for students or individuals
 	 * gaining practical experience in the field.
 	 */
 	INTERN,

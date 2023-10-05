@@ -13,17 +13,16 @@ import com.blog.portal.enumResource.BlogStatus;
 import com.blog.portal.enumResource.TechnologyCategory;
 
 /**
- * The {@code Blog} class represents a Blog entity in the application. It stores
+ * This class represents a BLOG entity in the application. It stores
  * information about a BLOG post, including its title, content, status,
  * technology category, creation date, editing date, and author data.
- *
  * @author [ Ashutosh Tigga]
  */
 @Document(collection = "blog")
 public class Blog {
 
 	/**
-	 * The unique identifier (id) of the blog post.
+	 * The unique identifier (id) of the BLOG post.
 	 */
 	@Id
 	private String id;
@@ -63,19 +62,18 @@ public class Blog {
 	 */
 	private String userId;
 	/**
-	 * The author data associated with the blog post.
+	 * The author data associated with the BLOG post.
 	 */
 	@DBRef
 	private User user;
 
 	/**
-	 * Blog reported by.
+	 * BLOG reported by.
 	 */
 	private Set<String> reportedBy = new HashSet<String>();
 
 	/**
 	 * Gets ReportedBy set of user who reported post..
-	 *
 	 * @return reportedBy
 	 */
 	public Set<String> getReportedBy() {
@@ -84,7 +82,6 @@ public class Blog {
 
 	/**
 	 * Sets reported by set of user who reported post.
-	 *
 	 * @param reportedBy
 	 */
 	public void setReportedBy(final Set<String> reportedBy) {
@@ -114,7 +111,6 @@ public class Blog {
 
 	/**
 	 * Gets user who liked.
-	 *
 	 * @return likedBy
 	 */
 	public Set<String> getLikedBy() {
@@ -123,7 +119,6 @@ public class Blog {
 
 	/**
 	 * Sets user who liked.
-	 *
 	 * @param likedBy
 	 */
 	public void setLikedBy(final Set<String> likedBy) {
@@ -132,7 +127,6 @@ public class Blog {
 
 	/**
 	 * Gets user who disliked.
-	 *
 	 * @return dislikedBy
 	 */
 	public Set<String> getDisLikedBy() {
@@ -141,7 +135,6 @@ public class Blog {
 
 	/**
 	 * Sets user who disliked.
-	 *
 	 * @param dislikedBy
 	 */
 	public void setDisLikedBy(final Set<String> dislikedBy) {
@@ -149,17 +142,15 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the unique identifier (id) of the blog post.
-	 *
-	 * @return The unique identifier of the blog post.
+	 * Gets the unique identifier (id) of the BLOG post.
+	 * @return The unique identifier of the BLOG post.
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Sets the unique identifier (id) of the blog post.
-	 *
+	 * Sets the unique identifier (id) of the BLOG post.
 	 * @param id The unique identifier to set.
 	 */
 	public void setId(final String id) {
@@ -167,17 +158,15 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the title of the blog post.
-	 *
-	 * @return The title of the blog post.
+	 * Gets the title of the BLOG post.
+	 * @return The title of the BLOG post.
 	 */
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * Sets the title of the blog post.
-	 *
+	 * Sets the title of the BLOG post.
 	 * @param title The title to set.
 	 */
 	public void setTitle(final String title) {
@@ -185,17 +174,15 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the content of the blog post.
-	 *
-	 * @return The content of the blog post.
+	 * Gets the content of the BLOG post.
+	 * @return The content of the BLOG post.
 	 */
 	public String getContent() {
 		return content;
 	}
 
 	/**
-	 * Sets the content of the blog post.
-	 *
+	 * Sets the content of the BLOG post.
 	 * @param content The content to set.
 	 */
 	public void setContent(final String content) {
@@ -203,17 +190,15 @@ public class Blog {
 	}
 
 	/**
-	 * Checks the status of the blog post.
-	 *
-	 * @return {@code true} if the blog post is active, {@code false} otherwise.
+	 * Checks the status of the BLOG post.
+	 * @return  true if the BLOG post is active, otherwise false.
 	 */
 	public BlogStatus getStatus() {
 		return status;
 	}
 
 	/**
-	 * Sets the status of the blog post.
-	 *
+	 * Sets the status of the BLOG post.
 	 * @param status The status to set.
 	 */
 	public void setStatus(final BlogStatus status) {
@@ -221,17 +206,15 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the technology category of the blog post.
-	 *
-	 * @return The technology category of the blog post.
+	 * Gets the technology category of the BLOG post.
+	 * @return The technology category of the BLOG post.
 	 */
 	public TechnologyCategory getTechCategory() {
 		return techCategory;
 	}
 
 	/**
-	 * Sets the technology category of the blog post.
-	 *
+	 * Sets the technology category of the BLOG post.
 	 * @param techCategory The technology category to set.
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -239,17 +222,15 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the creation date of the blog post.
-	 *
-	 * @return The creation date of the blog post.
+	 * Gets the creation date of the BLOG post.
+	 * @return The creation date of the BLOG post.
 	 */
 	public Date getCreatedAt() {
 		return new Date(createdAt.getTime());
 	}
 
 	/**
-	 * Sets the creation date of the blog post.
-	 *
+	 * Sets the creation date of the BLOG post.
 	 * @param createdAt The creation date to set.
 	 */
 	public void setCreatedAt(final Date createdAt) {
@@ -258,7 +239,6 @@ public class Blog {
 
 	/**
 	 * Gets comments of post.
-	 *
 	 * @return comments
 	 */
 	public List<String> getCommentBy() {
@@ -267,7 +247,6 @@ public class Blog {
 
 	/**
 	 * Sets the comments of post.
-	 *
 	 * @param comments
 	 */
 	public void setCommentBy(final List<String> comments) {
@@ -275,39 +254,35 @@ public class Blog {
 	}
 
 	/**
-	 * Gets the date when the blog post was last edited.
-	 *
-	 * @return The date when the blog post was last edited.
+	 * Gets the date when the BLOG post was last edited.
+	 * @return The date when the BLOG post was last edited.
 	 */
 	public Date getEditedAt() {
 		if (editedAt != null) {
 			return new Date(editedAt.getTime());
 		} else {
-			return null; // Return null if 'editedAt' is null
+			return null;
 		}
 	}
 
 	/**
-	 * Sets the date when the blog post was last edited.
-	 *
-	 * @param editedAt The date when the blog post was last edited to set.
+	 * Sets the date when the BLOG post was last edited.
+	 * @param editedAt The date when the BLOG post was last edited to set.
 	 */
 	public void setEditedAt(final Date editedAt) {
 		this.editedAt = (editedAt != null) ? new Date(editedAt.getTime()) : null;
 	}
 
 	/**
-	 * Gets the author's unique identifier associated with the blog post.
-	 *
-	 * @return The author's unique identifier associated with the blog post.
+	 * Gets the author's unique identifier associated with the BLOG post.
+	 * @return The author's unique identifier associated with the BLOG post.
 	 */
 	public User getUser() {
 		return user;
 	}
 
 	/**
-	 * Sets the author's unique identifier associated with the blog post.
-	 *
+	 * Sets the author's unique identifier associated with the BLOG post.
 	 * @param author The author's unique identifier to set.
 	 */
 	public void setUser(final User author) {
@@ -316,7 +291,6 @@ public class Blog {
 
 	/**
 	 * Gets user id.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -325,7 +299,6 @@ public class Blog {
 
 	/**
 	 * Sets user id.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -333,13 +306,12 @@ public class Blog {
 	}
 
 	/**
-	 * Calculates the hash code for this Blog object based on its various
+	 * Calculates the hash code for this BLOG object based on its various
 	 * properties, including comments, content, creation date, dislikedBy users,
 	 * edited date, id, likedBy users, status, technology category, title, user, and
 	 * userId. The hash code calculation considers all these properties to ensure
 	 * uniqueness.
-	 *
-	 * @return The calculated hash code value for this Blog object.
+	 * @return The calculated hash code value for this BLOG object.
 	 */
 	@Override
 	public int hashCode() {
@@ -348,12 +320,11 @@ public class Blog {
 	}
 
 	/**
-	 * Compares this Blog object with another object to determine if they are equal.
-	 * Two Blog objects are considered equal if all their properties, including
+	 * Compares this BLOG object with another object to determine if they are equal.
+	 * Two BLOG objects are considered equal if all their properties, including
 	 * comments, content, creation date, dislikedBy users, edited date, id, likedBy
 	 * users, status, technology category, title, user, and userId, are equal.
-	 *
-	 * @param obj The object to compare with this Blog.
+	 * @param obj The object to compare with this BLOG.
 	 * @return true if the objects are equal; false otherwise.
 	 */
 	@Override
@@ -380,8 +351,7 @@ public class Blog {
 	}
 
 	/**
-	 * Parameterized constructor of {@code Blog}.
-	 *
+	 * Parameterized constructor of BLOG.
 	 * @param id
 	 * @param title
 	 * @param content
@@ -418,12 +388,11 @@ public class Blog {
 	}
 
 	/**
-	 * Generates a string representation of this Blog object, including all of its
+	 * Generates a string representation of this BLOG object, including all of its
 	 * properties, such as id, title, content, status, technology category, creation
 	 * date, edited date, userId, user, likedBy users, dislikedBy users, and
-	 * comments. This string representation provides a detailed view of a blog
+	 * comments. This string representation provides a detailed view of a BLOG
 	 * post's attributes.
-	 *
 	 * @return A string containing the Blog's properties and their values.
 	 */
 	@Override
@@ -444,7 +413,6 @@ public class Blog {
 
 	/**
 	 * Initailizing object with passing one paramether id of the post.
-	 *
 	 * @param id
 	 */
 	public Blog(final String id) {

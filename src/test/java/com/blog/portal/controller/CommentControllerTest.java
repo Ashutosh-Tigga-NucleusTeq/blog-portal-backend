@@ -1,8 +1,8 @@
 package com.blog.portal.controller;
 
 import com.blog.portal.requestPayload.CommentOnBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
 import com.blog.portal.util.RequestMappingConst;
 
@@ -44,9 +44,9 @@ public class CommentControllerTest {
     public void testDoComment() throws Exception {
         new CommentOnBlogInDto("Sample Comment", "user123", "post456");
 
-        ApiResponse apiResponse = new ApiResponse("Comment added successfully", true);
+        ResponseOutDTO responseOutDTO = new ResponseOutDTO("Comment added successfully", true);
 
-        when(commentService.doCommentOnBlog(any(CommentOnBlogInDto.class))).thenReturn(apiResponse);
+        when(commentService.doCommentOnBlog(any(CommentOnBlogInDto.class))).thenReturn(responseOutDTO);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post(RequestMappingConst.COMMENT_URL +"/")

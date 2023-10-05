@@ -4,7 +4,6 @@ package com.blog.portal.exception;
  * The `UserAlreadyExistsException` class represents an exception that can be
  * thrown during user registration. It extends the `RuntimeException` class and
  * is used to handle registration-related errors.
- *
  * @author Ashutosh Tigga
  */
 public class UnauthorizedUserExeption extends RuntimeException {
@@ -22,7 +21,6 @@ public class UnauthorizedUserExeption extends RuntimeException {
 	/**
 	 * Constructs a new `UserAlreadyExistsException` with the specified error
 	 * message.
-	 *
 	 * @param message The error message describing the registration exception.
 	 */
 	public UnauthorizedUserExeption(final String message) {
@@ -32,7 +30,6 @@ public class UnauthorizedUserExeption extends RuntimeException {
 
 	/**
 	 * Gets the error message associated with the exception.
-	 *
 	 * @return The error message.
 	 */
 	public String getMessage() {
@@ -41,7 +38,6 @@ public class UnauthorizedUserExeption extends RuntimeException {
 
 	/**
 	 * Sets the error message for the exception.
-	 *
 	 * @param message The error message to set.
 	 */
 	public void setMessage(final String message) {
@@ -50,7 +46,6 @@ public class UnauthorizedUserExeption extends RuntimeException {
 
 	/**
 	 * Returns a string representation of the `UserAlreadyExistsException` object.
-	 *
 	 * @return A string representation of the exception, including the error
 	 *         message.
 	 */

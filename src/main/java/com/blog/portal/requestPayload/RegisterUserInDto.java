@@ -10,7 +10,6 @@ import com.blog.portal.enumResource.Gender;
 /**
  * The class represents a Request DTO for user-related data. It is used to
  * transfer user information between different parts of the application.
- *
  * @author [Ashutosh Tigga]
  */
 public class RegisterUserInDto {
@@ -72,9 +71,8 @@ public class RegisterUserInDto {
 	private String contactNumber;
 
 	/**
-	 * Constructs a new instance of the {@code RegisterInDto} class with the
+	 * Constructs a new instance of the RegisterInDto class with the
 	 * specified parameters.
-	 *
 	 * @param firstName     The first name of the user.
 	 * @param lastName      The last name of the user.
 	 * @param gender        The gender of the user.
@@ -105,7 +103,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the first name of the user.
-	 *
 	 * @return The user's first name.
 	 */
 	public String getFirstName() {
@@ -114,7 +111,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the first name of the user.
-	 *
 	 * @param firstName The first name to set.
 	 */
 	public void setFirstName(final String firstName) {
@@ -123,7 +119,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the last name of the user.
-	 *
 	 * @return The user's last name.
 	 */
 	public String getLastName() {
@@ -132,7 +127,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the last name of the user.
-	 *
 	 * @param lastName The last name to set.
 	 */
 	public void setLastName(final String lastName) {
@@ -141,7 +135,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the gender of the user.
-	 *
 	 * @return The user's gender.
 	 */
 	public Gender getGender() {
@@ -150,7 +143,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the gender of the user.
-	 *
 	 * @param gender The gender to set.
 	 */
 	public void setGender(final Gender gender) {
@@ -159,7 +151,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the email address of the user.
-	 *
 	 * @return The user's email address.
 	 */
 	public String getEmail() {
@@ -168,7 +159,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the email address of the user.
-	 *
 	 * @param email The email address to set.
 	 */
 	public void setEmail(final String email) {
@@ -177,7 +167,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the password of the user.
-	 *
 	 * @return The user's password.
 	 */
 	public String getPassword() {
@@ -186,7 +175,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the password of the user.
-	 *
 	 * @param password The password to set.
 	 */
 	public void setPassword(final String password) {
@@ -195,7 +183,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the designation of the user.
-	 *
 	 * @return The user's designation.
 	 */
 	public Designation getDesignation() {
@@ -204,7 +191,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the designation of the user.
-	 *
 	 * @param designation The designation to set.
 	 */
 	public void setDesignation(final Designation designation) {
@@ -213,7 +199,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Gets the contact number of the user.
-	 *
 	 * @return The user's contact number.
 	 */
 	public String getContactNumber() {
@@ -222,7 +207,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Sets the contact number of the user.
-	 *
 	 * @param contactNumber The contact number to set.
 	 */
 	public void setContactNumber(final String contactNumber) {
@@ -231,7 +215,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Computes the hash code of this object based on its attributes.
-	 *
 	 * @return The hash code value.
 	 */
 	@Override
@@ -241,7 +224,6 @@ public class RegisterUserInDto {
 
 	/**
 	 * Compares this object to another object to check for equality.
-	 *
 	 * @param obj The object to compare to.
 	 * @return {@code true} if the objects are equal, {@code false} otherwise.
 	 */
@@ -264,9 +246,7 @@ public class RegisterUserInDto {
 	}
 
 	/**
-	 * Converts this object into a string representation for debugging and logging
-	 * purposes.
-	 *
+	 * Converts this object into a string representation.
 	 * @return The string representation of this object.
 	 */
 	@Override

@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 /**
  * This class Represent Request DTO that takes post information like it's id,
  * title, content and perform update operation on selected post's id BLOG.
- *
  * @author Ashutosh Tigga
  */
 public class UpdateBlogInDto {
@@ -37,7 +36,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Gets the id of the String.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -46,7 +44,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Sets the id of the Blog.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -55,7 +52,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Gets the title of the post.
-	 *
 	 * @return title
 	 */
 	public String getTitle() {
@@ -64,7 +60,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Sets the tile of the post.
-	 *
 	 * @param title
 	 */
 	public void setTitle(final String title) {
@@ -73,7 +68,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Gets the content of the post.
-	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -82,7 +76,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Sets the Content of the post.
-	 *
 	 * @param content
 	 */
 	public void setContent(final String content) {
@@ -91,7 +84,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Parameterized Constructor.
-	 *
 	 * @param id
 	 * @param title
 	 * @param content
@@ -113,7 +105,6 @@ public class UpdateBlogInDto {
 
 	/**
 	 * Generates a string representation of the UpdateBlogInDto object.
-	 *
 	 * @return A string containing information about the post ID, title, and
 	 *         content.
 	 */
@@ -127,7 +118,6 @@ public class UpdateBlogInDto {
 	/**
 	 * Calculates the hash code for the UpdateBlogInDto object based on its
 	 * properties.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -138,7 +128,6 @@ public class UpdateBlogInDto {
 	/**
 	 * Compares this UpdateBlogInDto object with another object to determine if they
 	 * are equal.
-	 *
 	 * @param obj The object to compare with.
 	 * @return {@code true} if the objects are equal; {@code false} otherwise.
 	 */

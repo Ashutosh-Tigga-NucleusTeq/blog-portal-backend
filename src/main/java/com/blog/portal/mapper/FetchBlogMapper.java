@@ -4,15 +4,14 @@ import com.blog.portal.entities.Blog;
 import com.blog.portal.responsePayload.BlogOutDto;
 
 /**
- * The {@code FetchBlogMapper} class provides static methods for mapping
+ * The FetchBlogMapper class provides static methods for mapping
  * between FetchBlogMapper related DTOs and the Blog entity.
- *
  * @author Ashutosh Tigga
  */
 public class FetchBlogMapper {
 
 	/**
-	 * This method converts {@code Blog} into {@code BlogOutDto}.
+	 * This method converts  Blog into  BlogOutDto.
 	 * @param blog
 	 * @return outDto
 	 */

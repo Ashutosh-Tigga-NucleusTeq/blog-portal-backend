@@ -9,10 +9,9 @@ import com.blog.portal.enumResource.Gender;
 import com.blog.portal.enumResource.Role;
 
 /**
- * The {@code User} class represents a user entity in the application. It stores
+ * This class represents a user entity in the application. It stores
  * information about a user, including their first name, last name, gender,
  * email, password, designation, contact number, and role.
- *
  * @author [ Ashutosh Tigga]
  */
 @Document(collection = "user")
@@ -65,7 +64,7 @@ public final class User {
 	private Role role = Role.EMPLOYEE;
 
 	/**
-	 * The list of blog blogs authored by the user.
+	 * The list of BLOG authored by the user.
 	 */
 	private List<Blog> blogs;
 
@@ -77,8 +76,7 @@ public final class User {
 	}
 
 	/**
-	 * Creates a new instance of the {@code User} class with specified parameters.
-	 *
+	 * Creates a new instance of the  User class with specified parameters.
 	 * @param firstName     The first name of the user.
 	 * @param lastName      The last name of the user.
 	 * @param gender        The gender of the user.
@@ -104,9 +102,8 @@ public final class User {
 	}
 
 	/**
-	 * Creates a new instance of the {@code User} class with specified email and
+	 * Creates a new instance of the User class with specified email and
 	 * password.
-	 *
 	 * @param email    The email address of the user.
 	 * @param password The password of the user.
 	 */
@@ -116,8 +113,7 @@ public final class User {
 	}
 
 	/**
-	 * One args constructor that copy userid.
-	 *
+	 * One arg constructor that copy userId.
 	 * @param user
 	 */
 	public User(final User user) {
@@ -126,7 +122,6 @@ public final class User {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return The id of the user.
 	 */
 	public String getId() {
@@ -135,7 +130,6 @@ public final class User {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param id The id of the user.
 	 */
 	public void setId(final String id) {
@@ -144,7 +138,6 @@ public final class User {
 
 	/**
 	 * Gets the first name of the user.
-	 *
 	 * @return The first name of the user.
 	 */
 	public String getFirstName() {
@@ -153,7 +146,6 @@ public final class User {
 
 	/**
 	 * Sets the first name of the user.
-	 *
 	 * @param firstName The first name of the user.
 	 */
 	public void setFirstName(final String firstName) {
@@ -162,7 +154,6 @@ public final class User {
 
 	/**
 	 * Gets the last name of the user.
-	 *
 	 * @return The last name of the user.
 	 */
 	public String getLastName() {
@@ -171,7 +162,6 @@ public final class User {
 
 	/**
 	 * Sets the last name of the user.
-	 *
 	 * @param lastName The last name of the user.
 	 */
 	public void setLastName(final String lastName) {
@@ -180,7 +170,6 @@ public final class User {
 
 	/**
 	 * Gets the gender of the user.
-	 *
 	 * @return The gender of the user.
 	 */
 	public Gender getGender() {
@@ -189,7 +178,6 @@ public final class User {
 
 	/**
 	 * Sets the gender of the user.
-	 *
 	 * @param gender The gender of the user.
 	 */
 	public void setGender(final Gender gender) {
@@ -198,7 +186,6 @@ public final class User {
 
 	/**
 	 * Gets the email of the user.
-	 *
 	 * @return The email of the user.
 	 */
 	public String getEmail() {
@@ -207,7 +194,6 @@ public final class User {
 
 	/**
 	 * Sets the email of the user.
-	 *
 	 * @param email The email of the user.
 	 */
 	public void setEmail(final String email) {
@@ -216,7 +202,6 @@ public final class User {
 
 	/**
 	 * Gets the password of the user.
-	 *
 	 * @return The password of the user.
 	 */
 	public String getPassword() {
@@ -225,7 +210,6 @@ public final class User {
 
 	/**
 	 * Sets the password of the user.
-	 *
 	 * @param password The password of the user.
 	 */
 	public void setPassword(final String password) {
@@ -234,7 +218,6 @@ public final class User {
 
 	/**
 	 * Gets the designation of the user.
-	 *
 	 * @return The designation of the user.
 	 */
 	public Designation getDesignation() {
@@ -243,7 +226,6 @@ public final class User {
 
 	/**
 	 * Sets the designation of the user.
-	 *
 	 * @param designation The designation of the user.
 	 */
 	public void setDesignation(final Designation designation) {
@@ -252,7 +234,6 @@ public final class User {
 
 	/**
 	 * Gets the contact number of the user.
-	 *
 	 * @return The contact number of the user.
 	 */
 	public String getContactNumber() {
@@ -261,7 +242,6 @@ public final class User {
 
 	/**
 	 * Sets the contact number of the user.
-	 *
 	 * @param contactNumber The contact number of the user.
 	 */
 	public void setContactNumber(final String contactNumber) {
@@ -270,7 +250,6 @@ public final class User {
 
 	/**
 	 * Gets the role of the user.
-	 *
 	 * @return The role of the user.
 	 */
 	public Role getRole() {
@@ -279,7 +258,6 @@ public final class User {
 
 	/**
 	 * Sets the role of the user.
-	 *
 	 * @param role The role of the user.
 	 */
 	public void setRole(final Role role) {
@@ -287,18 +265,16 @@ public final class User {
 	}
 
 	/**
-	 * Gets the list of blog blogs authored by the user.
-	 *
-	 * @return The list of blog blogs authored by the user.
+	 * Gets the list of  BLOGS authored by the user.
+	 * @return The list of  BLOGS authored by the user.
 	 */
 	public List<Blog> getPosts() {
 		return blogs;
 	}
 
 	/**
-	 * Sets the list of blog blogs authored by the user.
-	 *
-	 * @param newBlogs The list of blog blogs authored by the user.
+	 * Sets the list of  blogs authored by the user.
+	 * @param newBlogs The list of  blogs authored by the user.
 	 */
 	public void setPosts(final List<Blog> newBlogs) {
 		this.blogs = newBlogs;
@@ -306,7 +282,6 @@ public final class User {
 
 	/**
 	 * Parameterized Constructor.
-	 *
 	 * @param id
 	 * @param firstName
 	 * @param lastName
@@ -342,10 +317,9 @@ public final class User {
 	}
 
 	/**
-	 * Generates a hash code for this {@code User} object based on its
+	 * Generates a hash code for this User object based on its
 	 * contactNumber, designation, email, firstName, gender, id, lastName, password,
 	 * blogs, and role.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -354,13 +328,12 @@ public final class User {
 	}
 
 	/**
-	 * Compares this {@code User} object with another object to determine if they
-	 * are equal. Two {@code User} objects are considered equal if their
+	 * Compares this User object with another object to determine if they
+	 * are equal. Two  User objects are considered equal if their
 	 * contactNumber, designation, email, firstName, gender, id, lastName, password,
 	 * blogs, and role are the same.
-	 *
 	 * @param obj The object to compare with.
-	 * @return {@code true} if the objects are equal; {@code false} otherwise.
+	 * @return true if the objects are equal, false otherwise.
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -387,9 +360,8 @@ public final class User {
 	}
 
 	/**
-	 * Generates a string representation of this {@code User} object.
-	 *
-	 * @return The string representation of the {@code User} object.
+	 * Generates a string representation of this  User object.
+	 * @return The string representation of the  User object.
 	 */
 	@Override
 	public String toString() {

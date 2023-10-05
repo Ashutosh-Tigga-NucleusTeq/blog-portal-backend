@@ -4,8 +4,7 @@ import java.util.Objects;
 import com.blog.portal.enumResource.React;
 
 /**
- * This class Represents Response Dto that contains information of REACTION on BLOG Blog.
- *
+ * This class Represents Response Dto that contains information of REACTION on BLOG .
  * @author [ Ashutosh Tigga]
  */
 public class ReactionOnBlogOutDto {
@@ -31,7 +30,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Gets ID of the post.
-	 *
 	 * @return postId.
 	 */
 	public String getPostId() {
@@ -40,7 +38,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Sets ID of the post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -49,7 +46,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Gets ID of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -58,7 +54,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Gets ID of the Object.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -67,7 +62,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Sets the ID of Object.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -76,7 +70,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Sets ID of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -85,7 +78,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Gets type of the user.
-	 *
 	 * @return type
 	 */
 	public React getType() {
@@ -94,7 +86,6 @@ public class ReactionOnBlogOutDto {
 
 	/**
 	 * Sets type of the user.
-	 *
 	 * @param type
 	 */
 	public void setType(final React type) {
@@ -111,7 +102,6 @@ public class ReactionOnBlogOutDto {
 	/**
 	 * Parameterized constructor for creating a LikeOrDislikePostOutDto object with
 	 * specific values.
-	 *
 	 * @param id     The unique identifier for this like/dislike.
 	 * @param postId The identifier of the post being liked or disliked.
 	 * @param userId The identifier of the user who performed the like or dislike
@@ -129,7 +119,6 @@ public class ReactionOnBlogOutDto {
 	/**
 	 * Calculates the hash code for the LikeOrDislikePostOutDto object. This method
 	 * combines the hash codes of its attributes (id, postId, type, and userId).
-	 *
 	 * @return The computed hash code value.
 	 */
 	@Override
@@ -141,7 +130,6 @@ public class ReactionOnBlogOutDto {
 	 * Compares this LikeOrDislikePostOutDto object to another object for equality.
 	 * It first checks if the two objects are the same instance. If not, it compares
 	 * the attributes (id, postId, type, and userId) of both objects for equality.
-	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */
@@ -167,7 +155,6 @@ public class ReactionOnBlogOutDto {
 	 * Generates a human-readable string representation of the
 	 * LikeOrDislikePostOutDto object. This method includes details about the
 	 * object's attributes (id, postId, userId, and type).
-	 *
 	 * @return A string representation of the object.
 	 */
 	@Override

@@ -18,9 +18,8 @@ import com.blog.portal.services.ReactionService;
 import com.blog.portal.util.RequestMappingConst;
 
 /**
- * The {@code ReactionController} class handles HTTP requests related to REACTION on BLOG.
+ * This class handles HTTP requests related to REACTION on BLOG.
  * It provides API end-points for creating and managing REACTION on BLOGS.
- *
  * @author [Ashutosh Tigga]
  */
 @RestController
@@ -33,21 +32,20 @@ public class ReactionController {
 	private static final Logger LOGGER = LogManager.getLogger(ReactionController.class);
 
 	/**
-	 * Instance of LikeAndDislikeService.
+	 * Instance of ReactionService.
 	 */
 	@Autowired
-	private ReactionService likeAndDislikeService;
+	private ReactionService reactionService;
 
 	/**
 	 * API end-point to perform like or dislike on BLOG.
-	 *
 	 * @param inDto
 	 * @return ResponseEntity.
 	 */
 	@PostMapping("/")
 	public ResponseEntity<ReactionOnBlogOutDto> reactOnBlog(@Valid @RequestBody final ReactOnBlogInDto inDto) {
 		LOGGER.info(" like post controller with requestdto [" + inDto + "]");
-		ReactionOnBlogOutDto response = likeAndDislikeService.doReactOnBlog(inDto);
+		ReactionOnBlogOutDto response = reactionService.doReactOnBlog(inDto);
 		LOGGER.info(" Fetching response from doReactOnPost service [" + response + "]");
 		return new ResponseEntity<ReactionOnBlogOutDto>(response, HttpStatus.OK);
 	}

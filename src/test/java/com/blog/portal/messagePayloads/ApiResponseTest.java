@@ -7,79 +7,79 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.blog.portal.responseMessage.ApiResponse;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 
 public class ApiResponseTest {
 
 
-    private ApiResponse apiResponse;
+    private ResponseOutDTO responseOutDTO;
 
 
     @BeforeEach
     public void setUp() {
-        apiResponse = new ApiResponse();
+        responseOutDTO = new ResponseOutDTO();
     }
 
 
     @Test
     public void testMessageGetterAndSetter() {
-        apiResponse.setMessage("Test Message");
-        assertEquals("Test Message", apiResponse.getMessage());
+        responseOutDTO.setMessage("Test Message");
+        assertEquals("Test Message", responseOutDTO.getMessage());
 
-        apiResponse.setMessage("New Message");
-        assertEquals("New Message", apiResponse.getMessage());
+        responseOutDTO.setMessage("New Message");
+        assertEquals("New Message", responseOutDTO.getMessage());
 
-        apiResponse.setMessage("Another Message");
-        assertEquals("Another Message", apiResponse.getMessage());
+        responseOutDTO.setMessage("Another Message");
+        assertEquals("Another Message", responseOutDTO.getMessage());
     }
 
 
     @Test
     public void testSuccessGetterAndSetter() {
-        apiResponse.setSuccess(true);
-        assertTrue(apiResponse.isSuccess());
+        responseOutDTO.setSuccess(true);
+        assertTrue(responseOutDTO.isSuccess());
 
-        apiResponse.setSuccess(false);
-        assertFalse(apiResponse.isSuccess());
+        responseOutDTO.setSuccess(false);
+        assertFalse(responseOutDTO.isSuccess());
 
-        apiResponse.setSuccess(true);
-        assertTrue(apiResponse.isSuccess());
+        responseOutDTO.setSuccess(true);
+        assertTrue(responseOutDTO.isSuccess());
     }
 
 
     @Test
     public void testHashCode() {
-        apiResponse.setMessage("Test Message");
-        apiResponse.setSuccess(true);
+        responseOutDTO.setMessage("Test Message");
+        responseOutDTO.setSuccess(true);
 
-        ApiResponse other = new ApiResponse("Test Message", true);
-        assertEquals(other.hashCode(), apiResponse.hashCode());
+        ResponseOutDTO other = new ResponseOutDTO("Test Message", true);
+        assertEquals(other.hashCode(), responseOutDTO.hashCode());
     }
 
 
     @Test
     public void testEquals() {
-        apiResponse.setMessage("Test Message");
-        apiResponse.setSuccess(true);
+        responseOutDTO.setMessage("Test Message");
+        responseOutDTO.setSuccess(true);
 
-        ApiResponse same = new ApiResponse("Test Message", true);
-        ApiResponse differentMessage = new ApiResponse("Different Message", true);
-        ApiResponse differentSuccess = new ApiResponse("Test Message", false);
+        ResponseOutDTO same = new ResponseOutDTO("Test Message", true);
+        ResponseOutDTO differentMessage = new ResponseOutDTO("Different Message", true);
+        ResponseOutDTO differentSuccess = new ResponseOutDTO("Test Message", false);
 
-        assertTrue(apiResponse.equals(same));
-        assertFalse(apiResponse.equals(differentMessage));
-        assertFalse(apiResponse.equals(differentSuccess));
-        assertFalse(apiResponse.equals(null));
-        assertFalse(apiResponse.equals("Not an ApiResponse"));
-        ApiResponse response1 = new ApiResponse("Message", true);
+        assertTrue(responseOutDTO.equals(same));
+        assertFalse(responseOutDTO.equals(differentMessage));
+        assertFalse(responseOutDTO.equals(differentSuccess));
+        assertFalse(responseOutDTO.equals(null));
+        assertFalse(responseOutDTO.equals("Not an ResponseOutDTO"));
+        ResponseOutDTO response1 = new ResponseOutDTO("Message", true);
 
         assertTrue(response1.equals(response1));
 
-        ApiResponse response2 = new ApiResponse("Message", true);
+        ResponseOutDTO response2 = new ResponseOutDTO("Message", true);
 
         assertTrue(response1.equals(response2));
 
-        ApiResponse response3 = new ApiResponse("Error", false);
+        ResponseOutDTO response3 = new ResponseOutDTO("Error", false);
 
         assertFalse(response1.equals(response3));
 
@@ -91,10 +91,10 @@ public class ApiResponseTest {
 
     @Test
     public void testToString() {
-        apiResponse.setMessage("Test Message");
-        apiResponse.setSuccess(true);
+        responseOutDTO.setMessage("Test Message");
+        responseOutDTO.setSuccess(true);
 
-        String expected = "ApiResponse [message=Test Message, success=true]";
-        assertEquals(expected, apiResponse.toString());
+        String expected = "ResponseOutDTO [message=Test Message, success=true]";
+        assertEquals(expected, responseOutDTO.toString());
     }
 }

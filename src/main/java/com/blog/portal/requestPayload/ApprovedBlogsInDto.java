@@ -6,7 +6,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
 /**
  * This class Represents Request DTO contains the data title and TECHCATEORY
  * from Client. based on this they can perform filtering on approved Blog.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ApprovedBlogsInDto {
@@ -23,7 +22,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Override toString.
-	 *
 	 * @return toString
 	 */
 	@Override
@@ -34,7 +32,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Gets the Title of the post.
-	 *
 	 * @return title
 	 */
 	public String getTitle() {
@@ -43,7 +40,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Sets the title of the post.
-	 *
 	 * @param title
 	 */
 	public void setTitle(final String title) {
@@ -52,7 +48,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Gets the Technology Category of the post.
-	 *
 	 * @return techCategory
 	 */
 	public TechnologyCategory getTechCategory() {
@@ -61,7 +56,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Sets the Technology Category of the post.
-	 *
 	 * @param techCategory
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -70,7 +64,6 @@ public class ApprovedBlogsInDto {
 
 	/**
 	 * Constructor sets title and techCategory.
-	 *
 	 * @param title
 	 * @param techCategory
 	 */
@@ -88,9 +81,8 @@ public class ApprovedBlogsInDto {
 	}
 
 	/**
-	 * Generates a hash code for this {@code ApprovedBlogsInDto} object based on its
+	 * Generates a hash code for this ApprovedBlogsInDto object based on its
 	 * techCategory and title.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -99,10 +91,9 @@ public class ApprovedBlogsInDto {
 	}
 
 	/**
-	 * Compares this {@code ApprovedBlogsInDto} object with another object to
-	 * determine if they are equal. Two {@code ApprovedBlogsInDto} objects are
+	 * Compares this ApprovedBlogsInDto object with another object to
+	 * determine if they are equal. Two ApprovedBlogsInDto objects are
 	 * considered equal if their techCategory and title are the same.
-	 *
 	 * @param obj The object to compare with.
 	 * @return {@code true} if the objects are equal; {@code false} otherwise.
 	 */

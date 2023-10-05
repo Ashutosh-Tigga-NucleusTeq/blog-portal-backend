@@ -12,7 +12,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
 /**
  * This class represents a Approved Blog Response DTO. It contains information
  * about Approved BLOG post.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
@@ -73,7 +72,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the Collection of user who reported post.
-	 *
 	 * @return reportedBy
 	 */
 	public Set<String> getReportedBy() {
@@ -82,7 +80,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the Collection of user who reportedPost.
-	 *
 	 * @param reportedBy
 	 */
 	public void setReportedBy(final Set<String> reportedBy) {
@@ -91,7 +88,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the list of comments.
-	 *
 	 * @return comments
 	 */
 	public List<String> getCommentBy() {
@@ -100,7 +96,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the user who comment.
-	 *
 	 * @param commentBy
 	 */
 	public void setCommentBy(final List<String> commentBy) {
@@ -109,7 +104,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the user who liked post.
-	 *
 	 * @return likedBy
 	 */
 	public Set<String> getLikedBy() {
@@ -118,7 +112,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the user who liked post.
-	 *
 	 * @param likedBy
 	 */
 	public void setLikedBy(final Set<String> likedBy) {
@@ -127,7 +120,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the user who disliked post.
-	 *
 	 * @return disLikedBy
 	 */
 	public Set<String> getDisLikedBy() {
@@ -136,7 +128,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the user who disliked post.
-	 *
 	 * @param disLikedBy
 	 */
 	public void setDisLikedBy(final Set<String> disLikedBy) {
@@ -145,7 +136,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Constructor for creating a `BlogOutDto` object.
-	 *
 	 * @param id           The id of the post.
 	 * @param title        The title of the blog post.
 	 * @param content      The content of the blog post.
@@ -178,7 +168,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets status of the post.
-	 *
 	 * @return The status of the post.
 	 */
 	public BlogStatus getStatus() {
@@ -187,7 +176,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets status of the post.
-	 *
 	 * @param status The status to set.
 	 */
 	public void setStatus(final BlogStatus status) {
@@ -196,7 +184,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the id of the post.
-	 *
 	 * @return The id of the post.
 	 */
 	public String getId() {
@@ -205,7 +192,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param id The id of the post to set.
 	 */
 	public void setId(final String id) {
@@ -214,7 +200,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the title of the blog post.
-	 *
 	 * @return The blog post title.
 	 */
 	public String getTitle() {
@@ -223,7 +208,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the title of the blog post.
-	 *
 	 * @param title The title to set.
 	 */
 	public void setTitle(final String title) {
@@ -232,7 +216,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the content of the blog post.
-	 *
 	 * @return The blog post content.
 	 */
 	public String getContent() {
@@ -241,7 +224,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the content of the blog post.
-	 *
 	 * @param content The content to set.
 	 */
 	public void setContent(final String content) {
@@ -250,7 +232,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the creation date of the blog post.
-	 *
 	 * @return The creation date.
 	 */
 	public Date getCreatedAt() {
@@ -259,7 +240,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the creation date of the blog post.
-	 *
 	 * @param createdAt The creation date to set.
 	 */
 	public void setCreatedAt(final Date createdAt) {
@@ -268,7 +248,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the technology category of the blog post.
-	 *
 	 * @return The technology category.
 	 */
 	public TechnologyCategory getTechnology() {
@@ -277,7 +256,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the technology category of the blog post.
-	 *
 	 * @param techCategory The technology category to set.
 	 */
 	public void setTechnology(final TechnologyCategory techCategory) {
@@ -286,7 +264,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Gets the author's ID associated with the blog post.
-	 *
 	 * @return The author's ID.
 	 */
 	public User getUser() {
@@ -295,7 +272,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 
 	/**
 	 * Sets the author's ID associated with the blog post.
-	 *
 	 * @param user The author's ID to set.
 	 */
 	public void setUser(final User user) {
@@ -314,7 +290,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 	/**
 	 * Computes and returns the hash code for the ApprovedBlogsOutDto object. This
 	 * method combines the hash codes of various fields using Objects.hash.
-	 *
 	 * @return The computed hash code value.
 	 */
 	@Override
@@ -325,7 +300,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 	/**
 	 * Compares this ApprovedBlogsOutDto object to another object to check for
 	 * equality.
-	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */
@@ -357,7 +331,6 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 	 * Generates a human-readable string representation of the ApprovedBlogsOutDto
 	 * object. The string includes details about the object's fields, such as id,
 	 * title, content, etc.
-	 *
 	 * @return A string representation of the object.
 	 */
 	@Override

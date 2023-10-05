@@ -9,7 +9,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
  * This class Represents Response DTO for UNREVIEWED BLOG posts. This class
  * encapsulates information about a BLOG post including the user name, post
  * title, content, creation date, and post ID.
- *
  * @author [ Ashutosh Tigga]
  */
 public class UnReviewedBlogsOutDto {
@@ -50,7 +49,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the Designation of the USER.
-	 *
 	 * @return userDesignation Designation of the USER.
 	 */
 	public Designation getUserDesignation() {
@@ -59,7 +57,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the Designation of the USER.
-	 *
 	 * @param userDesignation Designation of the USER.
 	 */
 	public void setUserDesignation(final Designation userDesignation) {
@@ -68,7 +65,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the Technology Category of the BLOG Blog.
-	 *
 	 * @return techCategory Technology Category of the BLOG post.
 	 */
 	public TechnologyCategory getTechCategory() {
@@ -77,7 +73,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the Technology Category of the BLOG Blog.
-	 *
 	 * @param techCategory Techonology Category of the BLOG Blog.
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -86,7 +81,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the user name of the author.
-	 *
 	 * @return The user name.
 	 */
 	public String getUserName() {
@@ -95,7 +89,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the user name of the author.
-	 *
 	 * @param userName The user name to set.
 	 */
 	public void setUserName(final String userName) {
@@ -104,7 +97,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the title of the blog post.
-	 *
 	 * @return The title.
 	 */
 	public String getTitle() {
@@ -113,7 +105,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the title of the blog post.
-	 *
 	 * @param title The title to set.
 	 */
 	public void setTitle(final String title) {
@@ -122,7 +113,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the content of the blog post.
-	 *
 	 * @return The content.
 	 */
 	public String getContent() {
@@ -131,7 +121,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the content of the blog post.
-	 *
 	 * @param content The content to set.
 	 */
 	public void setContent(final String content) {
@@ -140,7 +129,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the creation date and time of the blog post.
-	 *
 	 * @return The creation date.
 	 */
 	public Date getCreatedAt() {
@@ -149,7 +137,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the creation date and time of the blog post.
-	 *
 	 * @param createdAt The creation date to set.
 	 */
 	public void setCreatedAt(final Date createdAt) {
@@ -158,7 +145,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Gets the unique identifier of the blog post.
-	 *
 	 * @return The post ID.
 	 */
 	public String getId() {
@@ -167,7 +153,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Sets the unique identifier of the blog post.
-	 *
 	 * @param id The post ID to set.
 	 */
 	public void setId(final String id) {
@@ -176,7 +161,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Generates a string representation of the UnReviewedBlogsOutDto object.
-	 *
 	 * @return A string containing user name, title, content, creation date, and ID.
 	 */
 	@Override
@@ -190,7 +174,6 @@ public class UnReviewedBlogsOutDto {
 
 	/**
 	 * Constructs an UnReviewedBlogsOutDto object with the specified values.
-	 *
 	 * @param userName  The user name of the author.
 	 * @param title     The title of the blog post.
 	 * @param content   The content of the blog post.
@@ -217,7 +200,6 @@ public class UnReviewedBlogsOutDto {
 	/**
 	 * Computes a hash code for this object based on its content, creation date, ID,
 	 * title, and user name.
-	 *
 	 * @return The computed hash code.
 	 */
 	@Override
@@ -229,7 +211,6 @@ public class UnReviewedBlogsOutDto {
 	 * Checks if this object is equal to another object. Two UnReviewedBlogsOutDto
 	 * objects are considered equal if they have the same content, creation date,
 	 * ID, title, and user name.
-	 *
 	 * @param obj The object to compare with.
 	 * @return True if the objects are equal, false otherwise.
 	 */

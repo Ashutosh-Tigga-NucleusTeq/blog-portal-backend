@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.blog.portal.requestPayload.ReportBlogInDto;
 import com.blog.portal.requestPayload.ActOnReportedBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.ReportedBlogReasonsOutDto;
 import com.blog.portal.responsePayload.ReportedBlogsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.ReportService;
 import com.blog.portal.util.RequestMappingConst;
 
@@ -24,9 +24,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 /**
- * The {@code ReportController} class handles HTTP requests related to REPORT BLOGS.
+ * This class handles HTTP requests related to REPORT BLOGS.
  * It provides API end-points for creating and managing REPORTING BLOGS.
- *
  * @author [Ashutosh Tigga]
  */
 @RestController
@@ -45,22 +44,20 @@ public class ReportController {
 	private static final Logger LOGGER = LogManager.getLogger(ReportController.class);
 
 	/**
-	 * This Api for reporting post.
-	 *
+	 * This API end-point for reporting post.
 	 * @param inDto
 	 * @return response
 	 */
 	@PostMapping("/")
-	public ResponseEntity<ApiResponse> doReport(@Valid @RequestBody final ReportBlogInDto inDto) {
+	public ResponseEntity<ResponseOutDTO> doReport(@Valid @RequestBody final ReportBlogInDto inDto) {
 		LOGGER.info(" Reporting post controller invoked with request inDto [" + inDto + "]");
-		ApiResponse response = reportService.reportOnBlog(inDto);
+		ResponseOutDTO response = reportService.reportOnBlog(inDto);
 		LOGGER.info("Fetching response from reportPost method of Service [" + response + "]");
-		return new ResponseEntity<ApiResponse>(response, HttpStatus.CREATED);
+		return new ResponseEntity<ResponseOutDTO>(response, HttpStatus.CREATED);
 	}
 
 	/**
-	 * Gets all Reporeted post.
-	 *
+	 * Gets all Reported post.
 	 * @return response
 	 */
 	@GetMapping("/all/reported/blogs")
@@ -74,21 +71,19 @@ public class ReportController {
 	/**
 	 * API end-point to perform action on reported BLOG.
 	 * it could be either Delete or Ignore.
-	 *
-	 * @param inDto contains reportedpost id and action of admin.
+	 * @param inDto contains REPORTEDPOST id and action of ADMIN.
 	 * @return response proper Response message with success value true or false.
 	 */
 	@PostMapping("/blog/action")
-	public ApiResponse actOnReportedBlog(@Valid @RequestBody final ActOnReportedBlogInDto inDto) {
+	public ResponseOutDTO actOnReportedBlog(@Valid @RequestBody final ActOnReportedBlogInDto inDto) {
 		LOGGER.info("Response on reported blog post controller with request payload [" + inDto + "]");
-		ApiResponse response = reportService.actOnReportedBlog(inDto);
+		ResponseOutDTO response = reportService.actOnReportedBlog(inDto);
 		LOGGER.info("Fetching response from responseReportedblog [" + response + "]");
 		return response;
 	}
 
 	/**
 	 * API for fetching report reason of BLOG by it's ID.
-	 *
 	 * @param postId
 	 * @return response Reason of reporting.
 	 */

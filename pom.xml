@@ -87,8 +87,8 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>com/blog/portal/util/**</exclude>
-								
+								<exclude>com/blog/portal/util/</exclude>
+								<exclude>com/blog/portal/BlogPortalApplicationTest.java</exclude>
 							</excludes>
 							<rules>
 								<rule>

@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class Represent Response Dto that contains Reported Blog resons of particular selected Blog.
- *
+ * This class Represent Response Dto that contains Reported Blog response of particular selected Blog.
  * @author [ Ashutosh Tigga]
  */
 public class ReportedBlogReasonsOutDto {
@@ -16,7 +15,7 @@ public class ReportedBlogReasonsOutDto {
 	private List<String> reasons = new ArrayList<String>();
 
 	/**
-	 * String representation of {@code ReportedBlogReasonsOutDto}.
+	 * String representation of ReportedBlogReasonsOutDto.
 	 */
 	@Override
 	public String toString() {
@@ -25,7 +24,6 @@ public class ReportedBlogReasonsOutDto {
 
 	/**
 	 * Parameterized constructor.
-	 *
 	 * @param reasons
 	 */
 	public ReportedBlogReasonsOutDto(final List<String> reasons) {
@@ -42,7 +40,6 @@ public class ReportedBlogReasonsOutDto {
 
 	/**
 	 * Gets the reason of reporting.
-	 *
 	 * @return reasons.
 	 */
 	public List<String> getReasons() {
@@ -51,7 +48,6 @@ public class ReportedBlogReasonsOutDto {
 
 	/**
 	 * Sets the reason of reporting.
-	 *
 	 * @param reasons
 	 */
 	public void setReasons(final List<String> reasons) {
@@ -59,9 +55,8 @@ public class ReportedBlogReasonsOutDto {
 	}
 
 	/**
-	 * HashCode Generation of {@code ReportedBlogReasonsOutDto}.
-	 *
-	 * @return Numberic Generation code.
+	 * HashCode Generation of ReportedBlogReasonsOutDto.
+	 * @return Numeric Generation code.
 	 */
 	@Override
 	public int hashCode() {
@@ -70,7 +65,6 @@ public class ReportedBlogReasonsOutDto {
 
 	/**
 	 * Compare Object.
-	 *
 	 * @return true if equals or false.
 	 */
 	@Override

@@ -23,7 +23,6 @@ import com.blog.portal.mapper.*;
 import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.requestPayload.*;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.*;
 import com.blog.portal.util.ResponseMessage;
 
@@ -53,7 +52,7 @@ public class BlogServiceImplTest {
         when(userRepository.findById("userId")).thenReturn(Optional.of(user));
         when(blogRepository.save(any(Blog.class))).thenReturn(new Blog());
 
-        ApiResponse response = blogPostService.createPost(postDto);
+        ResponseOutDTO response = blogPostService.createPost(postDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
@@ -142,7 +141,7 @@ public class BlogServiceImplTest {
         when(blogRepository.findById("postId")).thenReturn(Optional.of(blog));
         when(blogRepository.save(any(Blog.class))).thenReturn(new Blog());
 
-        ApiResponse response = blogPostService.editBlog(inDto);
+        ResponseOutDTO response = blogPostService.editBlog(inDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
@@ -223,7 +222,7 @@ public class BlogServiceImplTest {
         when(blogRepository.findById("postId")).thenReturn(Optional.of(blog));
         when(blogRepository.save(any(Blog.class))).thenReturn(new Blog());
 
-        ApiResponse response = blogPostService.actOnUnreviewedBlog(inDto);
+        ResponseOutDTO response = blogPostService.actOnUnreviewedBlog(inDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
@@ -240,7 +239,7 @@ public class BlogServiceImplTest {
         when(blogRepository.findById("postId")).thenReturn(Optional.of(blog));
         when(blogRepository.save(any(Blog.class))).thenReturn(new Blog());
 
-        ApiResponse response = blogPostService.actOnUnreviewedBlog(inDto);
+        ResponseOutDTO response = blogPostService.actOnUnreviewedBlog(inDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
@@ -267,7 +266,7 @@ public class BlogServiceImplTest {
 
         when(blogRepository.findById("postId")).thenReturn(Optional.of(blog));
 
-        ApiResponse response = blogPostService.actOnUnreviewedBlog(inDto);
+        ResponseOutDTO response = blogPostService.actOnUnreviewedBlog(inDto);
 
         assertNotNull(response);
         assertFalse(response.isSuccess());

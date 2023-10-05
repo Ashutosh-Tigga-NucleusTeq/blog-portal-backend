@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
  * This class Represents Request DTO that contains fields like userId, postId
  * and reportReson for performing report functionality on selected postId by
  * selected userId with proper reporting reason.
- *
  * @author Ashutosh Tigga
  */
 public class ReportBlogInDto {
@@ -31,7 +30,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Gets the Reason of reporting.
-	 *
 	 * @return reasonReport proper message for repoting.
 	 */
 	public String getReportReason() {
@@ -40,7 +38,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Sets the reason of reporting.
-	 *
 	 * @param reportReason
 	 */
 	public void setReportReason(final String reportReason) {
@@ -49,7 +46,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -58,7 +54,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -67,7 +62,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Gets the id of the post.
-	 *
 	 * @return postId
 	 */
 	public String getPostId() {
@@ -76,7 +70,6 @@ public class ReportBlogInDto {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -84,9 +77,8 @@ public class ReportBlogInDto {
 	}
 
 	/**
-	 * Generates hashcode of {@code ReportBlogInDto} based on postId, reoprtReason,
+	 * Generates hashcode ReportBlogInDto based on postId, reoprtReason,
 	 * userId.
-	 *
 	 * @return The generated hashcode.
 	 */
 	@Override
@@ -95,11 +87,9 @@ public class ReportBlogInDto {
 	}
 
 	/**
-	 * Compares this {@code ReportBlogInDto} object with another object to determine
+	 * Compares this ReportBlogInDto object with another object to determine
 	 * if they are equal.
-	 *
-	 * @param obj * @return {@code true} if the objects are equal; {@code false}
-	 *            otherwise.
+	 * @param obj * @return {@code true} if the objects are equal,false otherwise.
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -118,9 +108,8 @@ public class ReportBlogInDto {
 	}
 
 	/**
-	 * Generate string representation of {@code ReportBlogInDto} object.
-	 *
-	 * @return string representation of {@code ReportBlogInDto} object.
+	 * Generate string representation of ReportBlogInDto object.
+	 * @return string representation of ReportBlogInDto object.
 	 */
 	@Override
 	public String toString() {
@@ -129,8 +118,7 @@ public class ReportBlogInDto {
 	}
 
 	/**
-	 * Initialize {@code ReportBlogInDto} based on userId, postId.
-	 *
+	 * Initialize ReportBlogInDto based on userId, postId.
 	 * @param userId
 	 * @param postId
 	 */

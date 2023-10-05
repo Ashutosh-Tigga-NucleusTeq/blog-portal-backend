@@ -8,9 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.blog.portal.enumResource.React;
 
 /**
- * The {@code Reaction} class represents a Reaction entity in the application. It stores
+ * This class represents a Reaction entity in the application. It stores
  * information about a reaction on BLOG post.
- *
  * @author [ Ashutosh Tigga]
  */
 @Document("reaction")
@@ -23,7 +22,7 @@ public class Reaction {
 	private String id;
 
 	/**
-	 * The Blog to which this like or dislike is associated.
+	 * The BLOG to which this like or dislike is associated.
 	 */
 	private String postId;
 
@@ -39,9 +38,8 @@ public class Reaction {
 
 	/**
 	 * Constructs a new LikeOrDislike object with the provided parameters.
-	 *
 	 * @param id     The unique identifier for this LikeOrDislike.
-	 * @param postId The Blog to which this like or dislike is associated.
+	 * @param postId The BLOG to which this like or dislike is associated.
 	 * @param userId The User who performed the like or dislike.
 	 * @param type   The type of reaction, which can be either a like or a dislike.
 	 */
@@ -61,12 +59,10 @@ public class Reaction {
 	 */
 	public Reaction() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * Gets the unique identifier for this LikeOrDislike.
-	 *
 	 * @return The id of the LikeOrDislike.
 	 */
 	public String getId() {
@@ -75,7 +71,6 @@ public class Reaction {
 
 	/**
 	 * Sets the unique identifier for this LikeOrDislike.
-	 *
 	 * @param id The id to set.
 	 */
 	public void setId(final String id) {
@@ -83,18 +78,16 @@ public class Reaction {
 	}
 
 	/**
-	 * Gets the Blog to which this like or dislike is associated.
-	 *
-	 * @return The Blog to which this reaction is associated.
+	 * Gets the BLOG to which this like or dislike is associated.
+	 * @return The BLOG to which this reaction is associated.
 	 */
 	public String getPostId() {
 		return postId;
 	}
 
 	/**
-	 * Sets the Blog to which this like or dislike is associated.
-	 *
-	 * @param postId The Blog to set.
+	 * Sets the BLOG to which this like or dislike is associated.
+	 * @param postId The BLOG to set.
 	 */
 	public void setPostId(final String postId) {
 		this.postId = postId;
@@ -102,7 +95,6 @@ public class Reaction {
 
 	/**
 	 * Gets the User who performed the like or dislike.
-	 *
 	 * @return The User who performed the reaction.
 	 */
 	public String getUserId() {
@@ -111,7 +103,6 @@ public class Reaction {
 
 	/**
 	 * Sets the User who performed the like or dislike.
-	 *
 	 * @param userId The User to set.
 	 */
 	public void setUserId(final String userId) {

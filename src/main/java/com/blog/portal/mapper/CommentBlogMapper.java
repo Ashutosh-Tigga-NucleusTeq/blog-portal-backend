@@ -5,14 +5,13 @@ import com.blog.portal.requestPayload.CommentOnBlogInDto;
 import com.blog.portal.responsePayload.CommentsOutDto;
 
 /**
- * The {@code CommentBlogMapper} class provides static methods for mapping
+ * This class provides static methods for mapping
  * between Comment related DTOs and the Comment entity.
- *
  * @author Ashutosh Tigga
  */
 public class CommentBlogMapper {
 	/**
-	 * This method converts {@code CommentInDto} into {@code Comment}.
+	 * This method converts  CommentInDto into  Comment.
 	 * @param inDto
 	 * @return comment
 	 */
@@ -24,7 +23,7 @@ public class CommentBlogMapper {
 		return comment;
 	}
 	/**
-	 * This method Converts {@code Comment} into {@code CommentOutDto}.
+	 * This method Converts  Comment into  CommentOutDto.
 	 * @param comment
 	 * @return outDto
 	 */

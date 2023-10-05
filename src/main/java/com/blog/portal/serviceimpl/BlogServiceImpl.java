@@ -19,10 +19,10 @@ import com.blog.portal.requestPayload.PostBlogInDto;
 import com.blog.portal.requestPayload.ActOnUnReviewedBlogInDto;
 import com.blog.portal.requestPayload.UnReviewedBlogsInDto;
 import com.blog.portal.requestPayload.UpdateBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.ApprovedBlogsOutDto;
 import com.blog.portal.responsePayload.UserBlogsOutDto;
 import com.blog.portal.responsePayload.BlogOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.responsePayload.UnReviewedBlogsOutDto;
 import com.blog.portal.services.BlogService;
 import com.blog.portal.util.BlogConst;
@@ -33,21 +33,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import javax.validation.Valid;
 
 /**
- * Implementation of the BlogService interface responsible for Blog-related
- * operations.
- *
+ * Implementation of the BlogService interface responsible for Blog-related operations.
  * @author Ashutosh Tigga.
  */
 @Service
 public class BlogServiceImpl implements BlogService {
 
 	/**
-	 * Instance of PostRepo for performing operations on Blog related data in
-	 * database.
+	 * Instance of PostRepo for performing operations on Blog related data in database.
 	 */
 	@Autowired
 	private BlogRepository blogRepository;
@@ -59,37 +55,36 @@ public class BlogServiceImpl implements BlogService {
 
 	/**
 	 * Method that deal with creation of post API in database.
-	 *
-	 *	@param postBlogInDto
-	 *	@return response in the form of String and boolean field.
+	 * @param postBlogInDto
+	 * @return response in the form of String and boolean field.
 	 */
 	@Override
-	public ApiResponse createPost(@Valid final PostBlogInDto postBlogInDto) {
-		ApiResponse reponse = null;
-		User user = userRepository.findById(postBlogInDto.getUserId())
-				.orElseThrow(() -> new ResourceNotFoundException(UserConst.CLASS_NAME,
-						UserConst.FIELD_USER_ID,
-						postBlogInDto.getUserId()));
+	public ResponseOutDTO createPost(@Valid
+	final PostBlogInDto postBlogInDto) {
+		ResponseOutDTO reponse = null;
+		User user = userRepository.findById(postBlogInDto.getUserId()).orElseThrow(() ->
+		new ResourceNotFoundException(
+				UserConst.CLASS_NAME, UserConst.FIELD_USER_ID, postBlogInDto.getUserId()));
 		user.setPassword(null);
 		Blog blog = PostBlogMapper.inDtoToPost(postBlogInDto);
 		blog.setUser(user);
 		blog.setUserId(user.getId());
 		Blog savedBlog = blogRepository.save(blog);
 		if (Objects.isNull(savedBlog)) {
-			reponse = new ApiResponse(ResponseMessage.BLOG_POST_FAILED, false);
+			reponse = new ResponseOutDTO(ResponseMessage.BLOG_POST_FAILED, false);
 			return reponse;
 		}
-		reponse = new ApiResponse(ResponseMessage.BLOG_POST_SUCCESS, true);
+		reponse = new ResponseOutDTO(ResponseMessage.BLOG_POST_SUCCESS, true);
 		return reponse;
 	}
 
 	/**
 	 * Get All Posts by filtering by status = approved , title and techcategory.
-	 *
 	 * @param inDto
 	 * @return outDtoList collection of approved Blogs.
 	 */
-	public List<ApprovedBlogsOutDto> getApprovedBlog(@Valid final ApprovedBlogsInDto inDto) {
+	public List<ApprovedBlogsOutDto> getApprovedBlog(@Valid
+	final ApprovedBlogsInDto inDto) {
 		BlogStatus status = BlogStatus.APPROVED;
 		List<Blog> fetchedPost = new ArrayList<Blog>();
 		List<ApprovedBlogsOutDto> outDtoList = new ArrayList<ApprovedBlogsOutDto>();
@@ -104,7 +99,8 @@ public class BlogServiceImpl implements BlogService {
 		}
 		if (inDto.getTitle() != null && inDto.getTechCategory() != null) {
 			fetchedPost = blogRepository.findByTitleContainingIgnoreCaseAndStatusAndTechCategory(
-					inDto.getTitle(), status,
+					inDto.getTitle(),
+					status,
 					inDto.getTechCategory());
 		}
 		for (Blog p : fetchedPost) {
@@ -117,7 +113,6 @@ public class BlogServiceImpl implements BlogService {
 
 	/**
 	 * This method gets user post.
-	 *
 	 * @param inDto
 	 * @return outDtoList collection of user BLOGS.
 	 */
@@ -129,43 +124,34 @@ public class BlogServiceImpl implements BlogService {
 		}
 		if (inDto.getTitle() != null && inDto.getStatus() == null && inDto.getTechCategory() == null) {
 			fetchedPost = blogRepository.findByTitleContainingIgnoreCaseAndUserId(
-					inDto.getTitle(),
-					inDto.getUserId());
+					inDto.getTitle(), inDto.getUserId());
 		}
 		if (inDto.getTechCategory() != null && inDto.getStatus() == null && inDto.getTitle() == null) {
 			fetchedPost = blogRepository.findByTechCategoryAndUserId(
-					inDto.getTechCategory(),
-					inDto.getUserId());
+					inDto.getTechCategory(), inDto.getUserId());
 		}
 		if (inDto.getStatus() != null && inDto.getTechCategory() == null && inDto.getTitle() == null) {
-			fetchedPost = blogRepository.findByStatusAndUserId(
-					inDto.getStatus(),
-					inDto.getUserId());
+			fetchedPost = blogRepository.findByStatusAndUserId(inDto.getStatus(), inDto.getUserId());
 		}
 		if (inDto.getStatus() != null && inDto.getTechCategory() != null && inDto.getTitle() == null) {
 			fetchedPost = blogRepository.findByStatusAndTechCategoryAndUserId(
-					inDto.getStatus(),
-					inDto.getTechCategory(),
+					inDto.getStatus(), inDto.getTechCategory(),
 					inDto.getUserId());
 		}
 		if (inDto.getStatus() == null && inDto.getTechCategory() != null && inDto.getTitle() != null) {
 			fetchedPost = blogRepository.findByTechCategoryAndTitleContainingIgnoreCaseAndUserId(
 					inDto.getTechCategory(),
-					inDto.getTitle(),
-					inDto.getUserId());
+					inDto.getTitle(), inDto.getUserId());
 		}
 		if (inDto.getStatus() != null && inDto.getTechCategory() == null && inDto.getTitle() != null) {
 			fetchedPost = blogRepository.findByStatusAndTitleContainingIgnoreCaseAndUserId(
-					inDto.getStatus(),
-					inDto.getTitle(),
-					inDto.getUserId());
+					inDto.getStatus(), inDto
+					.getTitle(), inDto.getUserId());
 		}
 		if (inDto.getStatus() != null && inDto.getTechCategory() != null && inDto.getTitle() != null) {
 			fetchedPost = blogRepository.findByStatusAndTechCategoryAndTitleContainingIgnoreCaseAndUserId(
 					inDto.getStatus(),
-					inDto.getTechCategory(),
-					inDto.getTitle(),
-					inDto.getUserId());
+					inDto.getTechCategory(), inDto.getTitle(), inDto.getUserId());
 		}
 		List<UserBlogsOutDto> outDtoList = new ArrayList<UserBlogsOutDto>();
 		for (Blog p : fetchedPost) {
@@ -178,17 +164,14 @@ public class BlogServiceImpl implements BlogService {
 
 	/**
 	 * This method is for Edit existing Blog.
-	 *
 	 * @param inDto Dto Contains data that need for Update.
 	 * @return response in the form of String and boolean field.
 	 */
 	@Override
-	public ApiResponse editBlog(final UpdateBlogInDto inDto) {
-		ApiResponse response = new ApiResponse();
-		Blog fetchPost = blogRepository.findById(inDto.getId())
-				.orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-						BlogConst.FIELD_POST_ID,
-						inDto.getId()));
+	public ResponseOutDTO editBlog(final UpdateBlogInDto inDto) {
+		ResponseOutDTO response = new ResponseOutDTO();
+		Blog fetchPost = blogRepository.findById(inDto.getId()).orElseThrow(() -> new ResourceNotFoundException(
+				BlogConst.CLASS_NAME, BlogConst.FIELD_POST_ID, inDto.getId()));
 		fetchPost.setContent(inDto.getContent());
 		fetchPost.setTitle(inDto.getTitle());
 		fetchPost.setEditedAt(new Date());
@@ -206,22 +189,20 @@ public class BlogServiceImpl implements BlogService {
 
 	/**
 	 * This method for getting post by id.
-	 *
 	 * @param postId
-   * @return responseDto.
+	 * @return responseDto.
 	 */
 	@Override
 	public BlogOutDto getBlogById(final String postId) {
-		Blog blog = blogRepository.findById(postId)
-				.orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-						BlogConst.FIELD_POST_ID, postId));
+		Blog blog = blogRepository.findById(postId).orElseThrow(() ->
+		new ResourceNotFoundException(BlogConst.CLASS_NAME,
+				BlogConst.FIELD_POST_ID, postId));
 		BlogOutDto responseDto = FetchBlogMapper.entityToOutDto(blog);
 		return responseDto;
 	}
 
 	/**
 	 * This method for Fetching Collection of post which is not approved by ADMIN.
-	 *
 	 * @param inDto DTO contains fields.
 	 * @return Collection of BLOG which status is in Pending.
 	 */
@@ -235,19 +216,16 @@ public class BlogServiceImpl implements BlogService {
 		}
 		if (inDto.getTechnologyCategory() != null && inDto.getTitle() == null) {
 			fetchedListOfPost = blogRepository.findByTechCategoryAndStatus(
-					inDto.getTechnologyCategory(),
-					status);
+					inDto.getTechnologyCategory(), status);
 		}
 		if (inDto.getTitle() != null && inDto.getTechnologyCategory() == null) {
 			fetchedListOfPost = blogRepository.findByTitleContainingIgnoreCaseAndStatus(
-					inDto.getTitle(),
-					status);
+					inDto.getTitle(), status);
 		}
 		if (inDto.getTitle() != null && inDto.getTechnologyCategory() != null) {
 			fetchedListOfPost = blogRepository.findByTitleContainingIgnoreCaseAndStatusAndTechCategory(
 					inDto.getTitle(),
-					status,
-					inDto.getTechnologyCategory());
+					status, inDto.getTechnologyCategory());
 		}
 		for (Blog blog : fetchedListOfPost) {
 			responseDto.add(UnReviewedBlogMapper.entityToOutDto(blog));
@@ -257,17 +235,16 @@ public class BlogServiceImpl implements BlogService {
 
 	/**
 	 * This method is for ADMIN with response approve or reject on UNREVIEWED post.
-	 *
 	 * @param inDto
 	 * @return response from in the from of string.
 	 */
 	@Override
-	public ApiResponse actOnUnreviewedBlog(final ActOnUnReviewedBlogInDto inDto) {
-		ApiResponse response = new ApiResponse();
+	public ResponseOutDTO actOnUnreviewedBlog(final ActOnUnReviewedBlogInDto inDto) {
+		ResponseOutDTO response = new ResponseOutDTO();
 		BlogStatus status = inDto.getPostStatus();
-		Blog fetchedPost = blogRepository.findById(inDto.getPostId())
-				.orElseThrow(() -> new ResourceNotFoundException(BlogConst.CLASS_NAME,
-				BlogConst.FIELD_POST_ID, inDto.getPostId()));
+		Blog fetchedPost = blogRepository.findById(inDto.getPostId()).orElseThrow(() ->
+		new ResourceNotFoundException(
+				BlogConst.CLASS_NAME, BlogConst.FIELD_POST_ID, inDto.getPostId()));
 		if (fetchedPost.getStatus() == BlogStatus.PENDING) {
 			if (status == BlogStatus.APPROVED) {
 				fetchedPost.setStatus(BlogStatus.APPROVED);

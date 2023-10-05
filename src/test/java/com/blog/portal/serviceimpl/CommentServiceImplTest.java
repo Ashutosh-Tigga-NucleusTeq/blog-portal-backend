@@ -21,8 +21,8 @@ import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.repository.CommentRepository;
 import com.blog.portal.requestPayload.CommentOnBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
 import com.blog.portal.util.ResponseMessage;
 
@@ -66,7 +66,7 @@ public class CommentServiceImplTest {
         Comment mockComment = new Comment();
         when(commentRepository.save(any(Comment.class))).thenReturn(mockComment);
 
-        ApiResponse response = commentService.doCommentOnBlog(inDto);
+        ResponseOutDTO response = commentService.doCommentOnBlog(inDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());

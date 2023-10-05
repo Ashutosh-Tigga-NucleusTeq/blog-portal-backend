@@ -7,7 +7,6 @@ import com.blog.portal.enumResource.BlogStatus;
 /**
  * This class Represents a Request DTO contains postId, blogStatus for approving
  * or rejecting a BLOG post by ADMIN.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ActOnUnReviewedBlogInDto {
@@ -24,7 +23,6 @@ public class ActOnUnReviewedBlogInDto {
 
 	/**
 	 * Gets the ID of the post.
-	 *
 	 * @return The ID of the post.
 	 */
 	public String getPostId() {
@@ -33,7 +31,6 @@ public class ActOnUnReviewedBlogInDto {
 
 	/**
 	 * Sets the ID of the post.
-	 *
 	 * @param postId The ID of the post.
 	 */
 	public void setPostId(final String postId) {
@@ -42,7 +39,6 @@ public class ActOnUnReviewedBlogInDto {
 
 	/**
 	 * Gets the status of the post.
-	 *
 	 * @return The status of the post.
 	 */
 	public BlogStatus getPostStatus() {
@@ -51,7 +47,6 @@ public class ActOnUnReviewedBlogInDto {
 
 	/**
 	 * Sets the status of the post.
-	 *
 	 * @param newBlogStatus The status of the post.
 	 */
 	public void setPostStatus(final BlogStatus newBlogStatus) {
@@ -60,7 +55,6 @@ public class ActOnUnReviewedBlogInDto {
 
 	/**
 	 * Generates a string representation of the ActOnUnReviewedBlogInDto object.
-	 *
 	 * @return A string representation of the object.
 	 */
 	@Override
@@ -72,7 +66,6 @@ public class ActOnUnReviewedBlogInDto {
 	/**
 	 * Computes the hash code for the ActOnUnReviewedBlogInDto object based on its
 	 * attributes.
-	 *
 	 * @return The hash code value.
 	 */
 	@Override
@@ -83,7 +76,6 @@ public class ActOnUnReviewedBlogInDto {
 	/**
 	 * Compares this ActOnUnReviewedBlogInDto object to another object to determine if
 	 * they are equal.
-	 *
 	 * @param obj The object to compare with.
 	 * @return True if the objects are equal, false otherwise.
 	 */
@@ -113,7 +105,6 @@ public class ActOnUnReviewedBlogInDto {
 	/**
 	 * Initializes a new instance of the ActOnUnReviewedBlogInDto class with the
 	 * specified values.
-	 *
 	 * @param postId     The ID of the post.
 	 * @param blogStatus The status of the post.
 	 */

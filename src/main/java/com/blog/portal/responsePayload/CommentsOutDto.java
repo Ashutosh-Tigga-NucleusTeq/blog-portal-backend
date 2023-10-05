@@ -7,7 +7,6 @@ import com.blog.portal.entities.User;
 /**
  * This class Represents Response DTO that contains Information
  * Related to comment to show.
- *
  * @author [ Ashutosh Tigga]
  */
 public class CommentsOutDto {
@@ -39,7 +38,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets date and time of comment.
-	 *
 	 * @return commentedAt
 	 */
 	public Date getCommentedAt() {
@@ -48,7 +46,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets Date and Time of comment.
-	 *
 	 * @param commentedAt
 	 */
 	public void setCommentedAt(final Date commentedAt) {
@@ -57,7 +54,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets the data of the user.
-	 *
 	 * @return user
 	 */
 	public User getUser() {
@@ -66,7 +62,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets the data of the user.
-	 *
 	 * @param user
 	 */
 	public void setUser(final User user) {
@@ -80,7 +75,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets the id of the comment.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -89,7 +83,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets the id of the comment.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -98,7 +91,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets the content of the post.
-	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -107,7 +99,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets the content of the post.
-	 *
 	 * @param content
 	 */
 	public void setContent(final String content) {
@@ -116,7 +107,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -125,7 +115,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets the id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -134,7 +123,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Gets the id of the post.
-	 *
 	 * @return postId
 	 */
 	public String getPostId() {
@@ -143,7 +131,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -154,7 +141,6 @@ public class CommentsOutDto {
 	 * Generates a string representation of the CommentsOutDto object. This
 	 * method returns a formatted string containing information about the comment,
 	 * including its unique identifier, content, user ID, and associated post ID.
-	 *
 	 * @return A string representation of the object, including comment details.
 	 */
 	@Override
@@ -166,10 +152,9 @@ public class CommentsOutDto {
 	}
 
 	/**
-	 * Initializes a new instance of the {@code CommentsOutDto} class. This
+	 * Initializes a new instance of the CommentsOutDto class. This
 	 * constructor takes parameters to set the initial values of the comment
 	 * properties.
-	 *
 	 * @param id      The unique identifier of the comment.
 	 * @param content The content of the comment.
 	 * @param userId  The user ID of the commenter.
@@ -194,7 +179,6 @@ public class CommentsOutDto {
 
 	/**
 	 * Calculates the hash code for this comment object based on its properties.
-	 *
 	 * @return The hash code value.
 	 */
 	@Override
@@ -205,7 +189,6 @@ public class CommentsOutDto {
 	/**
 	 * Compares this comment object to another object to determine if they are
 	 * equal.
-	 *
 	 * @param obj The object to compare to.
 	 * @return {@code true} if the objects are equal; {@code false} otherwise.
 	 */

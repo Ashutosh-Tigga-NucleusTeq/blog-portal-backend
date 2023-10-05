@@ -4,17 +4,16 @@ import com.blog.portal.requestPayload.ApprovedBlogsInDto;
 import com.blog.portal.responsePayload.ApprovedBlogsOutDto;
 
 /**
- * The {@code ApprovedBlogMapper} class provides static methods for mapping
- * between Approved blog related DTOs and the Blog entity.
- *
+ * The ApprovedBlogMapper class provides static methods for mapping
+ * between Approved BLOG related DTOs and the BLOG entity.
  * @author Ashutosh Tigga
  */
 public class ApprovedBlogMapper {
 
 	/**
-	 * This method convert {@code ShowPostInDto} into {@code Blog}.
+	 * This method convert  ShowPostInDto into  Blog.
 	 * @param inDto
-	 * @return instance of Blog.
+	 * @return instance of BLOG.
 	 */
   public static Blog inDtoToPost(final ApprovedBlogsInDto inDto) {
   	Blog blog = new Blog();
@@ -24,7 +23,7 @@ public class ApprovedBlogMapper {
   }
 
   /**
-   * This method Converts {@code Blog} into {@code ShowPostOutDto}.
+   * This method Converts  Blog into  ShowPostOutDto.
    * @param blog
    * @return List<ShowPostOutDto>
    */

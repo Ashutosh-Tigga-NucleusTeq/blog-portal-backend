@@ -4,8 +4,8 @@ import com.blog.portal.enumResource.Designation;
 import com.blog.portal.enumResource.Gender;
 import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
 import com.blog.portal.util.RequestMappingConst;
 import com.blog.portal.util.ResponseMessage;
@@ -53,7 +53,7 @@ public class UserControllerTest {
 		userDto.setPassword("password");
 		userDto.setDesignation(Designation.INTERN);
 
-		ApiResponse expectedApiResponse = new ApiResponse(ResponseMessage.USER_REGISTER_SUCCESS, true);
+		ResponseOutDTO expectedApiResponse = new ResponseOutDTO(ResponseMessage.USER_REGISTER_SUCCESS, true);
 
 		when(userService.createUser(any(RegisterUserInDto.class))).thenReturn(expectedApiResponse);
 

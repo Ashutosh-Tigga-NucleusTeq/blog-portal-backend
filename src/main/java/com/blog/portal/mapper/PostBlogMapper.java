@@ -4,18 +4,16 @@ import com.blog.portal.entities.Blog;
 import com.blog.portal.requestPayload.PostBlogInDto;
 
 /**
- * The {@code PostMapper} class provides static methods for mapping
+ * The PostMapper class provides static methods for mapping
  * between DTOs and the Blog entity.
- *
  * @author Ashutosh Tigga
  */
 public class PostBlogMapper {
 
     /**
-     * Converts a {@link PostBlogInDto} to a {@link Blog}.
-     *
+     * Converts a PostBlogInDto to a Blog.
      * @param inDto The input DTO containing post data.
-     * @return A {@link Blog} object with the data from the input DTO.
+     * @return A Blog object with the data from the input DTO.
      */
     public static Blog inDtoToPost(final PostBlogInDto inDto) {
     	Blog blog = new Blog();

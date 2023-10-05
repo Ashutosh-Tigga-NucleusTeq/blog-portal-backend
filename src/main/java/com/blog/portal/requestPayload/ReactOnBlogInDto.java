@@ -7,7 +7,6 @@ import com.blog.portal.enumResource.React;
 /**
  * This class Represents Request DTO contains postId, userId and reaction type
  * of post for performing like or dislike operation on specific post.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ReactOnBlogInDto {
@@ -30,7 +29,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Parameterized constructor.
-	 *
 	 * @param newUserId
 	 * @param newPostId
 	 * @param newReaction
@@ -49,7 +47,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Gets id of the post.
-	 *
 	 * @return postId.
 	 */
 	public String getPostId() {
@@ -58,7 +55,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Sets id of the post.
-	 *
 	 * @param postId
 	 */
 	public void setPostId(final String postId) {
@@ -67,7 +63,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Gets id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -76,7 +71,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Sets id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -85,7 +79,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Gets type of the user.
-	 *
 	 * @return type
 	 */
 	public React getType() {
@@ -94,7 +87,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Sets type of the user.
-	 *
 	 * @param type
 	 */
 	public void setType(final React type) {
@@ -103,7 +95,6 @@ public class ReactOnBlogInDto {
 
 	/**
 	 * Generates a string representation of the LikeOrDislikePostInDto object.
-	 *
 	 * @return A string containing information about the post ID, user ID, and
 	 *         action type.
 	 */
@@ -115,7 +106,6 @@ public class ReactOnBlogInDto {
 	/**
 	 * Calculates the hash code for the LikeOrDislikePostInDto object based on its
 	 * properties.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -127,7 +117,6 @@ public class ReactOnBlogInDto {
 	 * Compares this LikeOrDislikePostInDto object with another object to determine
 	 * if they are equal. Two LikeOrDislikePostInDto objects are considered equal if
 	 * their post ID, user ID, and action type are the same.
-	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal; false otherwise.
 	 */

@@ -5,14 +5,13 @@ import com.blog.portal.requestPayload.UserBlogsInDto;
 import com.blog.portal.responsePayload.UserBlogsOutDto;
 
 /**
- * The {@code UserBlogMapper} class provides static methods for mapping
+ * The UserBlogMapper class provides static methods for mapping
  * between DTOs and the Blog entity.
- *
  * @author Ashutosh Tigga
  */
 public class UserBlogMapper {
 	/**
-	 *This methods convert {@code UserPostInDto} into {@code Blog}.
+	 * This methods convert  UserPostInDto into  Blog.
 	 * @param inDto
 	 * @return post
 	 */
@@ -26,7 +25,7 @@ public class UserBlogMapper {
 	}
 
 	/**
-	 * This method converts {@code post} into {@code UserPostOutDto}.
+	 * This method converts Blog into UserPostOutDto.
 	 * @param blog
 	 * @return outDto
 	 */

@@ -5,18 +5,16 @@ import com.blog.portal.entities.User;
 import com.blog.portal.requestPayload.RegisterUserInDto;
 
 /**
- * The {@code RegisterUserMapper} class provides static methods for mapping
+ * This class provides static methods for mapping
  * between DTOs and the User entity for user registration.
- *
  * @author Ashutosh Tigga
  */
 public class RegisterUserMapper {
 
     /**
-     * Converts a {@link RegisterUserInDto} to a {@link User}.
-     *
+     * Converts a RegisterUserInDto to a User.
      * @param inDto The input DTO containing user registration data.
-     * @return A {@link User} object with the data from the input DTO.
+     * @return A User object with the data from the input DTO.
      */
     public static User inDtoToUser(final RegisterUserInDto inDto) {
         return new User(
@@ -32,7 +30,6 @@ public class RegisterUserMapper {
 
     /**
      * Capitalizes the first letter of a string and makes the rest of the string lowercase.
-     *
      * @param input The input string.
      * @return The input string with the first letter capitalized and the rest lowercase.
      */

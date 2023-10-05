@@ -11,7 +11,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
 /**
  * This class represents a User Blog Response DTO. It contains information about
  * a user's post information.
- *
  * @author [ Ashutosh Tigga]
  */
 public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
@@ -65,12 +64,10 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 	/**
 	 * Sets of user who reported Blog.
 	 */
-
 	private Set<String> reportedBy = new HashSet<String>();
 
 	/**
 	 * Parameterized Constructor.
-	 *
 	 * @param id
 	 * @param title
 	 * @param status
@@ -115,7 +112,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets the Collection of user who reported post.
-	 *
 	 * @return reportedBy
 	 */
 	public Set<String> getReportedBy() {
@@ -124,7 +120,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the Collection of user who reportedPost.
-	 *
 	 * @param reportedBy
 	 */
 	public void setReportedBy(final Set<String> reportedBy) {
@@ -133,7 +128,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets the list of comments.
-	 *
 	 * @return comments
 	 */
 	public List<String> getCommentBy() {
@@ -142,7 +136,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the list of comments.
-	 *
 	 * @param commentBy
 	 */
 	public void setCommentBy(final List<String> commentBy) {
@@ -151,7 +144,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets the user who liked post.
-	 *
 	 * @return likedBy
 	 */
 	public Set<String> getLikedBy() {
@@ -160,7 +152,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the user who liked post.
-	 *
 	 * @param likedBy
 	 */
 	public void setLikedBy(final Set<String> likedBy) {
@@ -169,7 +160,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets the user who disliked post.
-	 *
 	 * @return disLikedBy
 	 */
 	public Set<String> getDisLikedBy() {
@@ -178,7 +168,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the user who disliked post.
-	 *
 	 * @param disLikedBy
 	 */
 	public void setDisLikedBy(final Set<String> disLikedBy) {
@@ -187,7 +176,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets the id of the post.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -196,7 +184,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -205,7 +192,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Gets Description of post.
-	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -214,7 +200,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Sets the content of the post.
-	 *
 	 * @param content
 	 */
 	public void setContent(final String content) {
@@ -223,7 +208,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Get the title of the post.
-	 *
 	 * @return The title of the post.
 	 */
 	public String getTitle() {
@@ -232,7 +216,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Set the title of the post.
-	 *
 	 * @param title The title of the post.
 	 */
 	public void setTitle(final String title) {
@@ -241,7 +224,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Get the status of the post.
-	 *
 	 * @return The status of the post.
 	 */
 	public BlogStatus getStatus() {
@@ -250,7 +232,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Set the status of the post.
-	 *
 	 * @param status The status of the post.
 	 */
 	public void setStatus(final BlogStatus status) {
@@ -259,7 +240,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Get the technology category of the post.
-	 *
 	 * @return The technology category of the post.
 	 */
 	public TechnologyCategory getTechnology() {
@@ -268,7 +248,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Set the technology category of the post.
-	 *
 	 * @param technology The technology category of the post.
 	 */
 	public void setTechnology(final TechnologyCategory technology) {
@@ -277,7 +256,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Get the date and time when the post was created.
-	 *
 	 * @return The date and time when the post was created.
 	 */
 	public Date getCreatedAt() {
@@ -286,7 +264,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Set the date and time when the post was created.
-	 *
 	 * @param createdAt The date and time when the post was created.
 	 */
 	public void setCreatedAt(final Date createdAt) {
@@ -295,7 +272,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Get the date and time when the post was last edited.
-	 *
 	 * @return The date and time when the post was last edited.
 	 */
 	public Date getEditedAt() {
@@ -304,7 +280,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 
 	/**
 	 * Set the date and time when the post was last edited.
-	 *
 	 * @param editedAt The date and time when the post was last edited.
 	 */
 	public void setEditedAt(final Date editedAt) {
@@ -344,7 +319,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 	 * fields. This method combines the hash codes of various properties, including
 	 * comments, content, createdAt, disLikedBy, editedAt, id, likedBy, status,
 	 * technology, and title.
-	 *
 	 * @return The computed hash code value.
 	 */
 	@Override
@@ -357,7 +331,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 	 * equality. It checks if the two objects are of the same class and then
 	 * compares their properties, including comments, content, createdAt,
 	 * disLikedBy, editedAt, id, likedBy, status, technology, and title.
-	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */
@@ -390,7 +363,6 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 	 * UserBlogsOutDto object. The string includes details about the object's
 	 * fields, such as id, title, status, content, technology, createdAt, editedAt,
 	 * likedBy, disLikedBy, and comments.
-	 *
 	 * @return A string representation of the object.
 	 */
 	@Override

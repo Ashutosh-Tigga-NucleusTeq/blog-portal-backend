@@ -6,7 +6,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
  * This class Represents Request DTO and it's contains some field's like post's
  * title, technology category by using this one's can perform filtering
  * operation on the post which status is Pending.
- *
  * @author Ashutosh Tigga
  */
 public class UnReviewedBlogsInDto {
@@ -22,7 +21,6 @@ public class UnReviewedBlogsInDto {
 
 	/**
 	 * Gets the Category of Technology.
-	 *
 	 * @return technologyCategory
 	 */
 	public TechnologyCategory getTechnologyCategory() {
@@ -31,7 +29,6 @@ public class UnReviewedBlogsInDto {
 
 	/**
 	 * Sets the category of the Technology.
-	 *
 	 * @param technologyCategory
 	 */
 	public void setTechnologyCategory(final TechnologyCategory technologyCategory) {
@@ -40,7 +37,6 @@ public class UnReviewedBlogsInDto {
 
 	/**
 	 * Gets the title.
-	 *
 	 * @return title
 	 */
 	public String getTitle() {
@@ -49,7 +45,6 @@ public class UnReviewedBlogsInDto {
 
 	/**
 	 * Sets the title.
-	 *
 	 * @param title
 	 */
 	public void setTitle(final String title) {

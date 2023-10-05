@@ -6,7 +6,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
 /**
  * This class Represents Response Dto that contains
  * the information of post any particluar select BLOG post.
- *
  * @author [ Ashutosh Tigga]
  */
 public class BlogOutDto {
@@ -32,7 +31,6 @@ public class BlogOutDto {
 
 	/**
 	 * Gets the id of the post.
-	 *
 	 * @return id
 	 */
 	public String getId() {
@@ -41,7 +39,6 @@ public class BlogOutDto {
 
 	/**
 	 * Sets the id of the post.
-	 *
 	 * @param id
 	 */
 	public void setId(final String id) {
@@ -50,7 +47,6 @@ public class BlogOutDto {
 
 	/**
 	 * Gets the title of the post.
-	 *
 	 * @return title
 	 */
 	public String getTitle() {
@@ -59,7 +55,6 @@ public class BlogOutDto {
 
 	/**
 	 * Sets the title of the post.
-	 *
 	 * @param title
 	 */
 	public void setTitle(final String title) {
@@ -68,7 +63,6 @@ public class BlogOutDto {
 
 	/**
 	 * Gets the content of the post.
-	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -77,7 +71,6 @@ public class BlogOutDto {
 
 	/**
 	 * Sets the content of the post.
-	 *
 	 * @param content
 	 */
 	public void setContent(final String content) {
@@ -86,7 +79,6 @@ public class BlogOutDto {
 
 	/**
 	 * Gets the technology category.
-	 *
 	 * @return techCategory
 	 */
 	public TechnologyCategory getTechCategory() {
@@ -95,7 +87,6 @@ public class BlogOutDto {
 
 	/**
 	 * Sets the Technology CAtegory.
-	 *
 	 * @param techCategory
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -106,7 +97,6 @@ public class BlogOutDto {
 	 * Generates a human-readable string representation of the BlogOutDto object.
 	 * The string includes details about the object's fields, such as id, title,
 	 * content, and techCategory.
-	 *
 	 * @return A string representation of the object.
 	 */
 	@Override
@@ -122,7 +112,6 @@ public class BlogOutDto {
 	 * Calculates the hash code for the BlogOutDto object. This method combines
 	 * the hash codes of various properties, including content, id, techCategory,
 	 * and title.
-	 *
 	 * @return The computed hash code value.
 	 */
 	@Override
@@ -134,7 +123,6 @@ public class BlogOutDto {
 	 * Compares this BlogOutDto object to another object for equality. It checks
 	 * if the two objects are of the same class and then compares their properties,
 	 * including content, id, techCategory, and title.
-	 *
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */

@@ -9,7 +9,6 @@ import com.blog.portal.enumResource.ReportedBlogAction;
 /**
  * This class Represents a Request DTO that contains postId and reportedBlogAction
  * for taking action on a reported BLOG post.
- *
  * @author [ Ashutosh Tigga]
  */
 public class ActOnReportedBlogInDto {
@@ -27,7 +26,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Gets the postId of the ReportedBlog.
-     *
      * @return The postId of the reported post.
      */
     public String getPostId() {
@@ -36,7 +34,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Sets the postId of the ReportedBlog.
-     *
      * @param newPostId The postId of the reported post.
      */
     public void setPostId(final String newPostId) {
@@ -45,7 +42,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Gets the action to be taken by an admin on the reported blog post.
-     *
      * @return The action to be taken by an admin.
      */
     public ReportedBlogAction getAdminAction() {
@@ -54,7 +50,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Sets the action to be taken by an admin on the reported blog post.
-     *
      * @param newReportedBlogAction The action to be taken by an admin.
      */
     public void setAdminAction(final ReportedBlogAction newReportedBlogAction) {
@@ -63,7 +58,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Constructor to initialize the ActOnReportedBlogInDto.
-     *
      * @param postId The postId of the reported post.
      * @param reportedBlogAction The action to be taken by an admin.
      */
@@ -75,7 +69,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Returns a string representation of the ActOnReportedBlogInDto.
-     *
      * @return A string representation of the object.
      */
     @Override
@@ -86,7 +79,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Computes the hash code for the ActOnReportedBlogInDto object.
-     *
      * @return The hash code value.
      */
     @Override
@@ -96,7 +88,6 @@ public class ActOnReportedBlogInDto {
 
     /**
      * Checks if this ActOnReportedBlogInDto object is equal to another object.
-     *
      * @param obj The object to compare with.
      * @return True if the objects are equal, false otherwise.
      */

@@ -2,10 +2,8 @@ package com.blog.portal.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.blog.portal.entities.Comment;
 import com.blog.portal.entities.Blog;
 import com.blog.portal.entities.User;
@@ -15,8 +13,8 @@ import com.blog.portal.repository.BlogRepository;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.repository.CommentRepository;
 import com.blog.portal.requestPayload.CommentOnBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
 import com.blog.portal.util.BlogConst;
 import com.blog.portal.util.ResponseMessage;
@@ -25,7 +23,6 @@ import com.blog.portal.util.UserConst;
 /**
  * Implementation of the UserService interface responsible for Comment-related
  * operations.
- *
  * @author Ashutosh Tigga.
  */
 @Service
@@ -55,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 	 * @return outDto
 	 */
 	@Override
-	public ApiResponse doCommentOnBlog(final CommentOnBlogInDto inDto) {
+	public ResponseOutDTO doCommentOnBlog(final CommentOnBlogInDto inDto) {
 		User fetchedUser = userRepository.findById(inDto.getUserId()).orElseThrow(() ->
 			new ResourceNotFoundException(UserConst.CLASS_NAME, UserConst.FIELD_USER_ID, inDto.getUserId()));
 		Blog fetchedPost = blogRepository.findById(inDto.getPostId()).orElseThrow(() ->
@@ -65,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
 		fetchedUser.setPassword(null);
 		Comment comment = CommentBlogMapper.inDtoToEntity(inDto);
 		comment.setUser(fetchedUser);
-		ApiResponse response = new ApiResponse();
+		ResponseOutDTO response = new ResponseOutDTO();
 		commentRepository.save(comment);
 		response.setMessage(ResponseMessage.COMMENT_ON_BLOG_SUCCESS);
 		response.setSuccess(true);

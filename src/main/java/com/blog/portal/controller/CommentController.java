@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.blog.portal.requestPayload.CommentOnBlogInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.CommentsOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.CommentService;
 import com.blog.portal.util.RequestMappingConst;
 
 /**
- * The {@code CommentController} class handles HTTP requests related to COMMENT of  posts.
+ * This class handles HTTP requests related to COMMENT of  posts.
  * It provides API end-points for creating COMMENTS.
- *
  * @author [Ashutosh Tigga]
  */
 @RestController
@@ -43,21 +42,19 @@ public class CommentController {
 
 	/**
 	 * API end-point to perform Comment Functionality on BLOG.
-	 *
 	 * @param inDto
 	 * @return ResponseEntity<CommentOutDto>
 	 */
 	@PostMapping("/")
-	public ResponseEntity<ApiResponse> doComment(@RequestBody final CommentOnBlogInDto inDto) {
+	public ResponseEntity<ResponseOutDTO> doComment(@RequestBody final CommentOnBlogInDto inDto) {
 		LOGGER.info(" do comment controller called with inDto [" + inDto + "]");
-		ApiResponse response = commentService.doCommentOnBlog(inDto);
+		ResponseOutDTO response = commentService.doCommentOnBlog(inDto);
 		LOGGER.info("Fetcing response from doCommentOnPost service [" + response + "]");
-		return new ResponseEntity<ApiResponse>(response, HttpStatus.CREATED);
+		return new ResponseEntity<ResponseOutDTO>(response, HttpStatus.CREATED);
 	}
 
 	/**
 	 * API end-point for fetching all the comments commented on Blog.
-	 *
 	 * @param postId
 	 * @return ResponseEntity
 	 */

@@ -8,7 +8,6 @@ import com.blog.portal.enumResource.TechnologyCategory;
 /**
  * This class Represents Request DTO contains fields title technology category and
  * status of post and based on this it will filter the user's post.
- *
  * @author [ Ashutosh Tigga]
  */
 public class UserBlogsInDto {
@@ -36,7 +35,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @return userId
 	 */
 	public String getUserId() {
@@ -45,7 +43,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Gets the id of the user.
-	 *
 	 * @param userId
 	 */
 	public void setUserId(final String userId) {
@@ -54,7 +51,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Gets the title of the post.
-	 *
 	 * @return title
 	 */
 	public String getTitle() {
@@ -63,7 +59,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Sets the title of the post.
-	 *
 	 * @param title
 	 */
 	public void setTitle(final String title) {
@@ -72,7 +67,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Gets technology.
-	 *
 	 * @return techCategory
 	 */
 	public TechnologyCategory getTechCategory() {
@@ -81,7 +75,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * set Technology.
-	 *
 	 * @param techCategory
 	 */
 	public void setTechCategory(final TechnologyCategory techCategory) {
@@ -90,7 +83,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Gets status of the post.
-	 *
 	 * @return status
 	 */
 	public BlogStatus getStatus() {
@@ -99,7 +91,6 @@ public class UserBlogsInDto {
 
 	/**
 	 * Sets the status of post.
-	 *
 	 * @param status
 	 */
 	public void setStatus(final BlogStatus status) {
@@ -107,9 +98,8 @@ public class UserBlogsInDto {
 	}
 
 	/**
-	 * Generates a hash code for this {@code UserBlogsInDto} object based on
+	 * Generates a hash code for this UserBlogsInDto object based on
 	 * its status, techCategory, title, and userId.
-	 *
 	 * @return The generated hash code.
 	 */
 	@Override
@@ -118,11 +108,10 @@ public class UserBlogsInDto {
 	}
 
 	/**
-	 * Compares this {@code UserBlogsInDto} object with another object to
-	 * determine if they are equal. Two {@code UserBlogsInDto} objects are
+	 * Compares this UserBlogsInDto object with another object to
+	 * determine if they are equal. Two UserBlogsInDto objects are
 	 * considered equal if their status, techCategory, title, and userId are the
 	 * same.
-	 *
 	 * @param obj The object to compare with.
 	 * @return {@code true} if the objects are equal; {@code false} otherwise.
 	 */
@@ -140,10 +129,9 @@ public class UserBlogsInDto {
 	}
 
 	/**
-	 * Generates a string representation of this {@code UserBlogsInDto}
+	 * Generates a string representation of this UserBlogsInDto
 	 * object.
-	 *
-	 * @return The string representation of the {@code UserBlogsInDto}
+	 * @return The string representation of the UserBlogsInDto
 	 * object.
 	 */
 	@Override

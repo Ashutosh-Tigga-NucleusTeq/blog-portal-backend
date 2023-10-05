@@ -9,8 +9,8 @@ import com.blog.portal.mapper.RegisterUserMapper;
 import com.blog.portal.repository.UserRepository;
 import com.blog.portal.requestPayload.AuthenticateUserInDto;
 import com.blog.portal.requestPayload.RegisterUserInDto;
-import com.blog.portal.responseMessage.ApiResponse;
 import com.blog.portal.responsePayload.AuthenticateUserOutDto;
+import com.blog.portal.responsePayload.ResponseOutDTO;
 import com.blog.portal.services.UserService;
 import com.blog.portal.util.ResponseMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,14 +43,14 @@ public class UserServiceImplTest {
         RegisterUserInDto userDto = new RegisterUserInDto();
         userDto.setFirstName("firstname");
         userDto.setLastName("lastname");
-        userDto.setEmail("firstname.lastname@example.com");
+        userDto.setEmail("test@nucleusteq.com");
 
         User user = RegisterUserMapper.inDtoToUser(userDto);
 
         when(userRepo.findByEmail(user.getEmail())).thenReturn(Optional.empty());
         when(userRepo.save(any(User.class))).thenReturn(user);
 
-        ApiResponse response = userService.createUser(userDto);
+        ResponseOutDTO response = userService.createUser(userDto);
 
         assertNotNull(response);
         assertTrue(response.isSuccess());
@@ -62,7 +62,7 @@ public class UserServiceImplTest {
         RegisterUserInDto userDto = new RegisterUserInDto();
         userDto.setFirstName("firstname");
         userDto.setLastName("lastname");
-        userDto.setEmail("firstname.lastname@example.com");
+        userDto.setEmail("test@nucleusteq.com");
 
         User user = RegisterUserMapper.inDtoToUser(userDto);
 
@@ -74,25 +74,24 @@ public class UserServiceImplTest {
     @Test
     public void testAuthenticateUser_Success() {
         AuthenticateUserInDto authDto = new AuthenticateUserInDto();
-        authDto.setEmail("firstname.lastname@example.com");
-        authDto.setPassword("password123");
+        authDto.setEmail("test@nucleusteq.com");
+        authDto.setPassword("Ashu@1234");
 
         User user = new User();
         user.setEmail(authDto.getEmail());
         user.setPassword(authDto.getPassword());
 
         when(userRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.of(user));
-
+        
         AuthenticateUserOutDto outDto = userService.authenticateUser(authDto);
 
-        assertNotNull(outDto);
         assertEquals(authDto.getEmail(), outDto.getEmail());
     }
 
     @Test
     public void testAuthenticateUser_UserNotFound() {
         AuthenticateUserInDto authDto = new AuthenticateUserInDto();
-        authDto.setEmail("firstname.lastname@example.com");
+        authDto.setEmail("test@nucleusteq.com");
         authDto.setPassword("password123");
 
         when(userRepo.findByEmail(authDto.getEmail())).thenReturn(Optional.empty());
