@@ -102,7 +102,7 @@ public class BlogServiceImpl implements BlogService {
 					status,
 					inDto.getTechCategory());
 		}
-		if (Objects.isNull(fetchedPost)) {
+		if (fetchedPost.isEmpty()) {
 			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
 		}
 		for (Blog p : fetchedPost) {
@@ -155,7 +155,7 @@ public class BlogServiceImpl implements BlogService {
 					inDto.getStatus(),
 					inDto.getTechCategory(), inDto.getTitle(), inDto.getUserId());
 		}
-		if (Objects.isNull(fetchedPost)) {
+		if (fetchedPost.isEmpty()) {
 			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
 		}
 		List<UserBlogsOutDto> outDtoList = new ArrayList<UserBlogsOutDto>();
@@ -232,7 +232,7 @@ public class BlogServiceImpl implements BlogService {
 					inDto.getTitle(),
 					status, inDto.getTechnologyCategory());
 		}
-		if (Objects.isNull(fetchedListOfPost)) {
+		if (fetchedListOfPost.isEmpty()) {
 			throw new EmptyDataException(ErrorConstants.EMPTY_BLOG);
 		}
 		for (Blog blog : fetchedListOfPost) {

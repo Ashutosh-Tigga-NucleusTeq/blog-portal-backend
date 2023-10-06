@@ -109,7 +109,7 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * Exeption Handler for EmptyDataException.
+	 * Exception Handler for EmptyDataException.
 	 * @param ex The Exception of Type EmptyDataException.
 	 * @return A ResponseEntity containing an ResponseOutDto with error message.
 	 */
@@ -117,7 +117,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ResponseOutDTO> handleEmptyDataException(final EmptyDataException ex) {
 		String message = ex.getMessage();
 		ResponseOutDTO responseOutDTO = new ResponseOutDTO(message, false);
-		return new ResponseEntity<ResponseOutDTO>(responseOutDTO, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(responseOutDTO, HttpStatus.NO_CONTENT);
 	}
 
 

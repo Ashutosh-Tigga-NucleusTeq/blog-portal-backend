@@ -7,7 +7,12 @@ package com.blog.portal.exception;
  */
 public class EmptyDataException extends RuntimeException {
 	/**
-	 * Parameterized Constructor for initialization of Object.
+	 *  The serial version UID for serialization and Deserialization.
+	 */
+	private static final long serialVersionUID = 6302141886898367322L;
+
+	/**
+	 * Parameterized Constructor for sending parameter to super class.
 	 * @param message
 	 */
 	public EmptyDataException(final String message) {

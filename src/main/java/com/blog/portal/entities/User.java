@@ -324,7 +324,8 @@ public final class User {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(contactNumber, designation, email, firstName, gender, id, lastName, password, blogs, role);
+		return Objects.hash(contactNumber, designation, email,
+				firstName, gender, id, lastName, password, blogs, role);
 	}
 
 	/**

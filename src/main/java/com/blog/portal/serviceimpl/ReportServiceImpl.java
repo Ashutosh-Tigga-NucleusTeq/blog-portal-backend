@@ -179,6 +179,9 @@ public class ReportServiceImpl implements ReportService {
 		for (ReportedBlog reportPost : fetchReportedPost) {
 			listOfMessage.add(reportPost.getReportReason());
 		}
+		if (listOfMessage.isEmpty()) {
+			throw new EmptyDataException(ErrorConstants.EMPTY_REPORT_REASON);
+		}
 		responseDto.setReasons(listOfMessage);
 		return responseDto;
 	}

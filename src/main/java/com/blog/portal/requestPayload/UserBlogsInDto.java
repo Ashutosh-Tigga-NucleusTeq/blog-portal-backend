@@ -124,7 +124,8 @@ public class UserBlogsInDto {
 			return false;
 		}
 		UserBlogsInDto other = (UserBlogsInDto) obj;
-		return status == other.status && techCategory == other.techCategory && Objects.equals(title, other.title)
+		return status == other.status && techCategory == other.techCategory
+				&& Objects.equals(title, other.title)
 				&& Objects.equals(userId, other.userId);
 	}
 

@@ -323,7 +323,8 @@ public class UserBlogsOutDto implements Comparable<UserBlogsOutDto> {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(commentBy, content, createdAt, disLikedBy, editedAt, id, likedBy, status, technology, title);
+		return Objects.hash(commentBy, content, createdAt, disLikedBy,
+				editedAt, id, likedBy, status, technology, title);
 	}
 
 	/**

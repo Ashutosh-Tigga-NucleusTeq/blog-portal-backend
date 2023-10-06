@@ -169,7 +169,8 @@ public class ReportedBlogsOutDto {
 	 * @param postId
 	 * @param reportReason
 	 */
-	public ReportedBlogsOutDto(final String id, final String userId, final String postId, final List<String> reportReason) {
+	public ReportedBlogsOutDto(final String id, final String userId,
+			final String postId, final List<String> reportReason) {
 		super();
 		this.id = id;
 		this.userId = userId;

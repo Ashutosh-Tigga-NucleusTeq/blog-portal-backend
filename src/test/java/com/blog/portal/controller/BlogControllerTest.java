@@ -42,20 +42,18 @@ public class BlogControllerTest {
 	}
 
 	@Test
-	public void testCreateBlogPost() throws Exception {
+	public void testPostBlog() throws Exception {
 		PostBlogInDto postBlogInDto = new PostBlogInDto();
-		postBlogInDto.setTitle("Test Title");
+		postBlogInDto.setTitle("This is title of Java");
 		postBlogInDto.setContent("Test Content");
 		postBlogInDto.setCreatedAt(new Date(12));
 		postBlogInDto.setUserID("userid");
 		postBlogInDto.setTechCategory(TechnologyCategory.JAVA);
 		ResponseOutDTO response = new ResponseOutDTO(ResponseMessageConstants.BLOG_POST_SUCCESS, true);
 		when(blogService.createPost(postBlogInDto)).thenReturn(response);
-		mockMvc
-				.perform(post(RestPathConstants.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
-						.content(asJsonString(postBlogInDto)));
-
-		}
+		mockMvc.perform(post(RestPathConstants.BLOG_URL + "/").contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(postBlogInDto)));
+	}
 
 	@Test
 	public void testGetPostById() throws Exception {
@@ -66,8 +64,7 @@ public class BlogControllerTest {
 		response.setTechCategory(TechnologyCategory.JAVA);
 
 		when(blogService.getBlogById(POST_ID)).thenReturn(response);
-		mockMvc.perform(get(RestPathConstants.BLOG_URL + "/{post_id}", POST_ID))
-				.andExpect(status().isOk())
+		mockMvc.perform(get(RestPathConstants.BLOG_URL + "/{post_id}", POST_ID)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(POST_ID)).andExpect(jsonPath("$.title").value("Test Title"))
 				.andExpect(jsonPath("$.content").value("Test Content")).andExpect(jsonPath("$.techCategory").value("JAVA"));
 
@@ -109,10 +106,9 @@ public class BlogControllerTest {
 
 		when(blogService.getApprovedBlog(filterDto)).thenReturn(responseList);
 
-		
-		  mockMvc .perform(post(RestPathConstants.BLOG_URL+"/all/approved/blogs")
-		  .contentType(MediaType.APPLICATION_JSON) .content(asJsonString(filterDto)));
-		 
+		mockMvc.perform(post(RestPathConstants.BLOG_URL + "/all/approved/blogs").contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(filterDto)));
+
 	}
 
 	@Test
@@ -153,12 +149,9 @@ public class BlogControllerTest {
 
 		when(blogService.getUnreviewedBlogs(unReviewedBlogsInDto)).thenReturn(responseList);
 
-		
-		  mockMvc .perform(
-		  post(RestPathConstants.BLOG_URL+"/all/unreviewed/blogs").contentType(MediaType.APPLICATION_JSON).content(
-		  asJsonString(unReviewedBlogsInDto)));
-		  
-		 
+		mockMvc.perform(post(RestPathConstants.BLOG_URL + "/all/unreviewed/blogs").contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(unReviewedBlogsInDto)));
+
 	}
 
 	@Test
@@ -169,16 +162,15 @@ public class BlogControllerTest {
 		ResponseOutDTO response = new ResponseOutDTO(ResponseMessageConstants.UNREVIEW_BLOG_APPROVED, true);
 		when(blogService.actOnUnreviewedBlog(actOnUnReviewedBlogInDto)).thenReturn(response);
 
-		
-		  mockMvc
-		  .perform(put(RestPathConstants.BLOG_URL+"/action/unreview/blog").contentType(MediaType.APPLICATION_JSON)
-		  .content(asJsonString(actOnUnReviewedBlogInDto)))
-		  .andExpect(status().isOk()).andExpect(jsonPath("$.message").value(
-		  ResponseMessageConstants.UNREVIEW_BLOG_APPROVED))
-		  .andExpect(jsonPath("$.success").value(true));
-		  
-		  verify(blogService,times(1)).actOnUnreviewedBlog(actOnUnReviewedBlogInDto);
-		  }
+		mockMvc
+				.perform(put(RestPathConstants.BLOG_URL + "/action/unreview/blog").contentType(MediaType.APPLICATION_JSON)
+						.content(asJsonString(actOnUnReviewedBlogInDto)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.message").value(ResponseMessageConstants.UNREVIEW_BLOG_APPROVED))
+				.andExpect(jsonPath("$.success").value(true));
+
+		verify(blogService, times(1)).actOnUnreviewedBlog(actOnUnReviewedBlogInDto);
+	}
 
 	private String asJsonString(final Object obj) {
 		try {

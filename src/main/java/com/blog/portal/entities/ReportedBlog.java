@@ -176,7 +176,8 @@ public class ReportedBlog {
 		}
 		ReportedBlog other = (ReportedBlog) obj;
 		return Objects.equals(id, other.id) && Objects.equals(postId, other.postId)
-				&& Objects.equals(reportReason, other.reportReason) && Objects.equals(userId, other.userId);
+				&& Objects.equals(reportReason, other.reportReason)
+				&& Objects.equals(userId, other.userId);
 	}
 
 	/**

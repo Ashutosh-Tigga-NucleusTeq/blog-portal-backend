@@ -2,8 +2,6 @@ package com.blog.portal.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.portal.entities.Comment;
@@ -86,7 +84,7 @@ public class CommentServiceImpl implements CommentService {
 		for (Comment comment : listOfComment) {
 			listOutDto.add(CommentBlogMapper.entityToOutDto(comment));
 		}
-		if (Objects.isNull(listOutDto)) {
+		if (listOutDto.isEmpty()) {
 			throw new EmptyDataException(ErrorConstants.EMPTY_COMMENT);
 		}
 		return listOutDto;

@@ -27,7 +27,8 @@ public class RegisterUserInDto {
 	 * The First Name of the USER.
 	 */
 	@NotBlank(message = "First name is required")
-	@Size(min = MIN_SIZE, max = MAX_SIZE, message = "First name length must be between [" + MIN_SIZE + "-" + MAX_SIZE
+	@Size(min = MIN_SIZE, max = MAX_SIZE,
+		message = "First name length must be between [" + MIN_SIZE + "-" + MAX_SIZE
 			+ "]")
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain alphabets only")
 	private String firstName;

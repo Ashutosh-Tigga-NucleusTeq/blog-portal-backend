@@ -315,7 +315,8 @@ public class Blog {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(commentBy, content, createdAt, disLikedBy, editedAt, id, likedBy, status, techCategory, title,
+		return Objects.hash(commentBy, content, createdAt,
+				disLikedBy, editedAt, id, likedBy, status, techCategory, title,
 				user, userId);
 	}
 

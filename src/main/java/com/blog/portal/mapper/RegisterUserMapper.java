@@ -37,6 +37,7 @@ public class RegisterUserMapper {
         if (input == null || input.isEmpty()) {
             return input;
         }
-        return input.substring(0, 1).toUpperCase(Locale.getDefault()) + input.substring(1).toLowerCase(Locale.getDefault());
+        return input.substring(0, 1).toUpperCase(Locale.getDefault())
+        		+ input.substring(1).toLowerCase(Locale.getDefault());
     }
 }

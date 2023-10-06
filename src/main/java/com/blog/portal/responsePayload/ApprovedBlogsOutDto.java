@@ -294,7 +294,8 @@ public class ApprovedBlogsOutDto implements Comparable<ApprovedBlogsOutDto> {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(commentBy, content, createdAt, disLikedBy, id, likedBy, status, technology, title, user);
+		return Objects.hash(commentBy, content, createdAt, disLikedBy,
+				id, likedBy, status, technology, title, user);
 	}
 
 	/**
